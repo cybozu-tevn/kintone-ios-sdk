@@ -9,7 +9,7 @@
 import Foundation
 public class BulkRequestTestConstants {
     public static let DOMAIN = "https://domain.com"
-    public static let APP_ID = xxxx
+    public static let APP_ID = 1
     public static let USERNAME = "xxxxxxxxxxxxxxxxxx"
     public static let PASSWORD = "xxxxxxxxxxxxxxxxxx"
 }

@@ -2,5 +2,5 @@
 
 public class FileTestConstants {
     public static let API_TOKEN = "xxxxxxxxxxxxxxxxxx"
-    public static let APP_ID = xxxx
+    public static let APP_ID = 1
 }

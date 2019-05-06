@@ -1077,7 +1077,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Cybozu;
 				TargetAttributes = {
 					3E17EA10213E427F002D9BC0 = {
@@ -1455,7 +1455,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 33A3NA2C2V;
@@ -1569,7 +1569,7 @@
 				3E17EA24213E427F002D9BC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		3E17EA25213E427F002D9BC0 /* Build configuration list for PBXNativeTarget "kintone-ios-sdk" */ = {
 			isa = XCConfigurationList;
@@ -1578,7 +1578,7 @@
 				3E17EA27213E427F002D9BC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		3E17EA28213E427F002D9BC0 /* Build configuration list for PBXNativeTarget "kintone-ios-sdkTests" */ = {
 			isa = XCConfigurationList;
@@ -1587,7 +1587,7 @@
 				3E17EA2A213E427F002D9BC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
