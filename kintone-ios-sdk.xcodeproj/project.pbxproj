@@ -52,7 +52,6 @@
 		12DB97D721A7DFB80070C5C4 /* BulkRequestTestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DB97D621A7DFB80070C5C4 /* BulkRequestTestConstants.swift */; };
 		12F41DC721A80AEF00C0F1A7 /* ConnectionTestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F41DC621A80AEF00C0F1A7 /* ConnectionTestConstants.swift */; };
 		3E17EA1B213E427F002D9BC0 /* kintone_ios_sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17EA11213E427F002D9BC0 /* kintone_ios_sdk.framework */; };
-		3E17EA20213E427F002D9BC0 /* kintone_ios_sdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17EA1F213E427F002D9BC0 /* kintone_ios_sdkTests.swift */; };
 		3E17EA22213E427F002D9BC0 /* kintone_ios_sdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E17EA14213E427F002D9BC0 /* kintone_ios_sdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3E1FD7CE2148A5EB0056F902 /* AddRecordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FD7CD2148A5EB0056F902 /* AddRecordsRequest.swift */; };
 		3E1FD7D02148A94D0056F902 /* UpdateRecordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FD7CF2148A94D0056F902 /* UpdateRecordsRequest.swift */; };
@@ -265,7 +264,6 @@
 		3E17EA14213E427F002D9BC0 /* kintone_ios_sdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kintone_ios_sdk.h; sourceTree = "<group>"; };
 		3E17EA15213E427F002D9BC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E17EA1A213E427F002D9BC0 /* kintone-ios-sdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "kintone-ios-sdkTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E17EA1F213E427F002D9BC0 /* kintone_ios_sdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kintone_ios_sdkTests.swift; sourceTree = "<group>"; };
 		3E17EA21213E427F002D9BC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E1FD7CD2148A5EB0056F902 /* AddRecordsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordsRequest.swift; sourceTree = "<group>"; };
 		3E1FD7CF2148A94D0056F902 /* UpdateRecordsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecordsRequest.swift; sourceTree = "<group>"; };
@@ -560,13 +558,15 @@
 		3E17EA1E213E427F002D9BC0 /* kintone-ios-sdkTests */ = {
 			isa = PBXGroup;
 			children = (
-				12DB97CF21A7DF630070C5C4 /* config */,
-				ABE02359216F4634002C47EC /* resouces */,
-				110578F2216756A900F6E8C0 /* connection */,
-				110578E521620B9300F6E8C0 /* module */,
-				3E17EA1F213E427F002D9BC0 /* kintone_ios_sdkTests.swift */,
+				3FF04B2722803C6200E401FF /* init */,
+				3FF04B2622803C5C00E401FF /* common */,
+				3FF04B2522803C5200E401FF /* test_script */,
+				3FF04B2422803C3700E401FF /* report */,
+				3FF04B2322803C3200E401FF /* helper */,
+				3FF04B2222803C2900E401FF /* lib */,
+				3FF04B2122803C0200E401FF /* util */,
+				ABE02359216F4634002C47EC /* resource */,
 				3E17EA21213E427F002D9BC0 /* Info.plist */,
-				110578EB2166D11300F6E8C0 /* TestsConstants.swift */,
 			);
 			path = "kintone-ios-sdkTests";
 			sourceTree = "<group>";
@@ -751,6 +751,59 @@
 				3EFD812E21420FC900A1499F /* Member.swift */,
 			);
 			path = member;
+			sourceTree = "<group>";
+		};
+		3FF04B2122803C0200E401FF /* util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		3FF04B2222803C2900E401FF /* lib */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		3FF04B2322803C3200E401FF /* helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = helper;
+			sourceTree = "<group>";
+		};
+		3FF04B2422803C3700E401FF /* report */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = report;
+			sourceTree = "<group>";
+		};
+		3FF04B2522803C5200E401FF /* test_script */ = {
+			isa = PBXGroup;
+			children = (
+				12DB97CF21A7DF630070C5C4 /* config */,
+				110578F2216756A900F6E8C0 /* connection */,
+				110578EB2166D11300F6E8C0 /* TestsConstants.swift */,
+				110578E521620B9300F6E8C0 /* module */,
+			);
+			path = test_script;
+			sourceTree = "<group>";
+		};
+		3FF04B2622803C5C00E401FF /* common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		3FF04B2722803C6200E401FF /* init */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = init;
 			sourceTree = "<group>";
 		};
 		A88FEE002159DD8A00A7E838 /* basic */ = {
@@ -1001,14 +1054,14 @@
 			path = file;
 			sourceTree = "<group>";
 		};
-		ABE02359216F4634002C47EC /* resouces */ = {
+		ABE02359216F4634002C47EC /* resource */ = {
 			isa = PBXGroup;
 			children = (
 				ABE0235A216F4651002C47EC /* test.pptx */,
 				ABE0235B216F4652002C47EC /* test.txt */,
 				ABE0235C216F4652002C47EC /* test.xlsx */,
 			);
-			path = resouces;
+			path = resource;
 			sourceTree = "<group>";
 		};
 		DD6291D32164904D0060231D /* File */ = {
@@ -1314,7 +1367,6 @@
 				110578EC2166D11300F6E8C0 /* TestsConstants.swift in Sources */,
 				122F1DD4216B7ABC00160A27 /* DeleteFormFieldsTest.swift in Sources */,
 				122F1DF4216B7BFB00160A27 /* GetAppsBySpaceIDsTest.swift in Sources */,
-				3E17EA20213E427F002D9BC0 /* kintone_ios_sdkTests.swift in Sources */,
 				122F1DD2216B7AAA00160A27 /* AddPreviewAppTest.swift in Sources */,
 				122F1DDA216B7B1100160A27 /* GetAppDeployStatusTest.swift in Sources */,
 				ABE0234A216F3A0F002C47EC /* BulkRequestTest.swift in Sources */,
