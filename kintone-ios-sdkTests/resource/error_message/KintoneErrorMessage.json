@@ -1,0 +1,17 @@
+{
+    "NONEXISTENT_APP_ID_ERROR": {
+        "code": "GAIA_AP01",
+        "message": "The app (ID: %VARIABLE) not found. The app may have been deleted."
+    },
+    "NEGATIVE_APPID_ERROR": {
+        "code": "CB_VA01",
+        "message": "Missing or invalid input.",
+        "errors": {
+            "app": {
+                "messages": [
+                    "must be greater than or equal to 1"
+                ]
+            }
+        }
+    }
+}

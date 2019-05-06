@@ -111,4 +111,14 @@ class TestCommonHandling {
         self.deployApp(appModule: appModule, apps: apps)
         return appId
     }
+    
+    public static func handleDoTryCatch<T>(closure:() throws -> T) -> Any {
+        do {
+            let result = try closure()
+            return result
+        } catch let error {
+            dump(error)
+            return error
+        }
+    }
 }
