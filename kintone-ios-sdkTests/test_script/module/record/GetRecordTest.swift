@@ -17,7 +17,7 @@ class GetRecordTest: QuickSpec {
     let APP_ID = 1
     let APP_NONEXISTENT_ID = 1000
     let APP_NEGATIVE_ID = -1
-    let APP_BLANK_ID = 4 // Create app without fields
+    let APP_BLANK_ID = 6 // Create app without fields
     let GUESTSPACE_APP_ID = 2
     
     let RECORD_ID = 1
@@ -39,11 +39,11 @@ class GetRecordTest: QuickSpec {
     
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
-        let recordModuleWithoutViewPermisstionApp = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP,
+        let recordModuleWithoutViewPermissionApp = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP,
                                                                                                self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP))
-        let recordModuleWithoutViewPermisstionRecord = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
+        let recordModuleWithoutViewPermissionRecord = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
                                                                                                self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD))
-        let recordModuleWithoutViewPermisstionField = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD,
+        let recordModuleWithoutViewPermissionField = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD,
                                                                                                self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD))
         let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(TestsConstants.ADMIN_USERNAME, TestsConstants.ADMIN_PASSWORD, self.GUESTSPACE_APP_ID))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
@@ -142,8 +142,8 @@ class GetRecordTest: QuickSpec {
             }// End it
             
             // When user don't have View records permission for app
-            it("Test_8_Error_WithoutViewRecordPermission"){
-                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermisstionApp.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
+            it("Test_8_Error_WithoutViewAppPermission"){
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermissionApp.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
 
@@ -157,7 +157,7 @@ class GetRecordTest: QuickSpec {
             
             // When user don't have View records permission for record
             it("Test_9_Error_WithoutViewRecordPermission"){
-                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermisstionRecord.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermissionRecord.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 
@@ -170,8 +170,8 @@ class GetRecordTest: QuickSpec {
             }// End it
             
             // When user don't have View records permission for field - ex: txt_Name field
-            it("Test_10_Error_WithoutViewRecordPermission"){
-                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermisstionField.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
+            it("Test_10_Error_WithoutFieldRecordPermission"){
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermissionField.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
                 var fieldItems = [String]()
                 for(key, _) in result.getRecord()!{
                     fieldItems.append(key)
