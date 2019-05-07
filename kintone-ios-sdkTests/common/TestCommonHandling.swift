@@ -23,6 +23,12 @@ class TestCommonHandling {
         return conn
     }
     
+    static func createConnection(_ username: String, _ password: String, _ guestSpaceId: Int) -> Connection {
+        let auth = Auth.init().setPasswordAuth(username, password)
+        let conn = Connection(TestsConstants.DOMAIN , auth, guestSpaceId)
+        return conn
+    }
+    
     static func getErrorMessage(_ error: Any) -> String {
         if error is KintoneAPIException {
             return (error as! KintoneAPIException).toString()!

@@ -20,8 +20,12 @@ public class TestsConstants {
     public static let WAIT_FOR_PROMISE_TIMEOUT = 30.0
     
     //User without permisstion to view record details
+    public static let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP = "xxxx"
+    public static let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP = "xxxx"
     public static let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD = "xxxx"
     public static let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD = "xxxx"
+    public static let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD = "xxxx"
+    public static let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD = "xxxx"
     
 }
 
