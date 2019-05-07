@@ -133,4 +133,18 @@ class TestCommonHandling {
             return error
         }
     }
+    
+    public static func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0...length-1).map{ _ in letters.randomElement()! })
+    }
+    
+    public static func addData(_ recordData: Dictionary<String, FieldValue>, _ code: String, _ type: FieldType, _ value: Any) -> Dictionary<String, FieldValue> {
+        var recData = recordData
+        let field = FieldValue()
+        field.setType(type)
+        field.setValue(value)
+        recData[code] = field
+        return recData
+    }
 }

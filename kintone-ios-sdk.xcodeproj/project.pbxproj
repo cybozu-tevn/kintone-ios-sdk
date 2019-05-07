@@ -106,6 +106,7 @@
 		68C67E262280433600244922 /* KintoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E252280433600244922 /* KintoneError.swift */; };
 		68C67E282280434100244922 /* HandleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E272280434000244922 /* HandleJSON.swift */; };
 		68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E292280436400244922 /* GetRecordTest.swift */; };
+		68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E2F22813F4200244922 /* AddRecordTest.swift */; };
 		A88FEE1C2159DD8B00A7E838 /* UpdateViewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */; };
 		A88FEE1D2159DD8B00A7E838 /* GetAppsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */; };
 		A88FEE1E2159DD8B00A7E838 /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE042159DD8A00A7E838 /* BasicResponse.swift */; };
@@ -325,6 +326,7 @@
 		68C67E252280433600244922 /* KintoneError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KintoneError.swift; sourceTree = "<group>"; };
 		68C67E272280434000244922 /* HandleJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleJSON.swift; sourceTree = "<group>"; };
 		68C67E292280436400244922 /* GetRecordTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRecordTest.swift; sourceTree = "<group>"; };
+		68C67E2F22813F4200244922 /* AddRecordTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordTest.swift; sourceTree = "<group>"; };
 		A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewsResponse.swift; sourceTree = "<group>"; };
 		A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsResponse.swift; sourceTree = "<group>"; };
 		A88FEE042159DD8A00A7E838 /* BasicResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
@@ -1063,6 +1065,7 @@
 			children = (
 				68C67E292280436400244922 /* GetRecordTest.swift */,
 				AB4D643421670A22005807C1 /* RecordTest.swift */,
+				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
 			);
 			path = record;
 			sourceTree = "<group>";
@@ -1431,6 +1434,7 @@
 				122F1DEE216B7BC400160A27 /* GetAppsByCodesTest.swift in Sources */,
 				3FF04B3022803E4800E401FF /* TestsConstants.swift in Sources */,
 				122F1DE8216B7B7B00160A27 /* UpdateFormLayoutTest.swift in Sources */,
+				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				122F1DF2216B7BE100160A27 /* GetAppsByNameTest.swift in Sources */,
 				122F1DD0216B7A8C00160A27 /* AddFormFieldsTest.swift in Sources */,
 				12DB97D721A7DFB80070C5C4 /* BulkRequestTestConstants.swift in Sources */,
@@ -1649,7 +1653,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 33A3NA2C2V;
+				DEVELOPMENT_TEAM = VHY32ZU4KA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1672,7 +1676,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 33A3NA2C2V;
+				DEVELOPMENT_TEAM = VHY32ZU4KA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

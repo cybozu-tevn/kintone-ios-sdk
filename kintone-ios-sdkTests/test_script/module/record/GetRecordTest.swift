@@ -17,7 +17,7 @@ class GetRecordTest: QuickSpec {
     let APP_ID = 1
     let APP_NONEXISTENT_ID = 1000
     let APP_NEGATIVE_ID = -1
-    let APP_BLANK_ID = 4 //Create app without fields
+    let APP_BLANK_ID = 4 // Create app without fields
     let GUESTSPACE_APP_ID = 2
     
     let RECORD_ID = 1
@@ -29,24 +29,32 @@ class GetRecordTest: QuickSpec {
     let RECORD_TEXT_FIELD = "txt_Name"
     let RECORD_TEST_VALUE = "Phong Hoang"
     
+    //User without permisstion to view record details
+    let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP = "user1"
+    let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP = "user1@123"
+    let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD = "user2"
+    let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD = "user2@123"
+    let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD = "user3"
+    let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD = "user3@123"
+    
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
-        let recordModuleWithoutViewPermisstionApp = Record(TestCommonHandling.createConnection(TestsConstants.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP,
-                                                                                               TestsConstants.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP))
-        let recordModuleWithoutViewPermisstionRecord = Record(TestCommonHandling.createConnection(TestsConstants.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
-                                                                                               TestsConstants.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD))
-        let recordModuleWithoutViewPermisstionField = Record(TestCommonHandling.createConnection(TestsConstants.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD,
-                                                                                               TestsConstants.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD))
+        let recordModuleWithoutViewPermisstionApp = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP,
+                                                                                               self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP))
+        let recordModuleWithoutViewPermisstionRecord = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
+                                                                                               self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD))
+        let recordModuleWithoutViewPermisstionField = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD,
+                                                                                               self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD))
         let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(TestsConstants.ADMIN_USERNAME, TestsConstants.ADMIN_PASSWORD, self.GUESTSPACE_APP_ID))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
         
         beforeSuite {
-            //Add app to test
-            //Add record to test
+            // Add app to test
+            // Add record to test
         }
         
         afterSuite {
-            //remove testing data
+            // Remove testing data
         }
         
         describe("GetRecord"){
@@ -57,7 +65,7 @@ class GetRecordTest: QuickSpec {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
-            } //End it
+            }// End it
             
             it("Test_3_Success_GuestSpaceValidData"){
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(self.GUESTSPACE_APP_ID, self.RECORD_ID)) as! GetRecordResponse
@@ -66,7 +74,7 @@ class GetRecordTest: QuickSpec {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
-            } //End it
+            }// End it
             
             it("Test_3_Success_APITokenValidData"){
                 let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
@@ -75,7 +83,7 @@ class GetRecordTest: QuickSpec {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
-            } //End it
+            }// End it
             
             it("Test_4_Error_NonexistentAppID"){
                 //Get error from kintone
@@ -90,7 +98,7 @@ class GetRecordTest: QuickSpec {
                 if(expectedError.getErrors() != nil){
                     expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
                 }
-            } //End it
+            }// End it
             
             it("Test_4_Error_NegativeAppID"){
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_NEGATIVE_ID, self.RECORD_ID)) as! KintoneAPIException
@@ -116,7 +124,7 @@ class GetRecordTest: QuickSpec {
                 if(expectedError.getErrors() != nil){
                     expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
                 }
-            } //End it
+            }// End it
             
             
             it("Test_5_Error_NegativeRecordID"){
@@ -131,9 +139,9 @@ class GetRecordTest: QuickSpec {
                 if(expectedError.getErrors() != nil){
                     expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
                 }
-            } //End it
+            }// End it
             
-            //When user don't have View records permission for app
+            // When user don't have View records permission for app
             it("Test_8_Error_WithoutViewRecordPermission"){
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermisstionApp.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
@@ -145,9 +153,9 @@ class GetRecordTest: QuickSpec {
                 if(expectedError.getErrors() != nil){
                     expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
                 }
-            } //End it
+            }// End it
             
-            //When user don't have View records permission for record
+            // When user don't have View records permission for record
             it("Test_9_Error_WithoutViewRecordPermission"){
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermisstionRecord.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
@@ -159,9 +167,9 @@ class GetRecordTest: QuickSpec {
                 if(expectedError.getErrors() != nil){
                     expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
                 }
-            } //End it
+            }// End it
             
-            //When user don't have View records permission for field - ex: txt_Name field
+            // When user don't have View records permission for field - ex: txt_Name field
             it("Test_10_Error_WithoutViewRecordPermission"){
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermisstionField.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
                 var fieldItems = [String]()
@@ -169,7 +177,7 @@ class GetRecordTest: QuickSpec {
                     fieldItems.append(key)
                 }
                 expect(fieldItems).toNot(contain(self.RECORD_TEXT_FIELD))
-            } //End it
+            }// End it
             
             it("Test_13_Success_BlankApp"){
                 var defaultKey =  [
@@ -185,7 +193,7 @@ class GetRecordTest: QuickSpec {
                 for (key, _) in result.getRecord()!{
                     expect(defaultKey[key]).to(equal(key))
                 }
-            } //End it
-        } //Enddescribe
-    } //End spec func
+            }// End it
+        }// End describe
+    }// End spec func
 }
