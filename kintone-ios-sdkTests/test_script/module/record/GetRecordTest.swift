@@ -27,7 +27,10 @@ class GetRecordTest: QuickSpec {
     
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
-
+        let recordModuleWithoutRecordViewPermisstion = Record(TestCommonHandling.createConnection(
+            TestsConstants.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
+            TestsConstants.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD))
+        
         beforeSuite {
             //Add app to test
             //Add record to test
@@ -102,6 +105,23 @@ class GetRecordTest: QuickSpec {
                     expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
                 }
             } //End it
+            
+            //When user don't have View records permission for app
+            it("Test_8_Error_WithoutViewRecordPermission"){
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutRecordViewPermisstion.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
+                print("-------***--------")
+                print("expect: \(expectedError.getMessage()) and actual: \(String(describing: actualError!.getMessage()))")
+                print("-------***--------")
+
+                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
+                expect(expectedError.getCode()).to(equal(actualError!.getCode()))
+                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
+                if(expectedError.getErrors() != nil){
+                    expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
+                }
+            }
         } //Enddescribe
     } //End spec func
 }

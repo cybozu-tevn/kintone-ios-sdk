@@ -11,8 +11,14 @@ import XCTest
 @testable import kintone_ios_sdk
 
 class TestCommonHandling {
-    static func createConnection() -> Connection {
-        let auth = Auth.init().setPasswordAuth(TestsConstants.ADMIN_USERNAME, TestsConstants.ADMIN_PASSWORD)
+    static func createConnection(_ username: String = TestsConstants.ADMIN_USERNAME, _ password: String = TestsConstants.ADMIN_PASSWORD) -> Connection {
+        let auth = Auth.init().setPasswordAuth(username, password)
+        let conn = Connection(TestsConstants.DOMAIN , auth)
+        return conn
+    }
+    
+    static func createConnection(_ apiToken: String) -> Connection {
+        let auth = Auth.init().setApiToken(apiToken)
         let conn = Connection(TestsConstants.DOMAIN , auth)
         return conn
     }
