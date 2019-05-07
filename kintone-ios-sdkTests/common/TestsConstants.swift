@@ -18,5 +18,10 @@ public class TestsConstants {
     public static let GUEST_SPACE_ID = 1234
     public static let MAX_VALUE = 2147483647
     public static let WAIT_FOR_PROMISE_TIMEOUT = 30.0
+    
+    //User without permisstion to view record details
+    public static let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD = "xxxx"
+    public static let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD = "xxxx"
+    
 }
 
