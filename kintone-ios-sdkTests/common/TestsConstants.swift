@@ -7,9 +7,9 @@
 //
 
 public class TestsConstants {
-    public static let DOMAIN = "https://qasd-vu.cybozu-dev.com"
+    public static let DOMAIN = "https://te-vutran-1.cybozu-dev.com"
     public static let ADMIN_USERNAME = "cybozu"
-    public static let ADMIN_PASSWORD = "vutran123"
+    public static let ADMIN_PASSWORD = "cybozu"
     public static let CERT_NAME = "YOUR_CERT_NAME"
     public static let CERT_PASSWORD = "YOUR_CERT_PASSWORD"
     public static let CERT_EXTENSION = "YOUR_CERT_EXTENSION"
