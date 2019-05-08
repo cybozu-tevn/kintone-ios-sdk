@@ -26,8 +26,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -44,7 +44,7 @@ class ConnectionTest: XCTestCase {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
         let connection: Connection = Connection("https://error.kintone.com", auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -64,8 +64,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestShouldFailWhenGivenWrongUsername() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth("WrongUsername", ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -85,8 +85,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestShouldFailWhenGivenWrongPassword() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, "WrongPassword")
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -106,8 +106,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestWithPasswordAuthenticationShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -123,8 +123,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestWithTokenAuthenticationShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setApiToken(ConnectionTestConstants.VIEW_API_TOKEN)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -140,8 +140,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestWithTokenAuthenticationShouldFail() throws {
         var auth: Auth = Auth.init()
         auth = auth.setApiToken(ConnectionTestConstants.API_TOKEN)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -162,8 +162,8 @@ class ConnectionTest: XCTestCase {
         var auth: Auth = Auth.init()
         auth = auth.setApiToken(ConnectionTestConstants.POST_API_TOKEN)
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -180,8 +180,8 @@ class ConnectionTest: XCTestCase {
         var auth: Auth = Auth.init()
         auth = auth.setApiToken(ConnectionTestConstants.API_TOKEN)
         auth = auth.setPasswordAuth("WrongUsername", ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -199,7 +199,7 @@ class ConnectionTest: XCTestCase {
         auth = auth.setBasicAuth(ConnectionTestConstants.BASIC_USERNAME, ConnectionTestConstants.BASIC_USERNAME)
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
         let connection: Connection = Connection(ConnectionTestConstants.BASIC_DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(5)
@@ -216,7 +216,7 @@ class ConnectionTest: XCTestCase {
         var auth: Auth = Auth.init()
         auth = auth.setBasicAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
         let connection: Connection = Connection(ConnectionTestConstants.BASIC_DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(5)
@@ -237,8 +237,8 @@ class ConnectionTest: XCTestCase {
         var auth: Auth = Auth.init()
         auth = auth.setBasicAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.APP_ID)
@@ -254,8 +254,8 @@ class ConnectionTest: XCTestCase {
     func testPostRequestShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             var record: [String:FieldValue] = [:]
@@ -277,8 +277,8 @@ class ConnectionTest: XCTestCase {
     func testPostRequestShouldFailWhenGivenWrongBody() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             connection.request(ConnectionConstants.POST_REQUEST, ConnectionConstants.RECORD, "")
@@ -295,8 +295,8 @@ class ConnectionTest: XCTestCase {
     func testPutRequestShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             var record: [String:FieldValue] = [:]
@@ -318,8 +318,8 @@ class ConnectionTest: XCTestCase {
     func testPutRequestShouldFailWhenGivenWrongBody() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             connection.request(ConnectionConstants.PUT_REQUEST, ConnectionConstants.RECORD, "")
@@ -336,8 +336,8 @@ class ConnectionTest: XCTestCase {
     func testDeleteRequestShouldFailWhenGivenWrongBody() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             connection.request(ConnectionConstants.DELETE_REQUEST, ConnectionConstants.RECORDS, "")
@@ -354,8 +354,8 @@ class ConnectionTest: XCTestCase {
     func testDeleteRequestShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             var record: [String:FieldValue] = [:]
@@ -387,8 +387,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestInGuestSpaceShouldSuccessWithPasswordAuthentication() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME ,ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.GUEST_SPACE_APP_ID)
@@ -406,8 +406,8 @@ class ConnectionTest: XCTestCase {
     func testGetRequestInGuestSpaceShouldFailWhenGivenInvalidSpaceId() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth, 1)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth, 1)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             let requests: GetAppRequest = GetAppRequest(ConnectionTestConstants.GUEST_SPACE_APP_ID)
@@ -427,8 +427,8 @@ class ConnectionTest: XCTestCase {
     func testPostRequestInGuestSpaceShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             var record: [String:FieldValue] = [:]
@@ -450,8 +450,8 @@ class ConnectionTest: XCTestCase {
     func testPutRequestInGuestSpaceShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             var record: [String:FieldValue] = [:]
@@ -473,8 +473,8 @@ class ConnectionTest: XCTestCase {
     func testDeleteRequestInGuestSpaceShouldSuccess() throws {
         var auth: Auth = Auth.init()
         auth = auth.setPasswordAuth(ConnectionTestConstants.AUTH_USERNAME, ConnectionTestConstants.AUTH_PASSWORD)
-        let connection: Connection = Connection(TestsConstants.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
-        connection.setProxy(TestsConstants.PROXY_HOST, TestsConstants.PROXY_PORT)
+        let connection: Connection = Connection(TestConstant.Connection.DOMAIN, auth, ConnectionTestConstants.GUEST_SPACE_ID)
+        connection.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
         
         do {
             var record: [String:FieldValue] = [:]

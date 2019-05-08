@@ -12,21 +12,21 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class TestCommonHandling {
-    static func createConnection(_ username: String = TestsConstants.ADMIN_USERNAME, _ password: String = TestsConstants.ADMIN_PASSWORD) -> Connection {
+    static func createConnection(_ username: String = TestConstant.Connection.ADMIN_USERNAME, _ password: String = TestConstant.Connection.ADMIN_PASSWORD) -> Connection {
         let auth = Auth.init().setPasswordAuth(username, password)
-        let conn = Connection(TestsConstants.DOMAIN , auth)
+        let conn = Connection(TestConstant.Connection.DOMAIN , auth)
         return conn
     }
     
     static func createConnection(_ apiToken: String) -> Connection {
         let auth = Auth.init().setApiToken(apiToken)
-        let conn = Connection(TestsConstants.DOMAIN , auth)
+        let conn = Connection(TestConstant.Connection.DOMAIN , auth)
         return conn
     }
     
     static func createConnection(_ username: String, _ password: String, _ guestSpaceId: Int) -> Connection {
         let auth = Auth.init().setPasswordAuth(username, password)
-        let conn = Connection(TestsConstants.DOMAIN , auth, guestSpaceId)
+        let conn = Connection(TestConstant.Connection.DOMAIN , auth, guestSpaceId)
         return conn
     }
     
@@ -79,7 +79,7 @@ class TestCommonHandling {
                         fatalError(error.localizedDescription)
                     }
             }
-            _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+            _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         }
     }
     
@@ -98,7 +98,7 @@ class TestCommonHandling {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         
         for id in appIds {
             self.waitForDeployAppSuccess(appModule: appModule, appId: id)
@@ -120,7 +120,7 @@ class TestCommonHandling {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         self.deployApp(appModule: appModule, apps: apps)
         return appId
     }

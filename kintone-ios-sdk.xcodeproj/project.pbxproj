@@ -79,7 +79,7 @@
 		3FF04B2B22803E2800E401FF /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2922803E2800E401FF /* AppUtils.swift */; };
 		3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2A22803E2800E401FF /* GetAppTest.swift */; };
 		3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */; };
-		3FF04B3022803E4800E401FF /* TestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2E22803E4800E401FF /* TestsConstants.swift */; };
+		3FF04B3022803E4800E401FF /* TestConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2E22803E4800E401FF /* TestConstant.swift */; };
 		4CBE648021CCCC44006375D9 /* URLSessionPinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE647E21CCCC43006375D9 /* URLSessionPinningDelegate.swift */; };
 		4CBE648121CCCC44006375D9 /* ExtensionCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */; };
 		68C67E22228042EF00244922 /* KintoneErrorMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = 68C67E21228042EF00244922 /* KintoneErrorMessage.json */; };
@@ -313,7 +313,7 @@
 		3FF04B2922803E2800E401FF /* AppUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		3FF04B2A22803E2800E401FF /* GetAppTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppTest.swift; sourceTree = "<group>"; };
 		3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCommonHandling.swift; sourceTree = "<group>"; };
-		3FF04B2E22803E4800E401FF /* TestsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestsConstants.swift; sourceTree = "<group>"; };
+		3FF04B2E22803E4800E401FF /* TestConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConstant.swift; sourceTree = "<group>"; };
 		4CBE647E21CCCC43006375D9 /* URLSessionPinningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionPinningDelegate.swift; sourceTree = "<group>"; };
 		4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionCommon.swift; sourceTree = "<group>"; };
 		68C67E21228042EF00244922 /* KintoneErrorMessage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KintoneErrorMessage.json; sourceTree = "<group>"; };
@@ -820,7 +820,7 @@
 				68C67E252280433600244922 /* KintoneError.swift */,
 				68C67E232280432600244922 /* KintoneErrorParser.swift */,
 				3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */,
-				3FF04B2E22803E4800E401FF /* TestsConstants.swift */,
+				3FF04B2E22803E4800E401FF /* TestConstant.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1609,7 +1609,7 @@
 				12DB97D321A7DF910070C5C4 /* RecordTestConstants.swift in Sources */,
 				12DB97D521A7DF9E0070C5C4 /* FileTestConstants.swift in Sources */,
 				68C67E282280434100244922 /* HandleJSON.swift in Sources */,
-				3FF04B3022803E4800E401FF /* TestsConstants.swift in Sources */,
+				3FF04B3022803E4800E401FF /* TestConstant.swift in Sources */,
 				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
 				68C67E782282DC7000244922 /* GenerateAPITokenRequest.swift in Sources */,

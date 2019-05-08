@@ -33,8 +33,8 @@ class AddRecordTest: QuickSpec{
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
         let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-            TestsConstants.ADMIN_USERNAME,
-            TestsConstants.ADMIN_PASSWORD,
+            TestConstant.Connection.ADMIN_USERNAME,
+            TestConstant.Connection.ADMIN_PASSWORD,
             self.GUESTSPACE_APP_ID))
         let recordModuleWithoutAddPermissionApp = Record(TestCommonHandling.createConnection(
             self.CRED_USERNAME_WITHOUT_PEMISSION_ADD_RECORD,

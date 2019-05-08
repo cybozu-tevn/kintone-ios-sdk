@@ -31,7 +31,7 @@ class FileTest: XCTestCase {
         // set auth
         let auth = Auth()
         auth.setApiToken(FileTestConstants.API_TOKEN)
-        connectionManagement = Connection(TestsConstants.DOMAIN, auth)
+        connectionManagement = Connection(TestConstant.Connection.DOMAIN, auth)
         
         // instance of Record and file class
         self.fileManagement = File(connectionManagement!)

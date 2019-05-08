@@ -24,7 +24,8 @@ class GetAppTest: QuickSpec{
             }
             
             afterSuite {
-                
+                print("=== TEST CLEANING UP ===")
+                AppUtils.deleteApp(appId: appId!)
             }
             
             it("Success Case"){
@@ -35,7 +36,7 @@ class GetAppTest: QuickSpec{
                     }.catch{ error in
                         XCTFail(TestCommonHandling.getErrorMessage(error))
                 }
-                _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+                _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
             }
         }
     }

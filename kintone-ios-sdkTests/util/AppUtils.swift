@@ -2,8 +2,8 @@
 @testable import kintone_ios_sdk
 
 class AppUtils {
-    static let auth = DevAuth().setPasswordAuth(TestsConstants.ADMIN_PASSWORD, TestsConstants.ADMIN_PASSWORD)
-    static let conn = DevConnection(TestsConstants.DOMAIN, auth)
+    static let auth = DevAuth().setPasswordAuth(TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.ADMIN_PASSWORD)
+    static let conn = DevConnection(TestConstant.Connection.DOMAIN, auth)
     static let devAppModule = DevApp(conn)
     
     static func _waitForDeployAppSucceed(appModule: App, appId: Int) {
@@ -24,7 +24,7 @@ class AppUtils {
                         fatalError(error.localizedDescription)
                     }
             }
-            _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+            _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         }
     }
     
@@ -43,7 +43,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         
         for id in appIds {
             self._waitForDeployAppSucceed(appModule: appModule, appId: id)
@@ -65,7 +65,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         self._deployApp(appModule: appModule, apps: apps)
         return appId
     }
@@ -86,7 +86,7 @@ class AppUtils {
                         fatalError(error.localizedDescription)
                     }
             }
-            _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+            _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         }
         self._deployApp(appModule: appModule, apps: apps)
         return appIds
@@ -95,8 +95,8 @@ class AppUtils {
     
     static func deleteApp(appId: Int) {
         self.devAppModule.deleteApp(appId)
-            .then{res in
-                print("Delete app: \(appId)")
+            .then { response in
+                // print("Delete app: \(appId)")
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {
                     fatalError(errorVal.toString()!)
@@ -104,7 +104,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
     }
     
     static func deleteApps(appIds: [Int]) {
@@ -125,7 +125,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         return items
     }
     
@@ -155,7 +155,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
         return apiToken
     }
@@ -189,7 +189,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
     }
     
@@ -204,7 +204,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         return rights
     }
     
@@ -234,7 +234,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
         return revision
     }
@@ -262,7 +262,7 @@ class AppUtils {
                     fatalError(error.localizedDescription)
                 }
         }
-        _ = waitForPromises(timeout: TestsConstants.WAIT_FOR_PROMISE_TIMEOUT)
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         self._deployApp(appModule: appModule, apps: [PreviewApp(id)])
     }
 }

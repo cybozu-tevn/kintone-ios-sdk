@@ -35,8 +35,8 @@ class DeleteRecordsTest: QuickSpec{
             self.CRED_USERNAME_WITHOUT_PEMISSION_DELETE_RECORD,
             self.CRED_PASSWORD_WITHOUT_PEMISSION_DELETE_RECORD))
         let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-            TestsConstants.ADMIN_USERNAME,
-            TestsConstants.ADMIN_PASSWORD,
+            TestConstant.Connection.ADMIN_USERNAME,
+            TestConstant.Connection.ADMIN_PASSWORD,
             self.GUESTSPACE_APP_ID))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
 
