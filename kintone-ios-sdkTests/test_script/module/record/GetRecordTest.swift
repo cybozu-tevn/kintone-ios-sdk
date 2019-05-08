@@ -6,7 +6,6 @@
 //  Copyright © 2019 Cybozu. All rights reserved.
 //
 
-import Foundation
 import Quick
 import Nimble
 @testable import Promises
@@ -39,23 +38,20 @@ class GetRecordTest: QuickSpec {
     
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
-        let recordModuleWithoutViewPermissionApp = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP,
-                                                                                               self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP))
-        let recordModuleWithoutViewPermissionRecord = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
-                                                                                               self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD))
-        let recordModuleWithoutViewPermissionField = Record(TestCommonHandling.createConnection(self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD,
-                                                                                               self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD))
-        let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(TestsConstants.ADMIN_USERNAME, TestsConstants.ADMIN_PASSWORD, self.GUESTSPACE_APP_ID))
+        let recordModuleWithoutViewPermissionApp = Record(TestCommonHandling.createConnection(
+            self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP,
+            self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP))
+        let recordModuleWithoutViewPermissionRecord = Record(TestCommonHandling.createConnection(
+            self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
+            self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD))
+        let recordModuleWithoutViewPermissionField = Record(TestCommonHandling.createConnection(
+            self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD,
+            self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD))
+        let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
+            TestsConstants.ADMIN_USERNAME,
+            TestsConstants.ADMIN_PASSWORD,
+            self.GUESTSPACE_APP_ID))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
-        
-        beforeSuite {
-            // Add app to test
-            // Add record to test
-        }
-        
-        afterSuite {
-            // Remove testing data
-        }
         
         describe("GetRecord"){
             it("Test_3_Success_ValidData"){
@@ -65,7 +61,7 @@ class GetRecordTest: QuickSpec {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
-            }// End it
+            }
             
             it("Test_3_Success_GuestSpaceValidData"){
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(self.GUESTSPACE_APP_ID, self.RECORD_ID)) as! GetRecordResponse
@@ -74,7 +70,7 @@ class GetRecordTest: QuickSpec {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
-            }// End it
+            }
             
             it("Test_3_Success_APITokenValidData"){
                 let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
@@ -83,7 +79,7 @@ class GetRecordTest: QuickSpec {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
-            }// End it
+            }
             
             it("Test_4_Error_NonexistentAppID"){
                 //Get error from kintone
@@ -93,23 +89,15 @@ class GetRecordTest: QuickSpec {
                 var expectedError  = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.APP_NONEXISTENT_ID))
 
-                expect(expectedError.getCode()).to(equal(actualError!.getCode()))
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                if(expectedError.getErrors() != nil){
-                    expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
-                }
-            }// End it
+                TestCommonHandling.compareError(expectedError, actualError!)
+            }
             
             it("Test_4_Error_NegativeAppID"){
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_NEGATIVE_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError  = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
                 
-                expect(expectedError.getCode()).to(equal(actualError!.getCode()))
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                if(expectedError.getErrors() != nil){
-                    expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
-                }
+                TestCommonHandling.compareError(expectedError, actualError!)
             }
             
             it("Test_5_Error_NonexistentRecordID"){
@@ -118,13 +106,8 @@ class GetRecordTest: QuickSpec {
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.RECORD_NONEXISTENT_ID))
                 
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                expect(expectedError.getCode()).to(equal(actualError!.getCode()))
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                if(expectedError.getErrors() != nil){
-                    expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
-                }
-            }// End it
+                TestCommonHandling.compareError(expectedError, actualError!)
+            }
             
             
             it("Test_5_Error_NegativeRecordID"){
@@ -133,13 +116,8 @@ class GetRecordTest: QuickSpec {
                 var expectedError = KintoneErrorParser.NEGATIVE_RECORD_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.RECORD_NEGATIVE_ID))
 
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                expect(expectedError.getCode()).to(equal(actualError!.getCode()))
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                if(expectedError.getErrors() != nil){
-                    expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
-                }
-            }// End it
+                TestCommonHandling.compareError(expectedError, actualError!)
+            }
             
             // When user don't have View records permission for app
             it("Test_8_Error_WithoutViewAppPermission"){
@@ -147,13 +125,8 @@ class GetRecordTest: QuickSpec {
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
 
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                expect(expectedError.getCode()).to(equal(actualError!.getCode()))
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                if(expectedError.getErrors() != nil){
-                    expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
-                }
-            }// End it
+                TestCommonHandling.compareError(expectedError, actualError!)
+            }
             
             // When user don't have View records permission for record
             it("Test_9_Error_WithoutViewRecordPermission"){
@@ -161,13 +134,8 @@ class GetRecordTest: QuickSpec {
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                expect(expectedError.getCode()).to(equal(actualError!.getCode()))
-                expect(expectedError.getMessage()).to(equal(actualError!.getMessage()))
-                if(expectedError.getErrors() != nil){
-                    expect(expectedError.getErrors()).to(equal(actualError!.getErrors()))
-                }
-            }// End it
+                TestCommonHandling.compareError(expectedError, actualError!)
+            }
             
             // When user don't have View records permission for field - ex: txt_Name field
             it("Test_10_Error_WithoutFieldRecordPermission"){
@@ -177,7 +145,7 @@ class GetRecordTest: QuickSpec {
                     fieldItems.append(key)
                 }
                 expect(fieldItems).toNot(contain(self.RECORD_TEXT_FIELD))
-            }// End it
+            }
             
             it("Test_13_Success_BlankApp"){
                 var defaultKey =  [
