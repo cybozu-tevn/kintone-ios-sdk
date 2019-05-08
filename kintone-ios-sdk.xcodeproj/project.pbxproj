@@ -16,25 +16,6 @@
 		11B14EF22157E64F00894E37 /* BulkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B14EF12157E64F00894E37 /* BulkRequest.swift */; };
 		11B14EF4215A1ED500894E37 /* BulkRequestParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B14EF3215A1ED500894E37 /* BulkRequestParser.swift */; };
 		11B14EFF215DE07800894E37 /* ErrorResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B14EFE215DE07700894E37 /* ErrorResponseParser.swift */; };
-		122F1DD0216B7A8C00160A27 /* AddFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DCF216B7A8C00160A27 /* AddFormFieldsTest.swift */; };
-		122F1DD2216B7AAA00160A27 /* AddPreviewAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DD1216B7AAA00160A27 /* AddPreviewAppTest.swift */; };
-		122F1DD4216B7ABC00160A27 /* DeleteFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DD3216B7ABC00160A27 /* DeleteFormFieldsTest.swift */; };
-		122F1DD6216B7AD600160A27 /* DeployAppSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DD5216B7AD600160A27 /* DeployAppSettingsTest.swift */; };
-		122F1DD8216B7AE300160A27 /* GetAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DD7216B7AE300160A27 /* GetAppTest.swift */; };
-		122F1DDA216B7B1100160A27 /* GetAppDeployStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DD9216B7B1100160A27 /* GetAppDeployStatusTest.swift */; };
-		122F1DDC216B7B1C00160A27 /* GetAppsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DDB216B7B1C00160A27 /* GetAppsTest.swift */; };
-		122F1DDE216B7B3D00160A27 /* GetFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DDD216B7B3D00160A27 /* GetFormFieldsTest.swift */; };
-		122F1DE0216B7B4800160A27 /* GetFormLayoutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DDF216B7B4800160A27 /* GetFormLayoutTest.swift */; };
-		122F1DE2216B7B5A00160A27 /* GetGeneralSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DE1216B7B5A00160A27 /* GetGeneralSettingsTest.swift */; };
-		122F1DE4216B7B6500160A27 /* GetViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DE3216B7B6500160A27 /* GetViewsTest.swift */; };
-		122F1DE6216B7B7000160A27 /* UpdateFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DE5216B7B7000160A27 /* UpdateFormFieldsTest.swift */; };
-		122F1DE8216B7B7B00160A27 /* UpdateFormLayoutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DE7216B7B7B00160A27 /* UpdateFormLayoutTest.swift */; };
-		122F1DEA216B7BAB00160A27 /* UpdateGeneralSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DE9216B7BAB00160A27 /* UpdateGeneralSettingsTest.swift */; };
-		122F1DEC216B7BB700160A27 /* UpdateViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DEB216B7BB700160A27 /* UpdateViewsTest.swift */; };
-		122F1DEE216B7BC400160A27 /* GetAppsByCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DED216B7BC400160A27 /* GetAppsByCodesTest.swift */; };
-		122F1DF0216B7BD200160A27 /* GetAppsByIDsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DEF216B7BD200160A27 /* GetAppsByIDsTest.swift */; };
-		122F1DF2216B7BE100160A27 /* GetAppsByNameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DF1216B7BE100160A27 /* GetAppsByNameTest.swift */; };
-		122F1DF4216B7BFB00160A27 /* GetAppsBySpaceIDsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F1DF3216B7BFB00160A27 /* GetAppsBySpaceIDsTest.swift */; };
 		1283E3EF219E9C8500D8E282 /* Promises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1283E3EE219E9C8500D8E282 /* Promises.framework */; };
 		1283E3F1219E9D9000D8E282 /* Promises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1283E3EE219E9C8500D8E282 /* Promises.framework */; };
 		1283E3F4219E9F2900D8E282 /* FBLPromises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1283E3F3219E9F2900D8E282 /* FBLPromises.framework */; };
@@ -240,25 +221,6 @@
 		11B14EF12157E64F00894E37 /* BulkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRequest.swift; sourceTree = "<group>"; };
 		11B14EF3215A1ED500894E37 /* BulkRequestParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRequestParser.swift; sourceTree = "<group>"; };
 		11B14EFE215DE07700894E37 /* ErrorResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponseParser.swift; sourceTree = "<group>"; };
-		122F1DCF216B7A8C00160A27 /* AddFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFormFieldsTest.swift; sourceTree = "<group>"; };
-		122F1DD1216B7AAA00160A27 /* AddPreviewAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPreviewAppTest.swift; sourceTree = "<group>"; };
-		122F1DD3216B7ABC00160A27 /* DeleteFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFormFieldsTest.swift; sourceTree = "<group>"; };
-		122F1DD5216B7AD600160A27 /* DeployAppSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployAppSettingsTest.swift; sourceTree = "<group>"; };
-		122F1DD7216B7AE300160A27 /* GetAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppTest.swift; sourceTree = "<group>"; };
-		122F1DD9216B7B1100160A27 /* GetAppDeployStatusTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppDeployStatusTest.swift; sourceTree = "<group>"; };
-		122F1DDB216B7B1C00160A27 /* GetAppsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsTest.swift; sourceTree = "<group>"; };
-		122F1DDD216B7B3D00160A27 /* GetFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFormFieldsTest.swift; sourceTree = "<group>"; };
-		122F1DDF216B7B4800160A27 /* GetFormLayoutTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFormLayoutTest.swift; sourceTree = "<group>"; };
-		122F1DE1216B7B5A00160A27 /* GetGeneralSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGeneralSettingsTest.swift; sourceTree = "<group>"; };
-		122F1DE3216B7B6500160A27 /* GetViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViewsTest.swift; sourceTree = "<group>"; };
-		122F1DE5216B7B7000160A27 /* UpdateFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFormFieldsTest.swift; sourceTree = "<group>"; };
-		122F1DE7216B7B7B00160A27 /* UpdateFormLayoutTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFormLayoutTest.swift; sourceTree = "<group>"; };
-		122F1DE9216B7BAB00160A27 /* UpdateGeneralSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGeneralSettingsTest.swift; sourceTree = "<group>"; };
-		122F1DEB216B7BB700160A27 /* UpdateViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewsTest.swift; sourceTree = "<group>"; };
-		122F1DED216B7BC400160A27 /* GetAppsByCodesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsByCodesTest.swift; sourceTree = "<group>"; };
-		122F1DEF216B7BD200160A27 /* GetAppsByIDsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsByIDsTest.swift; sourceTree = "<group>"; };
-		122F1DF1216B7BE100160A27 /* GetAppsByNameTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsByNameTest.swift; sourceTree = "<group>"; };
-		122F1DF3216B7BFB00160A27 /* GetAppsBySpaceIDsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsBySpaceIDsTest.swift; sourceTree = "<group>"; };
 		1283E3EE219E9C8500D8E282 /* Promises.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Promises.framework; path = Carthage/Build/iOS/Promises.framework; sourceTree = "<group>"; };
 		1283E3F3219E9F2900D8E282 /* FBLPromises.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBLPromises.framework; path = Carthage/Build/iOS/FBLPromises.framework; sourceTree = "<group>"; };
 		129CB2A72159F11600E3B324 /* UpdateFormLayoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFormLayoutRequest.swift; sourceTree = "<group>"; };
@@ -457,7 +419,6 @@
 			children = (
 				3FF04B2822803DA900E401FF /* app */,
 				ABE02356216F4603002C47EC /* file */,
-				122F1DCE216B755000160A27 /* app_old */,
 				AB4D6433216709E5005807C1 /* record */,
 				110578E621620B9300F6E8C0 /* bulk_request */,
 			);
@@ -497,32 +458,6 @@
 				11B14EF12157E64F00894E37 /* BulkRequest.swift */,
 			);
 			path = bulkrequest;
-			sourceTree = "<group>";
-		};
-		122F1DCE216B755000160A27 /* app_old */ = {
-			isa = PBXGroup;
-			children = (
-				122F1DDD216B7B3D00160A27 /* GetFormFieldsTest.swift */,
-				122F1DCF216B7A8C00160A27 /* AddFormFieldsTest.swift */,
-				122F1DD3216B7ABC00160A27 /* DeleteFormFieldsTest.swift */,
-				122F1DE5216B7B7000160A27 /* UpdateFormFieldsTest.swift */,
-				122F1DD1216B7AAA00160A27 /* AddPreviewAppTest.swift */,
-				122F1DD5216B7AD600160A27 /* DeployAppSettingsTest.swift */,
-				122F1DD9216B7B1100160A27 /* GetAppDeployStatusTest.swift */,
-				122F1DD7216B7AE300160A27 /* GetAppTest.swift */,
-				122F1DDB216B7B1C00160A27 /* GetAppsTest.swift */,
-				122F1DED216B7BC400160A27 /* GetAppsByCodesTest.swift */,
-				122F1DEF216B7BD200160A27 /* GetAppsByIDsTest.swift */,
-				122F1DF1216B7BE100160A27 /* GetAppsByNameTest.swift */,
-				122F1DF3216B7BFB00160A27 /* GetAppsBySpaceIDsTest.swift */,
-				122F1DDF216B7B4800160A27 /* GetFormLayoutTest.swift */,
-				122F1DE7216B7B7B00160A27 /* UpdateFormLayoutTest.swift */,
-				122F1DE1216B7B5A00160A27 /* GetGeneralSettingsTest.swift */,
-				122F1DE9216B7BAB00160A27 /* UpdateGeneralSettingsTest.swift */,
-				122F1DE3216B7B6500160A27 /* GetViewsTest.swift */,
-				122F1DEB216B7BB700160A27 /* UpdateViewsTest.swift */,
-			);
-			path = app_old;
 			sourceTree = "<group>";
 		};
 		1283E3DC219E6C9B00D8E282 /* Frameworks */ = {
@@ -1419,36 +1354,17 @@
 			files = (
 				ABE02358216F461C002C47EC /* FileTest.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
-				122F1DDC216B7B1C00160A27 /* GetAppsTest.swift in Sources */,
-				122F1DD4216B7ABC00160A27 /* DeleteFormFieldsTest.swift in Sources */,
-				122F1DF4216B7BFB00160A27 /* GetAppsBySpaceIDsTest.swift in Sources */,
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
-				122F1DD2216B7AAA00160A27 /* AddPreviewAppTest.swift in Sources */,
-				122F1DDA216B7B1100160A27 /* GetAppDeployStatusTest.swift in Sources */,
 				ABE0234A216F3A0F002C47EC /* BulkRequestTest.swift in Sources */,
-				122F1DDE216B7B3D00160A27 /* GetFormFieldsTest.swift in Sources */,
-				122F1DD8216B7AE300160A27 /* GetAppTest.swift in Sources */,
-				122F1DE2216B7B5A00160A27 /* GetGeneralSettingsTest.swift in Sources */,
 				12DB97D321A7DF910070C5C4 /* RecordTestConstants.swift in Sources */,
-				122F1DEA216B7BAB00160A27 /* UpdateGeneralSettingsTest.swift in Sources */,
-				122F1DE0216B7B4800160A27 /* GetFormLayoutTest.swift in Sources */,
 				12DB97D521A7DF9E0070C5C4 /* FileTestConstants.swift in Sources */,
 				68C67E282280434100244922 /* HandleJSON.swift in Sources */,
-				122F1DEE216B7BC400160A27 /* GetAppsByCodesTest.swift in Sources */,
 				3FF04B3022803E4800E401FF /* TestsConstants.swift in Sources */,
-				122F1DE8216B7B7B00160A27 /* UpdateFormLayoutTest.swift in Sources */,
 				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
-				122F1DF2216B7BE100160A27 /* GetAppsByNameTest.swift in Sources */,
-				122F1DD0216B7A8C00160A27 /* AddFormFieldsTest.swift in Sources */,
 				12DB97D721A7DFB80070C5C4 /* BulkRequestTestConstants.swift in Sources */,
-				122F1DE4216B7B6500160A27 /* GetViewsTest.swift in Sources */,
-				122F1DF0216B7BD200160A27 /* GetAppsByIDsTest.swift in Sources */,
-				122F1DD6216B7AD600160A27 /* DeployAppSettingsTest.swift in Sources */,
-				122F1DE6216B7B7000160A27 /* UpdateFormFieldsTest.swift in Sources */,
 				68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */,
 				12F41DC721A80AEF00C0F1A7 /* ConnectionTestConstants.swift in Sources */,
-				122F1DEC216B7BB700160A27 /* UpdateViewsTest.swift in Sources */,
 				12DB97D121A7DF810070C5C4 /* AppTestConstants.swift in Sources */,
 				3FF04B2B22803E2800E401FF /* AppFunctions.swift in Sources */,
 				AB4D643521670A22005807C1 /* RecordTest.swift in Sources */,
