@@ -89,6 +89,38 @@
 		68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E292280436400244922 /* GetRecordTest.swift */; };
 		68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E2F22813F4200244922 /* AddRecordTest.swift */; };
 		68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E312281A57200244922 /* DeleteRecordsTest.swift */; };
+		68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E352282AD1100244922 /* UpdateRecordsTest.swift */; };
+		68C67E3F2282DA4800244922 /* DevAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E3E2282DA4800244922 /* DevAuth.swift */; };
+		68C67E422282DA7000244922 /* DevConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E412282DA7000244922 /* DevConnection.swift */; };
+		68C67E4D2282DB1300244922 /* DevAppParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E4C2282DB1300244922 /* DevAppParser.swift */; };
+		68C67E4F2282DB2300244922 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E4E2282DB2300244922 /* Parser.swift */; };
+		68C67E512282DB3200244922 /* DevAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E502282DB3200244922 /* DevAppApp.swift */; };
+		68C67E532282DB3D00244922 /* DevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E522282DB3D00244922 /* DevApp.swift */; };
+		68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E542282DB5F00244922 /* DeleteAppRequest.swift */; };
+		68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E562282DB6A00244922 /* UpdateMiscSettingsRequest.swift */; };
+		68C67E5C2282DB9C00244922 /* Right.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5A2282DB9C00244922 /* Right.swift */; };
+		68C67E5D2282DB9C00244922 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5B2282DB9C00244922 /* Entity.swift */; };
+		68C67E622282DBD600244922 /* GetAppPermissionsReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */; };
+		68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */; };
+		68C67E662282DBDF00244922 /* UpdateAppPermissionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */; };
+		68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */; };
+		68C67E6C2282DBEE00244922 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E682282DBEE00244922 /* Token.swift */; };
+		68C67E6D2282DBEE00244922 /* ItemAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E692282DBEE00244922 /* ItemAPI.swift */; };
+		68C67E6E2282DBEE00244922 /* APIItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6A2282DBEE00244922 /* APIItem.swift */; };
+		68C67E6F2282DBEE00244922 /* ItemsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6B2282DBEE00244922 /* ItemsAPI.swift */; };
+		68C67E772282DC7000244922 /* GenerateAPITokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E752282DC7000244922 /* GenerateAPITokenResponse.swift */; };
+		68C67E782282DC7000244922 /* GenerateAPITokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E762282DC7000244922 /* GenerateAPITokenRequest.swift */; };
+		68C67E7C2282DC8D00244922 /* GetListAPIsTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7A2282DC8D00244922 /* GetListAPIsTokenResponse.swift */; };
+		68C67E7D2282DC8D00244922 /* GetListAPIsTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7B2282DC8D00244922 /* GetListAPIsTokenRequest.swift */; };
+		68C67E802282DCA400244922 /* UpdateAPITokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7F2282DCA400244922 /* UpdateAPITokenRequest.swift */; };
+		68C67E822282DCB700244922 /* DevHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E812282DCB700244922 /* DevHTTPHeader.swift */; };
+		68C67E842282DCC100244922 /* DevCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E832282DCC100244922 /* DevCredential.swift */; };
+		68C67E872282DCCC00244922 /* DevMemberSelectEntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E852282DCCC00244922 /* DevMemberSelectEntityType.swift */; };
+		68C67E882282DCCC00244922 /* MemberSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E862282DCCC00244922 /* MemberSpace.swift */; };
+		68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E892282DCD600244922 /* AddSpaceResponse.swift */; };
+		68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */; };
+		68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */; };
+		68C67E902282DF9500244922 /* DevAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8F2282DF9500244922 /* DevAppTest.swift */; };
 		A88FEE1C2159DD8B00A7E838 /* UpdateViewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */; };
 		A88FEE1D2159DD8B00A7E838 /* GetAppsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */; };
 		A88FEE1E2159DD8B00A7E838 /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE042159DD8A00A7E838 /* BasicResponse.swift */; };
@@ -291,6 +323,38 @@
 		68C67E292280436400244922 /* GetRecordTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRecordTest.swift; sourceTree = "<group>"; };
 		68C67E2F22813F4200244922 /* AddRecordTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordTest.swift; sourceTree = "<group>"; };
 		68C67E312281A57200244922 /* DeleteRecordsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRecordsTest.swift; sourceTree = "<group>"; };
+		68C67E352282AD1100244922 /* UpdateRecordsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecordsTest.swift; sourceTree = "<group>"; };
+		68C67E3E2282DA4800244922 /* DevAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevAuth.swift; sourceTree = "<group>"; };
+		68C67E412282DA7000244922 /* DevConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevConnection.swift; sourceTree = "<group>"; };
+		68C67E4C2282DB1300244922 /* DevAppParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevAppParser.swift; sourceTree = "<group>"; };
+		68C67E4E2282DB2300244922 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		68C67E502282DB3200244922 /* DevAppApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevAppApp.swift; sourceTree = "<group>"; };
+		68C67E522282DB3D00244922 /* DevApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevApp.swift; sourceTree = "<group>"; };
+		68C67E542282DB5F00244922 /* DeleteAppRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAppRequest.swift; sourceTree = "<group>"; };
+		68C67E562282DB6A00244922 /* UpdateMiscSettingsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateMiscSettingsRequest.swift; sourceTree = "<group>"; };
+		68C67E5A2282DB9C00244922 /* Right.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Right.swift; sourceTree = "<group>"; };
+		68C67E5B2282DB9C00244922 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppPermissionsReponse.swift; sourceTree = "<group>"; };
+		68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppPermissionsRequest.swift; sourceTree = "<group>"; };
+		68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppPermissionsResponse.swift; sourceTree = "<group>"; };
+		68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppPermissionsRequest.swift; sourceTree = "<group>"; };
+		68C67E682282DBEE00244922 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		68C67E692282DBEE00244922 /* ItemAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAPI.swift; sourceTree = "<group>"; };
+		68C67E6A2282DBEE00244922 /* APIItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIItem.swift; sourceTree = "<group>"; };
+		68C67E6B2282DBEE00244922 /* ItemsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsAPI.swift; sourceTree = "<group>"; };
+		68C67E752282DC7000244922 /* GenerateAPITokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAPITokenResponse.swift; sourceTree = "<group>"; };
+		68C67E762282DC7000244922 /* GenerateAPITokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAPITokenRequest.swift; sourceTree = "<group>"; };
+		68C67E7A2282DC8D00244922 /* GetListAPIsTokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListAPIsTokenResponse.swift; sourceTree = "<group>"; };
+		68C67E7B2282DC8D00244922 /* GetListAPIsTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListAPIsTokenRequest.swift; sourceTree = "<group>"; };
+		68C67E7F2282DCA400244922 /* UpdateAPITokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAPITokenRequest.swift; sourceTree = "<group>"; };
+		68C67E812282DCB700244922 /* DevHTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevHTTPHeader.swift; sourceTree = "<group>"; };
+		68C67E832282DCC100244922 /* DevCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevCredential.swift; sourceTree = "<group>"; };
+		68C67E852282DCCC00244922 /* DevMemberSelectEntityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevMemberSelectEntityType.swift; sourceTree = "<group>"; };
+		68C67E862282DCCC00244922 /* MemberSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberSpace.swift; sourceTree = "<group>"; };
+		68C67E892282DCD600244922 /* AddSpaceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceResponse.swift; sourceTree = "<group>"; };
+		68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceRequest.swift; sourceTree = "<group>"; };
+		68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSpaceRequest.swift; sourceTree = "<group>"; };
+		68C67E8F2282DF9500244922 /* DevAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevAppTest.swift; sourceTree = "<group>"; };
 		A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewsResponse.swift; sourceTree = "<group>"; };
 		A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsResponse.swift; sourceTree = "<group>"; };
 		A88FEE042159DD8A00A7E838 /* BasicResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
@@ -727,6 +791,7 @@
 		3FF04B2322803C3200E401FF /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				68C67E3C2282DA0B00244922 /* extension */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -791,6 +856,188 @@
 				ABE0235A216F4651002C47EC /* test.pptx */,
 			);
 			path = test_data;
+			sourceTree = "<group>";
+		};
+		68C67E3C2282DA0B00244922 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E492282DAC900244922 /* module */,
+				68C67E432282DA8100244922 /* model */,
+				68C67E402282DA5F00244922 /* connection */,
+				68C67E3D2282DA2500244922 /* authentication */,
+				68C67E8F2282DF9500244922 /* DevAppTest.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
+		68C67E3D2282DA2500244922 /* authentication */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E3E2282DA4800244922 /* DevAuth.swift */,
+			);
+			path = authentication;
+			sourceTree = "<group>";
+		};
+		68C67E402282DA5F00244922 /* connection */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E412282DA7000244922 /* DevConnection.swift */,
+			);
+			path = connection;
+			sourceTree = "<group>";
+		};
+		68C67E432282DA8100244922 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E482282DABA00244922 /* app */,
+				68C67E472282DAB000244922 /* http */,
+				68C67E462282DAA000244922 /* authentication */,
+				68C67E452282DA9500244922 /* member */,
+				68C67E442282DA8C00244922 /* space */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		68C67E442282DA8C00244922 /* space */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */,
+				68C67E892282DCD600244922 /* AddSpaceResponse.swift */,
+				68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */,
+			);
+			path = space;
+			sourceTree = "<group>";
+		};
+		68C67E452282DA9500244922 /* member */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E852282DCCC00244922 /* DevMemberSelectEntityType.swift */,
+				68C67E862282DCCC00244922 /* MemberSpace.swift */,
+			);
+			path = member;
+			sourceTree = "<group>";
+		};
+		68C67E462282DAA000244922 /* authentication */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E832282DCC100244922 /* DevCredential.swift */,
+			);
+			path = authentication;
+			sourceTree = "<group>";
+		};
+		68C67E472282DAB000244922 /* http */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E812282DCB700244922 /* DevHTTPHeader.swift */,
+			);
+			path = http;
+			sourceTree = "<group>";
+		};
+		68C67E482282DABA00244922 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E592282DB7F00244922 /* permission */,
+				68C67E582282DB7900244922 /* api */,
+				68C67E562282DB6A00244922 /* UpdateMiscSettingsRequest.swift */,
+				68C67E542282DB5F00244922 /* DeleteAppRequest.swift */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		68C67E492282DAC900244922 /* module */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E4B2282DAD800244922 /* parser */,
+				68C67E4A2282DAD200244922 /* app */,
+			);
+			path = module;
+			sourceTree = "<group>";
+		};
+		68C67E4A2282DAD200244922 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E522282DB3D00244922 /* DevApp.swift */,
+				68C67E502282DB3200244922 /* DevAppApp.swift */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		68C67E4B2282DAD800244922 /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E4E2282DB2300244922 /* Parser.swift */,
+				68C67E4C2282DB1300244922 /* DevAppParser.swift */,
+			);
+			path = parser;
+			sourceTree = "<group>";
+		};
+		68C67E582282DB7900244922 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E7E2282DC9300244922 /* updateAPI */,
+				68C67E792282DC7F00244922 /* getAPI */,
+				68C67E742282DC0E00244922 /* generateAPI */,
+				68C67E6A2282DBEE00244922 /* APIItem.swift */,
+				68C67E692282DBEE00244922 /* ItemAPI.swift */,
+				68C67E6B2282DBEE00244922 /* ItemsAPI.swift */,
+				68C67E682282DBEE00244922 /* Token.swift */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		68C67E592282DB7F00244922 /* permission */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E5F2282DBBD00244922 /* updateAppPermissions */,
+				68C67E5E2282DBA700244922 /* getAppPermissions */,
+				68C67E5B2282DB9C00244922 /* Entity.swift */,
+				68C67E5A2282DB9C00244922 /* Right.swift */,
+			);
+			path = permission;
+			sourceTree = "<group>";
+		};
+		68C67E5E2282DBA700244922 /* getAppPermissions */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */,
+				68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */,
+			);
+			path = getAppPermissions;
+			sourceTree = "<group>";
+		};
+		68C67E5F2282DBBD00244922 /* updateAppPermissions */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */,
+				68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */,
+			);
+			path = updateAppPermissions;
+			sourceTree = "<group>";
+		};
+		68C67E742282DC0E00244922 /* generateAPI */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E762282DC7000244922 /* GenerateAPITokenRequest.swift */,
+				68C67E752282DC7000244922 /* GenerateAPITokenResponse.swift */,
+			);
+			path = generateAPI;
+			sourceTree = "<group>";
+		};
+		68C67E792282DC7F00244922 /* getAPI */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E7B2282DC8D00244922 /* GetListAPIsTokenRequest.swift */,
+				68C67E7A2282DC8D00244922 /* GetListAPIsTokenResponse.swift */,
+			);
+			path = getAPI;
+			sourceTree = "<group>";
+		};
+		68C67E7E2282DC9300244922 /* updateAPI */ = {
+			isa = PBXGroup;
+			children = (
+				68C67E7F2282DCA400244922 /* UpdateAPITokenRequest.swift */,
+			);
+			path = updateAPI;
 			sourceTree = "<group>";
 		};
 		A88FEE002159DD8A00A7E838 /* basic */ = {
@@ -1004,6 +1251,7 @@
 				AB4D643421670A22005807C1 /* RecordTest.swift */,
 				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
 				68C67E312281A57200244922 /* DeleteRecordsTest.swift */,
+				68C67E352282AD1100244922 /* UpdateRecordsTest.swift */,
 			);
 			path = record;
 			sourceTree = "<group>";
@@ -1353,8 +1601,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABE02358216F461C002C47EC /* FileTest.swift in Sources */,
+				68C67E6C2282DBEE00244922 /* Token.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
+				68C67E422282DA7000244922 /* DevConnection.swift in Sources */,
 				ABE0234A216F3A0F002C47EC /* BulkRequestTest.swift in Sources */,
 				12DB97D321A7DF910070C5C4 /* RecordTestConstants.swift in Sources */,
 				12DB97D521A7DF9E0070C5C4 /* FileTestConstants.swift in Sources */,
@@ -1362,15 +1612,45 @@
 				3FF04B3022803E4800E401FF /* TestsConstants.swift in Sources */,
 				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
+				68C67E782282DC7000244922 /* GenerateAPITokenRequest.swift in Sources */,
+				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
+				68C67E6D2282DBEE00244922 /* ItemAPI.swift in Sources */,
+				68C67E802282DCA400244922 /* UpdateAPITokenRequest.swift in Sources */,
+				68C67E512282DB3200244922 /* DevAppApp.swift in Sources */,
+				68C67E6F2282DBEE00244922 /* ItemsAPI.swift in Sources */,
+				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
+				68C67E882282DCCC00244922 /* MemberSpace.swift in Sources */,
 				12DB97D721A7DFB80070C5C4 /* BulkRequestTestConstants.swift in Sources */,
+				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
+				68C67E6E2282DBEE00244922 /* APIItem.swift in Sources */,
 				68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */,
+				68C67E622282DBD600244922 /* GetAppPermissionsReponse.swift in Sources */,
+				68C67E3F2282DA4800244922 /* DevAuth.swift in Sources */,
+				68C67E822282DCB700244922 /* DevHTTPHeader.swift in Sources */,
 				12F41DC721A80AEF00C0F1A7 /* ConnectionTestConstants.swift in Sources */,
+				68C67E662282DBDF00244922 /* UpdateAppPermissionsResponse.swift in Sources */,
+				68C67E902282DF9500244922 /* DevAppTest.swift in Sources */,
 				12DB97D121A7DF810070C5C4 /* AppTestConstants.swift in Sources */,
+				68C67E842282DCC100244922 /* DevCredential.swift in Sources */,
+				68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */,
+				68C67E872282DCCC00244922 /* DevMemberSelectEntityType.swift in Sources */,
+				68C67E772282DC7000244922 /* GenerateAPITokenResponse.swift in Sources */,
+				68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */,
+				68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */,
+				68C67E5C2282DB9C00244922 /* Right.swift in Sources */,
+				68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */,
+				68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */,
+				68C67E4D2282DB1300244922 /* DevAppParser.swift in Sources */,
 				3FF04B2B22803E2800E401FF /* AppUtils.swift in Sources */,
 				AB4D643521670A22005807C1 /* RecordTest.swift in Sources */,
+				68C67E4F2282DB2300244922 /* Parser.swift in Sources */,
+				68C67E5D2282DB9C00244922 /* Entity.swift in Sources */,
 				110578F4216756A900F6E8C0 /* ConnectionTest.swift in Sources */,
+				68C67E7D2282DC8D00244922 /* GetListAPIsTokenRequest.swift in Sources */,
 				68C67E262280433600244922 /* KintoneError.swift in Sources */,
+				68C67E7C2282DC8D00244922 /* GetListAPIsTokenResponse.swift in Sources */,
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,
+				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
