@@ -39,90 +39,19 @@ class TestCommonHandling {
     }
     
     static func awaitAsync<T>(_ promise: Promise<T>) -> Any{
-        let xcTestCase = XCTestCase()
-        let expectation = xcTestCase.expectation(description: "Async call")
+        let expectation = XCTestExpectation(description: "Async call")
         var response: Any? = nil
-        var errorVal: Any? = nil
+        var error: Any? = nil
         
         promise.then { asyncResult in
             response = asyncResult
             expectation.fulfill()
-            }.catch{error in
-                errorVal = error
+            }.catch{ err in
+                error = err
                 expectation.fulfill()
         }
-        //        xcTestCase.waitForExpectations(timeout: Double(TestsConstants.WAIT_FOR_PROMISE_TIMEOUT))
-        xcTestCase.waitForExpectations(timeout: 30)
-        
-        if(response != nil){
-            return response as Any
-        }
-        return errorVal as Any
-    }
-    
-    static func waitForDeployAppSuccess(appModule: App, appId: Int) {
-        var flag = true
-        while (flag) {
-            appModule.getAppDeployStatus([appId])
-                .then {response in
-                    let status = response.getApps()![0].getStatus()?.rawValue
-                    if(status == "SUCCESS"){
-                        print("Deploy app \(response.getApps()![0].getApp()!) SUCCESS")
-                        flag = false
-                    } else {
-                        print("Status deploy app \(response.getApps()![0].getApp()!): \(status!)")
-                    }
-                }.catch {error in
-                    if let errorVal = error as? KintoneAPIException {
-                        fatalError(errorVal.toString()!)
-                    } else {
-                        fatalError(error.localizedDescription)
-                    }
-            }
-            _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        }
-    }
-    
-    static func deployApp(appModule: App, apps: [PreviewApp]) {
-        var appIds = [Int]()
-        appModule.deployAppSettings(apps)
-            .then {
-                for app in apps {
-                    appIds.append(app.getApp()!)
-                    print("Deploy app: \(app.getApp()!)")
-                }
-            }.catch {error in
-                if let errorVal = error as? KintoneAPIException {
-                    fatalError(errorVal.toString()!)
-                } else {
-                    fatalError(error.localizedDescription)
-                }
-        }
-        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        
-        for id in appIds {
-            self.waitForDeployAppSuccess(appModule: appModule, appId: id)
-        }
-    }
-    
-    static func createApp(appModule: App, appName: String = "Test App",  spaceId: Int? = nil, threadId: Int? = nil) -> Int {
-        var apps = [PreviewApp]()
-        var appId: Int!
-        appModule.addPreviewApp(appName, spaceId, threadId)
-            .then{response in
-                apps.append(response)
-                appId = response.getApp()
-                print("Create app: \(response.getApp()!)")
-            }.catch {error in
-                if let errorVal = error as? KintoneAPIException {
-                    fatalError(errorVal.toString()!)
-                } else {
-                    fatalError(error.localizedDescription)
-                }
-        }
-        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        self.deployApp(appModule: appModule, apps: apps)
-        return appId
+        _ = XCTWaiter.wait(for: [expectation], timeout: TestConstant.Common.PROMISE_TIMEOUT)
+        return (response != nil) ? (response as Any) : (error as Any)
     }
     
     public static func handleDoTryCatch<T>(closure:() throws -> T) -> Any {
@@ -140,9 +69,8 @@ class TestCommonHandling {
     /// - Paramaters: the expected length of the string
     ///
     /// - Returns: the random string value
-    public static func randomString(length: Int) -> String {
+    public static func generateRandomString(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        
         return String((0...length-1).map{ _ in letters.randomElement()! })
     }
     

@@ -34,15 +34,15 @@ class UpdateRecordsTest: QuickSpec{
 
         describe("") {
             it(""){
-                self.recordTextValue.append(TestCommonHandling.randomString(length: 64))
+                self.recordTextValue.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
                 var addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordIDs.append(addRecordResponse.getId()!)
-                self.recordTextValue.append(TestCommonHandling.randomString(length: 64))
+                self.recordTextValue.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
                 addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordIDs.append(addRecordResponse.getId()!)
-                self.recordTextValue.append(TestCommonHandling.randomString(length: 64))
+                self.recordTextValue.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
                 var recordsUpdateItem = [RecordUpdateItem]()
                 for id in self.recordIDs {

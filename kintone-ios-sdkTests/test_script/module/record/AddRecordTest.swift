@@ -43,7 +43,7 @@ class AddRecordTest: QuickSpec{
 
         describe("AddRecord"){
             it("Test_27_Success_ValidData"){
-                self.recordTextValue = TestCommonHandling.randomString(length: 64)
+                self.recordTextValue = TestCommonHandling.generateRandomString(length: 64)
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
@@ -61,7 +61,7 @@ class AddRecordTest: QuickSpec{
             }
             
             it("Test_27_Success_APITokenValidData"){
-                self.recordTextValue = TestCommonHandling.randomString(length: 64)
+                self.recordTextValue = TestCommonHandling.generateRandomString(length: 64)
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
@@ -79,7 +79,7 @@ class AddRecordTest: QuickSpec{
             }
             
             it("Test_28_Error_NonexistentAppID"){
-                self.recordTextValue = TestCommonHandling.randomString(length: 64)
+                self.recordTextValue = TestCommonHandling.generateRandomString(length: 64)
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_NONEXISTENT_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
@@ -91,7 +91,7 @@ class AddRecordTest: QuickSpec{
             }
             
             it("Test_29_Error_NegativeAppID"){
-                self.recordTextValue = TestCommonHandling.randomString(length: 64)
+                self.recordTextValue = TestCommonHandling.generateRandomString(length: 64)
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_NEGATIVE_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
@@ -153,7 +153,7 @@ class AddRecordTest: QuickSpec{
             }
             
             it("Test_39_Success_ValidDataGuestSpace"){
-                self.recordTextValue = TestCommonHandling.randomString(length: 64)
+                self.recordTextValue = TestCommonHandling.generateRandomString(length: 64)
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(self.GUESTSPACE_APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
@@ -171,7 +171,7 @@ class AddRecordTest: QuickSpec{
             }
             
             it("Test_41_Error_WithoutAddRecordPermissionOnApp"){
-                self.recordTextValue = TestCommonHandling.randomString(length: 64)
+                self.recordTextValue = TestCommonHandling.generateRandomString(length: 64)
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutAddPermissionApp.addRecord(self.APP_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
