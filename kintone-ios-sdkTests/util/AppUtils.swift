@@ -2,7 +2,7 @@
 @testable import kintone_ios_sdk
 
 class AppUtils {
-    static let auth = DevAuth().setPasswordAuth(TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.ADMIN_PASSWORD)
+    static let auth = DevAuth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
     static let conn = DevConnection(TestConstant.Connection.DOMAIN, auth)
     static let devAppModule = DevApp(conn)
     
