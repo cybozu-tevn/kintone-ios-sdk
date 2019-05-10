@@ -14,13 +14,14 @@ import Nimble
 class GetAppTest: QuickSpec{
     override func spec(){
         let app = App(TestCommonHandling.createConnection())
+        let appName = "App Name"
         var appId: Int?
         
         describe("GetAppTest"){
             
             beforeSuite {
                 print("=== TEST PREPARATION ===")
-                appId = AppUtils.createApp(appModule: app)
+                appId = AppUtils.createApp(appModule: app, appName: appName)
             }
             
             afterSuite {
@@ -30,13 +31,14 @@ class GetAppTest: QuickSpec{
             
             it("Success Case"){
                 
-                app.getApp(appId!).then{ appResponse in
-                    // print(appResponse.getAppId()!)
-                    expect(appResponse.getAppId()).to(equal(appId))
-                    }.catch{ error in
-                        XCTFail(TestCommonHandling.getErrorMessage(error))
-                }
-                _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
+                let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appId!)) as! AppModel
+                expect(getAppRsp.getAppId()).to(equal(appId))
+                expect(getAppRsp.getName()).to(equal(appName))
+                expect(getAppRsp.getCode()).to(equal(""))
+                expect(getAppRsp.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                expect(getAppRsp.getSpaceId()).to(beNil())
+                expect(getAppRsp.getThreadId()).to(beNil())
+                
             }
         }
     }
