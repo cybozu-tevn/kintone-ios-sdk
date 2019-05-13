@@ -8,6 +8,7 @@
 #
 #
 default_platform(:ios)
+
 # common configurations
 project_name="kintone-ios-sdk"
 scheme="kintone-ios-sdkTests"
@@ -15,10 +16,12 @@ destination="platform=iOS Simulator,OS=12.2,name=iPhone X"
 domain=ENV["DOMAIN"]
 admin_username=ENV["ADMIN_USERNAME"]
 admin_password=ENV["ADMIN_PASSWORD"]
+
 platform :ios do
   before_all do
     setup_circle_ci
   end
+
   desc "Run tests, optionally generating report."
   lane :test do |options|
     opts = {
@@ -31,7 +34,7 @@ platform :ios do
       :code_coverage => true,
       :xcargs => "DOMAIN=#{domain} ADMIN_USERNAME=#{admin_username} ADMIN_PASSWORD=#{admin_password}"
     }
-    opts[:only_testing] = options[:test_class] ? ["#{scheme}/#{test_class}"] : [scheme] 
+    opts[:only_testing] = options[:test_class] ? ["#{scheme}/#{options[:test_class]}"] : [scheme] 
     opts[:output_types] = options[:junit] ? "junit" : "html"
     scan(opts)
   end
