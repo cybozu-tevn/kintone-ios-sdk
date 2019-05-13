@@ -11,7 +11,7 @@ default_platform(:ios)
 # common configurations
 project_name="kintone-ios-sdk"
 scheme="kintone-ios-sdkTests"
-destination="platform=iOS Simulator,OS=12.1,name=iPhone X"
+destination="platform=iOS Simulator,OS=12.2,name=iPhone X"
 domain=ENV["DOMAIN"]
 admin_username=ENV["ADMIN_USERNAME"]
 admin_password=ENV["ADMIN_PASSWORD"]
