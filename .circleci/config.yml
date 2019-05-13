@@ -2,8 +2,11 @@ version: 2
 jobs:
   build-and-test:
     macos:
-      xcode: "10.1.0"
+      xcode: "10.2.1"
     environment:
+      DOMAIN: "https://tkimchaute.kintone.com"
+      ADMIN_USERNAME: "tkimchaute"
+      ADMIN_PASSWORD: "tkimchaute123"
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: test
     shell: /bin/bash --login -o pipefail
