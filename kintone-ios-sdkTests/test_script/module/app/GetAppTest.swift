@@ -29,7 +29,7 @@ class GetAppTest: QuickSpec{
         
         describe("GetAppTest"){
    
-            it("Success Case"){
+            it("Success Case 1"){
                 
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appId!)) as! AppModel
                 expect(getAppRsp.getAppId()).to(equal(appId))
