@@ -5,12 +5,18 @@
 //  Created by h001218 on 2018/10/05.
 //  Copyright © 2018年 Cybozu. All rights reserved.
 //
-
+import Foundation
 public class TestConstant {
     class Connection {
-        static let DOMAIN = "https://te-phong.cybozu-dev.com"
-        static let ADMIN_USERNAME = "cybozu"
-        static let ADMIN_PASSWORD = "cybozu@123"
+        static let environment = ProcessInfo.processInfo.environment
+        
+        //        static let DOMAIN = "https://te-vutran-1.cybozu-dev.com"
+        //        static let ADMIN_USERNAME = "cybozu"
+        //        static let ADMIN_PASSWORD = "cybozu"
+        static let DOMAIN = environment["DOMAIN"]!
+        static let ADMIN_USERNAME = environment["ADMIN_USERNAME"]!
+        static let ADMIN_PASSWORD = environment["ADMIN_PASSWORD"]!
+        
         static let CERT_NAME = "YOUR_CERT_NAME"
         static let CERT_PASSWORD = "YOUR_CERT_PASSWORD"
         static let CERT_EXTENSION = "YOUR_CERT_EXTENSION"

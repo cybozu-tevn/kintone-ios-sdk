@@ -1,0 +1,38 @@
+# Usages:
+# - run all tests and generate report in html format (by default)
+# $fastlane test
+# - run all tests and generate report in junit format
+# $fastlane test junit:true
+# - run test for specific test class (Eg: GetAppTest) and generate report in html format
+# $fastlane test test_class:GetAppTest html:true
+#
+#
+default_platform(:ios)
+# common configurations
+project_name="kintone-ios-sdk"
+scheme="kintone-ios-sdkTests"
+destination="platform=iOS Simulator,OS=12.1,name=iPhone X"
+domain=ENV["DOMAIN"]
+admin_username=ENV["ADMIN_USERNAME"]
+admin_password=ENV["ADMIN_PASSWORD"]
+platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+  desc "Run tests, optionally generating report."
+  lane :test do |options|
+    opts = {
+      :project => options[:project] || "#{project_name}.xcodeproj",
+      :scheme => options[:scheme] || scheme,
+      :destination => destination,
+      :buildlog_path => './report',
+      :output_directory => './report',
+      :output_style => 'basic',
+      :code_coverage => true,
+      :xcargs => "DOMAIN=#{domain} ADMIN_USERNAME=#{admin_username} ADMIN_PASSWORD=#{admin_password}"
+    }
+    opts[:only_testing] = options[:test_class] ? ["#{scheme}/#{test_class}"] : [scheme] 
+    opts[:output_types] = options[:junit] ? "junit" : "html"
+    scan(opts)
+  end
+end

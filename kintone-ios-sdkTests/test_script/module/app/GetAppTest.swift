@@ -17,18 +17,18 @@ class GetAppTest: QuickSpec{
         let appName = "App Name"
         var appId: Int?
         
+        beforeSuite {
+            print("=== TEST PREPARATION ===")
+            appId = AppUtils.createApp(appModule: app, appName: appName)
+        }
+        
+        afterSuite {
+            print("=== TEST CLEANING UP ===")
+            AppUtils.deleteApp(appId: appId!)
+        }
+        
         describe("GetAppTest"){
-            
-            beforeSuite {
-                print("=== TEST PREPARATION ===")
-                appId = AppUtils.createApp(appModule: app, appName: appName)
-            }
-            
-            afterSuite {
-                print("=== TEST CLEANING UP ===")
-                AppUtils.deleteApp(appId: appId!)
-            }
-            
+   
             it("Success Case"){
                 
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appId!)) as! AppModel
