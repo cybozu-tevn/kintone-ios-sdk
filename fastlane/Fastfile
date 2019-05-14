@@ -32,7 +32,7 @@ platform :ios do
       :output_directory => './report',
       :output_style => 'basic',
       :code_coverage => true,
-      :include_simulator_logs: false,
+      :include_simulator_logs => false,
       :xcargs => "DOMAIN=#{domain} ADMIN_USERNAME=#{admin_username} ADMIN_PASSWORD=#{admin_password}"
     }
     opts[:only_testing] = options[:test_class] ? ["#{scheme}/#{options[:test_class]}"] : [scheme] 
