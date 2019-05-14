@@ -23,7 +23,7 @@ jobs:
             - Carthage
       - run:
           name: Fastlane
-          command: bundle exec fastlane $FASTLANE_LANE
+          command: bundle exec fastlane $FASTLANE_LANE test_class:"GetAppTest"
       - store_artifacts:
           path: output
       - store_test_results:
