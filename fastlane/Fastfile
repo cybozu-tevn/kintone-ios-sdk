@@ -18,9 +18,9 @@ admin_username=ENV["ADMIN_USERNAME"]
 admin_password=ENV["ADMIN_PASSWORD"]
 
 platform :ios do
-  before_all do
-    setup_circle_ci
-  end
+#  before_all do
+#    setup_circle_ci
+#  end
 
   desc "Run tests, optionally generating report."
   lane :test do |options|
