@@ -1,0 +1,78 @@
+{
+  "domain": "te-phong-prepration.cybozu-dev.com",
+  "proxy": {
+    "host": "dc-ty3-squid-1.cb.local",
+    "ip": "10.224.136.40",
+    "port": 3128
+  },
+  "administrators": {
+    "username": "cybozu",
+    "password": "cybozu"
+  },
+  "users": [
+    {
+      "username": "user1",
+      "password": "123456"
+    },
+    {
+      "username": "user2",
+      "password": "123456"
+    },
+    {
+      "username": "user3",
+      "password": "123456"
+    },
+    {
+      "username": "user4",
+      "password": "123456"
+    },
+    {
+      "username": "user5",
+      "password": "123456"
+    }
+  ],
+  "guestSpace": {
+    "id": "2",
+    "threadID": "2",
+    "app": {
+      "id": "1",
+      "apiToken": "hDwmFiNZUaFTfxufoqcGNtp73SZQJQPoU2wECvya",
+      "name": "GUEST APP IN GUEST SPACE",
+      "code": "APP1",
+      "fieldCodes": [
+        "Number",
+        "Prohibit_Duplicate_Number",
+        "Text",
+        "Table"
+      ]
+    }
+  },
+  "normalSpace": {
+    "id": "3",
+    "threadID": "3",
+    "app": {
+      "id": "2",
+      "apiToken": "9UkY0TPgfxREGCer88E4l0puT3FN3StAeplel84O",
+      "name": "NORMAL APP IN SPACE",
+      "code": "APP2",
+      "fieldCodes": [
+        "Number",
+        "Prohibit_Duplicate_Number",
+        "Text",
+        "Table"
+      ]
+    }
+  },
+  "app": {
+    "id": "3",
+    "apiToken": "iE50NyAHHI5eleyQyjc4qk8buEW08jx6RpTzK9t1",
+    "name": "APP AUTO TEST",
+    "code": "APP3",
+    "fieldCodes": [
+      "ç",
+      "Prohibit_Duplicate_Number",
+      "Text",
+      "Table"
+    ]
+  }
+}

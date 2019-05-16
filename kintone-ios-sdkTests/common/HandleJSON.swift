@@ -24,6 +24,17 @@ class JSONHandler {
         }
     }
     
+    init (_ fileName: String){
+        let testJSON = Bundle(for:type(of: self))
+        if let url = testJSON.url(forResource: fileName, withExtension: "json"){
+            do {
+                self.jsonResult = try Data(contentsOf: url, options: .mappedIfSafe)
+            } catch {
+                print("error:\(error)")
+            }
+        }
+    }
+    
     func parseJSON<T>(_ type: T.Type) throws -> T where T : Decodable {
         do {
             return try JSONDecoder().decode(type, from: self.jsonResult)
