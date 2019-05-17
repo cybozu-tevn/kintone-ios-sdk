@@ -8,21 +8,8 @@
 
 import Foundation
 
-let FILE_NAME_KINTONE_ERROR_MESSAGES_JSON: String! = "KintoneErrorMessage"
-
 class JSONHandler {
     var jsonResult: Data!
-    
-    init (){
-        let testJSON = Bundle(for:type(of: self))
-        if let url = testJSON.url(forResource: FILE_NAME_KINTONE_ERROR_MESSAGES_JSON, withExtension: "json"){
-            do {
-                self.jsonResult = try Data(contentsOf: url, options: .mappedIfSafe)
-            } catch {
-                print("error:\(error)")
-            }
-        }
-    }
     
     init (_ fileName: String){
         let testJSON = Bundle(for:type(of: self))

@@ -6,97 +6,6 @@
 //  Copyright © 2019 Cybozu. All rights reserved.
 //
 
-struct KintoneError: Codable {
-    
-    var code: String!
-    var message: String!
-    var errors: [String: [String: Array<String>]]?
-    
-    init(code: String, message: String) {
-        self.code = code
-        self.message = message
-    }
-    init(code: String, message: String, errors: [String: [String: Array<String>]]){
-        self.code = code
-        self.message = message
-        self.errors = errors
-    }
-    
-    private func changeKeyOfErrors(dictionary: [String: [String: Array<String>]], oldKey: String, newKey: String) -> [String: [String: Array<String>]]{
-        var result = dictionary
-        let tempDict = dictionary
-        result.removeValue(forKey: oldKey)
-        result.updateValue(tempDict[oldKey]!, forKey: newKey)
-        return result
-    }
-    
-    private func replaceMultiple(inputString: String, oldTemplate: String, newTemplates:[String]) -> String {
-        var result = ""
-        var iterator = newTemplates.makeIterator()
-        var searchRange = inputString.startIndex..<self.message.endIndex
-        while let placeHolderRange = inputString.range(of: oldTemplate, options: [], range: searchRange, locale: nil) {
-            guard let replacement = iterator.next() else {
-                break
-            }
-            result.append(contentsOf: inputString[searchRange.lowerBound..<placeHolderRange.lowerBound])
-            result.append(contentsOf: replacement)
-            searchRange = placeHolderRange.upperBound..<searchRange.upperBound
-        }
-        result.append(contentsOf: self.message[searchRange])
-        return result
-    }
-    
-    func getMessage() -> String {
-        return self.message!
-    }
-    func getCode() -> String {
-        return self.code
-    }
-    func getErrors() -> [String: [String: Array<String>]]? {
-        return self.errors
-    }
-    
-    mutating func replaceMessage(oldTemplate: String, newTemplate:String) {
-        self.message = self.message.replacingOccurrences(of: oldTemplate, with: newTemplate)
-    }
-    
-    mutating func replaceMessage(oldTemplate: String, newTemplates:[String]) {
-        self.message = replaceMultiple(inputString: self.message, oldTemplate: oldTemplate, newTemplates: newTemplates)
-    }
-    
-    mutating func replaceKeyError(oldTemplate: String, newTemplate:String) {
-        for(_, value) in (self.errors!.enumerated()){
-            if(value.key.range(of: oldTemplate) != nil){
-                self.errors = changeKeyOfErrors(
-                    dictionary: self.errors!,
-                    oldKey: value.key,
-                    newKey: value.key.replacingOccurrences(of: oldTemplate, with: newTemplate))
-            }
-        }
-    }
-    
-    mutating func replaceKeyError(oldTemplate: String, newTemplates:[String]) {
-        for(_, value) in (self.errors!.enumerated()){
-            if(value.key.range(of: oldTemplate) != nil){
-                self.errors = changeKeyOfErrors(
-                    dictionary: self.errors!,
-                    oldKey: value.key,
-                    newKey: replaceMultiple(inputString: value.key, oldTemplate: oldTemplate, newTemplates: newTemplates))
-            }
-        }
-    }
-    
-    mutating func replaceValueError(_key: String, oldTemplate: String, newTemplate:String){
-        for (keyError, dval) in self.errors! {
-            if(keyError == _key) {
-                for (key, _) in dval {
-                    self.errors![keyError]![key]![0] = self.errors![keyError]![key]![0].replacingOccurrences(of: oldTemplate, with: newTemplate)
-                }
-            }
-        }
-    }
-}
-
 internal class KintoneErrorMessage: Codable {
     var API_TOKEN_ERROR: KintoneError!
     var PERMISSION_ERROR: KintoneError!
@@ -200,4 +109,97 @@ internal class KintoneErrorMessage: Codable {
     var NOT_ASSIGNEE_CHANGE_STATUS_ERROR: KintoneError!
     var UNSPECIFIED_ASSIGNEE_UPDATED_STATUS_ERROR: KintoneError!
     var INVALID_STATUS_ERROR: KintoneError!
+}
+
+struct KintoneError: Codable {
+    var code: String!
+    var message: String!
+    var errors: [String: [String: Array<String>]]?
+    
+    init(code: String, message: String) {
+        self.code = code
+        self.message = message
+    }
+    
+    init(code: String, message: String, errors: [String: [String: Array<String>]]){
+        self.code = code
+        self.message = message
+        self.errors = errors
+    }
+    
+    private func changeKeyOfErrors(dictionary: [String: [String: Array<String>]], oldKey: String, newKey: String) -> [String: [String: Array<String>]]{
+        var result = dictionary
+        let tempDict = dictionary
+        result.removeValue(forKey: oldKey)
+        result.updateValue(tempDict[oldKey]!, forKey: newKey)
+        return result
+    }
+    
+    private func replaceMultiple(inputString: String, oldTemplate: String, newTemplates:[String]) -> String {
+        var result = ""
+        var iterator = newTemplates.makeIterator()
+        var searchRange = inputString.startIndex..<self.message.endIndex
+        while let placeHolderRange = inputString.range(of: oldTemplate, options: [], range: searchRange, locale: nil) {
+            guard let replacement = iterator.next() else {
+                break
+            }
+            result.append(contentsOf: inputString[searchRange.lowerBound..<placeHolderRange.lowerBound])
+            result.append(contentsOf: replacement)
+            searchRange = placeHolderRange.upperBound..<searchRange.upperBound
+        }
+        result.append(contentsOf: self.message[searchRange])
+        return result
+    }
+    
+    func getMessage() -> String {
+        return self.message!
+    }
+    
+    func getCode() -> String {
+        return self.code
+    }
+    
+    func getErrors() -> [String: [String: Array<String>]]? {
+        return self.errors
+    }
+    
+    mutating func replaceMessage(oldTemplate: String, newTemplate:String) {
+        self.message = self.message.replacingOccurrences(of: oldTemplate, with: newTemplate)
+    }
+    
+    mutating func replaceMessage(oldTemplate: String, newTemplates:[String]) {
+        self.message = replaceMultiple(inputString: self.message, oldTemplate: oldTemplate, newTemplates: newTemplates)
+    }
+    
+    mutating func replaceKeyError(oldTemplate: String, newTemplate:String) {
+        for(_, value) in (self.errors!.enumerated()){
+            if(value.key.range(of: oldTemplate) != nil){
+                self.errors = changeKeyOfErrors(
+                    dictionary: self.errors!,
+                    oldKey: value.key,
+                    newKey: value.key.replacingOccurrences(of: oldTemplate, with: newTemplate))
+            }
+        }
+    }
+    
+    mutating func replaceKeyError(oldTemplate: String, newTemplates:[String]) {
+        for(_, value) in (self.errors!.enumerated()){
+            if(value.key.range(of: oldTemplate) != nil){
+                self.errors = changeKeyOfErrors(
+                    dictionary: self.errors!,
+                    oldKey: value.key,
+                    newKey: replaceMultiple(inputString: value.key, oldTemplate: oldTemplate, newTemplates: newTemplates))
+            }
+        }
+    }
+    
+    mutating func replaceValueError(_key: String, oldTemplate: String, newTemplate:String){
+        for (keyError, dval) in self.errors! {
+            if(keyError == _key) {
+                for (key, _) in dval {
+                    self.errors![keyError]![key]![0] = self.errors![keyError]![key]![0].replacingOccurrences(of: oldTemplate, with: newTemplate)
+                }
+            }
+        }
+    }
 }
