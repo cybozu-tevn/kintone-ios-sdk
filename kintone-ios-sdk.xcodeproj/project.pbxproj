@@ -123,7 +123,6 @@
 		68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E892282DCD600244922 /* AddSpaceResponse.swift */; };
 		68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */; };
 		68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */; };
-		68C67E902282DF9500244922 /* DevAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8F2282DF9500244922 /* DevAppTest.swift */; };
 		A88FEE1C2159DD8B00A7E838 /* UpdateViewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */; };
 		A88FEE1D2159DD8B00A7E838 /* GetAppsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */; };
 		A88FEE1E2159DD8B00A7E838 /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE042159DD8A00A7E838 /* BasicResponse.swift */; };
@@ -360,7 +359,6 @@
 		68C67E892282DCD600244922 /* AddSpaceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceResponse.swift; sourceTree = "<group>"; };
 		68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceRequest.swift; sourceTree = "<group>"; };
 		68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSpaceRequest.swift; sourceTree = "<group>"; };
-		68C67E8F2282DF9500244922 /* DevAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevAppTest.swift; sourceTree = "<group>"; };
 		A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewsResponse.swift; sourceTree = "<group>"; };
 		A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsResponse.swift; sourceTree = "<group>"; };
 		A88FEE042159DD8A00A7E838 /* BasicResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
@@ -874,7 +872,6 @@
 				68C67E432282DA8100244922 /* model */,
 				68C67E402282DA5F00244922 /* connection */,
 				68C67E3D2282DA2500244922 /* authentication */,
-				68C67E8F2282DF9500244922 /* DevAppTest.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -1640,7 +1637,6 @@
 				68C67E822282DCB700244922 /* DevHTTPHeader.swift in Sources */,
 				12F41DC721A80AEF00C0F1A7 /* ConnectionTestConstants.swift in Sources */,
 				68C67E662282DBDF00244922 /* UpdateAppPermissionsResponse.swift in Sources */,
-				68C67E902282DF9500244922 /* DevAppTest.swift in Sources */,
 				12DB97D121A7DF810070C5C4 /* AppTestConstants.swift in Sources */,
 				68C67E842282DCC100244922 /* DevCredential.swift in Sources */,
 				68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */,
