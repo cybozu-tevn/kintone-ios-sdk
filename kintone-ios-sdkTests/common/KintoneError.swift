@@ -193,7 +193,14 @@ struct KintoneError: Codable {
         }
     }
     
-    mutating func replaceValueError(_key: String, oldTemplate: String, newTemplate:String){
+    
+    /// replace the template to fix corectly kintone error message
+    ///
+    /// - Parameters:
+    ///   - _key: String | fields of the form includes type, code or both
+    ///   - oldTemplate: String | the template has in kintone error message
+    ///   - newTemplate: String | the template will be replaced to create corectly kintone error message
+    mutating func replaceValueError(_key: String, oldTemplate: String, newTemplate:String) {
         for (keyError, dval) in self.errors! {
             if(keyError == _key) {
                 for (key, _) in dval {

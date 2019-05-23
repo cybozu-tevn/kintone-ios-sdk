@@ -11,6 +11,10 @@ import Foundation
 class JSONHandler {
     var jsonResult: Data!
     
+    
+    /// get data from JSON file
+    ///
+    /// - Parameter fileName: String | the file name of the JSON file
     init (_ fileName: String){
         let testJSON = Bundle(for:type(of: self))
         if let url = testJSON.url(forResource: fileName, withExtension: "json"){
@@ -22,6 +26,12 @@ class JSONHandler {
         }
     }
     
+    
+    /// decode the JSON data
+    ///
+    /// - Parameter type: The type of data the decode will be return
+    /// - Returns: return the data decode from JSON data
+    /// - Throws: the error when decoded has problem
     func parseJSON<T>(_ type: T.Type) throws -> T where T : Decodable {
         do {
             return try JSONDecoder().decode(type, from: self.jsonResult)
