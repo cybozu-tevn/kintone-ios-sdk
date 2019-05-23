@@ -10,12 +10,9 @@ public class TestConstant {
     class Connection {
         static let environment = ProcessInfo.processInfo.environment
         
-        static let DOMAIN = "https://te-phong.cybozu-dev.com"
-        static let ADMIN_USERNAME = "cybozu"
-        static let ADMIN_PASSWORD = "cybozu@123"
-//        static let DOMAIN = environment["DOMAIN"]!
-//        static let ADMIN_USERNAME = environment["ADMIN_USERNAME"]!
-//        static let ADMIN_PASSWORD = environment["ADMIN_PASSWORD"]!
+        static let DOMAIN = environment["DOMAIN"]!
+        static let ADMIN_USERNAME = environment["ADMIN_USERNAME"]!
+        static let ADMIN_PASSWORD = environment["ADMIN_PASSWORD"]!
         
         static let CERT_NAME = "YOUR_CERT_NAME"
         static let CERT_PASSWORD = "YOUR_CERT_PASSWORD"

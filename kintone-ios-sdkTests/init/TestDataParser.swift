@@ -7,7 +7,7 @@
 import Foundation
 
 internal class TestDataParser {
-    static let jsonFileName = "config"
+    static let jsonFileName = "InitializationData"
     static let kintoneTestData = TestCommonHandling.handleDoTryCatch{try JSONHandler(jsonFileName).parseJSON(KintoneTestData.self)} as! KintoneTestData
     
     static func getDomain() -> String {
