@@ -77,6 +77,9 @@
 		3EFD812F21420FC900A1499F /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD812E21420FC900A1499F /* Member.swift */; };
 		3EFD81312146060200A1499F /* SubTableValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD81302146060200A1499F /* SubTableValueItem.swift */; };
 		3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD1F5D228531490043FD31 /* GetAppsTest.swift */; };
+		3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */; };
+		3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */; };
+		3FE11982228C04F6004A8AB7 /* GetAppsByIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197F228C04F6004A8AB7 /* GetAppsByIDs.swift */; };
 		3FF04B2B22803E2800E401FF /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2922803E2800E401FF /* AppUtils.swift */; };
 		3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2A22803E2800E401FF /* GetAppTest.swift */; };
 		3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */; };
@@ -313,6 +316,9 @@
 		3EFD812E21420FC900A1499F /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		3EFD81302146060200A1499F /* SubTableValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTableValueItem.swift; sourceTree = "<group>"; };
 		3FBD1F5D228531490043FD31 /* GetAppsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsTest.swift; sourceTree = "<group>"; };
+		3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByName.swift; sourceTree = "<group>"; };
+		3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppDeployStatusTest.swift; sourceTree = "<group>"; };
+		3FE1197F228C04F6004A8AB7 /* GetAppsByIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByIDs.swift; sourceTree = "<group>"; };
 		3FF04B2922803E2800E401FF /* AppUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		3FF04B2A22803E2800E401FF /* GetAppTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppTest.swift; sourceTree = "<group>"; };
 		3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCommonHandling.swift; sourceTree = "<group>"; };
@@ -587,7 +593,6 @@
 				3FF04B2522803C5200E401FF /* test_script */,
 				3FF04B2422803C3700E401FF /* report */,
 				3FF04B2322803C3200E401FF /* helper */,
-				3FF04B2222803C2900E401FF /* lib */,
 				3FF04B2122803C0200E401FF /* util */,
 				ABE02359216F4634002C47EC /* resource */,
 				3E17EA21213E427F002D9BC0 /* Info.plist */,
@@ -780,22 +785,18 @@
 		3FF04B2122803C0200E401FF /* util */ = {
 			isa = PBXGroup;
 			children = (
+				68C67E272280434000244922 /* JSONHandler.swift */,
+				68C67E252280433600244922 /* KintoneError.swift */,
+				68C67E232280432600244922 /* KintoneErrorParser.swift */,
+				68C67E3C2282DA0B00244922 /* extension */,
 				3FF04B2922803E2800E401FF /* AppUtils.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
 		};
-		3FF04B2222803C2900E401FF /* lib */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
 		3FF04B2322803C3200E401FF /* helper */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E3C2282DA0B00244922 /* extension */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -820,9 +821,6 @@
 		3FF04B2622803C5C00E401FF /* common */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E272280434000244922 /* JSONHandler.swift */,
-				68C67E252280433600244922 /* KintoneError.swift */,
-				68C67E232280432600244922 /* KintoneErrorParser.swift */,
 				3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */,
 				3FF04B2E22803E4800E401FF /* TestConstant.swift */,
 			);
@@ -840,6 +838,9 @@
 		3FF04B2822803DA900E401FF /* app */ = {
 			isa = PBXGroup;
 			children = (
+				3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */,
+				3FE1197F228C04F6004A8AB7 /* GetAppsByIDs.swift */,
+				3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */,
 				3FF04B2A22803E2800E401FF /* GetAppTest.swift */,
 				3FBD1F5D228531490043FD31 /* GetAppsTest.swift */,
 			);
@@ -1356,6 +1357,7 @@
 				3E17EA18213E427F002D9BC0 /* Resources */,
 				1283E3F6219ECCB600D8E282 /* CopyFiles */,
 				3FF04B20228039E600E401FF /* ShellScript */,
+				3FC071762294EB0000691F3A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1428,6 +1430,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3FC071762294EB0000691F3A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		3FF04B20228039E600E401FF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1610,6 +1629,7 @@
 				ABE02358216F461C002C47EC /* FileTest.swift in Sources */,
 				68C67E6C2282DBEE00244922 /* Token.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
+				3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */,
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
 				68C67E422282DA7000244922 /* DevConnection.swift in Sources */,
 				ABE0234A216F3A0F002C47EC /* BulkRequestTest.swift in Sources */,
@@ -1623,6 +1643,7 @@
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
 				68C67E6D2282DBEE00244922 /* ItemAPI.swift in Sources */,
 				68C67E802282DCA400244922 /* UpdateAPITokenRequest.swift in Sources */,
+				3FE11982228C04F6004A8AB7 /* GetAppsByIDs.swift in Sources */,
 				3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */,
 				68C67E512282DB3200244922 /* DevAppApp.swift in Sources */,
 				68C67E6F2282DBEE00244922 /* ItemsAPI.swift in Sources */,
@@ -1655,6 +1676,7 @@
 				68C67E5D2282DB9C00244922 /* Entity.swift in Sources */,
 				110578F4216756A900F6E8C0 /* ConnectionTest.swift in Sources */,
 				68C67E7D2282DC8D00244922 /* GetListAPIsTokenRequest.swift in Sources */,
+				3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */,
 				68C67E262280433600244922 /* KintoneError.swift in Sources */,
 				68C67E7C2282DC8D00244922 /* GetListAPIsTokenResponse.swift in Sources */,
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,

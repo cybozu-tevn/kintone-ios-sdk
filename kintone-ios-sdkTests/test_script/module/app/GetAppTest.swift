@@ -17,6 +17,10 @@ class GetAppTest: QuickSpec{
         let appName = "App Name"
         var appId: Int?
         
+        //        let json = "{ \"people\": [{ \"firstName\": \"Paul\", \"lastName\": \"Hudson\", \"isAlive\": true }, { \"firstName\": \"Angela\", \"lastName\": \"Merkel\", \"isAlive\": true }, { \"firstName\": \"George\", \"lastName\": \"Washington\", \"isAlive\": false } ] }"
+        //        let kintoneErrFilePath = Bundle(identifier: "com.myframework")!.path(forResource: "KintoneErrorMessage", ofType: "json")!
+        //        let fileContents = try? String(contentsOfFile: kintoneErrFilePath, encoding: String.Encoding.utf8)
+        
         beforeSuite {
             print("=== TEST PREPARATION ===")
             appId = AppUtils.createApp(appModule: app, appName: appName)
@@ -28,8 +32,16 @@ class GetAppTest: QuickSpec{
         }
         
         describe("GetAppTest"){
-   
+            
             it("Success Case 1"){
+                //                if let data = fileContents?.data(using: .utf8) {
+                //                    if let json = try? JSON(data: data) {
+                //                        //for item in json["API_TOKEN_ERROR"]["code"].stringValue {
+                //                        //print(item["firstName"].stringValue)
+                //                        //}
+                //                        print(json["API_TOKEN_ERROR"]["code"].stringValue)
+                //                    }
+                //                }
                 
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appId!)) as! AppModel
                 expect(getAppRsp.getAppId()).to(equal(appId))
