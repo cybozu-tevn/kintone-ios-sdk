@@ -25,7 +25,7 @@ open class UpdateMiscSettingsRequest: NSObject, Codable {
         return self.code
     }
     
-    public func getId() ->  Int {
+    public func getId() -> Int {
         return self.id
     }
     

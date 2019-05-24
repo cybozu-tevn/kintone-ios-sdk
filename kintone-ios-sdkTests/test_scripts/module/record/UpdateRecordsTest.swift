@@ -10,7 +10,7 @@ import Nimble
 @testable import Promises
 @testable import kintone_ios_sdk
 
-class UpdateRecordsTest: QuickSpec{
+class UpdateRecordsTest: QuickSpec {
     let APP_ID = 1
     let APP_UPDATE_KEY_GUEST_SPACE_ID = 2
     let APP_BLANK_ID = 6 // Create app without fields
@@ -33,7 +33,7 @@ class UpdateRecordsTest: QuickSpec{
         let recordModule = Record(TestCommonHandling.createConnection())
 
         describe("") {
-            it(""){
+            it("") {
                 self.recordTextValue.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
                 var addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
@@ -52,8 +52,8 @@ class UpdateRecordsTest: QuickSpec{
                 for record in updateRecordsResponse.getRecords()! {
                     XCTAssert(record.getRevision() == 2)
                     let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, record.getID()!)) as! GetRecordResponse
-                    for(key, value) in result.getRecord()!{
-                        if(key == self.RECORD_TEXT_FIELD){
+                    for(key, value) in result.getRecord()! {
+                        if(key == self.RECORD_TEXT_FIELD) {
                             XCTAssertEqual(self.recordTextValue[self.recordTextValue.count-1], (value.getValue() as! String))
                         }
                     }

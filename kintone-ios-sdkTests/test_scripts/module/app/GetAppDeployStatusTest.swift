@@ -9,8 +9,8 @@ import Nimble
 @testable import kintone_ios_sdk
 @testable import Promises
 
-class GetAppDeployStatusTest: QuickSpec{
-    override func spec(){
+class GetAppDeployStatusTest: QuickSpec {
+    override func spec() {
         let app = App(TestCommonHandling.createConnection())
         let appName = "App Name"
         let amountOfApps = 5
@@ -26,8 +26,8 @@ class GetAppDeployStatusTest: QuickSpec{
             AppUtils.deleteApps(appIds: appIds!)
         }
         
-        describe("GetAppDeployStatusTest"){
-            it("Success Case"){
+        describe("GetAppDeployStatusTest") {
+            it("Success Case") {
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds!)) as! GetAppDeployStatusResponse
                 dump(getAppDeployStatusRsp)
                 

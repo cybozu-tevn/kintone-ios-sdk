@@ -8,7 +8,7 @@ import Foundation
 
 internal class TestDataParser {
     static let jsonFileName = "InitializationData"
-    static let kintoneTestData = TestCommonHandling.handleDoTryCatch{try JSONHandler(jsonFileName).parseJSON(KintoneTestData.self)} as! KintoneTestData
+    static let kintoneTestData = TestCommonHandling.handleDoTryCatch {try JSONHandler(jsonFileName).parseJSON(KintoneTestData.self)} as! KintoneTestData
     
     static func getDomain() -> String {
         return kintoneTestData.domain
@@ -59,7 +59,7 @@ struct user: Decodable {
 struct guestSpace: Decodable {
     var id: String
     var threadID: String
-    var app:app
+    var app: app
     
     func getSpaceId() -> String {
         return id
@@ -73,7 +73,7 @@ struct guestSpace: Decodable {
 struct normalSpace: Decodable {
     var id: String
     var threadID: String
-    var app:app
+    var app: app
     
     func getSpaceId() -> String {
         return id

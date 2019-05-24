@@ -16,7 +16,7 @@ open class Token: NSObject, Codable {
     var deleteRecord: Bool!
     var editApp: Bool!
     
-    public func getTokenString() -> String{
+    public func getTokenString() -> String {
         return self.token
     }
     
@@ -74,4 +74,3 @@ open class Token: NSObject, Codable {
         self.editApp = editApp
     }
 }
-

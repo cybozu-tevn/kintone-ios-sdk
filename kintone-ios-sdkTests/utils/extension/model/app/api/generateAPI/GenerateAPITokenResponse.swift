@@ -12,11 +12,11 @@ open class GenerateAPITokenResponse: NSObject, Codable {
     private var result: APIItem!
     private var success: Bool!
     
-    public func getSuccess() -> Bool{
+    public func getSuccess() -> Bool {
         return self.success
     }
     
-    open func getResult() -> APIItem{
+    open func getResult() -> APIItem {
         return self.result
     }
     

@@ -20,7 +20,7 @@ class TestCommonHandling {
     /// - Returns: conn | the connection create by username and password option
     static func createConnection(_ username: String = TestConstant.Connection.ADMIN_USERNAME, _ password: String = TestConstant.Connection.ADMIN_PASSWORD) -> Connection {
         let auth = Auth.init().setPasswordAuth(username, password)
-        let conn = Connection(TestConstant.Connection.DOMAIN , auth)
+        let conn = Connection(TestConstant.Connection.DOMAIN, auth)
         return conn
     }
     
@@ -30,7 +30,7 @@ class TestCommonHandling {
     /// - Returns: conn | the connection create by api token
     static func createConnection(_ apiToken: String) -> Connection {
         let auth = Auth.init().setApiToken(apiToken)
-        let conn = Connection(TestConstant.Connection.DOMAIN , auth)
+        let conn = Connection(TestConstant.Connection.DOMAIN, auth)
         return conn
     }
     
@@ -43,7 +43,7 @@ class TestCommonHandling {
     /// - Returns: conn | the connection create by username, password and guest space id
     static func createConnection(_ username: String, _ password: String, _ guestSpaceId: Int) -> Connection {
         let auth = Auth.init().setPasswordAuth(username, password)
-        let conn = Connection(TestConstant.Connection.DOMAIN , auth, guestSpaceId)
+        let conn = Connection(TestConstant.Connection.DOMAIN, auth, guestSpaceId)
         return conn
     }
     
@@ -52,15 +52,15 @@ class TestCommonHandling {
     /// - Parameter promise: Promise<T> | the promise will be handled
     /// - Returns: response | the respone of the promise
     /// - Throws: throws error
-    static func awaitAsync<T>(_ promise: Promise<T>) -> Any{
+    static func awaitAsync<T>(_ promise: Promise<T>) -> Any {
         let expectation = XCTestExpectation(description: "Async call")
-        var response: Any? = nil
-        var error: Any? = nil
+        var response: Any?
+        var error: Any?
         
         promise.then { asyncResult in
             response = asyncResult
             expectation.fulfill()
-            }.catch{ err in
+            }.catch { err in
                 error = err
                 expectation.fulfill()
         }
@@ -89,7 +89,7 @@ class TestCommonHandling {
     /// - Returns: the random string value
     public static func generateRandomString(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0...length-1).map{ _ in letters.randomElement()! })
+        return String((0...length-1).map { _ in letters.randomElement()! })
     }
     
     /// fill single data to Dictionary record data
@@ -134,7 +134,7 @@ class TestCommonHandling {
         /// using Nimble to compare expected and actual kintone error message
         expect(expectedErrorCode).to(equal(actualErrorCode), description: "The error code incorrectly")
         expect(expectedErrorMessage).to(equal(actualErrorMessage), description: "The error message incorrectly")
-        if(expectedErrors != nil){
+        if(expectedErrors != nil) {
             expect(expectedErrors).to(equal(actualErrors), description: "The errors incorrectly")
         }
     }

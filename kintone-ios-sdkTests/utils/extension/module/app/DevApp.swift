@@ -14,7 +14,7 @@ public class DevApp: NSObject {
     var parser = DevAppParser()
     
     public init(_ connection: DevConnection?) {
-        self.devConnection = connection;
+        self.devConnection = connection
     }
 }
 

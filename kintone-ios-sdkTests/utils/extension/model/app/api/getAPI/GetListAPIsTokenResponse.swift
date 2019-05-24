@@ -20,7 +20,7 @@ open class GetListAPIsTokenResponse: NSObject, Codable {
         self.success = success
     }
     
-    public func getResult() -> ItemsAPI{
+    public func getResult() -> ItemsAPI {
         return self.result
     }
     

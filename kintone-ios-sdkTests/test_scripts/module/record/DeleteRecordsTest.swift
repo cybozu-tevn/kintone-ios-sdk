@@ -10,14 +10,14 @@ import Nimble
 @testable import Promises
 @testable import kintone_ios_sdk
 
-class DeleteRecordsTest: QuickSpec{
+class DeleteRecordsTest: QuickSpec {
     let APP_ID = 1
     let APP_NEGATIVE_ID = -1
     let APP_NONEXISTENT_ID = 100000
     let GUESTSPACE_APP_ID = 2
 
     var recordIDs = [Int]()
-    var recordRevision: Int? = nil
+    var recordRevision: Int?
     let RECORD_TEXT_FIELD: String = "txt_Name"
     let RECORD_NUMBER_FILED: String = "txt_Number"
     var recordTextValues = [String]()
@@ -40,8 +40,8 @@ class DeleteRecordsTest: QuickSpec{
             self.GUESTSPACE_APP_ID))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
 
-        describe("DeleteRecord"){
-            it("Test_127_Success_Single"){
+        describe("DeleteRecord") {
+            it("Test_127_Success_Single") {
                 self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
@@ -53,7 +53,7 @@ class DeleteRecordsTest: QuickSpec{
                 //Delete the record after created
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(self.APP_ID, self.recordIDs))
                 
-                for item in self.recordIDs{
+                for item in self.recordIDs {
                     let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, item)) as! KintoneAPIException
                     let actualError = result.getErrorResponse()
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -63,7 +63,7 @@ class DeleteRecordsTest: QuickSpec{
                 }
             }// End it
             
-            it("Test_128_Success_Multiple"){
+            it("Test_128_Success_Multiple") {
                 for i in 0...self.COUNT_NUMBER-1 {
                     self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                     self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
@@ -78,7 +78,7 @@ class DeleteRecordsTest: QuickSpec{
                 //Delete the record after created
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(self.APP_ID, self.recordIDs))
                 
-                for item in self.recordIDs{
+                for item in self.recordIDs {
                     let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, item)) as! KintoneAPIException
                     let actualError = result.getErrorResponse()
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -88,7 +88,7 @@ class DeleteRecordsTest: QuickSpec{
                 }
             }
             
-            it("Test_128_Success_MultipleGuestSpace"){
+            it("Test_128_Success_MultipleGuestSpace") {
                 for i in 0...self.COUNT_NUMBER-1 {
                     self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                     self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
@@ -103,7 +103,7 @@ class DeleteRecordsTest: QuickSpec{
                 //Delete the record after created
                 _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(self.GUESTSPACE_APP_ID, self.recordIDs))
                 
-                for item in self.recordIDs{
+                for item in self.recordIDs {
                     let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(self.GUESTSPACE_APP_ID, item)) as! KintoneAPIException
                     let actualError = result.getErrorResponse()
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -113,7 +113,7 @@ class DeleteRecordsTest: QuickSpec{
                 }
             }
             
-            it("Test_128_Success_MultipleAPIToken"){
+            it("Test_128_Success_MultipleAPIToken") {
                 for i in 0...self.COUNT_NUMBER-1 {
                     self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                     self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
@@ -128,7 +128,7 @@ class DeleteRecordsTest: QuickSpec{
                 //Delete the record after created
                 _ = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.deleteRecords(self.APP_ID, self.recordIDs))
                 
-                for item in self.recordIDs{
+                for item in self.recordIDs {
                     let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecord(self.APP_ID, item)) as! KintoneAPIException
                     let actualError = result.getErrorResponse()
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -138,7 +138,7 @@ class DeleteRecordsTest: QuickSpec{
                 }
             }
             
-            it("Test_129_Error_NoneExistentRecord"){
+            it("Test_129_Error_NoneExistentRecord") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, self.RECORD_NONEXISTENT_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -147,7 +147,7 @@ class DeleteRecordsTest: QuickSpec{
                 TestCommonHandling.compareError(expectedError, actualError!)
             }
             
-            it("Test_130_Error_WithouDeletetPermission"){
+            it("Test_130_Error_WithouDeletetPermission") {
                 self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
@@ -165,7 +165,7 @@ class DeleteRecordsTest: QuickSpec{
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(self.APP_ID, self.recordIDs))
             }
             
-            it("Test_133_Error_NoneExistentApp"){
+            it("Test_133_Error_NoneExistentApp") {
                 self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
@@ -184,7 +184,7 @@ class DeleteRecordsTest: QuickSpec{
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(self.APP_ID, self.recordIDs))
             }
             
-            it("Test_133_Error_NegativeApp"){
+            it("Test_133_Error_NegativeApp") {
                 self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                 self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
@@ -203,7 +203,7 @@ class DeleteRecordsTest: QuickSpec{
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(self.APP_ID, self.recordIDs))
             }
             
-            it("Test_138_Success_100Records"){
+            it("Test_138_Success_100Records") {
                 for i in 0...99 {
                     self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                     self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
@@ -217,7 +217,7 @@ class DeleteRecordsTest: QuickSpec{
                 //Delete the record after created
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(self.APP_ID, self.recordIDs))
                 
-                for item in self.recordIDs{
+                for item in self.recordIDs {
                     let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, item)) as! KintoneAPIException
                     let actualError = result.getErrorResponse()
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -227,7 +227,7 @@ class DeleteRecordsTest: QuickSpec{
                 }
             }
             
-            it("Test_139_Error_101Records"){
+            it("Test_139_Error_101Records") {
                 for i in 0...99 {
                     self.recordTextValues.append(TestCommonHandling.generateRandomString(length: 64))
                     self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])

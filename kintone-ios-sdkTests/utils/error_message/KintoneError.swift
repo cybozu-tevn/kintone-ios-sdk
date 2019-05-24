@@ -28,7 +28,7 @@ internal class KintoneErrorMessage: Codable {
     var MISSING_COMMENT_TEXT_ERROR: KintoneError!
     var MISSING_COMMENT_MENTIONS_TYPE_ERROR: KintoneError!
     var MISSING_DELETE_COMMENT_OBJECT_ERROR: KintoneError!
-    var MISSING_REQUIRED_FIELD_ADD_RECORD_ERROR : KintoneError!
+    var MISSING_REQUIRED_FIELD_ADD_RECORD_ERROR: KintoneError!
     var MISSING_VIEWS_INDEX_ERROR: KintoneError!
     var MISSING_VIEWS_TYPE_ERROR: KintoneError!
     var MISSING_ASSIGNEE_ERROR: KintoneError!
@@ -83,7 +83,6 @@ internal class KintoneErrorMessage: Codable {
     var INCORRECT_REVISION_RECORD_ERROR: KintoneError!
     var INCORRECT_FILE_KEY_DOWNLOAD: KintoneError!
     
-    
     var DUPLICATE_APP_ID_ERROR: KintoneError!
     
     var LIMIT_LARGER_THAN_10_ERRORS: KintoneError!
@@ -121,13 +120,13 @@ struct KintoneError: Codable {
         self.message = message
     }
     
-    init(code: String, message: String, errors: [String: [String: Array<String>]]){
+    init(code: String, message: String, errors: [String: [String: Array<String>]]) {
         self.code = code
         self.message = message
         self.errors = errors
     }
     
-    private func changeKeyOfErrors(dictionary: [String: [String: Array<String>]], oldKey: String, newKey: String) -> [String: [String: Array<String>]]{
+    private func changeKeyOfErrors(dictionary: [String: [String: Array<String>]], oldKey: String, newKey: String) -> [String: [String: Array<String>]] {
         var result = dictionary
         let tempDict = dictionary
         result.removeValue(forKey: oldKey)
@@ -135,7 +134,7 @@ struct KintoneError: Codable {
         return result
     }
     
-    private func replaceMultiple(inputString: String, oldTemplate: String, newTemplates:[String]) -> String {
+    private func replaceMultiple(inputString: String, oldTemplate: String, newTemplates: [String]) -> String {
         var result = ""
         var iterator = newTemplates.makeIterator()
         var searchRange = inputString.startIndex..<self.message.endIndex
@@ -163,17 +162,17 @@ struct KintoneError: Codable {
         return self.errors
     }
     
-    mutating func replaceMessage(oldTemplate: String, newTemplate:String) {
+    mutating func replaceMessage(oldTemplate: String, newTemplate: String) {
         self.message = self.message.replacingOccurrences(of: oldTemplate, with: newTemplate)
     }
     
-    mutating func replaceMessage(oldTemplate: String, newTemplates:[String]) {
+    mutating func replaceMessage(oldTemplate: String, newTemplates: [String]) {
         self.message = replaceMultiple(inputString: self.message, oldTemplate: oldTemplate, newTemplates: newTemplates)
     }
     
-    mutating func replaceKeyError(oldTemplate: String, newTemplate:String) {
-        for(_, value) in (self.errors!.enumerated()){
-            if(value.key.range(of: oldTemplate) != nil){
+    mutating func replaceKeyError(oldTemplate: String, newTemplate: String) {
+        for(_, value) in (self.errors!.enumerated()) {
+            if(value.key.range(of: oldTemplate) != nil) {
                 self.errors = changeKeyOfErrors(
                     dictionary: self.errors!,
                     oldKey: value.key,
@@ -182,9 +181,9 @@ struct KintoneError: Codable {
         }
     }
     
-    mutating func replaceKeyError(oldTemplate: String, newTemplates:[String]) {
-        for(_, value) in (self.errors!.enumerated()){
-            if(value.key.range(of: oldTemplate) != nil){
+    mutating func replaceKeyError(oldTemplate: String, newTemplates: [String]) {
+        for(_, value) in (self.errors!.enumerated()) {
+            if(value.key.range(of: oldTemplate) != nil) {
                 self.errors = changeKeyOfErrors(
                     dictionary: self.errors!,
                     oldKey: value.key,
@@ -193,14 +192,13 @@ struct KintoneError: Codable {
         }
     }
     
-    
     /// replace the template to fix corectly kintone error message
     ///
     /// - Parameters:
     ///   - _key: String | fields of the form includes type, code or both
     ///   - oldTemplate: String | the template has in kintone error message
     ///   - newTemplate: String | the template will be replaced to create corectly kintone error message
-    mutating func replaceValueError(_key: String, oldTemplate: String, newTemplate:String) {
+    mutating func replaceValueError(_key: String, oldTemplate: String, newTemplate: String) {
         for (keyError, dval) in self.errors! {
             if(keyError == _key) {
                 for (key, _) in dval {

@@ -35,8 +35,8 @@ open class DevConnection: NSObject {
     private var headers: Array<DevHTTPHeader> = []
     
     /// Contains information for bypass proxy.
-    private var proxyHost: String? = nil
-    private var proxyPort: Int? = nil
+    private var proxyHost: String?
+    private var proxyPort: Int?
     
     /// Constructor for init a connection object to connect to guest space.
     ///
@@ -69,7 +69,7 @@ open class DevConnection: NSObject {
     /// - Parameter body: String
     /// - Returns: Data
     /// - Throws: KintoneAPIException
-    open func downloadFile(_ baseUrl:String, _ body: String) -> Promise<Data> {
+    open func downloadFile(_ baseUrl: String, _ body: String) -> Promise<Data> {
         return Promise { fullfill, reject in
             var urlString: String = ""
             do {
@@ -96,7 +96,7 @@ open class DevConnection: NSObject {
             let session = URLSession(configuration: config)
             
             self.execute(session, request).then { (data, response, error) in
-                if (data != nil || response != nil){
+                if (data != nil || response != nil) {
                     do {
                         try self.checkStatus(response, data, body, nil)
                         fullfill(data!)
@@ -120,7 +120,7 @@ open class DevConnection: NSObject {
     ///   - binaryData: Data
     /// - Returns: Data
     /// - Throws: KintoneAPIException
-    open func uploadFile(_ baseUrl: String,_ fileName: String, _ binaryData: Data) -> Promise<Data> {
+    open func uploadFile(_ baseUrl: String, _ fileName: String, _ binaryData: Data) -> Promise<Data> {
         return Promise { fullfill, reject in
             var urlString = ""
             do {
@@ -157,7 +157,7 @@ open class DevConnection: NSObject {
             let session = URLSession(configuration: self.setURLSessionConfiguration())
             
             self.execute(session, request).then { (data, response, error) in
-                if (data != nil || response != nil){
+                if (data != nil || response != nil) {
                     do {
                         try self.checkStatus(response, data, nil, nil)
                         let jsonobject = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
@@ -184,12 +184,12 @@ open class DevConnection: NSObject {
     ///   - body: json object
     /// - Returns: Promise
     /// - Throws: KintoneAPIException
-    open func request(_ baseUrl:String, _ method: String, _ apiName: String, _ body: String) -> Promise<Data> {
+    open func request(_ baseUrl: String, _ method: String, _ apiName: String, _ body: String) -> Promise<Data> {
         return Promise { fullfill, reject in
             var urlString = ""
             var isGet = false
             
-            if (ConnectionConstants.GET_REQUEST == method){
+            if (ConnectionConstants.GET_REQUEST == method) {
                 isGet = true
             }
             
@@ -219,7 +219,7 @@ open class DevConnection: NSObject {
             let session = URLSession(configuration: self.setURLSessionConfiguration())
             
             self.execute(session, request).then { (data, response, error) in
-                if (data != nil || response != nil){
+                if (data != nil || response != nil) {
                     do {
                         try self.checkStatus(response, data, body, apiName)
                         let jsonobject = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
@@ -269,20 +269,20 @@ open class DevConnection: NSObject {
             throw KintoneAPIException("api is empty")
         }
         var sb = ""
-        if (!unwrappedDomain.contains(ConnectionConstants.HTTPS_PREFIX)){
+        if (!unwrappedDomain.contains(ConnectionConstants.HTTPS_PREFIX)) {
             sb.append(ConnectionConstants.HTTPS_PREFIX)
         }
         sb.append(unwrappedDomain)
         
         var urlString = baseUrl
-        if (self.guestSpaceID != nil){
+        if (self.guestSpaceID != nil) {
             if (self.guestSpaceID! >= 0) {
                 urlString = ConnectionConstants.BASE_GUEST_URL.replacingOccurrences(of: "{GUEST_SPACE_ID}", with: String(self.guestSpaceID!) + "")
             }
         }
         urlString = urlString.replacingOccurrences(of: "{API_NAME}", with: unwrappedApiName)
         sb.append(urlString)
-        if (parameters != nil){
+        if (parameters != nil) {
             sb.append(parameters!)
         }
         
@@ -296,7 +296,7 @@ open class DevConnection: NSObject {
     /// - Returns: URLRequest
     private func setHTTPHeaders(_ connection: URLRequest) -> URLRequest {
         var request = connection
-        for header: DevHTTPHeader? in self.devAuth.createHeaderCredentials(){
+        for header: DevHTTPHeader? in self.devAuth.createHeaderCredentials() {
             if let unwrapHeader = header {
                 if let unwrap_getvalue = unwrapHeader.getValue() {
                     if let unwrap_getKey = unwrapHeader.getKey() {
@@ -325,7 +325,7 @@ open class DevConnection: NSObject {
     ///   - value: value
     /// - Returns: Connection
     open func setHeader(_ key: String, _ value: String) -> DevConnection {
-        self.headers.append(DevHTTPHeader(key, value));
+        self.headers.append(DevHTTPHeader(key, value))
         return self
     }
     
@@ -334,8 +334,8 @@ open class DevConnection: NSObject {
     /// - Parameter auth: auth
     /// - Returns: Connection
     open func setAuth(_ auth: DevAuth) -> DevConnection {
-        self.devAuth = auth;
-        return self;
+        self.devAuth = auth
+        return self
     }
     
     /// Get kintone domain url of connection.
@@ -377,7 +377,7 @@ open class DevConnection: NSObject {
         }
         
         if (statusCode != 200) {
-            if (apiName == ConnectionConstants.BULK_REQUEST){
+            if (apiName == ConnectionConstants.BULK_REQUEST) {
                 do {
                     if let unWrapResponses: Array<ErrorResponse> = self.getErrorResponses(data) {
                         if let jsonBody = body?.data(using: String.Encoding.utf8) {
@@ -427,7 +427,6 @@ open class DevConnection: NSObject {
         }
         return nil
     }
-    
     
     /// Creates an error response list object.
     ///
@@ -489,7 +488,7 @@ open class DevConnection: NSObject {
     open func getPathURI(_ apiName: String) -> String {
         var pathURI = ""
         
-        if (self.guestSpaceID != nil){
+        if (self.guestSpaceID != nil) {
             if (self.guestSpaceID! >= 0) {
                 pathURI = ConnectionConstants.BASE_GUEST_URL
                 pathURI = pathURI.replacingOccurrences(of: "{GUEST_SPACE_ID}", with: String(self.guestSpaceID!) + "")

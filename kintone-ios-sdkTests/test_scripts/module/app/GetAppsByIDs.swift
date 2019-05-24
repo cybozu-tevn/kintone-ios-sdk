@@ -9,8 +9,8 @@ import Nimble
 @testable import kintone_ios_sdk
 @testable import Promises
 
-class GetAppsByIDsTest: QuickSpec{
-    override func spec(){
+class GetAppsByIDsTest: QuickSpec {
+    override func spec() {
         let app = App(TestCommonHandling.createConnection())
         let appName = "App Name"
         let amountOfApps = 5
@@ -26,8 +26,8 @@ class GetAppsByIDsTest: QuickSpec{
             AppUtils.deleteApps(appIds: appIds!)
         }
         
-        describe("GetAppsByIDsTest"){
-            it("Success Case"){
+        describe("GetAppsByIDsTest") {
+            it("Success Case") {
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds)) as! Array<AppModel>
                 
                 expect(getAppsByIDsRsp.count).to(equal(appIds?.count))

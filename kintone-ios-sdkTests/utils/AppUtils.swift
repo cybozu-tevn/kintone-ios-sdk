@@ -14,7 +14,7 @@ class AppUtils {
                     let status = response.getApps()![0].getStatus()?.rawValue
                     // print("Deploying app status \(String(describing: status))")
                     
-                    if(status == AppDeployStatus.Status.SUCCESS.rawValue){
+                    if(status == AppDeployStatus.Status.SUCCESS.rawValue) {
                         isDeployed = true
                     }
                 }.catch { error in
@@ -50,7 +50,7 @@ class AppUtils {
         }
     }
     
-    static func createApp(appModule: App, appName: String = "App created by kintone-ios-sdk test scripts",  spaceId: Int? = nil, threadId: Int? = nil) -> Int {
+    static func createApp(appModule: App, appName: String = "App created by kintone-ios-sdk test scripts", spaceId: Int? = nil, threadId: Int? = nil) -> Int {
         var apps = [PreviewApp]()
         var appId: Int!
         appModule.addPreviewApp(appName, spaceId, threadId)
@@ -70,12 +70,12 @@ class AppUtils {
         return appId
     }
     
-    static func createApps(appModule: App, appName: String = "App created by kintone-ios-sdk test scripts",  spaceId: Int? = nil, threadId: Int? = nil, amount: Int = 1) -> [Int] {
+    static func createApps(appModule: App, appName: String = "App created by kintone-ios-sdk test scripts", spaceId: Int? = nil, threadId: Int? = nil, amount: Int = 1) -> [Int] {
         var apps = [PreviewApp]()
         var appIds = [Int]()
         for index in 0...amount-1 {
             appModule.addPreviewApp(appName + String(index), spaceId, threadId)
-                .then{response in
+                .then {response in
                     apps.append(response)
                     appIds.append(response.getApp()!)
                     print("Creating app: \(response.getApp()!)")
@@ -92,10 +92,9 @@ class AppUtils {
         return appIds
     }
     
-    
     static func deleteApp(appId: Int) {
         self.devAppModule.deleteApp(appId)
-            .then { response in
+            .then { _ in
                 // print("Delete app: \(appId)")
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {
@@ -116,7 +115,7 @@ class AppUtils {
     static func getListAPIsToken(_ appId: Int) -> [ItemAPI] {
         var items = [ItemAPI]()
         devAppModule.getListAPIsToken(appId)
-            .then{response in
+            .then {response in
                 items = response.getResult().getItems()
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {
@@ -165,7 +164,7 @@ class AppUtils {
         let getListAPIsTokenResponse = self.getListAPIsToken(appId)
         var tokens = [Token]()
         for item in getListAPIsTokenResponse {
-            if(item.getToken().getTokenString() != token.getTokenString()){
+            if(item.getToken().getTokenString() != token.getTokenString()) {
                 tokens.append(item.getToken())
             }
         }
@@ -195,7 +194,7 @@ class AppUtils {
     
     static func getAppPermissions(appId: Int) -> [Right] {
         var rights = [Right]()
-        devAppModule.getAppPermissions(appId).then{response in
+        devAppModule.getAppPermissions(appId).then {response in
             rights = response.getRights()
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {

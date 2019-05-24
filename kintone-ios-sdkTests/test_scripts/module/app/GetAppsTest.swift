@@ -9,15 +9,15 @@ import Nimble
 @testable import kintone_ios_sdk
 @testable import Promises
 
-class GetAppsTest: QuickSpec{
-    override func spec(){
+class GetAppsTest: QuickSpec {
+    override func spec() {
         let app = App(TestCommonHandling.createConnection())
         let appName = "App Name"
         let amountOfApps = 5
         var appIds: [Int]?
         var offset: Int?
         
-        describe("GetAppsTest"){
+        describe("GetAppsTest") {
             
             beforeSuite {
                 print("=== TEST PREPARATION ===")
@@ -30,10 +30,10 @@ class GetAppsTest: QuickSpec{
                 AppUtils.deleteApps(appIds: appIds!)
             }
             
-            it("Success Case"){
+            it("Success Case") {
                 
                 let getAppsRsp = TestCommonHandling.awaitAsync(app.getApps(offset, nil)) as! Array<AppModel>
-                for (index, app) in getAppsRsp.enumerated(){
+                for (index, app) in getAppsRsp.enumerated() {
                     expect(app.getAppId()).to(equal(appIds![index]))
                     expect(app.getName()).to(equal("\(appName)\(index)"))
                     expect(app.getCode()).to(equal(""))

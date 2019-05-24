@@ -53,35 +53,35 @@ class GetRecordTest: QuickSpec {
             self.GUESTSPACE_APP_ID))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
         
-        describe("GetRecord"){
-            it("Test_3_Success_ValidData"){
+        describe("GetRecord") {
+            it("Test_3_Success_ValidData") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
-                    if(key == self.RECORD_TEXT_FIELD){
+                for(key, value) in result.getRecord()! {
+                    if(key == self.RECORD_TEXT_FIELD) {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
             }
             
-            it("Test_3_Success_GuestSpaceValidData"){
+            it("Test_3_Success_GuestSpaceValidData") {
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(self.GUESTSPACE_APP_ID, self.RECORD_ID)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
-                    if(key == self.RECORD_TEXT_FIELD){
+                for(key, value) in result.getRecord()! {
+                    if(key == self.RECORD_TEXT_FIELD) {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
             }
             
-            it("Test_3_Success_APITokenValidData"){
+            it("Test_3_Success_APITokenValidData") {
                 let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
-                    if(key == self.RECORD_TEXT_FIELD){
+                for(key, value) in result.getRecord()! {
+                    if(key == self.RECORD_TEXT_FIELD) {
                         expect(self.RECORD_TEST_VALUE).to(equal(value.getValue() as? String))
                     }
                 }
             }
             
-            it("Test_4_Error_NonexistentAppID"){
+            it("Test_4_Error_NonexistentAppID") {
                 //Get error from kintone
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_NONEXISTENT_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
@@ -92,7 +92,7 @@ class GetRecordTest: QuickSpec {
                 TestCommonHandling.compareError(expectedError, actualError!)
             }
             
-            it("Test_4_Error_NegativeAppID"){
+            it("Test_4_Error_NegativeAppID") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_NEGATIVE_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError  = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
@@ -100,7 +100,7 @@ class GetRecordTest: QuickSpec {
                 TestCommonHandling.compareError(expectedError, actualError!)
             }
             
-            it("Test_5_Error_NonexistentRecordID"){
+            it("Test_5_Error_NonexistentRecordID") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, self.RECORD_NONEXISTENT_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -109,8 +109,7 @@ class GetRecordTest: QuickSpec {
                 TestCommonHandling.compareError(expectedError, actualError!)
             }
             
-            
-            it("Test_5_Error_NegativeRecordID"){
+            it("Test_5_Error_NegativeRecordID") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_ID, self.RECORD_NEGATIVE_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NEGATIVE_RECORD_ID_ERROR()!
@@ -120,7 +119,7 @@ class GetRecordTest: QuickSpec {
             }
             
             // When user don't have View records permission for app
-            it("Test_8_Error_WithoutViewAppPermission"){
+            it("Test_8_Error_WithoutViewAppPermission") {
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermissionApp.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
@@ -129,7 +128,7 @@ class GetRecordTest: QuickSpec {
             }
             
             // When user don't have View records permission for record
-            it("Test_9_Error_WithoutViewRecordPermission"){
+            it("Test_9_Error_WithoutViewRecordPermission") {
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermissionRecord.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
@@ -138,27 +137,27 @@ class GetRecordTest: QuickSpec {
             }
             
             // When user don't have View records permission for field - ex: txt_Name field
-            it("Test_10_Error_WithoutFieldRecordPermission"){
+            it("Test_10_Error_WithoutFieldRecordPermission") {
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermissionField.getRecord(self.APP_ID, self.RECORD_ID)) as! GetRecordResponse
                 var fieldItems = [String]()
-                for(key, _) in result.getRecord()!{
+                for(key, _) in result.getRecord()! {
                     fieldItems.append(key)
                 }
                 expect(fieldItems).toNot(contain(self.RECORD_TEXT_FIELD))
             }
             
-            it("Test_13_Success_BlankApp"){
+            it("Test_13_Success_BlankApp") {
                 var defaultKey =  [
                     "Created_datetime": "Created_datetime",
-                    "$id" : "$id",
-                    "Updated_datetime" : "Updated_datetime",
-                    "$revision" : "$revision",
-                    "Updated_by" : "Updated_by",
-                    "Created_by" : "Created_by",
-                    "Record_number" : "Record_number"
+                    "$id": "$id",
+                    "Updated_datetime": "Updated_datetime",
+                    "$revision": "$revision",
+                    "Updated_by": "Updated_by",
+                    "Created_by": "Created_by",
+                    "Record_number": "Record_number"
                 ]
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(self.APP_BLANK_ID, self.RECORD_ID)) as! GetRecordResponse
-                for (key, _) in result.getRecord()!{
+                for (key, _) in result.getRecord()! {
                     expect(defaultKey[key]).to(equal(key))
                 }
             }// End it

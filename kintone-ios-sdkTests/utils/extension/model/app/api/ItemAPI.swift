@@ -38,7 +38,7 @@ open class ItemAPI: Token {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.appFacadeId = try container.decode(String.self, forKey: .appFacadeId)
             try super.init(from: decoder)
-        } catch  {
+        } catch {
             throw error
         }
     }

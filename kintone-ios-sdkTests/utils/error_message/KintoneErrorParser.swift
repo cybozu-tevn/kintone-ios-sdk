@@ -9,7 +9,7 @@
 import Foundation
 
 class KintoneErrorParser {
-    static let result = TestCommonHandling.handleDoTryCatch{try JSONHandler("KintoneErrorMessage").parseJSON(KintoneErrorMessage.self)} as! KintoneErrorMessage
+    static let result = TestCommonHandling.handleDoTryCatch {try JSONHandler("KintoneErrorMessage").parseJSON(KintoneErrorMessage.self)} as! KintoneErrorMessage
     
     static func API_TOKEN_ERROR() -> KintoneError? {
         return result.API_TOKEN_ERROR
@@ -23,11 +23,11 @@ class KintoneErrorParser {
         return result.MISSING_APPS_ERROR
     }
     
-    static func MISSING_SPACE_ERROR() -> KintoneError?{
+    static func MISSING_SPACE_ERROR() -> KintoneError? {
         return result.MISSING_SPACE_ERROR
     }
     
-    static func MISSING_THREAD_ERROR() -> KintoneError?{
+    static func MISSING_THREAD_ERROR() -> KintoneError? {
         return result.MISSING_THREAD_ERROR
     }
     
@@ -146,7 +146,6 @@ class KintoneErrorParser {
     static func INVALID_VIEWS_KEY_ERROR() -> KintoneError? {
         return result.INVALID_VIEWS_KEY_ERROR
     }
-    
     
     static func NEGATIVE_APPID_ERROR() -> KintoneError? {
         return result.NEGATIVE_APPID_ERROR

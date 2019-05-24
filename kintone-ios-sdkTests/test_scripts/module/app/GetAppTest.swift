@@ -11,8 +11,8 @@ import Nimble
 @testable import kintone_ios_sdk
 @testable import Promises
 
-class GetAppTest: QuickSpec{
-    override func spec(){
+class GetAppTest: QuickSpec {
+    override func spec() {
         let app = App(TestCommonHandling.createConnection())
         let appName = "App Name"
         var appId: Int?
@@ -31,9 +31,9 @@ class GetAppTest: QuickSpec{
             AppUtils.deleteApp(appId: appId!)
         }
         
-        describe("GetAppTest"){
+        describe("GetAppTest") {
             
-            it("Success Case 1"){
+            it("Success Case 1") {
                 //                if let data = fileContents?.data(using: .utf8) {
                 //                    if let json = try? JSON(data: data) {
                 //                        //for item in json["API_TOKEN_ERROR"]["code"].stringValue {
