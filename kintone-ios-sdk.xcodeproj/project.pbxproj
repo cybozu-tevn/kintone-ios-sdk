@@ -104,7 +104,7 @@
 		68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */; };
 		68C67E662282DBDF00244922 /* UpdateAppPermissionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */; };
 		68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */; };
-		68C67E6C2282DBEE00244922 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E682282DBEE00244922 /* Token.swift */; };
+		68C67E6C2282DBEE00244922 /* TokenEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E682282DBEE00244922 /* TokenEntity.swift */; };
 		68C67E6D2282DBEE00244922 /* ItemAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E692282DBEE00244922 /* ItemAPI.swift */; };
 		68C67E6E2282DBEE00244922 /* APIItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6A2282DBEE00244922 /* APIItem.swift */; };
 		68C67E6F2282DBEE00244922 /* ItemsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6B2282DBEE00244922 /* ItemsAPI.swift */; };
@@ -335,7 +335,7 @@
 		68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppPermissionsRequest.swift; sourceTree = "<group>"; };
 		68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppPermissionsResponse.swift; sourceTree = "<group>"; };
 		68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppPermissionsRequest.swift; sourceTree = "<group>"; };
-		68C67E682282DBEE00244922 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		68C67E682282DBEE00244922 /* TokenEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenEntity.swift; sourceTree = "<group>"; };
 		68C67E692282DBEE00244922 /* ItemAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAPI.swift; sourceTree = "<group>"; };
 		68C67E6A2282DBEE00244922 /* APIItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIItem.swift; sourceTree = "<group>"; };
 		68C67E6B2282DBEE00244922 /* ItemsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsAPI.swift; sourceTree = "<group>"; };
@@ -560,7 +560,7 @@
 			children = (
 				3FF04B2722803C6200E401FF /* init */,
 				3FF04B2622803C5C00E401FF /* common */,
-				3FF04B2522803C5200E401FF /* test_scripts */,
+				3FF04B2522803C5200E401FF /* test-scripts */,
 				3FF04B2422803C3700E401FF /* report */,
 				3FF04B2122803C0200E401FF /* utils */,
 				ABE02359216F4634002C47EC /* resources */,
@@ -755,7 +755,7 @@
 			isa = PBXGroup;
 			children = (
 				B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */,
-				680FB6B1229698C800ECA48E /* error_message */,
+				680FB6B1229698C800ECA48E /* error-message */,
 				68C67E272280434000244922 /* JSONHandler.swift */,
 				68C67E3C2282DA0B00244922 /* extension */,
 				3FF04B2922803E2800E401FF /* AppUtils.swift */,
@@ -770,13 +770,13 @@
 			path = report;
 			sourceTree = "<group>";
 		};
-		3FF04B2522803C5200E401FF /* test_scripts */ = {
+		3FF04B2522803C5200E401FF /* test-scripts */ = {
 			isa = PBXGroup;
 			children = (
 				110578F2216756A900F6E8C0 /* connection */,
 				110578E521620B9300F6E8C0 /* module */,
 			);
-			path = test_scripts;
+			path = "test-scripts";
 			sourceTree = "<group>";
 		};
 		3FF04B2622803C5C00E401FF /* common */ = {
@@ -808,32 +808,32 @@
 			path = app;
 			sourceTree = "<group>";
 		};
-		680FB6B1229698C800ECA48E /* error_message */ = {
+		680FB6B1229698C800ECA48E /* error-message */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E252280433600244922 /* KintoneError.swift */,
 				68C67E232280432600244922 /* KintoneErrorParser.swift */,
 			);
-			path = error_message;
+			path = "error-message";
 			sourceTree = "<group>";
 		};
-		68C67E1F228041EA00244922 /* test_data */ = {
+		68C67E1F228041EA00244922 /* test-data */ = {
 			isa = PBXGroup;
 			children = (
 				682B6AEF228D4E6300D4A894 /* InitializationData.json */,
 				68C67E21228042EF00244922 /* KintoneErrorMessage.json */,
 			);
-			path = test_data;
+			path = "test-data";
 			sourceTree = "<group>";
 		};
-		68C67E202280422400244922 /* test_file */ = {
+		68C67E202280422400244922 /* test-file */ = {
 			isa = PBXGroup;
 			children = (
 				ABE0235C216F4652002C47EC /* test.xlsx */,
 				ABE0235B216F4652002C47EC /* test.txt */,
 				ABE0235A216F4651002C47EC /* test.pptx */,
 			);
-			path = test_file;
+			path = "test-file";
 			sourceTree = "<group>";
 		};
 		68C67E3C2282DA0B00244922 /* extension */ = {
@@ -888,6 +888,8 @@
 		68C67E452282DA9500244922 /* member */ = {
 			isa = PBXGroup;
 			children = (
+				68C67E5A2282DB9C00244922 /* UserRightEntity.swift */,
+				68C67E5B2282DB9C00244922 /* DevMemberEntity.swift */,
 				68C67E852282DCCC00244922 /* DevMemberType.swift */,
 				68C67E862282DCCC00244922 /* MemberSpace.swift */,
 			);
@@ -951,13 +953,13 @@
 		68C67E582282DB7900244922 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E7E2282DC9300244922 /* updateAPI */,
-				68C67E792282DC7F00244922 /* getAPI */,
-				68C67E742282DC0E00244922 /* generateAPI */,
+				68C67E7E2282DC9300244922 /* update-token */,
+				68C67E792282DC7F00244922 /* get-token */,
+				68C67E742282DC0E00244922 /* generation-token */,
 				68C67E6A2282DBEE00244922 /* APIItem.swift */,
 				68C67E692282DBEE00244922 /* ItemAPI.swift */,
 				68C67E6B2282DBEE00244922 /* ItemsAPI.swift */,
-				68C67E682282DBEE00244922 /* Token.swift */,
+				68C67E682282DBEE00244922 /* TokenEntity.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -965,56 +967,54 @@
 		68C67E592282DB7F00244922 /* permission */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E5F2282DBBD00244922 /* updateAppPermissions */,
-				68C67E5E2282DBA700244922 /* getAppPermissions */,
-				68C67E5B2282DB9C00244922 /* DevMemberEntity.swift */,
-				68C67E5A2282DB9C00244922 /* UserRightEntity.swift */,
+				68C67E5F2282DBBD00244922 /* update-permissions */,
+				68C67E5E2282DBA700244922 /* get-permissions */,
 			);
 			path = permission;
 			sourceTree = "<group>";
 		};
-		68C67E5E2282DBA700244922 /* getAppPermissions */ = {
+		68C67E5E2282DBA700244922 /* get-permissions */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */,
 				68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */,
 			);
-			path = getAppPermissions;
+			path = "get-permissions";
 			sourceTree = "<group>";
 		};
-		68C67E5F2282DBBD00244922 /* updateAppPermissions */ = {
+		68C67E5F2282DBBD00244922 /* update-permissions */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */,
 				68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */,
 			);
-			path = updateAppPermissions;
+			path = "update-permissions";
 			sourceTree = "<group>";
 		};
-		68C67E742282DC0E00244922 /* generateAPI */ = {
+		68C67E742282DC0E00244922 /* generation-token */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E762282DC7000244922 /* GenerateAPITokenRequest.swift */,
 				68C67E752282DC7000244922 /* GenerateAPITokenResponse.swift */,
 			);
-			path = generateAPI;
+			path = "generation-token";
 			sourceTree = "<group>";
 		};
-		68C67E792282DC7F00244922 /* getAPI */ = {
+		68C67E792282DC7F00244922 /* get-token */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E7B2282DC8D00244922 /* GetListAPIsTokenRequest.swift */,
 				68C67E7A2282DC8D00244922 /* GetListAPIsTokenResponse.swift */,
 			);
-			path = getAPI;
+			path = "get-token";
 			sourceTree = "<group>";
 		};
-		68C67E7E2282DC9300244922 /* updateAPI */ = {
+		68C67E7E2282DC9300244922 /* update-token */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E7F2282DCA400244922 /* UpdateAPITokenRequest.swift */,
 			);
-			path = updateAPI;
+			path = "update-token";
 			sourceTree = "<group>";
 		};
 		A88FEE002159DD8A00A7E838 /* basic */ = {
@@ -1270,8 +1270,8 @@
 		ABE02359216F4634002C47EC /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E202280422400244922 /* test_file */,
-				68C67E1F228041EA00244922 /* test_data */,
+				68C67E202280422400244922 /* test-file */,
+				68C67E1F228041EA00244922 /* test-data */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -1594,7 +1594,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68C67E6C2282DBEE00244922 /* Token.swift in Sources */,
+				68C67E6C2282DBEE00244922 /* TokenEntity.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
 				3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */,
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,

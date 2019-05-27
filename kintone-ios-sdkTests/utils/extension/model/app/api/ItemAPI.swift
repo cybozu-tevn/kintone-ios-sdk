@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class ItemAPI: Token {
+open class ItemAPI: TokenEntity {
     private var appFacadeId: String!
     
     public func getAppFacadeId() -> String {
@@ -19,8 +19,8 @@ open class ItemAPI: Token {
         case appFacadeId
     }
     
-    public func getToken() -> Token {
-        let token = Token(tokenString: self.token,
+    public func getToken() -> TokenEntity {
+        let token = TokenEntity(tokenString: self.token,
                           viewRecord: self.viewRecord,
                           addRecord: self.addRecord,
                           editRecord: self.editRecord,

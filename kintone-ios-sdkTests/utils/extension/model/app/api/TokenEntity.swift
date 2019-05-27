@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class Token: NSObject, Codable {
+open class TokenEntity: NSObject, Codable {
     var token: String!
     var viewRecord: Bool!
     var addRecord: Bool!

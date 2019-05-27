@@ -115,7 +115,7 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func updateAPIToken(_ appId: Int, _ tokens: [Token]) -> Promise<Void> {
+    func updateAPIToken(_ appId: Int, _ tokens: [TokenEntity]) -> Promise<Void> {
         return Promise<Void> {fulfill, reject in
             do {
                 let updateAPITokenRequest = UpdateAPITokenRequest(appId, tokens)

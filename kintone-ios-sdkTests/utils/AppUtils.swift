@@ -138,13 +138,13 @@ class AppUtils {
         //When update an API Token, it should update other existed tokens
         var apiToken: String!
         let getListAPIsTokenResponse = self.getListAPIsToken(appId)
-        var tokens = [Token]()
+        var tokens = [TokenEntity]()
         for item in getListAPIsTokenResponse {
             tokens.append(item.getToken())
         }
         devAppModule.generateAPIToken(appId).then {response -> Promise<Void> in
             apiToken = response.getResult().getItem()
-            tokens.append(Token(tokenString: apiToken))
+            tokens.append(TokenEntity(tokenString: apiToken))
             print("Generate API Token app \(appId): \(apiToken!)")
             return devAppModule.updateAPIToken(appId, tokens)
             }.catch {error in
@@ -159,10 +159,10 @@ class AppUtils {
         return apiToken
     }
     
-    static func updateTokenPermission(appModule: App, appId: Int, token: Token) {
+    static func updateTokenPermission(appModule: App, appId: Int, token: TokenEntity) {
         //When update an API Token, it should update other existed tokens
         let getListAPIsTokenResponse = self.getListAPIsToken(appId)
-        var tokens = [Token]()
+        var tokens = [TokenEntity]()
         for item in getListAPIsTokenResponse {
             if(item.getToken().getTokenString() != token.getTokenString()) {
                 tokens.append(item.getToken())
