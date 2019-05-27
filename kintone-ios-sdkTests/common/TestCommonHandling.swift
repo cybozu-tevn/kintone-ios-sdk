@@ -82,16 +82,7 @@ class TestCommonHandling {
             return error
         }
     }
-    
-    /// generate random the string value
-    ///
-    /// - Parameter length: Int | the expected length of the string
-    /// - Returns: the random string value
-    public static func generateRandomString(length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0...length-1).map { _ in letters.randomElement()! })
-    }
-    
+
     /// fill single data to Dictionary record data
     ///
     /// - Paramaters:

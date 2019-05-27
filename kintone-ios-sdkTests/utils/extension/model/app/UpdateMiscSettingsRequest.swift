@@ -33,7 +33,17 @@ open class UpdateMiscSettingsRequest: NSObject, Codable {
         return self.name
     }
     
-    public init(code: String, id: Int, name: String, decimalPrecision: Int, decimalScale: Int, enableBulkDeletion: Bool, fiscalYearStartMonth: Int, roundingMode: String, useComment: Bool, useHistory: Bool, useThumbnail: Bool) {
+    public init(code: String,
+                id: Int,
+                name: String,
+                decimalPrecision: Int,
+                decimalScale: Int,
+                enableBulkDeletion: Bool,
+                fiscalYearStartMonth: Int,
+                roundingMode: String,
+                useComment: Bool,
+                useHistory: Bool,
+                useThumbnail: Bool) {
         self.code = code
         self.id = id
         self.name = name
