@@ -6,7 +6,7 @@
 //  Copyright © 2019 Cybozu. All rights reserved.
 //
 
-public enum DevMemberSelectEntityType: String, Codable {
+public enum DevMemberType: String, Codable {
     case USER
     case GROUP
     case ORGANIZATION

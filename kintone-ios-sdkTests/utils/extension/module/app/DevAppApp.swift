@@ -151,10 +151,10 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func updateAppPermissions(_ appId: Int, _ rights: [Right]) -> Promise<UpdateAppPermissionsResponse> {
+    func updateAppPermissions(_ appId: Int, _ userRights: [UserRightEntity]) -> Promise<UpdateAppPermissionsResponse> {
         return Promise<UpdateAppPermissionsResponse> {fulfill, reject in
             do {
-                let updateAppPermissionsRequest = UpdateAppPermissionsRequest(appId, rights)
+                let updateAppPermissionsRequest = UpdateAppPermissionsRequest(appId, userRights)
                 let body = try self.parser.parseObject(updateAppPermissionsRequest)
                 let jsonBody = String(data: body, encoding: .utf8)!
                 self.devConnection?.request(baseUrl, "PUT", "app/acl", jsonBody).then {response in
@@ -169,10 +169,30 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func updateMiscSettings(code: String, id: Int, name: String, decimalPrecision: Int = 16, decimalScale: Int = 4, enableBulkDeletion: Bool = false, fiscalYearStartMonth: Int = 4, roundingMode: String = "HALF_EVEN", useComment: Bool = true, useHistory: Bool = true, useThumbnail: Bool = true) -> Promise<Void> {
+    func updateMiscSettings(code: String,
+                            id: Int,
+                            name: String,
+                            decimalPrecision: Int = 16,
+                            decimalScale: Int = 4,
+                            enableBulkDeletion: Bool = false,
+                            fiscalYearStartMonth: Int = 4,
+                            roundingMode: String = "HALF_EVEN",
+                            useComment: Bool = true,
+                            useHistory: Bool = true,
+                            useThumbnail: Bool = true) -> Promise<Void> {
         return Promise<Void> {fulfill, reject in
             do {
-                let updateMiscSettingsRequest = UpdateMiscSettingsRequest(code: code, id: id, name: name, decimalPrecision: decimalPrecision, decimalScale: decimalScale, enableBulkDeletion: enableBulkDeletion, fiscalYearStartMonth: fiscalYearStartMonth, roundingMode: roundingMode, useComment: useComment, useHistory: useHistory, useThumbnail: useThumbnail)
+                let updateMiscSettingsRequest = UpdateMiscSettingsRequest(code: code,
+                                                                          id: id,
+                                                                          name: name,
+                                                                          decimalPrecision: decimalPrecision,
+                                                                          decimalScale: decimalScale,
+                                                                          enableBulkDeletion: enableBulkDeletion,
+                                                                          fiscalYearStartMonth: fiscalYearStartMonth,
+                                                                          roundingMode: roundingMode,
+                                                                          useComment: useComment,
+                                                                          useHistory: useHistory,
+                                                                          useThumbnail: useThumbnail)
                 let body = try self.parser.parseObject(updateMiscSettingsRequest)
                 let jsonBody = String(data: body, encoding: .utf8)!
                 self.devConnection?.request(baseDevUrl, "POST", "app/update", jsonBody).then {_ in

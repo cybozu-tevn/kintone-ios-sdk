@@ -192,10 +192,10 @@ class AppUtils {
         self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
     }
     
-    static func getAppPermissions(appId: Int) -> [Right] {
-        var rights = [Right]()
+    static func getAppPermissions(appId: Int) -> [UserRightEntity] {
+        var userRights = [UserRightEntity]()
         devAppModule.getAppPermissions(appId).then {response in
-            rights = response.getRights()
+            userRights = response.getRights()
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {
                     fatalError(errorVal.toString()!)
@@ -204,25 +204,25 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        return rights
+        return userRights
     }
     
-    static func updateAppPermissions(appModule: App, appId: Int, right: Right) -> String {
+    static func updateAppPermissions(appModule: App, appId: Int, userRight: UserRightEntity) -> String {
         //When update permission, it should update other existed rights
         var revision: String!
-        var rights = self.getAppPermissions(appId: appId)
-        rights.append(right)
-        devAppModule.updateAppPermissions(appId, rights).then {response in
+        var userRights = self.getAppPermissions(appId: appId)
+        userRights.append(userRight)
+        devAppModule.updateAppPermissions(appId, userRights).then {response in
             print("""
                 ==========================================================================
-                Update permission for \(right.getEntity().getCode()) in app \(appId):
-                Record Viewable: \(right.getRecordViewable())
-                Record Addable: \(right.getRecordAddable())
-                Record Editable: \(right.getRecordEditable())
-                Record Deleteable: \(right.getRecordDeletable())
-                Record Importable: \(right.getRecordImportable())
-                Record Exportable: \(right.getRecordExportable())
-                App Editable: \(right.getAppEditable())
+                Update permission for \(userRight.getDevMember().getCode()) in app \(appId):
+                Record Viewable: \(userRight.getRecordViewable())
+                Record Addable: \(userRight.getRecordAddable())
+                Record Editable: \(userRight.getRecordEditable())
+                Record Deleteable: \(userRight.getRecordDeletable())
+                Record Importable: \(userRight.getRecordImportable())
+                Record Exportable: \(userRight.getRecordExportable())
+                App Editable: \(userRight.getAppEditable())
                 ==========================================================================
                 """)
             revision = response.getRevision()
@@ -238,7 +238,18 @@ class AppUtils {
         return revision
     }
     
-    static func updateMiscSetting(appModule: App, code: String, id: Int, name: String, decimalPrecision: Int = 16, decimalScale: Int = 4, enableBulkDeletion: Bool = false, fiscalYearStartMonth: Int = 4, roundingMode: String = "HALF_EVEN", useComment: Bool = true, useHistory: Bool = true, useThumbnail: Bool = true) {
+    static func updateMiscSetting(appModule: App,
+                                  code: String,
+                                  id: Int,
+                                  name: String,
+                                  decimalPrecision: Int = 16,
+                                  decimalScale: Int = 4,
+                                  enableBulkDeletion: Bool = false,
+                                  fiscalYearStartMonth: Int = 4,
+                                  roundingMode: String = "HALF_EVEN",
+                                  useComment: Bool = true,
+                                  useHistory: Bool = true,
+                                  useThumbnail: Bool = true) {
         devAppModule.updateMiscSettings(code: code, id: id, name: name).then {
             print("""
                 ==========================================================================

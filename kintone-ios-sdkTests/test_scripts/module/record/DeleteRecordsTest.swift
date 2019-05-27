@@ -14,7 +14,7 @@ class DeleteRecordsTest: QuickSpec {
     let APP_ID = 1
     let APP_NEGATIVE_ID = -1
     let APP_NONEXISTENT_ID = 100000
-    let GUESTSPACE_APP_ID = 2
+    let GUESTSPACE_APP_ID = 4
 
     var recordIDs = [Int]()
     var recordRevision: Int?
@@ -27,7 +27,7 @@ class DeleteRecordsTest: QuickSpec {
     let COUNT_NUMBER = 5
     let CRED_USERNAME_WITHOUT_PEMISSION_DELETE_RECORD = "user4"
     let CRED_PASSWORD_WITHOUT_PEMISSION_DELETE_RECORD = "user4@123"
-    let APP_API_TOKEN = "8q3KBOy9eDgsHQmvyE4SXDB2YB4i1ngN4zApwhUz"
+    let APP_API_TOKEN = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
 
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())

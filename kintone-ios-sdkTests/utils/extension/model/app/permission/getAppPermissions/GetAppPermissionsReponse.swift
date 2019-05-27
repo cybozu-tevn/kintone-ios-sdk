@@ -9,17 +9,17 @@
 import Foundation
 
 open class GetAppPermissionsResponse: NSObject, Codable {
-    private var rights: [Right]
+    private var userRights: [UserRightEntity]
     
-    public func getRights() -> [Right] {
-        return self.rights
+    public func getRights() -> [UserRightEntity] {
+        return self.userRights
     }
     
-    public func setRights(_ rights: [Right]) {
-        self.rights = rights
+    public func setRights(_ userRights: [UserRightEntity]) {
+        self.userRights = userRights
     }
     
-    public init(_ rights: [Right]) {
-        self.rights = rights
+    public init(_ userRights: [UserRightEntity]) {
+        self.userRights = userRights
     }
 }

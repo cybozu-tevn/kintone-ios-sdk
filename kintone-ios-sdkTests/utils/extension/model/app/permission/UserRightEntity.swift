@@ -8,8 +8,8 @@
 
 import Foundation
 
-open class Right: NSObject, Codable {
-    private var entity: Entity!
+open class UserRightEntity: NSObject, Codable {
+    private var devMember: DevMemberEntity!
     private var appEditable: Bool!
     private var recordViewable: Bool!
     private var recordAddable: Bool!
@@ -18,12 +18,12 @@ open class Right: NSObject, Codable {
     private var recordImportable: Bool!
     private var recordExportable: Bool!
     
-    public func getEntity() -> Entity {
-        return self.entity
+    public func getDevMember() -> DevMemberEntity {
+        return self.devMember
     }
     
-    public func setEntity(_ entity: Entity) {
-        self.entity = entity
+    public func setDevMeber(_ devMember: DevMemberEntity) {
+        self.devMember = devMember
     }
     
     public func getAppEditable() -> Bool {
@@ -82,9 +82,15 @@ open class Right: NSObject, Codable {
         self.recordExportable = recordExportable
     }
     
-    public init(entity: Entity, appEditable: Bool = false, recordViewable: Bool = false, recordAddable: Bool = false, recordEditable: Bool = false,
-                recordDeletable: Bool = false, recordImportable: Bool = false, recordExportable: Bool = false) {
-        self.entity = entity
+    public init(devMember: DevMemberEntity,
+                appEditable: Bool = false,
+                recordViewable: Bool = false,
+                recordAddable: Bool = false,
+                recordEditable: Bool = false,
+                recordDeletable: Bool = false,
+                recordImportable: Bool = false,
+                recordExportable: Bool = false) {
+        self.devMember = devMember
         self.appEditable = appEditable
         self.recordViewable = recordViewable
         self.recordAddable = recordAddable

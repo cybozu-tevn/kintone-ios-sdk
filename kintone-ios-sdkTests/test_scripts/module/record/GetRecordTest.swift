@@ -17,13 +17,13 @@ class GetRecordTest: QuickSpec {
     let APP_NONEXISTENT_ID = 1000
     let APP_NEGATIVE_ID = -1
     let APP_BLANK_ID = 6 // Create app without fields
-    let GUESTSPACE_APP_ID = 2
+    let GUESTSPACE_APP_ID = 4
     
     let RECORD_ID = 1
     let RECORD_NONEXISTENT_ID = 1000
     let RECORD_NEGATIVE_ID = -1
     
-    let APP_API_TOKEN = "8q3KBOy9eDgsHQmvyE4SXDB2YB4i1ngN4zApwhUz"
+    let APP_API_TOKEN = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
     let RECORD_TEXT_FIELD = "txt_Name"
     let RECORD_TEST_VALUE = "Phong Hoang"

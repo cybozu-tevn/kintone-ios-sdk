@@ -9,15 +9,15 @@
 import Foundation
 import kintone_ios_sdk
 
-open class Entity: NSObject, Codable {
-    private var type: DevMemberSelectEntityType!
+open class DevMemberEntity: NSObject, Codable {
+    private var type: DevMemberType!
     private var code: String!
     
-    public func getType() -> DevMemberSelectEntityType {
+    public func getType() -> DevMemberType {
         return self.type
     }
     
-    public func setType(_ type: DevMemberSelectEntityType) {
+    public func setType(_ type: DevMemberType) {
         self.type = type
     }
     
@@ -29,7 +29,7 @@ open class Entity: NSObject, Codable {
         self.code = code
     }
     
-    public init(_ type: DevMemberSelectEntityType, _ code: String) {
+    public init(_ type: DevMemberType, _ code: String) {
         self.type = type
         self.code = code
     }
