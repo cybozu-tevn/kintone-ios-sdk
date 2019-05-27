@@ -212,7 +212,6 @@
 		ABE0235E216F4652002C47EC /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235B216F4652002C47EC /* test.txt */; };
 		ABE0235F216F4652002C47EC /* test.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235C216F4652002C47EC /* test.xlsx */; };
 		B7A2AD8A22977C1E00AA4196 /* DataRandomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */; };
-		B7A2AD8D22977CA400AA4196 /* AppEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8C22977CA400AA4196 /* AppEntity.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -446,7 +445,6 @@
 		ABE0235B216F4652002C47EC /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		ABE0235C216F4652002C47EC /* test.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.xlsx; sourceTree = "<group>"; };
 		B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRandomization.swift; sourceTree = "<group>"; };
-		B7A2AD8C22977CA400AA4196 /* AppEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppEntity.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -756,7 +754,6 @@
 		3FF04B2122803C0200E401FF /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				B7A2AD8B22977C7100AA4196 /* entity */,
 				B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */,
 				680FB6B1229698C800ECA48E /* error_message */,
 				68C67E272280434000244922 /* JSONHandler.swift */,
@@ -1279,14 +1276,6 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
-		B7A2AD8B22977C7100AA4196 /* entity */ = {
-			isa = PBXGroup;
-			children = (
-				B7A2AD8C22977CA400AA4196 /* AppEntity.swift */,
-			);
-			path = entity;
-			sourceTree = "<group>";
-		};
 		DD6291D32164904D0060231D /* File */ = {
 			isa = PBXGroup;
 			children = (
@@ -1629,7 +1618,6 @@
 				68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */,
 				68C67E622282DBD600244922 /* GetAppPermissionsReponse.swift in Sources */,
 				68C67E3F2282DA4800244922 /* DevAuth.swift in Sources */,
-				B7A2AD8D22977CA400AA4196 /* AppEntity.swift in Sources */,
 				68C67E822282DCB700244922 /* DevHTTPHeader.swift in Sources */,
 				68C67E662282DBDF00244922 /* UpdateAppPermissionsResponse.swift in Sources */,
 				68C67E842282DCC100244922 /* DevCredential.swift in Sources */,
