@@ -756,11 +756,11 @@
 		3FF04B2122803C0200E401FF /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */,
 				680FB6B1229698C800ECA48E /* error-message */,
-				68C67E272280434000244922 /* JSONHandler.swift */,
-				68C67E3C2282DA0B00244922 /* extension */,
+				68C67E3C2282DA0B00244922 /* app-extension */,
 				3FF04B2922803E2800E401FF /* AppUtils.swift */,
+				B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */,
+				68C67E272280434000244922 /* JSONHandler.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -838,7 +838,7 @@
 			path = "test-file";
 			sourceTree = "<group>";
 		};
-		68C67E3C2282DA0B00244922 /* extension */ = {
+		68C67E3C2282DA0B00244922 /* app-extension */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E492282DAC900244922 /* module */,
@@ -847,7 +847,7 @@
 				68C67E3D2282DA2500244922 /* authentication */,
 				68A2B67E229BE7B70091F27C /* DevAppTest.swift */,
 			);
-			path = extension;
+			path = "app-extension";
 			sourceTree = "<group>";
 		};
 		68C67E3D2282DA2500244922 /* authentication */ = {
