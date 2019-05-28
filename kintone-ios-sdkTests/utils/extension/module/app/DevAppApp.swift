@@ -79,14 +79,14 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func getListAPIsToken(_ appId: Int) -> Promise<GetListAPIsTokenResponse> {
-        return Promise<GetListAPIsTokenResponse> {fulfill, reject in
+    func getListAPIsToken(_ appId: Int) -> Promise<GetListApisTokenResponse> {
+        return Promise<GetListApisTokenResponse> {fulfill, reject in
             do {
-                let getListAPIsTokenRequest = GetListAPIsTokenRequest(appId)
+                let getListAPIsTokenRequest = GetListApisTokenRequest(appId)
                 let body = try self.parser.parseObject(getListAPIsTokenRequest)
                 let jsonBody = String(data: body, encoding: .utf8)!
                 self.devConnection?.request(baseDevUrl, "POST", "app/token/list", jsonBody).then {response in
-                    let parseResponseToJson = try self.parser.parseJson(GetListAPIsTokenResponse.self, response)
+                    let parseResponseToJson = try self.parser.parseJson(GetListApisTokenResponse.self, response)
                     fulfill(parseResponseToJson)
                     }.catch {error in
                         reject(error)
@@ -97,14 +97,14 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func generateAPIToken(_ appId: Int) -> Promise<GenerateAPITokenResponse> {
-        return Promise<GenerateAPITokenResponse> {fulfill, reject in
+    func generateAPIToken(_ appId: Int) -> Promise<GenerateApiTokenResponse> {
+        return Promise<GenerateApiTokenResponse> {fulfill, reject in
             do {
-                let generateAPITokenRequest = GenerateAPITokenRequest(appId)
+                let generateAPITokenRequest = GenerateApiTokenRequest(appId)
                 let body = try self.parser.parseObject(generateAPITokenRequest)
                 let jsonBody = String(data: body, encoding: .utf8)!
                 self.devConnection?.request(baseDevUrl, "POST", "app/token/generate", jsonBody).then {response in
-                    let parseResponseToJson = try self.parser.parseJson(GenerateAPITokenResponse.self, response)
+                    let parseResponseToJson = try self.parser.parseJson(GenerateApiTokenResponse.self, response)
                     fulfill(parseResponseToJson)
                     }.catch {error in
                         reject(error)
@@ -118,7 +118,7 @@ public extension DevAppApp where Self: DevApp {
     func updateAPIToken(_ appId: Int, _ tokens: [TokenEntity]) -> Promise<Void> {
         return Promise<Void> {fulfill, reject in
             do {
-                let updateAPITokenRequest = UpdateAPITokenRequest(appId, tokens)
+                let updateAPITokenRequest = UpdateApiTokenRequest(appId, tokens)
                 let body = try self.parser.parseObject(updateAPITokenRequest)
                 let jsonBody = String(data: body, encoding: .utf8)!
                 self.devConnection?.request(baseDevUrl, "POST", "app/token/update", jsonBody).then {_ in

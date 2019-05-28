@@ -8,29 +8,29 @@
 
 import Foundation
 
-open class ItemAPI: TokenEntity {
+open class ApiToken: TokenEntity {
     private var appFacadeId: String!
-    
-    public func getAppFacadeId() -> String {
-        return self.appFacadeId
-    }
     
     private enum CodingKeys: String, CodingKey {
         case appFacadeId
     }
     
-    public func getToken() -> TokenEntity {
-        let token = TokenEntity(tokenString: self.token,
-                          viewRecord: self.viewRecord,
-                          addRecord: self.addRecord,
-                          editRecord: self.editRecord,
-                          deleteRecord: self.deleteRecord,
-                          editApp: self.editApp)
-        return token
+    public func getAppFacadeId() -> String {
+        return self.appFacadeId
     }
     
     public func setAppFacadeId(_ appFacadeId: String) {
         self.appFacadeId = appFacadeId
+    }
+    
+    public func getToken() -> TokenEntity {
+        let token = TokenEntity(tokenString: self.token,
+                                viewRecord: self.viewRecord,
+                                addRecord: self.addRecord,
+                                editRecord: self.editRecord,
+                                deleteRecord: self.deleteRecord,
+                                editApp: self.editApp)
+        return token
     }
     
     public required init(from decoder: Decoder) throws {

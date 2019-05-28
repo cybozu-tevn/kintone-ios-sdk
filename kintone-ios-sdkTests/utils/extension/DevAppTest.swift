@@ -9,7 +9,7 @@ import kintone_ios_sdk
 import XCTest
 @testable import Promises
 
-class DevAppTest:XCTestCase{
+class DevAppTest: XCTestCase {
     let appModule = App(TestCommonHandling.createConnection())
     
     func test_generateApiToken() {
@@ -23,7 +23,6 @@ class DevAppTest:XCTestCase{
                                       editApp: false)
         
         AppUtils.updateTokenPermission(appModule: appModule, appId: appID, token: token)
-        
         AppUtils.deleteApp(appId: appID)
     }
 }

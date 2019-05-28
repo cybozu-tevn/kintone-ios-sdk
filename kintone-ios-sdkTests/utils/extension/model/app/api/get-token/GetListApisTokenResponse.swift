@@ -8,8 +8,8 @@
 
 import Foundation
 
-open class GetListAPIsTokenResponse: NSObject, Codable {
-    private var result: ItemsAPI!
+open class GetListApisTokenResponse: NSObject, Codable {
+    private var result: ApiTokenItems!
     private var success: Bool!
     
     public func getSuccess() -> Bool {
@@ -20,15 +20,15 @@ open class GetListAPIsTokenResponse: NSObject, Codable {
         self.success = success
     }
     
-    public func getResult() -> ItemsAPI {
+    public func getResult() -> ApiTokenItems {
         return self.result
     }
     
-    public func setResult(_ itemsAPI: ItemsAPI) {
+    public func setResult(_ itemsAPI: ApiTokenItems) {
         self.result = itemsAPI
     }
     
-    public init(_ result: ItemsAPI, _ success: Bool) {
+    public init(_ result: ApiTokenItems, _ success: Bool) {
         self.result = result
         self.success = success
     }

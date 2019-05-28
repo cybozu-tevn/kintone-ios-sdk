@@ -8,19 +8,19 @@
 
 import Foundation
 
-open class GenerateAPITokenResponse: NSObject, Codable {
-    private var result: APIItem!
+open class GenerateApiTokenResponse: NSObject, Codable {
+    private var result: ApiTokenItem!
     private var success: Bool!
     
     public func getSuccess() -> Bool {
         return self.success
     }
     
-    open func getResult() -> APIItem {
+    open func getResult() -> ApiTokenItem {
         return self.result
     }
     
-    open func setResult(_ apiItem: APIItem) {
+    open func setResult(_ apiItem: ApiTokenItem) {
         self.result = apiItem
     }
     
@@ -28,7 +28,7 @@ open class GenerateAPITokenResponse: NSObject, Codable {
         self.success = success
     }
     
-    public init(_ result: APIItem, _ success: Bool) {
+    public init(_ result: ApiTokenItem, _ success: Bool) {
         self.result = result
         self.success = success
     }

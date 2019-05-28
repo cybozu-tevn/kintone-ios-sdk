@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class APIItem: NSObject, Codable {
+open class ApiTokenItem: NSObject, Codable {
     private var item: String!
     
     public func getItem() -> String {

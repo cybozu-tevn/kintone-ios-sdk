@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetListAPIsTokenRequest: NSObject, Codable {
+class GetListApisTokenRequest: NSObject, Codable {
     private var appId: Int
     
     public func getAppId() -> Int {

@@ -8,18 +8,18 @@
 
 import Foundation
 
-open class ItemsAPI: NSObject, Codable {
-    private var items: [ItemAPI]!
+open class ApiTokenItems: NSObject, Codable {
+    private var items: [ApiToken]!
     
-    public func getItems() -> [ItemAPI] {
+    public func getItems() -> [ApiToken] {
         return self.items
     }
     
-    public func setItems(_ items: [ItemAPI]) {
+    public func setItems(_ items: [ApiToken]) {
         self.items = items
     }
     
-    public init(_ items: [ItemAPI]) {
+    public init(_ items: [ApiToken]) {
         self.items = items
     }
 }

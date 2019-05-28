@@ -64,8 +64,12 @@ open class TokenEntity: NSObject, Codable {
         self.editApp = editApp
     }
     
-    public init(tokenString: String, viewRecord: Bool = false, addRecord: Bool = false, editRecord: Bool = false,
-                deleteRecord: Bool = false, editApp: Bool = false) {
+    public init(tokenString: String,
+                viewRecord: Bool = false,
+                addRecord: Bool = false,
+                editRecord: Bool = false,
+                deleteRecord: Bool = false,
+                editApp: Bool = false) {
         self.token = tokenString
         self.viewRecord = viewRecord
         self.addRecord = addRecord

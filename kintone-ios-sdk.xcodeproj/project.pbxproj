@@ -106,14 +106,14 @@
 		68C67E662282DBDF00244922 /* UpdateAppPermissionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */; };
 		68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */; };
 		68C67E6C2282DBEE00244922 /* TokenEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E682282DBEE00244922 /* TokenEntity.swift */; };
-		68C67E6D2282DBEE00244922 /* ItemAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E692282DBEE00244922 /* ItemAPI.swift */; };
-		68C67E6E2282DBEE00244922 /* APIItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6A2282DBEE00244922 /* APIItem.swift */; };
-		68C67E6F2282DBEE00244922 /* ItemsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6B2282DBEE00244922 /* ItemsAPI.swift */; };
-		68C67E772282DC7000244922 /* GenerateAPITokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E752282DC7000244922 /* GenerateAPITokenResponse.swift */; };
-		68C67E782282DC7000244922 /* GenerateAPITokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E762282DC7000244922 /* GenerateAPITokenRequest.swift */; };
-		68C67E7C2282DC8D00244922 /* GetListAPIsTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7A2282DC8D00244922 /* GetListAPIsTokenResponse.swift */; };
-		68C67E7D2282DC8D00244922 /* GetListAPIsTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7B2282DC8D00244922 /* GetListAPIsTokenRequest.swift */; };
-		68C67E802282DCA400244922 /* UpdateAPITokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7F2282DCA400244922 /* UpdateAPITokenRequest.swift */; };
+		68C67E6D2282DBEE00244922 /* ApiToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E692282DBEE00244922 /* ApiToken.swift */; };
+		68C67E6E2282DBEE00244922 /* ApiTokenItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6A2282DBEE00244922 /* ApiTokenItem.swift */; };
+		68C67E6F2282DBEE00244922 /* ApiTokenItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E6B2282DBEE00244922 /* ApiTokenItems.swift */; };
+		68C67E772282DC7000244922 /* GenerateApiTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E752282DC7000244922 /* GenerateApiTokenResponse.swift */; };
+		68C67E782282DC7000244922 /* GenerateApiTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E762282DC7000244922 /* GenerateApiTokenRequest.swift */; };
+		68C67E7C2282DC8D00244922 /* GetListApisTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7A2282DC8D00244922 /* GetListApisTokenResponse.swift */; };
+		68C67E7D2282DC8D00244922 /* GetListApisTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7B2282DC8D00244922 /* GetListApisTokenRequest.swift */; };
+		68C67E802282DCA400244922 /* UpdateApiTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E7F2282DCA400244922 /* UpdateApiTokenRequest.swift */; };
 		68C67E822282DCB700244922 /* DevHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E812282DCB700244922 /* DevHTTPHeader.swift */; };
 		68C67E842282DCC100244922 /* DevCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E832282DCC100244922 /* DevCredential.swift */; };
 		68C67E872282DCCC00244922 /* DevMemberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E852282DCCC00244922 /* DevMemberType.swift */; };
@@ -338,14 +338,14 @@
 		68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppPermissionsResponse.swift; sourceTree = "<group>"; };
 		68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppPermissionsRequest.swift; sourceTree = "<group>"; };
 		68C67E682282DBEE00244922 /* TokenEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenEntity.swift; sourceTree = "<group>"; };
-		68C67E692282DBEE00244922 /* ItemAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAPI.swift; sourceTree = "<group>"; };
-		68C67E6A2282DBEE00244922 /* APIItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIItem.swift; sourceTree = "<group>"; };
-		68C67E6B2282DBEE00244922 /* ItemsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsAPI.swift; sourceTree = "<group>"; };
-		68C67E752282DC7000244922 /* GenerateAPITokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAPITokenResponse.swift; sourceTree = "<group>"; };
-		68C67E762282DC7000244922 /* GenerateAPITokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAPITokenRequest.swift; sourceTree = "<group>"; };
-		68C67E7A2282DC8D00244922 /* GetListAPIsTokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListAPIsTokenResponse.swift; sourceTree = "<group>"; };
-		68C67E7B2282DC8D00244922 /* GetListAPIsTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListAPIsTokenRequest.swift; sourceTree = "<group>"; };
-		68C67E7F2282DCA400244922 /* UpdateAPITokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAPITokenRequest.swift; sourceTree = "<group>"; };
+		68C67E692282DBEE00244922 /* ApiToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiToken.swift; sourceTree = "<group>"; };
+		68C67E6A2282DBEE00244922 /* ApiTokenItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTokenItem.swift; sourceTree = "<group>"; };
+		68C67E6B2282DBEE00244922 /* ApiTokenItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTokenItems.swift; sourceTree = "<group>"; };
+		68C67E752282DC7000244922 /* GenerateApiTokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateApiTokenResponse.swift; sourceTree = "<group>"; };
+		68C67E762282DC7000244922 /* GenerateApiTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateApiTokenRequest.swift; sourceTree = "<group>"; };
+		68C67E7A2282DC8D00244922 /* GetListApisTokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListApisTokenResponse.swift; sourceTree = "<group>"; };
+		68C67E7B2282DC8D00244922 /* GetListApisTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListApisTokenRequest.swift; sourceTree = "<group>"; };
+		68C67E7F2282DCA400244922 /* UpdateApiTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateApiTokenRequest.swift; sourceTree = "<group>"; };
 		68C67E812282DCB700244922 /* DevHTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevHTTPHeader.swift; sourceTree = "<group>"; };
 		68C67E832282DCC100244922 /* DevCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevCredential.swift; sourceTree = "<group>"; };
 		68C67E852282DCCC00244922 /* DevMemberType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevMemberType.swift; sourceTree = "<group>"; };
@@ -959,9 +959,9 @@
 				68C67E7E2282DC9300244922 /* update-token */,
 				68C67E792282DC7F00244922 /* get-token */,
 				68C67E742282DC0E00244922 /* generation-token */,
-				68C67E6A2282DBEE00244922 /* APIItem.swift */,
-				68C67E692282DBEE00244922 /* ItemAPI.swift */,
-				68C67E6B2282DBEE00244922 /* ItemsAPI.swift */,
+				68C67E6A2282DBEE00244922 /* ApiTokenItem.swift */,
+				68C67E6B2282DBEE00244922 /* ApiTokenItems.swift */,
+				68C67E692282DBEE00244922 /* ApiToken.swift */,
 				68C67E682282DBEE00244922 /* TokenEntity.swift */,
 			);
 			path = api;
@@ -997,8 +997,8 @@
 		68C67E742282DC0E00244922 /* generation-token */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E762282DC7000244922 /* GenerateAPITokenRequest.swift */,
-				68C67E752282DC7000244922 /* GenerateAPITokenResponse.swift */,
+				68C67E762282DC7000244922 /* GenerateApiTokenRequest.swift */,
+				68C67E752282DC7000244922 /* GenerateApiTokenResponse.swift */,
 			);
 			path = "generation-token";
 			sourceTree = "<group>";
@@ -1006,8 +1006,8 @@
 		68C67E792282DC7F00244922 /* get-token */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E7B2282DC8D00244922 /* GetListAPIsTokenRequest.swift */,
-				68C67E7A2282DC8D00244922 /* GetListAPIsTokenResponse.swift */,
+				68C67E7B2282DC8D00244922 /* GetListApisTokenRequest.swift */,
+				68C67E7A2282DC8D00244922 /* GetListApisTokenResponse.swift */,
 			);
 			path = "get-token";
 			sourceTree = "<group>";
@@ -1015,7 +1015,7 @@
 		68C67E7E2282DC9300244922 /* update-token */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E7F2282DCA400244922 /* UpdateAPITokenRequest.swift */,
+				68C67E7F2282DCA400244922 /* UpdateApiTokenRequest.swift */,
 			);
 			path = "update-token";
 			sourceTree = "<group>";
@@ -1606,19 +1606,19 @@
 				3FF04B3022803E4800E401FF /* TestConstant.swift in Sources */,
 				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
-				68C67E782282DC7000244922 /* GenerateAPITokenRequest.swift in Sources */,
+				68C67E782282DC7000244922 /* GenerateApiTokenRequest.swift in Sources */,
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
 				68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */,
-				68C67E6D2282DBEE00244922 /* ItemAPI.swift in Sources */,
-				68C67E802282DCA400244922 /* UpdateAPITokenRequest.swift in Sources */,
+				68C67E6D2282DBEE00244922 /* ApiToken.swift in Sources */,
+				68C67E802282DCA400244922 /* UpdateApiTokenRequest.swift in Sources */,
 				3FE11982228C04F6004A8AB7 /* GetAppsByIDs.swift in Sources */,
 				3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */,
 				68C67E512282DB3200244922 /* DevAppApp.swift in Sources */,
-				68C67E6F2282DBEE00244922 /* ItemsAPI.swift in Sources */,
+				68C67E6F2282DBEE00244922 /* ApiTokenItems.swift in Sources */,
 				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
 				68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
-				68C67E6E2282DBEE00244922 /* APIItem.swift in Sources */,
+				68C67E6E2282DBEE00244922 /* ApiTokenItem.swift in Sources */,
 				68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */,
 				68C67E622282DBD600244922 /* GetAppPermissionsReponse.swift in Sources */,
 				68C67E3F2282DA4800244922 /* DevAuth.swift in Sources */,
@@ -1627,7 +1627,7 @@
 				68C67E842282DCC100244922 /* DevCredential.swift in Sources */,
 				68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */,
 				68C67E872282DCCC00244922 /* DevMemberType.swift in Sources */,
-				68C67E772282DC7000244922 /* GenerateAPITokenResponse.swift in Sources */,
+				68C67E772282DC7000244922 /* GenerateApiTokenResponse.swift in Sources */,
 				68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */,
 				68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */,
 				682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */,
@@ -1639,10 +1639,10 @@
 				B7A2AD8A22977C1E00AA4196 /* DataRandomization.swift in Sources */,
 				68C67E4F2282DB2300244922 /* DevParser.swift in Sources */,
 				68C67E5D2282DB9C00244922 /* DevMemberEntity.swift in Sources */,
-				68C67E7D2282DC8D00244922 /* GetListAPIsTokenRequest.swift in Sources */,
+				68C67E7D2282DC8D00244922 /* GetListApisTokenRequest.swift in Sources */,
 				3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */,
 				68C67E262280433600244922 /* KintoneError.swift in Sources */,
-				68C67E7C2282DC8D00244922 /* GetListAPIsTokenResponse.swift in Sources */,
+				68C67E7C2282DC8D00244922 /* GetListApisTokenResponse.swift in Sources */,
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
 			);

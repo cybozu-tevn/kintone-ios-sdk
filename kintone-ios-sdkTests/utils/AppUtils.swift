@@ -112,11 +112,11 @@ class AppUtils {
         }
     }
     
-    static func getListAPIsToken(_ appId: Int) -> [ItemAPI] {
-        var items = [ItemAPI]()
+    static func getListAPIsToken(_ appId: Int) -> [ApiToken] {
+        var apiTokens = [ApiToken]()
         devAppModule.getListAPIsToken(appId)
             .then {response in
-                items = response.getResult().getItems()
+                apiTokens = response.getResult().getItems()
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {
                     fatalError(errorVal.toString()!)
@@ -125,7 +125,7 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        return items
+        return apiTokens
     }
     
     /// <#Description#>
