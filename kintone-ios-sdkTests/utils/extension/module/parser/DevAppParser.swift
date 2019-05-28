@@ -7,6 +7,6 @@
 //
 import kintone_ios_sdk
 
-internal class DevAppParser: Parser {
+internal class DevAppParser: DevParser {
     
 }

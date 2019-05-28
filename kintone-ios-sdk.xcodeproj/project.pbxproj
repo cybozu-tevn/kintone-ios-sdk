@@ -82,6 +82,7 @@
 		4CBE648121CCCC44006375D9 /* ExtensionCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */; };
 		682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */; };
 		682B6AF0228D4E6300D4A894 /* InitializationData.json in Resources */ = {isa = PBXBuildFile; fileRef = 682B6AEF228D4E6300D4A894 /* InitializationData.json */; };
+		68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2B67E229BE7B70091F27C /* DevAppTest.swift */; };
 		68C67E22228042EF00244922 /* KintoneErrorMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = 68C67E21228042EF00244922 /* KintoneErrorMessage.json */; };
 		68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E232280432600244922 /* KintoneErrorParser.swift */; };
 		68C67E262280433600244922 /* KintoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E252280433600244922 /* KintoneError.swift */; };
@@ -93,7 +94,7 @@
 		68C67E3F2282DA4800244922 /* DevAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E3E2282DA4800244922 /* DevAuth.swift */; };
 		68C67E422282DA7000244922 /* DevConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E412282DA7000244922 /* DevConnection.swift */; };
 		68C67E4D2282DB1300244922 /* DevAppParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E4C2282DB1300244922 /* DevAppParser.swift */; };
-		68C67E4F2282DB2300244922 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E4E2282DB2300244922 /* Parser.swift */; };
+		68C67E4F2282DB2300244922 /* DevParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E4E2282DB2300244922 /* DevParser.swift */; };
 		68C67E512282DB3200244922 /* DevAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E502282DB3200244922 /* DevAppApp.swift */; };
 		68C67E532282DB3D00244922 /* DevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E522282DB3D00244922 /* DevApp.swift */; };
 		68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E542282DB5F00244922 /* DeleteAppRequest.swift */; };
@@ -116,7 +117,7 @@
 		68C67E822282DCB700244922 /* DevHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E812282DCB700244922 /* DevHTTPHeader.swift */; };
 		68C67E842282DCC100244922 /* DevCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E832282DCC100244922 /* DevCredential.swift */; };
 		68C67E872282DCCC00244922 /* DevMemberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E852282DCCC00244922 /* DevMemberType.swift */; };
-		68C67E882282DCCC00244922 /* MemberSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E862282DCCC00244922 /* MemberSpace.swift */; };
+		68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E862282DCCC00244922 /* SpaceMember.swift */; };
 		68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E892282DCD600244922 /* AddSpaceResponse.swift */; };
 		68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */; };
 		68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */; };
@@ -313,6 +314,7 @@
 		4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionCommon.swift; sourceTree = "<group>"; };
 		682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataParser.swift; sourceTree = "<group>"; };
 		682B6AEF228D4E6300D4A894 /* InitializationData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InitializationData.json; sourceTree = "<group>"; };
+		68A2B67E229BE7B70091F27C /* DevAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevAppTest.swift; sourceTree = "<group>"; };
 		68C67E21228042EF00244922 /* KintoneErrorMessage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KintoneErrorMessage.json; sourceTree = "<group>"; };
 		68C67E232280432600244922 /* KintoneErrorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KintoneErrorParser.swift; sourceTree = "<group>"; };
 		68C67E252280433600244922 /* KintoneError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KintoneError.swift; sourceTree = "<group>"; };
@@ -324,7 +326,7 @@
 		68C67E3E2282DA4800244922 /* DevAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevAuth.swift; sourceTree = "<group>"; };
 		68C67E412282DA7000244922 /* DevConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevConnection.swift; sourceTree = "<group>"; };
 		68C67E4C2282DB1300244922 /* DevAppParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevAppParser.swift; sourceTree = "<group>"; };
-		68C67E4E2282DB2300244922 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		68C67E4E2282DB2300244922 /* DevParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevParser.swift; sourceTree = "<group>"; };
 		68C67E502282DB3200244922 /* DevAppApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevAppApp.swift; sourceTree = "<group>"; };
 		68C67E522282DB3D00244922 /* DevApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevApp.swift; sourceTree = "<group>"; };
 		68C67E542282DB5F00244922 /* DeleteAppRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAppRequest.swift; sourceTree = "<group>"; };
@@ -347,7 +349,7 @@
 		68C67E812282DCB700244922 /* DevHTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevHTTPHeader.swift; sourceTree = "<group>"; };
 		68C67E832282DCC100244922 /* DevCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevCredential.swift; sourceTree = "<group>"; };
 		68C67E852282DCCC00244922 /* DevMemberType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevMemberType.swift; sourceTree = "<group>"; };
-		68C67E862282DCCC00244922 /* MemberSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberSpace.swift; sourceTree = "<group>"; };
+		68C67E862282DCCC00244922 /* SpaceMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceMember.swift; sourceTree = "<group>"; };
 		68C67E892282DCD600244922 /* AddSpaceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceResponse.swift; sourceTree = "<group>"; };
 		68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceRequest.swift; sourceTree = "<group>"; };
 		68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSpaceRequest.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 				68C67E432282DA8100244922 /* model */,
 				68C67E402282DA5F00244922 /* connection */,
 				68C67E3D2282DA2500244922 /* authentication */,
+				68A2B67E229BE7B70091F27C /* DevAppTest.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -891,7 +894,7 @@
 				68C67E5A2282DB9C00244922 /* UserRightEntity.swift */,
 				68C67E5B2282DB9C00244922 /* DevMemberEntity.swift */,
 				68C67E852282DCCC00244922 /* DevMemberType.swift */,
-				68C67E862282DCCC00244922 /* MemberSpace.swift */,
+				68C67E862282DCCC00244922 /* SpaceMember.swift */,
 			);
 			path = member;
 			sourceTree = "<group>";
@@ -944,7 +947,7 @@
 		68C67E4B2282DAD800244922 /* parser */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E4E2282DB2300244922 /* Parser.swift */,
+				68C67E4E2282DB2300244922 /* DevParser.swift */,
 				68C67E4C2282DB1300244922 /* DevAppParser.swift */,
 			);
 			path = parser;
@@ -967,28 +970,28 @@
 		68C67E592282DB7F00244922 /* permission */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E5F2282DBBD00244922 /* update-permissions */,
-				68C67E5E2282DBA700244922 /* get-permissions */,
+				68C67E5F2282DBBD00244922 /* update-permission */,
+				68C67E5E2282DBA700244922 /* get-permission */,
 			);
 			path = permission;
 			sourceTree = "<group>";
 		};
-		68C67E5E2282DBA700244922 /* get-permissions */ = {
+		68C67E5E2282DBA700244922 /* get-permission */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */,
 				68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */,
 			);
-			path = "get-permissions";
+			path = "get-permission";
 			sourceTree = "<group>";
 		};
-		68C67E5F2282DBBD00244922 /* update-permissions */ = {
+		68C67E5F2282DBBD00244922 /* update-permission */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */,
 				68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */,
 			);
-			path = "update-permissions";
+			path = "update-permission";
 			sourceTree = "<group>";
 		};
 		68C67E742282DC0E00244922 /* generation-token */ = {
@@ -1605,6 +1608,7 @@
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
 				68C67E782282DC7000244922 /* GenerateAPITokenRequest.swift in Sources */,
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
+				68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */,
 				68C67E6D2282DBEE00244922 /* ItemAPI.swift in Sources */,
 				68C67E802282DCA400244922 /* UpdateAPITokenRequest.swift in Sources */,
 				3FE11982228C04F6004A8AB7 /* GetAppsByIDs.swift in Sources */,
@@ -1612,7 +1616,7 @@
 				68C67E512282DB3200244922 /* DevAppApp.swift in Sources */,
 				68C67E6F2282DBEE00244922 /* ItemsAPI.swift in Sources */,
 				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
-				68C67E882282DCCC00244922 /* MemberSpace.swift in Sources */,
+				68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
 				68C67E6E2282DBEE00244922 /* APIItem.swift in Sources */,
 				68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */,
@@ -1633,7 +1637,7 @@
 				68C67E4D2282DB1300244922 /* DevAppParser.swift in Sources */,
 				3FF04B2B22803E2800E401FF /* AppUtils.swift in Sources */,
 				B7A2AD8A22977C1E00AA4196 /* DataRandomization.swift in Sources */,
-				68C67E4F2282DB2300244922 /* Parser.swift in Sources */,
+				68C67E4F2282DB2300244922 /* DevParser.swift in Sources */,
 				68C67E5D2282DB9C00244922 /* DevMemberEntity.swift in Sources */,
 				68C67E7D2282DC8D00244922 /* GetListAPIsTokenRequest.swift in Sources */,
 				3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */,

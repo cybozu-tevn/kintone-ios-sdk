@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class MemberSpace: NSObject, Codable {
+open class SpaceMember: NSObject, Codable {
     private var devMember: DevMemberEntity!
     private var isAdmin: Bool!
     

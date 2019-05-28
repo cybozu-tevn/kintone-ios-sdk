@@ -11,7 +11,7 @@ import Foundation
 class AddSpaceRequest: NSObject, Codable {
     private var id: Int!
     private var name: String!
-    private var members: [MemberSpace]!
+    private var members: [SpaceMember]!
     private var isGuest: Bool!
     private var isPrivate: Bool!
     
@@ -31,11 +31,11 @@ class AddSpaceRequest: NSObject, Codable {
         self.name = name
     }
     
-    public func getMembers() -> [MemberSpace] {
+    public func getMembers() -> [SpaceMember] {
         return self.members
     }
     
-    public func setMembers(_ members: [MemberSpace]) {
+    public func setMembers(_ members: [SpaceMember]) {
         self.members = members
     }
     
@@ -55,7 +55,7 @@ class AddSpaceRequest: NSObject, Codable {
         self.isPrivate = isPrivate
     }
     
-    public init(_ id: Int, _ name: String, _ members: [MemberSpace], _ isGuest: Bool = false, _ isPrivate: Bool = false) {
+    public init(_ id: Int, _ name: String, _ members: [SpaceMember], _ isGuest: Bool = false, _ isPrivate: Bool = false) {
         self.id = id
         self.name = name
         self.members = members

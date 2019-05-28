@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 open class DevCredential: NSObject {
     
     private var username: String

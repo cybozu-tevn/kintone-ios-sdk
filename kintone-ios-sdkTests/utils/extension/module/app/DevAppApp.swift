@@ -16,7 +16,7 @@ let baseUrl = "/k/v1/{API_NAME}.json"
 
 public extension DevAppApp where Self: DevApp {
     
-    func addSpace(idTemplate: Int, name: String, members: [MemberSpace], isGuest: Bool = false, isPrivate: Bool = false) -> Promise<AddSpaceResponse> {
+    func addSpace(idTemplate: Int, name: String, members: [SpaceMember], isGuest: Bool = false, isPrivate: Bool = false) -> Promise<AddSpaceResponse> {
         return Promise<AddSpaceResponse> {fulfill, reject in
             do {
                 let addSpaceRequest = AddSpaceRequest(idTemplate, name, members, isGuest, isPrivate)

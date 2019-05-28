@@ -6,7 +6,7 @@
 //  Copyright © 2018 Cybozu. All rights reserved.
 //
 import Foundation
-internal class Parser: NSObject {
+internal class DevParser: NSObject {
     
     public func parseObject<T>(_ data: T) throws -> Data where T: Encodable {
         do {
