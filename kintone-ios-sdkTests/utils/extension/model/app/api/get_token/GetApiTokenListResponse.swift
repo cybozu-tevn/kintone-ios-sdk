@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class GetListApisTokenResponse: NSObject, Codable {
+open class GetApiTokenListResponse: NSObject, Codable {
     private var result: ApiTokenItems!
     private var success: Bool!
     

@@ -79,14 +79,14 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func getListAPIsToken(_ appId: Int) -> Promise<GetListApisTokenResponse> {
-        return Promise<GetListApisTokenResponse> {fulfill, reject in
+    func getListAPIsToken(_ appId: Int) -> Promise<GetApiTokenListResponse> {
+        return Promise<GetApiTokenListResponse> {fulfill, reject in
             do {
-                let getListAPIsTokenRequest = GetListApisTokenRequest(appId)
+                let getListAPIsTokenRequest = GetApiTokenListRequest(appId)
                 let body = try self.parser.parseObject(getListAPIsTokenRequest)
                 let jsonBody = String(data: body, encoding: .utf8)!
                 self.devConnection?.request(baseDevUrl, "POST", "app/token/list", jsonBody).then {response in
-                    let parseResponseToJson = try self.parser.parseJson(GetListApisTokenResponse.self, response)
+                    let parseResponseToJson = try self.parser.parseJson(GetApiTokenListResponse.self, response)
                     fulfill(parseResponseToJson)
                     }.catch {error in
                         reject(error)
