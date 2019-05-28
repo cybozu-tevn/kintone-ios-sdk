@@ -480,23 +480,16 @@
 				3FF04B2822803DA900E401FF /* app */,
 				ABE02356216F4603002C47EC /* file */,
 				AB4D6433216709E5005807C1 /* record */,
-				110578E621620B9300F6E8C0 /* bulk_request */,
+				110578E621620B9300F6E8C0 /* bulkrequest */,
 			);
 			path = module;
 			sourceTree = "<group>";
 		};
-		110578E621620B9300F6E8C0 /* bulk_request */ = {
+		110578E621620B9300F6E8C0 /* bulkrequest */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = bulk_request;
-			sourceTree = "<group>";
-		};
-		110578F2216756A900F6E8C0 /* connection */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = connection;
+			path = bulkrequest;
 			sourceTree = "<group>";
 		};
 		111892B5215012330077A87E /* bulkrequest */ = {
@@ -562,7 +555,7 @@
 			children = (
 				3FF04B2722803C6200E401FF /* init */,
 				3FF04B2622803C5C00E401FF /* common */,
-				3FF04B2522803C5200E401FF /* test-scripts */,
+				3FF04B2522803C5200E401FF /* test_scripts */,
 				3FF04B2422803C3700E401FF /* report */,
 				3FF04B2122803C0200E401FF /* utils */,
 				ABE02359216F4634002C47EC /* resources */,
@@ -756,8 +749,8 @@
 		3FF04B2122803C0200E401FF /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				680FB6B1229698C800ECA48E /* error-message */,
-				68C67E3C2282DA0B00244922 /* app-extension */,
+				680FB6B1229698C800ECA48E /* error_message */,
+				68C67E3C2282DA0B00244922 /* extension */,
 				3FF04B2922803E2800E401FF /* AppUtils.swift */,
 				B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */,
 				68C67E272280434000244922 /* JSONHandler.swift */,
@@ -772,13 +765,13 @@
 			path = report;
 			sourceTree = "<group>";
 		};
-		3FF04B2522803C5200E401FF /* test-scripts */ = {
+		3FF04B2522803C5200E401FF /* test_scripts */ = {
 			isa = PBXGroup;
 			children = (
-				110578F2216756A900F6E8C0 /* connection */,
+				686D002A229D46F200F0EA67 /* connection */,
 				110578E521620B9300F6E8C0 /* module */,
 			);
-			path = "test-scripts";
+			path = test_scripts;
 			sourceTree = "<group>";
 		};
 		3FF04B2622803C5C00E401FF /* common */ = {
@@ -810,35 +803,42 @@
 			path = app;
 			sourceTree = "<group>";
 		};
-		680FB6B1229698C800ECA48E /* error-message */ = {
+		680FB6B1229698C800ECA48E /* error_message */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E252280433600244922 /* KintoneError.swift */,
 				68C67E232280432600244922 /* KintoneErrorParser.swift */,
 			);
-			path = "error-message";
+			path = error_message;
 			sourceTree = "<group>";
 		};
-		68C67E1F228041EA00244922 /* test-data */ = {
+		686D002A229D46F200F0EA67 /* connection */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = connection;
+			sourceTree = "<group>";
+		};
+		68C67E1F228041EA00244922 /* test_data */ = {
 			isa = PBXGroup;
 			children = (
 				682B6AEF228D4E6300D4A894 /* InitializationData.json */,
 				68C67E21228042EF00244922 /* KintoneErrorMessage.json */,
 			);
-			path = "test-data";
+			path = test_data;
 			sourceTree = "<group>";
 		};
-		68C67E202280422400244922 /* test-file */ = {
+		68C67E202280422400244922 /* test_file */ = {
 			isa = PBXGroup;
 			children = (
 				ABE0235C216F4652002C47EC /* test.xlsx */,
 				ABE0235B216F4652002C47EC /* test.txt */,
 				ABE0235A216F4651002C47EC /* test.pptx */,
 			);
-			path = "test-file";
+			path = test_file;
 			sourceTree = "<group>";
 		};
-		68C67E3C2282DA0B00244922 /* app-extension */ = {
+		68C67E3C2282DA0B00244922 /* extension */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E492282DAC900244922 /* module */,
@@ -847,7 +847,7 @@
 				68C67E3D2282DA2500244922 /* authentication */,
 				68A2B67E229BE7B70091F27C /* DevAppTest.swift */,
 			);
-			path = "app-extension";
+			path = extension;
 			sourceTree = "<group>";
 		};
 		68C67E3D2282DA2500244922 /* authentication */ = {
@@ -956,9 +956,9 @@
 		68C67E582282DB7900244922 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E7E2282DC9300244922 /* update-token */,
-				68C67E792282DC7F00244922 /* get-token */,
-				68C67E742282DC0E00244922 /* generation-token */,
+				68C67E7E2282DC9300244922 /* update_token */,
+				68C67E792282DC7F00244922 /* get_token */,
+				68C67E742282DC0E00244922 /* generation_token */,
 				68C67E6A2282DBEE00244922 /* ApiTokenItem.swift */,
 				68C67E6B2282DBEE00244922 /* ApiTokenItems.swift */,
 				68C67E692282DBEE00244922 /* ApiToken.swift */,
@@ -970,54 +970,54 @@
 		68C67E592282DB7F00244922 /* permission */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E5F2282DBBD00244922 /* update-permission */,
-				68C67E5E2282DBA700244922 /* get-permission */,
+				68C67E5F2282DBBD00244922 /* update_permission */,
+				68C67E5E2282DBA700244922 /* get_permission */,
 			);
 			path = permission;
 			sourceTree = "<group>";
 		};
-		68C67E5E2282DBA700244922 /* get-permission */ = {
+		68C67E5E2282DBA700244922 /* get_permission */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */,
 				68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */,
 			);
-			path = "get-permission";
+			path = get_permission;
 			sourceTree = "<group>";
 		};
-		68C67E5F2282DBBD00244922 /* update-permission */ = {
+		68C67E5F2282DBBD00244922 /* update_permission */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E652282DBDF00244922 /* UpdateAppPermissionsRequest.swift */,
 				68C67E642282DBDF00244922 /* UpdateAppPermissionsResponse.swift */,
 			);
-			path = "update-permission";
+			path = update_permission;
 			sourceTree = "<group>";
 		};
-		68C67E742282DC0E00244922 /* generation-token */ = {
+		68C67E742282DC0E00244922 /* generation_token */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E762282DC7000244922 /* GenerateApiTokenRequest.swift */,
 				68C67E752282DC7000244922 /* GenerateApiTokenResponse.swift */,
 			);
-			path = "generation-token";
+			path = generation_token;
 			sourceTree = "<group>";
 		};
-		68C67E792282DC7F00244922 /* get-token */ = {
+		68C67E792282DC7F00244922 /* get_token */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E7B2282DC8D00244922 /* GetListApisTokenRequest.swift */,
 				68C67E7A2282DC8D00244922 /* GetListApisTokenResponse.swift */,
 			);
-			path = "get-token";
+			path = get_token;
 			sourceTree = "<group>";
 		};
-		68C67E7E2282DC9300244922 /* update-token */ = {
+		68C67E7E2282DC9300244922 /* update_token */ = {
 			isa = PBXGroup;
 			children = (
 				68C67E7F2282DCA400244922 /* UpdateApiTokenRequest.swift */,
 			);
-			path = "update-token";
+			path = update_token;
 			sourceTree = "<group>";
 		};
 		A88FEE002159DD8A00A7E838 /* basic */ = {
@@ -1273,8 +1273,8 @@
 		ABE02359216F4634002C47EC /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E202280422400244922 /* test-file */,
-				68C67E1F228041EA00244922 /* test-data */,
+				68C67E202280422400244922 /* test_file */,
+				68C67E1F228041EA00244922 /* test_data */,
 			);
 			path = resources;
 			sourceTree = "<group>";
