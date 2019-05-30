@@ -18,14 +18,13 @@ class UploadFileTest: QuickSpec {
     private var recordId: Int!
     
     // the app has attachment field
-    private let TEST_APP_ID: Int! = 33
+    private let APP_ID: Int! = 33
     private let RECORD_TEXT_FIELD: String! = "Text"
-    private let RECORD_ATTCHMENT_FIELD: String! = "Attachment"
+    private let RECORD_ATTACHMENT_FIELD: String! = "Attachment"
     
     override func spec() {
         beforeSuite {
-            self.auth = Auth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
-            self.conn = Connection(TestConstant.Connection.DOMAIN, self.auth)
+            self.conn = TestCommonHandling.createConnection()
             self.recordModule = Record(self.conn)
             self.fileModule = File(self.conn)
         }
@@ -34,9 +33,9 @@ class UploadFileTest: QuickSpec {
             it("Test_002_003_Success_UploadFile") {
                 let bundleUploadFile = Bundle(for: type(of: self))
                 var recordTestData: [String: FieldValue] = [:]
-                recordTestData = TestCommonHandling.addData(recordTestData,
-                                                            self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT,
-                                                            "Upload single file")
+                recordTestData = RecordUtils.setRecordData(recordTestData,
+                                                           self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT,
+                                                           "Upload single file")
                 
                 if let uploadFilePath = bundleUploadFile.url(forResource: "test", withExtension: "txt") {
                     let resourcesFile = try! uploadFilePath.resourceValues(forKeys: [.fileSizeKey])
@@ -45,27 +44,27 @@ class UploadFileTest: QuickSpec {
                     let expectedFileContent = try! String(contentsOf: uploadFilePath, encoding: String.Encoding.unicode)
                     
                     // prepare upload files
-                    let uploadFileResponse = TestCommonHandling.awaitAsync(self.fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
+                    let uploadFileResponse1 = TestCommonHandling.awaitAsync(self.fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
                     let uploadFileResponse2 = TestCommonHandling.awaitAsync(self.fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
-                    let fileList = [uploadFileResponse, uploadFileResponse2]
-                    recordTestData = TestCommonHandling.addData(recordTestData, self.RECORD_ATTCHMENT_FIELD, FieldType.FILE, fileList)
+                    let fileList = [uploadFileResponse1, uploadFileResponse2]
+                    recordTestData = RecordUtils.setRecordData(recordTestData, self.RECORD_ATTACHMENT_FIELD, FieldType.FILE, fileList)
                     
                     //upload files and get data
-                    let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.TEST_APP_ID, recordTestData)) as! AddRecordResponse
+                    let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, recordTestData)) as! AddRecordResponse
                     self.recordId = addRecordResponse.getId()!
-                    let getRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.TEST_APP_ID, self.recordId)) as! GetRecordResponse
-                    let fileResults = getRecordResponse.getRecord()![self.RECORD_ATTCHMENT_FIELD]!.getValue() as! [FileModel]
+                    let getRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID, self.recordId)) as! GetRecordResponse
+                    let fileResults = getRecordResponse.getRecord()![self.RECORD_ATTACHMENT_FIELD]!.getValue() as! [FileModel]
                     for fileResult in fileResults {
                         if let downloadDir = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first {
-                            let pathFileName = downloadDir.appendingPathComponent(fileResult.getName()!)
-                            self.fileModule.download(fileResult.getFileKey()!, pathFileName.absoluteString).then {
-                                let actualResourcesFile = try! pathFileName.resourceValues(forKeys: [.fileSizeKey])
-                                let actualFileName = pathFileName.lastPathComponent
+                            let filePath = downloadDir.appendingPathComponent(fileResult.getName()!)
+                            self.fileModule.download(fileResult.getFileKey()!, filePath.absoluteString).then {
+                                let actualResourcesFile = try! filePath.resourceValues(forKeys: [.fileSizeKey])
+                                let actualFileName = filePath.lastPathComponent
                                 let actualFileSize = actualResourcesFile.fileSize
-                                let actualFileContent = try! String(contentsOf: pathFileName, encoding: String.Encoding.unicode)
-                                expect(expectedFileName).to(equal(actualFileName))
-                                expect(expectedFileSize).to(equal(actualFileSize))
-                                expect(expectedFileContent).to(equal(actualFileContent))
+                                let actualFileContent = try! String(contentsOf: filePath, encoding: String.Encoding.unicode)
+                                expect(actualFileName).to(equal(expectedFileName))
+                                expect(actualFileSize).to(equal(expectedFileSize))
+                                expect(actualFileContent).to(equal(expectedFileContent))
                                 }.catch {error in
                                     dump(error)
                             }
@@ -79,11 +78,11 @@ class UploadFileTest: QuickSpec {
                     expect(error).toNot(beNil())
                 }
             }
-            
-            afterSuite {
-                // delete added test record
-                _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.TEST_APP_ID, [self.recordId!]))
-            }
-        }// End describe
-    }// End spec func
+        }
+        
+        afterSuite {
+            // delete added test record
+            _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [self.recordId!]))
+        }
+    }
 }

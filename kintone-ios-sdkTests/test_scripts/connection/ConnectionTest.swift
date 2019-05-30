@@ -11,12 +11,10 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class ConnectionTest: QuickSpec {
-    let TEST_APP_ID: Int = 31
-    let TOKEN_API_TEST_APP: String = "Yy1jJ1DkDNeUh5AQBpIV9IiYptxN2SGIwaVOxv9m"
+    let APP_ID: Int = 31
+    let API_TOKEN: String = "Yy1jJ1DkDNeUh5AQBpIV9IiYptxN2SGIwaVOxv9m"
     let GUEST_SPACE_ID: Int = 5
     let GUEST_SPACE_APP_ID: Int = 30
-    
-    //Invalid host to test
     let INVALID_PROXY_HOST: String = "HOST NOT FOUND"
     let INVALID_PROXY_HOST_PORT: Int = -999
     
@@ -28,7 +26,7 @@ class ConnectionTest: QuickSpec {
                 conn.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
-                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.TEST_APP_ID, [:])) is AddRecordResponse
+                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is AddRecordResponse
                 expect(result).to(beTruthy())
             }
             
@@ -42,13 +40,13 @@ class ConnectionTest: QuickSpec {
                 expect(result).to(beTruthy())
             }
             
-            it("Test_002_ValidRequestTokenApi") {
-                let auth = Auth().setApiToken(self.TOKEN_API_TEST_APP)
+            it("Test_002_ValidRequestApiToken") {
+                let auth = Auth().setApiToken(self.API_TOKEN)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
                 conn.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
-                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.TEST_APP_ID, [:])) is AddRecordResponse
+                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is AddRecordResponse
                 expect(result).to(beTruthy())
             }
             
@@ -58,7 +56,7 @@ class ConnectionTest: QuickSpec {
                 conn.setProxy(self.INVALID_PROXY_HOST, self.INVALID_PROXY_HOST_PORT)
                 let recordModule = Record(conn)
                 
-                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.TEST_APP_ID, [:])) is NSError
+                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is NSError
                 expect(result).to(beTruthy())
             } //End it
         } //End describe
