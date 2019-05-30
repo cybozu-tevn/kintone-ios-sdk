@@ -2,9 +2,6 @@
 //  TestCommonHandling.swift
 //  kintone-ios-sdkTests
 //
-//  Created by Vu Tran on 5/6/19.
-//  Copyright © 2019 Cybozu. All rights reserved.
-//
 
 import XCTest
 import Nimble
@@ -12,42 +9,42 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class TestCommonHandling {
-    /// Initializes a new connection with username and password
+    /// Initialize a new connection with username and password
     ///
     /// - Parameters:
     ///   - username: String | the username of login user
     ///   - password: String | the password of login user
-    /// - Returns: conn | the connection create by username and password option
+    /// - Returns: Connection | the connection create by username and password option
     static func createConnection(_ username: String = TestConstant.Connection.ADMIN_USERNAME, _ password: String = TestConstant.Connection.ADMIN_PASSWORD) -> Connection {
         let auth = Auth.init().setPasswordAuth(username, password)
         let conn = Connection(TestConstant.Connection.DOMAIN, auth)
         return conn
     }
     
-    /// Initializes a new connection with token in the application
+    /// Initialize a new connection with API Token
     ///
-    /// - Parameter apiToken: String | The token of API
-    /// - Returns: conn | the connection create by api token
+    /// - Parameter apiToken: String | the API Token
+    /// - Returns: Connection | the connection create by api token
     static func createConnection(_ apiToken: String) -> Connection {
         let auth = Auth.init().setApiToken(apiToken)
         let conn = Connection(TestConstant.Connection.DOMAIN, auth)
         return conn
     }
     
-    /// Initializes a new connection with username, password and guest space
+    /// Initialize a new connection with username, password and guest space
     ///
     /// - Parameters:
     ///   - username: String | the username of login user
     ///   - password: String | the password of login user
     ///   - guestSpaceId: Int | the id of the guest space
-    /// - Returns: conn | the connection create by username, password and guest space id
+    /// - Returns: Connection | the connection create by username, password and guest space id
     static func createConnection(_ username: String, _ password: String, _ guestSpaceId: Int) -> Connection {
         let auth = Auth.init().setPasswordAuth(username, password)
         let conn = Connection(TestConstant.Connection.DOMAIN, auth, guestSpaceId)
         return conn
     }
     
-    /// handling the promise
+    /// Handle the promise
     ///
     /// - Parameter promise: Promise<T> | the promise will be handled
     /// - Returns: response | the respone of the promise
@@ -68,7 +65,7 @@ class TestCommonHandling {
         return (response != nil) ? (response as Any) : (error as Any)
     }
     
-    /// handling DO TRY CATCH
+    /// Handle DO TRY CATCH
     ///
     /// - Parameter closure: the closure to handel DO TRY CATCH
     /// - Returns: the result or error after handled
@@ -82,36 +79,13 @@ class TestCommonHandling {
             return error
         }
     }
-
-    /// fill single data to Dictionary record data
-    ///
-    /// - Paramaters:
-    ///   - recordData: Dictionary<String, FieldValue> | the Dictionary record data
-    ///   - code: String | the code of field on record
-    ///   - type: FieldType | the type of field on record
-    ///   - value: Any | the vaule of field on record
-    ///
-    /// - Returns: the Dictionary record data of kintone application
-    public static func addData(_ recordData: Dictionary<String, FieldValue>,
-                               _ code: String,
-                               _ type: FieldType,
-                               _ value: Any) -> Dictionary<String, FieldValue> {
-        var recData = recordData
-        let field = FieldValue()
-        field.setType(type)
-        field.setValue(value)
-        recData[code] = field
-        
-        return recData
-    }
     
-    /// compare the expected kintone error message with actual kintone error message result
+    /// Compare the expected kintone error message with actual kintone error message result
     ///
     /// - Parameters:
-    ///   - KintoneError: KintoneError | the Error of kintone
-    ///   - ErrorResponse: ErrorResponse | the Error return from respone
-    /// - Returns:
-    static func compareError(_ expectedError: KintoneError, _ actualError: ErrorResponse) {
+    ///   - actualError: ErrorResponse | the Error return from respone
+    ///   - expectedError: KintoneError | the Error of kintone
+    static func compareError(_ actualError: ErrorResponse!, _ expectedError: KintoneError) {
         /// Get code, message and errors of the expected kintone error
         let expectedErrorCode = expectedError.getCode()
         let expectedErrorMessage = expectedError.getMessage()
@@ -123,10 +97,10 @@ class TestCommonHandling {
         let actualErrors = actualError.getErrors()
         
         /// using Nimble to compare expected and actual kintone error message
-        expect(expectedErrorCode).to(equal(actualErrorCode), description: "The error code incorrectly")
-        expect(expectedErrorMessage).to(equal(actualErrorMessage), description: "The error message incorrectly")
+        expect(actualErrorCode).to(equal(expectedErrorCode), description: "The error code is incorrect")
+        expect(actualErrorMessage).to(equal(expectedErrorMessage), description: "The error message is incorrect")
         if(expectedErrors != nil) {
-            expect(expectedErrors).to(equal(actualErrors), description: "The errors incorrectly")
+            expect(actualErrors).to(equal(expectedErrors), description: "The error description is incorrect")
         }
     }
 }

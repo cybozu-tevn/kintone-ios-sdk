@@ -2,7 +2,7 @@
 /**
  kintone-ios-sdkTests
  Created on 5/8/19
-*/
+ */
 
 import Foundation
 import Quick
@@ -28,22 +28,22 @@ class UpdateRecordsTest: QuickSpec {
     var testData: Dictionary<String, FieldValue>!
     
     let API_TOKEN: String = "MCzGNV14RBJ83ToijXT3Srqv9xqvZZQNJvQR4HFJ"
-
+    
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
-
+        
         describe("") {
             it("") {
                 self.recordTextValue.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
                 var addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordIDs.append(addRecordResponse.getId()!)
                 self.recordTextValue.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
                 addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordIDs.append(addRecordResponse.getId()!)
                 self.recordTextValue.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue[self.recordTextValue.count-1])
                 var recordsUpdateItem = [RecordUpdateItem]()
                 for id in self.recordIDs {
                     recordsUpdateItem.append(RecordUpdateItem(id, nil, nil, self.testData))

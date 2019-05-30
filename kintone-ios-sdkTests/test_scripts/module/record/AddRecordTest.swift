@@ -40,11 +40,11 @@ class AddRecordTest: QuickSpec {
             self.CRED_USERNAME_WITHOUT_PEMISSION_ADD_RECORD,
             self.CRED_PASSWORD_WITHOUT_PEMISSION_ADD_RECORD))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
-
+        
         describe("AddRecord") {
             it("Test_27_Success_ValidData") {
                 self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
                 self.recordRevision = addRecordResponse.getRevision()
@@ -62,7 +62,7 @@ class AddRecordTest: QuickSpec {
             
             it("Test_27_Success_APITokenValidData") {
                 self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
                 self.recordRevision = addRecordResponse.getRevision()
@@ -80,40 +80,40 @@ class AddRecordTest: QuickSpec {
             
             it("Test_28_Error_NonexistentAppID") {
                 self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_NONEXISTENT_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 //Get expect error
                 var expectedError  = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.APP_NONEXISTENT_ID))
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_29_Error_NegativeAppID") {
                 self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_NEGATIVE_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError  = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }// End it
             
             //To test this case please set up an application have number field
             it("Test_30_Error_InputTextToNumberField") {
-                self.testData = TestCommonHandling.addData([:], self.RECORD_NUMBER_FILED, FieldType.NUMBER, "inputTextToNumber")
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_NUMBER_FILED, FieldType.NUMBER, "inputTextToNumber")
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.INVALID_FIELD_TYPE_NUMBER_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "[\(self.RECORD_NUMBER_FILED)]")
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             //To test this case please set up an application have prohibit duplicate value field. fieldCode = RECORD_TEXT_FIELD
             it("Test_31_Error_DuplicateDataForProhibitDuplicateValue") {
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, "prohibitValue")
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, "prohibitValue")
                 let addRecord = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecord.getId()
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! KintoneAPIException
@@ -121,7 +121,7 @@ class AddRecordTest: QuickSpec {
                 var expectedError = KintoneErrorParser.INVALID_VALUE_DUPLICATED_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: ".\(self.RECORD_TEXT_FIELD)")
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(self.APP_ID, [self.recordID!]))
             }
             
@@ -149,12 +149,12 @@ class AddRecordTest: QuickSpec {
                 var expectedError = KintoneErrorParser.MISSING_REQUIRED_FIELD_ADD_RECORD_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: ".\(self.RECORD_TEXT_FIELD)")
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_39_Success_ValidDataGuestSpace") {
                 self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(self.GUESTSPACE_APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
                 self.recordRevision = addRecordResponse.getRevision()
@@ -172,12 +172,12 @@ class AddRecordTest: QuickSpec {
             
             it("Test_41_Error_WithoutAddRecordPermissionOnApp") {
                 self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
-                self.testData = TestCommonHandling.addData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
+                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutAddPermissionApp.addRecord(self.APP_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_45_Success_BlankApp") {

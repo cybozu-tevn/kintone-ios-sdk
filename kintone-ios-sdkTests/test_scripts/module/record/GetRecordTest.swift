@@ -88,8 +88,8 @@ class GetRecordTest: QuickSpec {
                 //Get expect error
                 var expectedError  = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.APP_NONEXISTENT_ID))
-
-                TestCommonHandling.compareError(expectedError, actualError!)
+                
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_4_Error_NegativeAppID") {
@@ -97,7 +97,7 @@ class GetRecordTest: QuickSpec {
                 let actualError = result.getErrorResponse()
                 let expectedError  = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_5_Error_NonexistentRecordID") {
@@ -106,7 +106,7 @@ class GetRecordTest: QuickSpec {
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.RECORD_NONEXISTENT_ID))
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_5_Error_NegativeRecordID") {
@@ -114,8 +114,8 @@ class GetRecordTest: QuickSpec {
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NEGATIVE_RECORD_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.RECORD_NEGATIVE_ID))
-
-                TestCommonHandling.compareError(expectedError, actualError!)
+                
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             // When user don't have View records permission for app
@@ -123,8 +123,8 @@ class GetRecordTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermissionApp.getRecord(self.APP_ID, self.RECORD_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
-
-                TestCommonHandling.compareError(expectedError, actualError!)
+                
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             // When user don't have View records permission for record
@@ -133,7 +133,7 @@ class GetRecordTest: QuickSpec {
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 
-                TestCommonHandling.compareError(expectedError, actualError!)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             // When user don't have View records permission for field - ex: txt_Name field
