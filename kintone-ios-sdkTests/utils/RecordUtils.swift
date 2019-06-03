@@ -28,4 +28,22 @@ class RecordUtils {
         
         return recData
     }
+    
+    /// create query to get records
+    ///
+    /// - Parameter recordIDs: [Int] | the array id of records to select
+    /// - Returns: String | the query to select records
+    public static func getRecordsQuery(_ recordIDs: [Int]) -> String {
+        var idsString = "("
+        for id in recordIDs {
+            if idsString == "(" {
+                idsString += String(id)
+            } else {
+                idsString += "," + String(id)
+            }
+        }
+        let query = "$id in " + idsString + ")" +  " order by $id asc"
+        
+        return query
+    }
 }
