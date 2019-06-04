@@ -24,10 +24,10 @@ public class TestConstant {
         static let PROXY_PORT = 3128
         static let GUEST_SPACE_ID = 8
         static let GUEST_THREAD_ID = 8
-        static let MAX_VALUE = 2147483647
     }
     
     class Common {
         static let PROMISE_TIMEOUT = 30.0
+        static let MAX_VALUE = 2147483647
     }
 }
