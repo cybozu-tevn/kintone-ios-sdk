@@ -30,6 +30,7 @@ public class TestConstant {
         static let PROXY_PORT = 3128
 
         static let GUEST_SPACE_ID = 8
+        static let GUEST_THREAD_ID = 8
     }
     
     class Common {

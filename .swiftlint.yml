@@ -3,6 +3,9 @@ disabled_rules: # các rule loại bỏ
   - identifier_name
   - function_body_length
   - type_name
+  - cyclomatic_complexity
+  - force_cast
+  - line_length
 opt_in_rules: # các rule được thêm vào
   - control_statement
   - empty_count

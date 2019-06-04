@@ -17,10 +17,6 @@ class GetAppTest: QuickSpec {
         let appName = "App Name"
         var appId: Int?
         
-        //        let json = "{ \"people\": [{ \"firstName\": \"Paul\", \"lastName\": \"Hudson\", \"isAlive\": true }, { \"firstName\": \"Angela\", \"lastName\": \"Merkel\", \"isAlive\": true }, { \"firstName\": \"George\", \"lastName\": \"Washington\", \"isAlive\": false } ] }"
-        //        let kintoneErrFilePath = Bundle(identifier: "com.myframework")!.path(forResource: "KintoneErrorMessage", ofType: "json")!
-        //        let fileContents = try? String(contentsOfFile: kintoneErrFilePath, encoding: String.Encoding.utf8)
-        
         beforeSuite {
             print("=== TEST PREPARATION ===")
             appId = AppUtils.createApp(appModule: app, appName: appName)
@@ -33,16 +29,23 @@ class GetAppTest: QuickSpec {
         
         describe("GetAppTest") {
             
-            it("Success Case 1") {
-                //                if let data = fileContents?.data(using: .utf8) {
-                //                    if let json = try? JSON(data: data) {
-                //                        //for item in json["API_TOKEN_ERROR"]["code"].stringValue {
-                //                        //print(item["firstName"].stringValue)
-                //                        //}
-                //                        print(json["API_TOKEN_ERROR"]["code"].stringValue)
-                //                    }
-                //                }
+            it("test_003_SuccessWithApiToken") {
+                let apiToken = AppUtils.generateToken(app, appId!)
+                let tokenPermission  = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
+                AppUtils.updateTokenPermission(appModule: app, appId: appId!, token: tokenPermission)
                 
+                let appModule = App(TestCommonHandling.createConnection(apiToken))
+                let getAppRsp = TestCommonHandling.awaitAsync(appModule.getApp(appId!)) as! AppModel
+                
+                expect(getAppRsp.getAppId()).to(equal(appId))
+                expect(getAppRsp.getName()).to(equal(appName))
+                expect(getAppRsp.getCode()).to(equal(""))
+                expect(getAppRsp.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                expect(getAppRsp.getSpaceId()).to(beNil())
+                expect(getAppRsp.getThreadId()).to(beNil())
+            }
+            
+            it("test_004_Success") {
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appId!)) as! AppModel
                 expect(getAppRsp.getAppId()).to(equal(appId))
                 expect(getAppRsp.getName()).to(equal(appName))
@@ -50,7 +53,31 @@ class GetAppTest: QuickSpec {
                 expect(getAppRsp.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
                 expect(getAppRsp.getSpaceId()).to(beNil())
                 expect(getAppRsp.getThreadId()).to(beNil())
+            }
+            
+            it("test_004_Success_With_GuesSpaceApp") {
+                // Test setting up
+                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
+                let guestAppId = AppUtils.createApp(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Connection.GUEST_THREAD_ID)
                 
+                let getAppRsp = TestCommonHandling.awaitAsync(guestAppModule.getApp(guestAppId)) as! AppModel
+                expect(getAppRsp.getAppId()).to(equal(guestAppId))
+                expect(getAppRsp.getName()).to(equal(appName))
+                expect(getAppRsp.getCode()).to(equal(""))
+                expect(getAppRsp.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                expect(getAppRsp.getSpaceId()).to(equal(TestConstant.Connection.GUEST_SPACE_ID))
+                expect(getAppRsp.getThreadId()).to(equal(TestConstant.Connection.GUEST_THREAD_ID))
+                
+                // Test cleaning up
+                AppUtils.deleteApp(appId: guestAppId)
+            }
+            
+            it("test_005_FailedWithInvalidAppId") {
+                let invalidAppId = 9999 // non-existed appId
+                let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(invalidAppId)) as! KintoneAPIException
+                var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()
+                expectedError?.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(invalidAppId))
+                TestCommonHandling.compareError(getAppRsp.getErrorResponse()!, expectedError!)
             }
         }
     }
