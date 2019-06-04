@@ -2,9 +2,7 @@
 //  DevAppApp.swift
 //  kintone-ios-sdkTests
 //
-//  Created by Le Dai Vuong on 12/24/18.
-//  Copyright © 2018 Cybozu. All rights reserved.
-//
+
 import Foundation
 import Promises
 import kintone_ios_sdk
@@ -21,8 +19,8 @@ public extension DevAppApp where Self: DevApp {
             do {
                 let addSpaceRequest = AddSpaceRequest(idTemplate, name, members, isGuest, isPrivate)
                 let body = try self.parser.parseObject(addSpaceRequest)
-                let jsonBody = String(data: body, encoding: .utf8)!
-                self.devConnection?.request(baseUrl, "POST", "template/space", jsonBody).then {response in
+                let jsonBody = String(data: body, encoding: .utf8)
+                self.devConnection?.request(baseUrl, "POST", "template/space", jsonBody!).then {response in
                     let addSpaceResponse = try self.parser.parseJson(AddSpaceResponse.self, response)
                     fulfill(addSpaceResponse)
                     }.catch {error in
@@ -79,7 +77,7 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func getListAPIsToken(_ appId: Int) -> Promise<GetApiTokenListResponse> {
+    func getApiTokenList(_ appId: Int) -> Promise<GetApiTokenListResponse> {
         return Promise<GetApiTokenListResponse> {fulfill, reject in
             do {
                 let getListAPIsTokenRequest = GetApiTokenListRequest(appId)
@@ -151,7 +149,7 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func updateAppPermissions(_ appId: Int, _ userRights: [UserRightEntity]) -> Promise<UpdateAppPermissionsResponse> {
+    func updateAppPermissions(_ appId: Int, _ userRights: [AccessRightEntity]) -> Promise<UpdateAppPermissionsResponse> {
         return Promise<UpdateAppPermissionsResponse> {fulfill, reject in
             do {
                 let updateAppPermissionsRequest = UpdateAppPermissionsRequest(appId, userRights)

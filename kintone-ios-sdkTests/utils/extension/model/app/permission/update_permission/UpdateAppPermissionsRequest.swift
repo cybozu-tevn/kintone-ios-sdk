@@ -2,15 +2,12 @@
 //  UpdateAppPermissionsRequest.swift
 //  kintone-ios-sdkTests
 //
-//  Created by Le Dai Vuong on 1/3/19.
-//  Copyright © 2019 Cybozu. All rights reserved.
-//
 
 import Foundation
 
 class UpdateAppPermissionsRequest: NSObject, Codable {
     private var app: Int!
-    private var userRights: [UserRightEntity]
+    private var userRights: [AccessRightEntity]
     
     public func getApp() -> Int {
         return self.app
@@ -20,15 +17,15 @@ class UpdateAppPermissionsRequest: NSObject, Codable {
         self.app = app
     }
     
-    public func getRights() -> [UserRightEntity] {
+    public func getRights() -> [AccessRightEntity] {
         return self.userRights
     }
     
-    public func setRights(_ userRights: [UserRightEntity]) {
+    public func setRights(_ userRights: [AccessRightEntity]) {
         self.userRights = userRights
     }
     
-    public init(_ app: Int, _ userRights: [UserRightEntity]) {
+    public init(_ app: Int, _ userRights: [AccessRightEntity]) {
         self.app = app
         self.userRights = userRights
     }

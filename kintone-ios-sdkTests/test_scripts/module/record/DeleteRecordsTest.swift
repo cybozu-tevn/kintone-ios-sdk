@@ -25,15 +25,15 @@ class DeleteRecordsTest: QuickSpec {
     var testDatas = [Dictionary<String, FieldValue>]()
     let RECORD_NONEXISTENT_ID = 100000
     let COUNT_NUMBER = 5
-    let CRED_USERNAME_WITHOUT_PEMISSION_DELETE_RECORD = "user4"
-    let CRED_PASSWORD_WITHOUT_PEMISSION_DELETE_RECORD = "user4@123"
+    let CRED_USERNAME_WITHOUT_PERMISSION_DELETE_RECORD = "user4"
+    let CRED_PASSWORD_WITHOUT_PERMISSION_DELETE_RECORD = "user4@123"
     let APP_API_TOKEN = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
         let recordModuleWithoutDeletePermissionRecord = Record(TestCommonHandling.createConnection(
-            self.CRED_USERNAME_WITHOUT_PEMISSION_DELETE_RECORD,
-            self.CRED_PASSWORD_WITHOUT_PEMISSION_DELETE_RECORD))
+            self.CRED_USERNAME_WITHOUT_PERMISSION_DELETE_RECORD,
+            self.CRED_PASSWORD_WITHOUT_PERMISSION_DELETE_RECORD))
         let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
             TestConstant.Connection.ADMIN_USERNAME,
             TestConstant.Connection.ADMIN_PASSWORD,
@@ -42,7 +42,7 @@ class DeleteRecordsTest: QuickSpec {
         
         describe("DeleteRecord") {
             it("Test_127_Success_Single") {
-                self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
                 self.testData = [:]
@@ -65,7 +65,7 @@ class DeleteRecordsTest: QuickSpec {
             
             it("Test_128_Success_Multiple") {
                 for i in 0...self.COUNT_NUMBER-1 {
-                    self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                    self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                     self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
                     self.testDatas.append(self.testData)
                     self.testData = [:]
@@ -90,7 +90,7 @@ class DeleteRecordsTest: QuickSpec {
             
             it("Test_128_Success_MultipleGuestSpace") {
                 for i in 0...self.COUNT_NUMBER-1 {
-                    self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                    self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                     self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
                     self.testDatas.append(self.testData)
                     self.testData = [:]
@@ -115,7 +115,7 @@ class DeleteRecordsTest: QuickSpec {
             
             it("Test_128_Success_MultipleAPIToken") {
                 for i in 0...self.COUNT_NUMBER-1 {
-                    self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                    self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                     self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
                     self.testDatas.append(self.testData)
                     self.testData = [:]
@@ -148,7 +148,7 @@ class DeleteRecordsTest: QuickSpec {
             }
             
             it("Test_130_Error_WithouDeletetPermission") {
-                self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
                 self.testData = [:]
@@ -166,7 +166,7 @@ class DeleteRecordsTest: QuickSpec {
             }
             
             it("Test_133_Error_NoneExistentApp") {
-                self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
                 self.testData = [:]
@@ -185,7 +185,7 @@ class DeleteRecordsTest: QuickSpec {
             }
             
             it("Test_133_Error_NegativeApp") {
-                self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[0])
                 self.testDatas.append(self.testData)
                 self.testData = [:]
@@ -205,7 +205,7 @@ class DeleteRecordsTest: QuickSpec {
             
             it("Test_138_Success_100Records") {
                 for i in 0...99 {
-                    self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                    self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                     self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
                     self.testDatas.append(self.testData)
                     self.testData = [:]
@@ -229,7 +229,7 @@ class DeleteRecordsTest: QuickSpec {
             
             it("Test_139_Error_101Records") {
                 for i in 0...99 {
-                    self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                    self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                     self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValues[i])
                     self.testDatas.append(self.testData)
                     self.testData = [:]
@@ -240,7 +240,7 @@ class DeleteRecordsTest: QuickSpec {
                 self.recordIDs = addRecordsResponse.getIDs()!
                 
                 // Add the record 101 into testing application
-                self.recordTextValues.append(DataRandomization.generateRandomString(length: 64, refix: "Record"))
+                self.recordTextValues.append(DataRandomization.generateString(prefix: "Record"))
                 self.testData = RecordUtils.setRecordData(
                     [:],
                     self.RECORD_TEXT_FIELD,

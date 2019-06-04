@@ -60,7 +60,7 @@ class BulkRequestTest: QuickSpec {
         describe("") {
             it("Test_002_Success_ValidRequest") {
                 var recordIDs = [Int]()
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                self.recordTextValue = DataRandomization.generateString()
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                 do {
                     _ = try self.bulkRequestModule.addRecord(self.APP_ID, self.testData)
@@ -94,7 +94,7 @@ class BulkRequestTest: QuickSpec {
                         }
                     }.then {_ -> Promise<BulkRequestResponse> in
                         let bulkRequestModule = BulkRequest(self.conn)
-                        self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                        self.recordTextValue = DataRandomization.generateString()
                         self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                         for id in recordIDs {
                             _ = try bulkRequestModule.updateRecordByID(self.APP_ID, id, self.testData, nil)
@@ -115,7 +115,7 @@ class BulkRequestTest: QuickSpec {
                         }
                     }.then {_ -> Promise<BulkRequestResponse> in
                         let bulkRequestModule = BulkRequest(self.conn)
-                        self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                        self.recordTextValue = DataRandomization.generateString()
                         self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                         for id in recordIDs {
                             _ = try bulkRequestModule.updateRecordByID(self.APP_ID, id, self.testData, nil)
@@ -139,7 +139,7 @@ class BulkRequestTest: QuickSpec {
             it("Test_002_Success_ValidRequestApi") {
                 var recordIDs = [Int]()
                 
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                self.recordTextValue = DataRandomization.generateString()
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                 do {
                     _ = try self.bulkRequestAPI.addRecord(self.APP_ID, self.testData)
@@ -175,7 +175,7 @@ class BulkRequestTest: QuickSpec {
                         }
                     }.then {_ -> Promise<BulkRequestResponse> in
                         let bulkRequestModule = BulkRequest(self.connAPI)
-                        self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                        self.recordTextValue = DataRandomization.generateString()
                         self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                         for id in recordIDs {
                             _ = try bulkRequestModule.updateRecordByID(self.APP_ID, id, self.testData, nil)
@@ -196,7 +196,7 @@ class BulkRequestTest: QuickSpec {
                         }
                     }.then {_ -> Promise<BulkRequestResponse> in
                         let bulkRequestModule = BulkRequest(self.connAPI)
-                        self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                        self.recordTextValue = DataRandomization.generateString()
                         self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                         for id in recordIDs {
                             _ = try bulkRequestModule.updateRecordByID(self.APP_ID, id, self.testData, nil)
@@ -220,7 +220,7 @@ class BulkRequestTest: QuickSpec {
             it("Test_002_Success_ValidRequestGuestSpace") {
                 var recordIDs = [Int]()
                 
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                self.recordTextValue = DataRandomization.generateString()
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                 do {
                     _ = try self.bulkRequestModuleGuestSpace.addRecord(self.APP_ID_GUESTSPACE, self.testData)
@@ -256,7 +256,7 @@ class BulkRequestTest: QuickSpec {
                         }
                     }.then {_ -> Promise<BulkRequestResponse> in
                         let bulkRequestModule = BulkRequest(self.connGuestSpace)
-                        self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                        self.recordTextValue = DataRandomization.generateString()
                         self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                         for id in recordIDs {
                             _ = try bulkRequestModule.updateRecordByID(self.APP_ID_GUESTSPACE, id, self.testData, nil)
@@ -277,7 +277,7 @@ class BulkRequestTest: QuickSpec {
                         }
                     }.then {_ -> Promise<BulkRequestResponse> in
                         let bulkRequestModule = BulkRequest(self.connGuestSpace)
-                        self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "")
+                        self.recordTextValue = DataRandomization.generateString()
                         self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                         for id in recordIDs {
                             _ = try bulkRequestModule.updateRecordByID(self.APP_ID_GUESTSPACE, id, self.testData, nil)

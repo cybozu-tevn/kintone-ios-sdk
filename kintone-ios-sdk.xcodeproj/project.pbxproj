@@ -103,7 +103,7 @@
 		68C67E532282DB3D00244922 /* DevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E522282DB3D00244922 /* DevApp.swift */; };
 		68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E542282DB5F00244922 /* DeleteAppRequest.swift */; };
 		68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E562282DB6A00244922 /* UpdateMiscSettingsRequest.swift */; };
-		68C67E5C2282DB9C00244922 /* UserRightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5A2282DB9C00244922 /* UserRightEntity.swift */; };
+		68C67E5C2282DB9C00244922 /* AccessRightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5A2282DB9C00244922 /* AccessRightEntity.swift */; };
 		68C67E5D2282DB9C00244922 /* DevMemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5B2282DB9C00244922 /* DevMemberEntity.swift */; };
 		68C67E622282DBD600244922 /* GetAppPermissionsReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */; };
 		68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */; };
@@ -218,6 +218,8 @@
 		ABE0235F216F4652002C47EC /* test.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235C216F4652002C47EC /* test.xlsx */; };
 		B7A2AD8A22977C1E00AA4196 /* DataRandomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */; };
 		B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8E229F714300AA4196 /* RecordUtils.swift */; };
+		B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */; };
+		B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -340,7 +342,7 @@
 		68C67E522282DB3D00244922 /* DevApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevApp.swift; sourceTree = "<group>"; };
 		68C67E542282DB5F00244922 /* DeleteAppRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAppRequest.swift; sourceTree = "<group>"; };
 		68C67E562282DB6A00244922 /* UpdateMiscSettingsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateMiscSettingsRequest.swift; sourceTree = "<group>"; };
-		68C67E5A2282DB9C00244922 /* UserRightEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRightEntity.swift; sourceTree = "<group>"; };
+		68C67E5A2282DB9C00244922 /* AccessRightEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessRightEntity.swift; path = ../../member/AccessRightEntity.swift; sourceTree = "<group>"; };
 		68C67E5B2282DB9C00244922 /* DevMemberEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevMemberEntity.swift; sourceTree = "<group>"; };
 		68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppPermissionsReponse.swift; sourceTree = "<group>"; };
 		68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppPermissionsRequest.swift; sourceTree = "<group>"; };
@@ -457,6 +459,8 @@
 		ABE0235C216F4652002C47EC /* test.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.xlsx; sourceTree = "<group>"; };
 		B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRandomization.swift; sourceTree = "<group>"; };
 		B7A2AD8E229F714300AA4196 /* RecordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUtils.swift; sourceTree = "<group>"; };
+		B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployAppSettingsTest.swift; sourceTree = "<group>"; };
+		B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceUtils.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -766,6 +770,7 @@
 				B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */,
 				68C67E272280434000244922 /* JSONHandler.swift */,
 				B7A2AD8E229F714300AA4196 /* RecordUtils.swift */,
+				B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -811,6 +816,7 @@
 				3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */,
 				3FF04B2A22803E2800E401FF /* GetAppTest.swift */,
 				3FBD1F5D228531490043FD31 /* GetAppsTest.swift */,
+				B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -904,7 +910,6 @@
 		68C67E452282DA9500244922 /* member */ = {
 			isa = PBXGroup;
 			children = (
-				68C67E5A2282DB9C00244922 /* UserRightEntity.swift */,
 				68C67E5B2282DB9C00244922 /* DevMemberEntity.swift */,
 				68C67E852282DCCC00244922 /* DevMemberType.swift */,
 				68C67E862282DCCC00244922 /* SpaceMember.swift */,
@@ -983,6 +988,7 @@
 		68C67E592282DB7F00244922 /* permission */ = {
 			isa = PBXGroup;
 			children = (
+				68C67E5A2282DB9C00244922 /* AccessRightEntity.swift */,
 				68C67E5F2282DBBD00244922 /* update_permission */,
 				68C67E5E2282DBA700244922 /* get_permission */,
 			);
@@ -1618,6 +1624,7 @@
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
 				B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */,
 				68C67E422282DA7000244922 /* DevConnection.swift in Sources */,
+				B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */,
 				68C67E282280434100244922 /* JSONHandler.swift in Sources */,
 				68621DB6229E42A000F96F0B /* UploadFileTest.swift in Sources */,
 				3FF04B3022803E4800E401FF /* TestConstant.swift in Sources */,
@@ -1634,6 +1641,7 @@
 				68C67E6F2282DBEE00244922 /* ApiTokenItems.swift in Sources */,
 				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
 				68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */,
+				B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
 				68C67E6E2282DBEE00244922 /* ApiTokenItem.swift in Sources */,
 				68621DB8229E66B000F96F0B /* DownloadFileTest.swift in Sources */,
@@ -1650,7 +1658,7 @@
 				68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */,
 				682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */,
 				68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */,
-				68C67E5C2282DB9C00244922 /* UserRightEntity.swift in Sources */,
+				68C67E5C2282DB9C00244922 /* AccessRightEntity.swift in Sources */,
 				68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */,
 				68621DBA229E9BB600F96F0B /* BulkRequestTest.swift in Sources */,
 				68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */,
@@ -1807,7 +1815,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 33A3NA2C2V;
+				DEVELOPMENT_TEAM = VHY32ZU4KA;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1839,7 +1847,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 33A3NA2C2V;
+				DEVELOPMENT_TEAM = VHY32ZU4KA;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

@@ -29,24 +29,24 @@ class GetRecordTest: QuickSpec {
     let RECORD_TEST_VALUE = "Phong Hoang"
     
     //User without permisstion to view record details
-    let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP = "user1"
-    let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP = "user1@123"
-    let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD = "user2"
-    let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD = "user2@123"
-    let CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD = "user3"
-    let CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD = "user3@123"
+    let CRED_USERNAME_WITHOUT_PERMISSION_VIEW_APP = "user1"
+    let CRED_PASSWORD_WITHOUT_PERMISSION_VIEW_APP = "user1@123"
+    let CRED_USERNAME_WITHOUT_PERMISSION_VIEW_RECORD = "user2"
+    let CRED_PASSWORD_WITHOUT_PERMISSION_VIEW_RECORD = "user2@123"
+    let CRED_USERNAME_WITHOUT_PERMISSION_VIEW_FIELD = "user3"
+    let CRED_PASSWORD_WITHOUT_PERMISSION_VIEW_FIELD = "user3@123"
     
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
         let recordModuleWithoutViewPermissionApp = Record(TestCommonHandling.createConnection(
-            self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_APP,
-            self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_APP))
+            self.CRED_USERNAME_WITHOUT_PERMISSION_VIEW_APP,
+            self.CRED_PASSWORD_WITHOUT_PERMISSION_VIEW_APP))
         let recordModuleWithoutViewPermissionRecord = Record(TestCommonHandling.createConnection(
-            self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_RECORD,
-            self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_RECORD))
+            self.CRED_USERNAME_WITHOUT_PERMISSION_VIEW_RECORD,
+            self.CRED_PASSWORD_WITHOUT_PERMISSION_VIEW_RECORD))
         let recordModuleWithoutViewPermissionField = Record(TestCommonHandling.createConnection(
-            self.CRED_USERNAME_WITHOUT_PEMISSION_VIEW_FIELD,
-            self.CRED_PASSWORD_WITHOUT_PEMISSION_VIEW_FIELD))
+            self.CRED_USERNAME_WITHOUT_PERMISSION_VIEW_FIELD,
+            self.CRED_PASSWORD_WITHOUT_PERMISSION_VIEW_FIELD))
         let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
             TestConstant.Connection.ADMIN_USERNAME,
             TestConstant.Connection.ADMIN_PASSWORD,

@@ -26,8 +26,8 @@ class AddRecordTest: QuickSpec {
     var testData: Dictionary<String, FieldValue>! = [:]
     
     //User without permisstion to add record
-    let CRED_USERNAME_WITHOUT_PEMISSION_ADD_RECORD = "user1"
-    let CRED_PASSWORD_WITHOUT_PEMISSION_ADD_RECORD = "user1@123"
+    let CRED_USERNAME_WITHOUT_PERMISSION_ADD_RECORD = "user1"
+    let CRED_PASSWORD_WITHOUT_PERMISSION_ADD_RECORD = "user1@123"
     let APP_API_TOKEN = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
     override func spec() {
@@ -37,13 +37,13 @@ class AddRecordTest: QuickSpec {
             TestConstant.Connection.ADMIN_PASSWORD,
             self.GUESTSPACE_APP_ID))
         let recordModuleWithoutAddPermissionApp = Record(TestCommonHandling.createConnection(
-            self.CRED_USERNAME_WITHOUT_PEMISSION_ADD_RECORD,
-            self.CRED_PASSWORD_WITHOUT_PEMISSION_ADD_RECORD))
+            self.CRED_USERNAME_WITHOUT_PERMISSION_ADD_RECORD,
+            self.CRED_PASSWORD_WITHOUT_PERMISSION_ADD_RECORD))
         let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
         
         describe("AddRecord") {
             it("Test_27_Success_ValidData") {
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
+                self.recordTextValue = DataRandomization.generateString(prefix: "Record")
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
@@ -61,7 +61,7 @@ class AddRecordTest: QuickSpec {
             }
             
             it("Test_27_Success_APITokenValidData") {
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
+                self.recordTextValue = DataRandomization.generateString(prefix: "Record")
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
@@ -79,7 +79,7 @@ class AddRecordTest: QuickSpec {
             }
             
             it("Test_28_Error_NonexistentAppID") {
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
+                self.recordTextValue = DataRandomization.generateString(prefix: "Record")
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_NONEXISTENT_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
@@ -91,7 +91,7 @@ class AddRecordTest: QuickSpec {
             }
             
             it("Test_29_Error_NegativeAppID") {
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
+                self.recordTextValue = DataRandomization.generateString(prefix: "Record")
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_NEGATIVE_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
@@ -153,7 +153,7 @@ class AddRecordTest: QuickSpec {
             }
             
             it("Test_39_Success_ValidDataGuestSpace") {
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
+                self.recordTextValue = DataRandomization.generateString(prefix: "Record")
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(self.GUESTSPACE_APP_ID, self.testData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
@@ -171,7 +171,7 @@ class AddRecordTest: QuickSpec {
             }
             
             it("Test_41_Error_WithoutAddRecordPermissionOnApp") {
-                self.recordTextValue = DataRandomization.generateRandomString(length: 64, refix: "Record")
+                self.recordTextValue = DataRandomization.generateString(prefix: "Record")
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutAddPermissionApp.addRecord(self.APP_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
