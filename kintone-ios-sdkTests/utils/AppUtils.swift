@@ -95,7 +95,7 @@ class AppUtils {
     static func deleteApp(appId: Int) {
         self.devAppModule.deleteApp(appId)
             .then { _ in
-                // print("Delete app: \(appId)")
+                 print("Deleting app: \(appId)")
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {
                     fatalError(errorVal.toString()!)

@@ -22,7 +22,8 @@ public class TestConstant {
         static let CERT_EXTENSION = "YOUR_CERT_EXTENSION"
         static let PROXY_HOST = "10.224.136.41"
         static let PROXY_PORT = 3128
-        static let GUEST_SPACE_ID = 1234
+        static let GUEST_SPACE_ID = 8
+        static let GUEST_THREAD_ID = 8
         static let MAX_VALUE = 2147483647
     }
     
