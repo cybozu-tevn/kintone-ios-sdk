@@ -1373,10 +1373,11 @@
 				TargetAttributes = {
 					3E17EA10213E427F002D9BC0 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1020;
 					};
 					3E17EA19213E427F002D9BC0 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -1386,6 +1387,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 3E17EA07213E427F002D9BC0;
 			productRefGroup = 3E17EA12213E427F002D9BC0 /* Products */;
