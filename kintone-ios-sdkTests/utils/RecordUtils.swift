@@ -4,6 +4,7 @@
  Created on 5/30/19
  */
 
+@testable import Promises
 @testable import kintone_ios_sdk
 
 class RecordUtils {
@@ -29,7 +30,7 @@ class RecordUtils {
         return recData
     }
     
-    /// create query to get records
+    /// Create query to get records
     ///
     /// - Parameter recordIDs: [Int] | the array id of records to select
     /// - Returns: String | the query to select records
@@ -45,5 +46,40 @@ class RecordUtils {
         let query = "$id in " + idsString + ")" +  " order by $id asc"
         
         return query
+    }
+    
+    
+    /// Delete all records of an App
+    ///
+    /// - Parameters:
+    ///   - recordModule: Record | Record module
+    ///   - appID: Int | App ID
+    public static func deleteAllRecords(recordModule: Record, appID: Int) {
+        var flag = true
+        while(flag){
+            var recordIDs = [Int]()
+            recordModule.getRecords(appID, nil, nil, nil).then{result in
+                if(result.getRecords()!.count != 0){
+                    for (_, dval) in (result.getRecords()!.enumerated()) {
+                        for (code, value) in dval {
+                            if (code == "$id") {
+                                let text:String = value.getValue()! as! String
+                                let number:Int = Int(text)!
+                                recordIDs.append(number)
+                            }
+                        }
+                    }
+                    recordModule.deleteRecords(appID, recordIDs).then{
+                        print("Delete: \(recordIDs.count) record in App(\(appID))")
+                    }
+                } else {
+                    flag = false;
+                }
+                }.catch{error in
+                    let errorVal = error as! KintoneAPIException
+                    print("Error: \(errorVal.getErrorResponse()?.getMessage()! ?? "Can not catch Error")")
+            }
+            _ = waitForPromises(timeout: Double(TestConstant.Common.PROMISE_TIMEOUT))
+        }
     }
 }

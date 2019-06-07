@@ -13,33 +13,41 @@ public class TestConstant {
         static let ADMIN_PASSWORD = environment["ADMIN_PASSWORD"]!
         
         // TODO: following test data will be get from data parsed from initial json data
-        static let CRED_USERNAME_WITHOUT_VIEW_APP_PERMISSION = "user1"
-        static let CRED_PASSWORD_WITHOUT_VIEW_APP_PERMISSION = "user1@123"
-        static let CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION = "user2"
-        static let CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION = "user2@123"
-        static let CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION = "user3"
-        static let CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION = "user3@123"
-        static let CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION = "user4"
-        static let CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION = "user4@123"
+        static let CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION = "user1"
+        static let CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION = "user1@123"
+        static let CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION = "user2"
+        static let CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION = "user2@123"
+        static let CRED_USERNAME_WITHOUT_ADD_RECORDS_PEMISSION = "user3@123"
+        static let CRED_PASSWORD_WITHOUT_ADD_RECORDS_PEMISSION = "user3@123"
+        static let CRED_USERNAME_WITHOUT_EDIT_RECORDS_PEMISSION = "user4@123"
+        static let CRED_PASSWORD_WITHOUT_EDIT_RECORDS_PEMISSION = "user4@123"
+        static let CRED_USERNAME_WITHOUT_DELETE_RECORDS_PEMISSION = "user5@123"
+        static let CRED_PASSWORD_WITHOUT_DELETE_RECORDS_PEMISSION = "user5@123"
+        
+        public static let GUEST_APP_API_TOKEN = "<GUEST_APP_API_TOKEN>"
+        public static let APP_API_TOKEN = "<APP1_API_TOKEN_WITH_FULL_PERMISSION>"
+        public static let APP_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION = "<APP1_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION>"
+        static let GUEST_SPACE_ID = 4
+        // end TODO
         
         static let CERT_NAME = "YOUR_CERT_NAME"
         static let CERT_PASSWORD = "YOUR_CERT_PASSWORD"
         static let CERT_EXTENSION = "YOUR_CERT_EXTENSION"
-
+        
         static let PROXY_HOST = "10.224.136.41"
         static let PROXY_PORT = 3128
-
-        static let GUEST_SPACE_ID = 8
-        static let GUEST_THREAD_ID = 8
+        
     }
     
     class Common {
+        // TODO: following test data will be get from data parsed from initial json data
         static let APP_ID = 1
         static var SPACE_ID = 6
         static var THREAD_ID = 6
         static var GUEST_SPACE_ID  = 8
         static var GUEST_SPACE_THREAD_ID  = 10
         static let GUEST_SPACE_APP_ID = 3
+        // end TODO
         
         static let MAX_VALUE = 2147483647
         static let PROMISE_TIMEOUT = 30.0

@@ -221,6 +221,7 @@
 		B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8E229F714300AA4196 /* RecordUtils.swift */; };
 		B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */; };
 		B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */; };
+		B7A3592822A6B8DC007E31E5 /* GetRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -463,6 +464,7 @@
 		B7A2AD8E229F714300AA4196 /* RecordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUtils.swift; sourceTree = "<group>"; };
 		B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployAppSettingsTest.swift; sourceTree = "<group>"; };
 		B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceUtils.swift; sourceTree = "<group>"; };
+		B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRecordsTest.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1249,6 +1251,7 @@
 		AB4D6433216709E5005807C1 /* record */ = {
 			isa = PBXGroup;
 			children = (
+				B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */,
 				68C67E292280436400244922 /* GetRecordTest.swift */,
 				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
 				68C67E312281A57200244922 /* DeleteRecordsTest.swift */,
@@ -1649,6 +1652,7 @@
 				68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */,
 				B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
+				B7A3592822A6B8DC007E31E5 /* GetRecordsTest.swift in Sources */,
 				68C67E6E2282DBEE00244922 /* ApiTokenItem.swift in Sources */,
 				68621DB8229E66B000F96F0B /* DownloadFileTest.swift in Sources */,
 				68C67E2A2280436400244922 /* GetRecordTest.swift in Sources */,
