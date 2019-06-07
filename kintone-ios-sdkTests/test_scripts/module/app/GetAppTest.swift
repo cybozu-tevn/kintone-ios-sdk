@@ -58,7 +58,7 @@ class GetAppTest: QuickSpec {
             it("test_004_Success_With_GuesSpaceApp") {
                 // Test setting up
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
-                let guestAppId = AppUtils.createApp(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Connection.GUEST_THREAD_ID)
+                let guestAppId = AppUtils.createApp(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Common.GUEST_SPACE_THREAD_ID)
                 
                 let getAppRsp = TestCommonHandling.awaitAsync(guestAppModule.getApp(guestAppId)) as! AppModel
                 expect(getAppRsp.getAppId()).to(equal(guestAppId))
@@ -66,7 +66,7 @@ class GetAppTest: QuickSpec {
                 expect(getAppRsp.getCode()).to(equal(""))
                 expect(getAppRsp.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
                 expect(getAppRsp.getSpaceId()).to(equal(TestConstant.Connection.GUEST_SPACE_ID))
-                expect(getAppRsp.getThreadId()).to(equal(TestConstant.Connection.GUEST_THREAD_ID))
+                expect(getAppRsp.getThreadId()).to(equal(TestConstant.Common.GUEST_SPACE_THREAD_ID))
                 
                 // Test cleaning up
                 AppUtils.deleteApp(appId: guestAppId)

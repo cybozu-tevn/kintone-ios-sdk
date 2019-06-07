@@ -52,7 +52,7 @@ class GetAppsByIDsTest: QuickSpec {
             
             it("test_019_Success_GuestSpaceApp") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
-                let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Connection.GUEST_THREAD_ID, amount: amountOfApps)
+                let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Common.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(guestAppModule.getAppsByIDs(guestAppIds)) as! [AppModel]
                 
                 expect(getAppsByIDsRsp.count).to(equal(guestAppIds?.count))
