@@ -1669,6 +1669,7 @@
 				682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */,
 				68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */,
 				68C67E5C2282DB9C00244922 /* AccessRightEntity.swift in Sources */,
+				68C67E5C2282DB9C00244922 /* AccessRightEntity.swift in Sources */,
 				68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */,
 				68621DBA229E9BB600F96F0B /* BulkRequestTest.swift in Sources */,
 				68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */,
