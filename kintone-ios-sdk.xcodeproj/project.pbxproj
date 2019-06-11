@@ -222,6 +222,11 @@
 		B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */; };
 		B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */; };
 		B7A3592822A6B8DC007E31E5 /* GetRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */; };
+		B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */; };
+		B7A3592C22ABF261007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592B22ABF260007E31E5 /* UpdateRecordByUpdateKeyTest.swift */; };
+		B7A3592E22ACC53A007E31E5 /* UpdateRecordAssigneesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592D22ACC539007E31E5 /* UpdateRecordAssigneesTest.swift */; };
+		B7A3593022ACC546007E31E5 /* UpdateRecordsStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592F22ACC546007E31E5 /* UpdateRecordsStatusTest.swift */; };
+		B7A3593222ACC550007E31E5 /* UpdateRecordStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3593122ACC550007E31E5 /* UpdateRecordStatusTest.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -465,6 +470,11 @@
 		B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployAppSettingsTest.swift; sourceTree = "<group>"; };
 		B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceUtils.swift; sourceTree = "<group>"; };
 		B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRecordsTest.swift; sourceTree = "<group>"; };
+		B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordByIDTest.swift; sourceTree = "<group>"; };
+		B7A3592B22ABF260007E31E5 /* UpdateRecordByUpdateKeyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordByUpdateKeyTest.swift; sourceTree = "<group>"; };
+		B7A3592D22ACC539007E31E5 /* UpdateRecordAssigneesTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordAssigneesTest.swift; sourceTree = "<group>"; };
+		B7A3592F22ACC546007E31E5 /* UpdateRecordsStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordsStatusTest.swift; sourceTree = "<group>"; };
+		B7A3593122ACC550007E31E5 /* UpdateRecordStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordStatusTest.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1256,6 +1266,11 @@
 				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
 				68C67E312281A57200244922 /* DeleteRecordsTest.swift */,
 				68C67E352282AD1100244922 /* UpdateRecordsTest.swift */,
+				B7A3592D22ACC539007E31E5 /* UpdateRecordAssigneesTest.swift */,
+				B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */,
+				B7A3592B22ABF260007E31E5 /* UpdateRecordByUpdateKeyTest.swift */,
+				B7A3593122ACC550007E31E5 /* UpdateRecordStatusTest.swift */,
+				B7A3592F22ACC546007E31E5 /* UpdateRecordsStatusTest.swift */,
 			);
 			path = record;
 			sourceTree = "<group>";
@@ -1632,6 +1647,7 @@
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
 				B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */,
 				68C67E422282DA7000244922 /* DevConnection.swift in Sources */,
+				B7A3593022ACC546007E31E5 /* UpdateRecordsStatusTest.swift in Sources */,
 				B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */,
 				68C67E282280434100244922 /* JSONHandler.swift in Sources */,
 				68621DB6229E42A000F96F0B /* UploadFileTest.swift in Sources */,
@@ -1649,6 +1665,7 @@
 				68C67E6F2282DBEE00244922 /* ApiTokenItems.swift in Sources */,
 				3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift in Sources */,
 				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
+				B7A3592C22ABF261007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */,
 				68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */,
 				B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
@@ -1663,6 +1680,7 @@
 				68C67E842282DCC100244922 /* DevCredential.swift in Sources */,
 				68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */,
 				68C67E872282DCCC00244922 /* DevMemberType.swift in Sources */,
+				B7A3592E22ACC53A007E31E5 /* UpdateRecordAssigneesTest.swift in Sources */,
 				68C67E772282DC7000244922 /* GenerateApiTokenResponse.swift in Sources */,
 				68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */,
 				68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */,
@@ -1684,6 +1702,8 @@
 				68C67E7C2282DC8D00244922 /* GetApiTokenListResponse.swift in Sources */,
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
+				B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */,
+				B7A3593222ACC550007E31E5 /* UpdateRecordStatusTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
