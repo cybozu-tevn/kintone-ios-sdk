@@ -58,7 +58,7 @@ class RecordUtils {
         while(flag) {
             var recordIDs = [Int]()
             recordModule.getRecords(appID, nil, nil, nil).then {result in
-                if(result.getRecords()!.count != 0) {
+                if(!result.getRecords()!.isEmpty) { // replaced for result.getRecords()!.count != 0
                     for (_, dval) in (result.getRecords()!.enumerated()) {
                         for (code, value) in dval {
                             if (code == "$id") {

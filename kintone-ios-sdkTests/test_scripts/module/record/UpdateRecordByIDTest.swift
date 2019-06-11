@@ -28,7 +28,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordId, testData, 1)) as! UpdateRecordResponse
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
+                for(key, value) in result.getRecord()! {
                     if(key == RECORD_TEXT_FIELD) {
                         expect((value.getValue() as! String)).to(equal(recordTextValue))
                     }
@@ -47,7 +47,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, -1)) as! UpdateRecordResponse
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, recordID)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
+                for(key, value) in result.getRecord()! {
                     if(key == RECORD_TEXT_FIELD) {
                         expect((value.getValue() as! String)).to(equal(recordTextValue))
                     }
@@ -74,7 +74,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
-                let testValue = Member("user1","user1")
+                let testValue = Member("user1", "user1")
                 testData = RecordUtils.setRecordData([:], "Created_by", FieldType.CREATOR, testValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, nil)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.INVALID_STRICT_FIELD_TYPE_UPDATE_RECORD_ERROR()!
@@ -89,7 +89,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
-                let testValue = Member("user1","user1")
+                let testValue = Member("user1", "user1")
                 testData = RecordUtils.setRecordData([:], "Updated_by", FieldType.MODIFIER, testValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, nil)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.INVALID_STRICT_FIELD_TYPE_UPDATE_RECORD_ERROR()!
@@ -148,7 +148,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_072_Error_NonexistentAppID") {
-                let testData: Dictionary<String, FieldValue>!
+                let testData: Dictionary<String, FieldValue>! = nil
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(TestConstant.Common.NONEXISTENT_ID, 123, testData, nil)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
@@ -156,7 +156,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_072_Error_NegativeAppID") {
-                let testData: Dictionary<String, FieldValue>!
+                let testData: Dictionary<String, FieldValue>! = nil
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(-4, 123, testData, nil)) as! KintoneAPIException
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.NEGATIVE_APPID_ERROR()!)
             }
@@ -181,7 +181,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, nil, 1)) as! UpdateRecordResponse
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, recordID)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
+                for(key, value) in result.getRecord()! {
                     if(key == RECORD_TEXT_FIELD) {
                         expect((value.getValue() as! String)).to(equal(recordTextValue))
                     }
@@ -260,7 +260,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, 1)) as! UpdateRecordResponse
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, recordID)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
+                for(key, value) in result.getRecord()! {
                     if(key == RECORD_TEXT_FIELD) {
                         expect((value.getValue() as! String)).to(equal(recordTextValue))
                     }
@@ -283,7 +283,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByID(TestConstant.Common.GUEST_SPACE_APP_ID, recordID, testData, 1)) as! UpdateRecordResponse
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(TestConstant.Common.GUEST_SPACE_APP_ID, recordID)) as! GetRecordResponse
-                for(key, value) in result.getRecord()!{
+                for(key, value) in result.getRecord()! {
                     if(key == RECORD_TEXT_FIELD) {
                         expect((value.getValue() as! String)).to(equal(recordTextValue))
                     }

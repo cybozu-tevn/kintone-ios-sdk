@@ -32,7 +32,7 @@ class GetAppsTest: QuickSpec {
             
             it("test_007_FailedWithApiToken") {
                 let apiToken = AppUtils.generateApiToken(app, appIds![0])
-                let tokenPermission  = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
+                let tokenPermission = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
                 AppUtils.updateTokenPermission(appModule: app, appId: appIds![0], token: tokenPermission)
                 
                 let appModule = App(TestCommonHandling.createConnection(apiToken))
