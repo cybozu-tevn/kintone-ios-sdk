@@ -6,7 +6,7 @@
 
 import Foundation
 
-internal class TestDataParser {
+internal class TestDataParser: Codable {
     static let jsonFileName = "InitializationData"
     static let kintoneTestData = TestCommonHandling.handleDoTryCatch {try JSONHandler(jsonFileName).parseJSON(KintoneTestData.self)} as! KintoneTestData
     

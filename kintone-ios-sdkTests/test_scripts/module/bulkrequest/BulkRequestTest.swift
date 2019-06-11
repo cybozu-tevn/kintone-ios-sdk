@@ -28,7 +28,6 @@ class BulkRequestTest: QuickSpec {
     private var recordTextValue: String!
     private var testData: Dictionary<String, FieldValue>!
     private let NONEXISTENT_ID = 999999
-    private var recordID: Int!
     
     override func spec() {
         beforeSuite {
@@ -125,7 +124,7 @@ class BulkRequestTest: QuickSpec {
                     // insert add record request into bulk request
                     _ = try self.bulkRequestModule.addRecord(self.APP_ID, addRecordData)
                     _ = try self.bulkRequestModule.addRecords(self.APP_ID, addRecordsDataList)
-                    
+
                     // insert update record request into bulk request
                     _ = try self.bulkRequestModule.updateRecordByID(self.APP_ID, updateRecordId, updateRecordByIdData, nil)
                     _ = try self.bulkRequestModule.updateRecordByUpdateKey(self.APP_ID, updateKey, updateRecordByUpdateKeyData, nil)
@@ -271,12 +270,12 @@ class BulkRequestTest: QuickSpec {
             it("Test_007_Error_WrongUpdateKeyWithUpdateRecordByUpdateKey") {
                 self.bulkRequestModule = BulkRequest(self.conn)
                 let wrongUpdateKey = RecordUpdateKey(self.RECORD_TEXT_KEY, "Wrong Update Key Value")
-                
+
                 //Add record data to test
                 self.recordTextValue = DataRandomization.generateString(length: 10)
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID_UPDATE_KEY, self.testData)) as! AddRecordResponse
-                self.recordID = addRecordResponse.getId()
+                let recordID: Int = addRecordResponse.getId()!
                 
                 //Prepare data to update
                 self.recordTextValue = DataRandomization.generateString(length: 10)
@@ -292,7 +291,7 @@ class BulkRequestTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 //remove test data on the app
-                _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID_UPDATE_KEY, [self.recordID]))
+                _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID_UPDATE_KEY, [recordID]))
             }
             
             it("Test_010_Error_InvalidIDsWithDeleteRecords") {

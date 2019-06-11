@@ -14,7 +14,6 @@ class SpaceUtils {
     static let conn = DevConnection(TestConstant.Connection.DOMAIN, auth)
     static let devAppModule = DevApp(conn)
     
-    
     /// Add Space
     ///
     /// - Parameters:
@@ -24,10 +23,10 @@ class SpaceUtils {
     ///   - isGuest: Bool | The space will be set as guest space
     ///   - isPrivate: Bool | The space will be set private
     /// - Returns: Space id
-    static func addSpace(idTemplate: Int, name: String, members: [SpaceMember], isGuest: Bool = false, isPrivate:Bool = false) -> Int {
+    static func addSpace(idTemplate: Int, name: String, members: [SpaceMember], isGuest: Bool = false, isPrivate: Bool = false) -> Int {
         var id: Int!
         devAppModule.addSpace(idTemplate: idTemplate, name: name, members: members, isGuest: isGuest, isPrivate: isPrivate)
-            .then{response in
+            .then {response in
                 id = response.getId()
                 print("Add Space: \(response.getId())")
             }.catch {error in
@@ -37,7 +36,6 @@ class SpaceUtils {
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         return id
     }
-    
     
     /// Delete space
     ///

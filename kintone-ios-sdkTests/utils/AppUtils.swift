@@ -19,7 +19,6 @@ class AppUtils {
     static let devConn = DevConnection(TestConstant.Connection.DOMAIN, devAuth)
     static let devAppModule = DevApp(devConn)
     
-    
     /// Set API Token
     ///
     /// - Parameter apiToken: String | API Token
@@ -27,14 +26,12 @@ class AppUtils {
         APIToken = apiToken
     }
     
-    
     /// Init App module with default connection for Admin user
-    static func initAppModule()  {
+    static func initAppModule() {
         auth = Auth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
         conn = Connection(TestConstant.Connection.DOMAIN, auth)
         appModule = App(conn)
     }
-    
     
     /// Init App module with connection for specific cases
     ///
@@ -64,7 +61,7 @@ class AppUtils {
             conn = Connection(TestConstant.Connection.DOMAIN, auth, TestConstant.Connection.GUEST_SPACE_ID)
             appModule = App(conn)
         case .API_TOKEN:
-            if(apiToken == ""){
+            if(apiToken == "") {
                 fatalError("Please define apiToken for this module")
             }
             setAPIToken(apiToken)
@@ -72,7 +69,7 @@ class AppUtils {
             conn = Connection(TestConstant.Connection.DOMAIN, auth)
             appModule = App(conn)
         case .API_TOKEN_WITHOUT_PERMISSION:
-            if(apiToken == ""){
+            if(apiToken == "") {
                 fatalError("Please define apiToken for this module")
             }
             setAPIToken(apiToken)
@@ -84,7 +81,6 @@ class AppUtils {
             initAppModule()
         }
     }
-    
     
     /// Create App
     ///
@@ -113,7 +109,6 @@ class AppUtils {
         self._deployApp(appModule: appModule, apps: apps)
         return appId
     }
-    
     
     /// Create Apps
     ///
@@ -146,7 +141,6 @@ class AppUtils {
         return appIds
     }
     
-    
     /// Wait for deploy App successfully
     ///
     /// - Parameters:
@@ -173,7 +167,6 @@ class AppUtils {
             _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         }
     }
-    
     
     /// Deploy App
     ///
@@ -202,7 +195,6 @@ class AppUtils {
         }
     }
     
-    
     /// Delete App
     ///
     /// - Parameter appId: Int | App id
@@ -220,7 +212,6 @@ class AppUtils {
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
     }
     
-    
     /// Delete Apps
     ///
     /// - Parameter appIds: Int | App id
@@ -229,7 +220,6 @@ class AppUtils {
             self.deleteApp(appId: appId)
         }
     }
-    
     
     /// Get List of API Tokens
     ///
@@ -282,7 +272,6 @@ class AppUtils {
         return apiToken
     }
     
-    
     /// Update token permission
     ///
     /// - Parameters:
@@ -322,7 +311,6 @@ class AppUtils {
         self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
     }
     
-    
     /// Get App Permission
     ///
     /// - Parameter appId: Int | App id
@@ -341,7 +329,6 @@ class AppUtils {
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         return userRights
     }
-    
     
     /// Update App permission
     ///
@@ -380,7 +367,6 @@ class AppUtils {
         self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
         return revision
     }
-    
     
     /// Update Misc settings of App
     ///
