@@ -43,8 +43,8 @@ class GetRecordsTest: QuickSpec {
                     [RECORD_TEXT_FIELD],
                     true)) as! GetRecordsResponse
                 expect(result.getTotalCount()!).to(equal(NUMBER_OF_RECORDS))
-                for(index, dval) in (result.getRecords()!.enumerated()){
-                    for (_, value) in dval{
+                for(index, dval) in (result.getRecords()!.enumerated()) {
+                    for (_, value) in dval {
                         expect(value.getValue() as? String).to(equal(recordTextValues[index]))
                     }
                 }
@@ -100,7 +100,7 @@ class GetRecordsTest: QuickSpec {
                 //                    [RECORD_TEXT_FIELD],
                 //                    true)) as! GetRecordsResponse
                 //                for(_, dval) in (result.getRecords()!.enumerated()) {
-                //                    for (code, _) in dval{
+                //                    for (code, _) in dval {
                 //                        XCTAssert(code != RECORD_TEXT_FIELD)
                 //                    }
                 //                }
@@ -108,7 +108,7 @@ class GetRecordsTest: QuickSpec {
             
             it("Test_025_Success_RetrivedAtOneIs500") {
                 //We have create 5 records at setUp so we just need more 455
-                let countNumber = 495;
+                let countNumber = 495
                 
                 for _ in 1...5 {
                     var testDataListTmp = [Dictionary<String, FieldValue>]()
@@ -131,7 +131,7 @@ class GetRecordsTest: QuickSpec {
                     true)) as! GetRecordsResponse
                 expect(result.getTotalCount()).to(equal(500))
                 for(index, dval) in (result.getRecords()!.enumerated()) {
-                    for (_, value) in dval{
+                    for (_, value) in dval {
                         expect(value.getValue() as? String).to(equal(recordTextValues[index]))
                     }
                 }
@@ -158,8 +158,7 @@ class GetRecordsTest: QuickSpec {
                 for id in guestSpaceRecordIds {
                     if idsStringGuestSpace == "(" {
                         idsStringGuestSpace += String(id)
-                    }
-                    else {
+                    } else {
                         idsStringGuestSpace += "," + String(id)
                     }
                 }
@@ -170,8 +169,8 @@ class GetRecordsTest: QuickSpec {
                     [RECORD_TEXT_FIELD],
                     true)) as! GetRecordsResponse
                 expect(result.getTotalCount()!).to(equal(NUMBER_OF_RECORDS))
-                for(index, dval) in (result.getRecords()!.enumerated()){
-                    for (_, value) in dval{
+                for(index, dval) in (result.getRecords()!.enumerated()) {
+                    for (_, value) in dval {
                         expect(value.getValue() as? String).to(equal(recordTextValues[index]))
                     }
                 }
@@ -188,8 +187,8 @@ class GetRecordsTest: QuickSpec {
                     [RECORD_TEXT_FIELD],
                     true)) as! GetRecordsResponse
                 expect(result.getTotalCount()!).to(equal(NUMBER_OF_RECORDS))
-                for(index, dval) in (result.getRecords()!.enumerated()){
-                    for (_, value) in dval{
+                for(index, dval) in (result.getRecords()!.enumerated()) {
+                    for (_, value) in dval {
                         expect(value.getValue() as? String).to(equal(recordTextValues[index]))
                     }
                 }

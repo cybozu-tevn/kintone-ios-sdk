@@ -48,7 +48,6 @@ class RecordUtils {
         return query
     }
     
-    
     /// Delete all records of an App
     ///
     /// - Parameters:
@@ -56,26 +55,26 @@ class RecordUtils {
     ///   - appID: Int | App ID
     public static func deleteAllRecords(recordModule: Record, appID: Int) {
         var flag = true
-        while(flag){
+        while(flag) {
             var recordIDs = [Int]()
-            recordModule.getRecords(appID, nil, nil, nil).then{result in
-                if(result.getRecords()!.count != 0){
+            recordModule.getRecords(appID, nil, nil, nil).then {result in
+                if(result.getRecords()!.count != 0) {
                     for (_, dval) in (result.getRecords()!.enumerated()) {
                         for (code, value) in dval {
                             if (code == "$id") {
-                                let text:String = value.getValue()! as! String
-                                let number:Int = Int(text)!
+                                let text: String = value.getValue()! as! String
+                                let number: Int = Int(text)!
                                 recordIDs.append(number)
                             }
                         }
                     }
-                    recordModule.deleteRecords(appID, recordIDs).then{
+                    recordModule.deleteRecords(appID, recordIDs).then {
                         print("Delete: \(recordIDs.count) record in App(\(appID))")
                     }
                 } else {
-                    flag = false;
+                    flag = false
                 }
-                }.catch{error in
+                }.catch {error in
                     let errorVal = error as! KintoneAPIException
                     print("Error: \(errorVal.getErrorResponse()?.getMessage()! ?? "Can not catch Error")")
             }
