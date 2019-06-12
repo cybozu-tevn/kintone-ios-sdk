@@ -70,6 +70,8 @@
 		3EFD812C21411B6100A1499F /* AddRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD812B21411B6100A1499F /* AddRecordRequest.swift */; };
 		3EFD812F21420FC900A1499F /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD812E21420FC900A1499F /* Member.swift */; };
 		3EFD81312146060200A1499F /* SubTableValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD81302146060200A1499F /* SubTableValueItem.swift */; };
+		3F4C844F22AFA55E008ECE6D /* AccessRightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5A2282DB9C00244922 /* AccessRightEntity.swift */; };
+		3F4C845022AFB61A008ECE6D /* SpaceMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E862282DCCC00244922 /* SpaceMember.swift */; };
 		3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift */; };
 		3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD1F5D228531490043FD31 /* GetAppsTest.swift */; };
 		3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */; };
@@ -104,7 +106,6 @@
 		68C67E532282DB3D00244922 /* DevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E522282DB3D00244922 /* DevApp.swift */; };
 		68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E542282DB5F00244922 /* DeleteAppRequest.swift */; };
 		68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E562282DB6A00244922 /* UpdateMiscSettingsRequest.swift */; };
-		68C67E5C2282DB9C00244922 /* AccessRightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5A2282DB9C00244922 /* AccessRightEntity.swift */; };
 		68C67E5D2282DB9C00244922 /* DevMemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5B2282DB9C00244922 /* DevMemberEntity.swift */; };
 		68C67E622282DBD600244922 /* GetAppPermissionsReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E602282DBD600244922 /* GetAppPermissionsReponse.swift */; };
 		68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E612282DBD600244922 /* GetAppPermissionsRequest.swift */; };
@@ -122,7 +123,6 @@
 		68C67E822282DCB700244922 /* DevHTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E812282DCB700244922 /* DevHTTPHeader.swift */; };
 		68C67E842282DCC100244922 /* DevCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E832282DCC100244922 /* DevCredential.swift */; };
 		68C67E872282DCCC00244922 /* DevMemberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E852282DCCC00244922 /* DevMemberType.swift */; };
-		68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E862282DCCC00244922 /* SpaceMember.swift */; };
 		68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E892282DCD600244922 /* AddSpaceResponse.swift */; };
 		68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */; };
 		68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */; };
@@ -223,10 +223,6 @@
 		B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */; };
 		B7A3592822A6B8DC007E31E5 /* GetRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */; };
 		B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */; };
-		B7A3592C22ABF261007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592B22ABF260007E31E5 /* UpdateRecordByUpdateKeyTest.swift */; };
-		B7A3592E22ACC53A007E31E5 /* UpdateRecordAssigneesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592D22ACC539007E31E5 /* UpdateRecordAssigneesTest.swift */; };
-		B7A3593022ACC546007E31E5 /* UpdateRecordsStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592F22ACC546007E31E5 /* UpdateRecordsStatusTest.swift */; };
-		B7A3593222ACC550007E31E5 /* UpdateRecordStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3593122ACC550007E31E5 /* UpdateRecordStatusTest.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -1389,7 +1385,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Cybozu;
 				TargetAttributes = {
 					3E17EA10213E427F002D9BC0 = {
@@ -1641,13 +1637,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F4C845022AFB61A008ECE6D /* SpaceMember.swift in Sources */,
 				68C67E6C2282DBEE00244922 /* TokenEntity.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
 				3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */,
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
 				B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */,
 				68C67E422282DA7000244922 /* DevConnection.swift in Sources */,
-				B7A3593022ACC546007E31E5 /* UpdateRecordsStatusTest.swift in Sources */,
 				B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */,
 				68C67E282280434100244922 /* JSONHandler.swift in Sources */,
 				68621DB6229E42A000F96F0B /* UploadFileTest.swift in Sources */,
@@ -1665,8 +1661,6 @@
 				68C67E6F2282DBEE00244922 /* ApiTokenItems.swift in Sources */,
 				3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift in Sources */,
 				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
-				B7A3592C22ABF261007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */,
-				68C67E882282DCCC00244922 /* SpaceMember.swift in Sources */,
 				B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
 				B7A3592822A6B8DC007E31E5 /* GetRecordsTest.swift in Sources */,
@@ -1680,14 +1674,12 @@
 				68C67E842282DCC100244922 /* DevCredential.swift in Sources */,
 				68C67E572282DB6A00244922 /* UpdateMiscSettingsRequest.swift in Sources */,
 				68C67E872282DCCC00244922 /* DevMemberType.swift in Sources */,
-				B7A3592E22ACC53A007E31E5 /* UpdateRecordAssigneesTest.swift in Sources */,
 				68C67E772282DC7000244922 /* GenerateApiTokenResponse.swift in Sources */,
 				68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */,
 				68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */,
 				682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */,
 				68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */,
-				68C67E5C2282DB9C00244922 /* AccessRightEntity.swift in Sources */,
-				68C67E5C2282DB9C00244922 /* AccessRightEntity.swift in Sources */,
+				3F4C844F22AFA55E008ECE6D /* AccessRightEntity.swift in Sources */,
 				68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */,
 				68621DBA229E9BB600F96F0B /* BulkRequestTest.swift in Sources */,
 				68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */,
@@ -1703,7 +1695,6 @@
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
 				B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */,
-				B7A3593222ACC550007E31E5 /* UpdateRecordStatusTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

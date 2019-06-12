@@ -8,9 +8,9 @@ public class TestConstant {
     class Connection {
         static let environment = ProcessInfo.processInfo.environment
         
-        static let DOMAIN = environment["DOMAIN"]!
-        static let ADMIN_USERNAME = environment["ADMIN_USERNAME"]!
-        static let ADMIN_PASSWORD = environment["ADMIN_PASSWORD"]!
+        static let DOMAIN = "te-vutran-1.cybozu-dev.com" // environment["DOMAIN"]!
+        static let ADMIN_USERNAME = "cybozu" // environment["ADMIN_USERNAME"]!
+        static let ADMIN_PASSWORD = "cybozu" // environment["ADMIN_PASSWORD"]!
         
         // TODO: following test data will be get from data parsed from initial json data
         static let CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION = "user2"
@@ -27,7 +27,7 @@ public class TestConstant {
         public static let GUEST_APP_API_TOKEN = "<GUEST_APP_API_TOKEN>"
         public static let APP_API_TOKEN = "oLVz20BWgdcHXEJPw16AL8epMuq4gOVq9sS369b6"
         public static let APP_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION = "JRyO3WynbWZcqAWTNLzxJqGfS4mwLEVNUct20F1p"
-        static let GUEST_SPACE_ID = 8
+        //        static let GUEST_SPACE_ID = 8
         // end TODO
         
         static let CERT_NAME = "YOUR_CERT_NAME"
@@ -37,6 +37,9 @@ public class TestConstant {
         static let PROXY_HOST = "10.224.136.41"
         static let PROXY_PORT = 3128
         
+        static let SPACE_ID = [7, 9]
+        static let GUEST_SPACE_ID = 8
+        static let GUEST_THREAD_ID = 8
     }
     
     class Common {
