@@ -35,7 +35,7 @@ class DeleteRecordsTest: QuickSpec {
     
     override func spec() {
         describe("DeleteRecord") {
-            beforeEach {
+            beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleWithoutDeletePermissionRecord = Record(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORDS_PEMISSION,

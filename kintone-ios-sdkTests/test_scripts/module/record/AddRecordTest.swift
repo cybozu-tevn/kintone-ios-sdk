@@ -32,21 +32,19 @@ class AddRecordTest: QuickSpec {
     private var recordTextValue: String?
     private var testData: Dictionary<String, FieldValue>! = [:]
     
-    let CRED_USERNAME_WITHOUT_PERMISSION_ADD_RECORD = "user1"
-    let CRED_PASSWORD_WITHOUT_PERMISSION_ADD_RECORD = "user1@123"
     let APP_API_TOKEN = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
     override func spec() {
         describe("AddRecord") {
-            beforeEach {
+            beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
                     TestConstant.Connection.ADMIN_USERNAME,
                     TestConstant.Connection.ADMIN_PASSWORD,
                     self.GUEST_SPACE_ID))
                 self.recordModuleWithoutAddPermissionApp = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_ADD_RECORDS_PEMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_ADD_RECORDS_PEMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
                 self.recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
             }
             

@@ -32,7 +32,7 @@ class UpdateRecordsTest: QuickSpec {
     
     override func spec() {
         describe("UpdateRecords") {
-            beforeEach {
+            beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
             }
             
