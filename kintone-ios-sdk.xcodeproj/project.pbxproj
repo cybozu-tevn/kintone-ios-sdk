@@ -72,6 +72,7 @@
 		3EFD81312146060200A1499F /* SubTableValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD81302146060200A1499F /* SubTableValueItem.swift */; };
 		3F4C844F22AFA55E008ECE6D /* AccessRightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E5A2282DB9C00244922 /* AccessRightEntity.swift */; };
 		3F4C845022AFB61A008ECE6D /* SpaceMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E862282DCCC00244922 /* SpaceMember.swift */; };
+		3F4C845422B0945F008ECE6D /* GetAppsByCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */; };
 		3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift */; };
 		3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD1F5D228531490043FD31 /* GetAppsTest.swift */; };
 		3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */; };
@@ -312,6 +313,7 @@
 		3EFD812B21411B6100A1499F /* AddRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordRequest.swift; sourceTree = "<group>"; };
 		3EFD812E21420FC900A1499F /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		3EFD81302146060200A1499F /* SubTableValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTableValueItem.swift; sourceTree = "<group>"; };
+		3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsByCodesTest.swift; sourceTree = "<group>"; };
 		3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsBySpaceIDs.swift; sourceTree = "<group>"; };
 		3FBD1F5D228531490043FD31 /* GetAppsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsTest.swift; sourceTree = "<group>"; };
 		3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByName.swift; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 				3FBD1F5D228531490043FD31 /* GetAppsTest.swift */,
 				B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */,
 				3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift */,
+				3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1689,6 +1692,7 @@
 				68C67E4F2282DB2300244922 /* DevParser.swift in Sources */,
 				68C67E5D2282DB9C00244922 /* DevMemberEntity.swift in Sources */,
 				68C67E7D2282DC8D00244922 /* GetApiTokenListRequest.swift in Sources */,
+				3F4C845422B0945F008ECE6D /* GetAppsByCodesTest.swift in Sources */,
 				3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */,
 				68C67E262280433600244922 /* KintoneError.swift in Sources */,
 				68C67E7C2282DC8D00244922 /* GetApiTokenListResponse.swift in Sources */,

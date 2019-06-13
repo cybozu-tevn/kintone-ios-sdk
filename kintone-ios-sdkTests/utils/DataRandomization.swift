@@ -7,6 +7,16 @@
 import Foundation
 
 class DataRandomization {
+    
+    /// Generate random string with uppercase letters only
+    ///
+    /// - Parameter length: Int | the expected length of the string
+    /// - Returns: the random String value
+    public static func generateString(length: Int = 64) -> String {
+        let seed = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        return String((0...length-1).map { _ in seed.randomElement()!})
+    }
+    
     /// Generate random the String value
     ///
     /// - Parameters:
