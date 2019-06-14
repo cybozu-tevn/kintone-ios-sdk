@@ -11,8 +11,8 @@ import Nimble
 
 class UpdateRecordByIDTest: QuickSpec {
     override func spec() {
-        let RECORD_TEXT_FIELD: String! = "text"
-        let RECORD_NUMBER_FIELD: String! = "number"
+        let RECORD_TEXT_FIELD: String! = "Text"
+        let RECORD_NUMBER_FIELD: String! = "Number"
         let AppId = TestConstant.Common.APP_ID
         let recordModule = Record(TestCommonHandling.createConnection())
         
@@ -42,6 +42,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 recordTextValue = DataRandomization.generateString()
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, -1)) as! UpdateRecordResponse
@@ -61,6 +62,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 recordTextValue = DataRandomization.generateString()
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, TestConstant.Common.NONEXISTENT_ID)) as! KintoneAPIException
@@ -74,6 +76,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 let testValue = Member("user1", "user1")
                 testData = RecordUtils.setRecordData([:], "Created_by", FieldType.CREATOR, testValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, nil)) as! KintoneAPIException
@@ -89,6 +92,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 let testValue = Member("user1", "user1")
                 testData = RecordUtils.setRecordData([:], "Updated_by", FieldType.MODIFIER, testValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, nil)) as! KintoneAPIException
@@ -104,6 +108,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 testData = RecordUtils.setRecordData([:], "Created_datetime", FieldType.CREATED_TIME, "2018-12-05T10:00:00Z")
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, nil)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.INVALID_STRICT_FIELD_TYPE_UPDATE_RECORD_ERROR()!
@@ -118,6 +123,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 testData = RecordUtils.setRecordData([:], "Updated_datetime", FieldType.UPDATED_TIME, "2018-12-05T10:00:00Z")
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, nil)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.INVALID_STRICT_FIELD_TYPE_UPDATE_RECORD_ERROR()!
@@ -137,6 +143,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 recordTextValue = DataRandomization.generateString()
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermission.updateRecordByID(AppId, recordID, testData, nil)) as! KintoneAPIException
@@ -178,6 +185,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 let testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, nil, 1)) as! UpdateRecordResponse
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, recordID)) as! GetRecordResponse
@@ -196,6 +204,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appIdHasRequiredFields, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, "")
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appIdHasRequiredFields, recordID, testData, 1)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.MISSING_REQUIRED_FIELD_ADD_RECORD_ERROR()!
@@ -211,6 +220,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
                 recordTextValue = DataRandomization.generateString()
+
                 testData = RecordUtils.setRecordData([:], "Invalid", FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, 1)) as! UpdateRecordResponse
                 expect(updateRecordResponse.getRevision()).to(equal(2))
@@ -221,10 +231,11 @@ class UpdateRecordByIDTest: QuickSpec {
                 var testData = RecordUtils.setRecordData([:], RECORD_NUMBER_FIELD, FieldType.NUMBER, 123579)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
-                testData = RecordUtils.setRecordData([:], RECORD_NUMBER_FIELD, FieldType.NUMBER, "It's text")
+
+                testData = RecordUtils.setRecordData([:], RECORD_NUMBER_FIELD, FieldType.NUMBER, "This is text")
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, 1)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.INVALID_FIELD_TYPE_NUMBER_ERROR()!
-                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "[\(RECORD_NUMBER_FIELD)]")
+                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "[\(RECORD_NUMBER_FIELD!)]")
                 TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
                 
                 RecordUtils.deleteAllRecords(recordModule: recordModule, appID: AppId)
@@ -238,6 +249,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, "Avoid duplicate")
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appIdHasProhibitDuplicateValueFields, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appIdHasProhibitDuplicateValueFields, recordID, testData, nil)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.INVALID_VALUE_DUPLICATED_ERROR()!
@@ -251,10 +263,12 @@ class UpdateRecordByIDTest: QuickSpec {
                 let auth = Auth().setApiToken(TestConstant.Connection.APP_API_TOKEN)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
                 let recordModule = Record(conn)
+
                 var recordTextValue = DataRandomization.generateString()
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 recordTextValue = DataRandomization.generateString()
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(AppId, recordID, testData, 1)) as! UpdateRecordResponse
@@ -274,10 +288,12 @@ class UpdateRecordByIDTest: QuickSpec {
                     TestConstant.Connection.ADMIN_USERNAME,
                     TestConstant.Connection.ADMIN_PASSWORD,
                     TestConstant.Connection.GUEST_SPACE_ID))
+
                 var recordTextValue = DataRandomization.generateString()
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(TestConstant.Common.GUEST_SPACE_APP_ID, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
+
                 recordTextValue = DataRandomization.generateString()
                 testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByID(TestConstant.Common.GUEST_SPACE_APP_ID, recordID, testData, 1)) as! UpdateRecordResponse

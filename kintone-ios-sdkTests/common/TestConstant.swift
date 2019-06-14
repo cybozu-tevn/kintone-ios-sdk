@@ -39,10 +39,9 @@ public class TestConstant {
         static let CRED_USERNAME_WITHOUT_EDIT_FIELD_PEMISSION = "user2"
         static let CRED_PASSWORD_WITHOUT_EDIT_FIELD_PEMISSION = "user2"
         
-        public static let GUEST_APP_API_TOKEN = "<GUEST_APP_API_TOKEN>"
-        public static let APP_API_TOKEN = "oLVz20BWgdcHXEJPw16AL8epMuq4gOVq9sS369b6"
-        public static let APP_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION = "JRyO3WynbWZcqAWTNLzxJqGfS4mwLEVNUct20F1p"
-        
+        public static let GUEST_APP_API_TOKEN = "<GUEST_SPACE_APP_API_TOKEN>"
+        public static let APP_API_TOKEN = "<SPACE_APP_API_TOKEN_WITH_FULL_PERMISSIONS>"
+        public static let APP_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION = "<SPACE_APP_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION>"
         
         static let SPACE_ID = 3
         static let GUEST_SPACE_ID = 2
@@ -59,8 +58,8 @@ public class TestConstant {
     
     class Common {
         // TODO: following test data will be get from data parsed from initial json data
-        static var SPACE_ID = 9
-        static var THREAD_ID = 9
+        static var SPACE_ID = 3
+        static var THREAD_ID = 3
         static let APP_ID = 3
         static let APP_ID_HAS_MULTIPLE_FIELDS = 4
         static let APP_ID_HAS_REQUIRED_FIELDS = 5
