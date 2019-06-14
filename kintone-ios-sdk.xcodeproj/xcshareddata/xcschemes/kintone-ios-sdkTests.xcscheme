@@ -61,18 +61,18 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "DOMAIN"
-            value = "$(DOMAIN)"
-            isEnabled = "NO">
+            value = "te-vutran-1.cybozu-dev.com"
+            isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "ADMIN_USERNAME"
-            value = "$(ADMIN_USERNAME)"
-            isEnabled = "NO">
+            value = "cybozu"
+            isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "ADMIN_PASSWORD"
-            value = "$(ADMIN_PASSWORD)"
-            isEnabled = "NO">
+            value = "cybozu"
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
