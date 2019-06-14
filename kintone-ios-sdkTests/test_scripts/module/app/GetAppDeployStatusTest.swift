@@ -37,7 +37,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 }
             }
             
-            fit("Test_079_Success_GuestSpaceApp") {
+            it("Test_079_Success_GuestSpaceApp") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
                 
                 let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Common.GUEST_SPACE_ID, threadId: TestConstant.Common.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
@@ -52,9 +52,8 @@ class GetAppDeployStatusTest: QuickSpec {
                 AppUtils.deleteApps(appIds: guestAppIds!)
             }
             
-            // TODO: Unstable when running this test with home network which connects to Cybozu via VPN. need to be rerun with campus network
             // This case is used so much time, if you want to execute it, please un-rem
-            //            it("Test_080_Maximum300Apps") {
+            //            fit("Test_080_Maximum300Apps") {
             //                let appIds = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: 300)
             //                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds)) as! GetAppDeployStatusResponse
             //                expect(getAppDeployStatusRsp.getApps()?.count).to(equal(appIds.count))
@@ -127,7 +126,16 @@ class GetAppDeployStatusTest: QuickSpec {
             }
             
             it("Test_088_FailedWithoutPermission") {
-                // TODO: implement this test.
+                //                let entityAdmin = DevMemberEntity(DevMemberType.USER, TestConstant.Connection.ADMIN_USERNAME)
+                //                let admin = SpaceMember(entityAdmin, true)
+                //                var members = [SpaceMember]()
+                //                members.append(admin)
+                //                let spaceId = SpaceUtils.addSpace(idTemplate: 1, name: "TestPermission", members: members, isPrivate: false)
+                //                let appId = AppUtils.createApp(appModule: app, appName: appName, spaceId: spaceId, threadId: spaceId)
+                
+                let appModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds!)) as! KintoneAPIException
+                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
             }
         }
     }
