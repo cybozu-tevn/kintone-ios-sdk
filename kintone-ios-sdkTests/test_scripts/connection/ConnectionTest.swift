@@ -11,19 +11,19 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class ConnectionTest: QuickSpec {
-    let APP_ID: Int = 31
-    let API_TOKEN: String = "Yy1jJ1DkDNeUh5AQBpIV9IiYptxN2SGIwaVOxv9m"
-    let GUEST_SPACE_ID: Int = 5
-    let GUEST_SPACE_APP_ID: Int = 30
-    let INVALID_PROXY_HOST: String = "HOST NOT FOUND"
-    let INVALID_PROXY_HOST_PORT: Int = -999
+    let APP_ID: Int = TestConstant.InitData.APP_ID!
+    let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
+    let GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_ID!
+    let GUEST_SPACE_APP_ID: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
+    let INVALID_PROXY_IP: String = TestConstant.Common.INVALID_PROXY_IP
+    let INVALID_PROXY_HOST_PORT: Int = TestConstant.Common.INVALID_PROXY_HOST_PORT
     
     override func spec() {
         describe("Connection") {
             it("Test_002_ValidRequest") {
-                let auth = Auth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
+                let auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
-                conn.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
+                conn.setProxy(TestConstant.Connection.PROXY_IP, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is AddRecordResponse
@@ -31,9 +31,9 @@ class ConnectionTest: QuickSpec {
             }
             
             it("Test_002_ValidRequestGuestSpace") {
-                let auth = Auth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
+                let auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth, self.GUEST_SPACE_ID)
-                conn.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
+                conn.setProxy(TestConstant.Connection.PROXY_IP, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.GUEST_SPACE_APP_ID, [:])) is AddRecordResponse
@@ -43,7 +43,7 @@ class ConnectionTest: QuickSpec {
             it("Test_002_ValidRequestApiToken") {
                 let auth = Auth().setApiToken(self.API_TOKEN)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
-                conn.setProxy(TestConstant.Connection.PROXY_HOST, TestConstant.Connection.PROXY_PORT)
+                conn.setProxy(TestConstant.Connection.PROXY_IP, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is AddRecordResponse
@@ -51,9 +51,9 @@ class ConnectionTest: QuickSpec {
             }
             
             it("Test_003_005_InvalidRequest") {
-                let auth = Auth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
+                let auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
-                conn.setProxy(self.INVALID_PROXY_HOST, self.INVALID_PROXY_HOST_PORT)
+                conn.setProxy(self.INVALID_PROXY_IP, self.INVALID_PROXY_HOST_PORT)
                 let recordModule = Record(conn)
                 
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is NSError

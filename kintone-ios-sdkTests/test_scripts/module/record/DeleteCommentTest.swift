@@ -15,11 +15,11 @@ class DeleteCommentTest: QuickSpec {
     private var recordModuleGuestSpace: Record!
     private var recordModuleApiToken: Record!
     
-    private let APP_ID: Int = 1
-    private let GUEST_SPACE_ID: Int = 4
-    private let APP_GUEST_SPACE_ID: Int = 224
-    private let NONEXISTENT_ID = 99999999
-    private let API_TOKEN: String = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
+    private let APP_ID: Int = TestConstant.InitData.APP_ID!
+    private let GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_ID!
+    private let GUEST_SPACE_APP_ID: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
+    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
+    private let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
     
     private var recordID: Int!
     private var recordGuestSpaceID: Int!
@@ -30,7 +30,7 @@ class DeleteCommentTest: QuickSpec {
     private let mentionCode: String = "cybozu"
     private let mentionType: String = "USER"
     private let commentContent: String = "delete comment test"
-    private let RECORD_TEXT_FIELD: String! = "text"
+    private let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
     private var mention: CommentMention!
     private var comment: CommentContent!
     private var mentionList = [CommentMention]()
@@ -40,8 +40,8 @@ class DeleteCommentTest: QuickSpec {
             beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     self.GUEST_SPACE_ID))
                 self.recordModuleApiToken = Record(TestCommonHandling.createConnection(self.API_TOKEN))
                 
@@ -49,7 +49,7 @@ class DeleteCommentTest: QuickSpec {
                 let addData: Dictionary<String, FieldValue> = [:]
                 let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, addData)) as! AddRecordResponse
                 self.recordID = addRecordResponse.getId()
-                let addRecordGuestSpaceResponse = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addRecord(self.APP_GUEST_SPACE_ID, addData)) as! AddRecordResponse
+                let addRecordGuestSpaceResponse = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addRecord(self.GUEST_SPACE_APP_ID, addData)) as! AddRecordResponse
                 self.recordGuestSpaceID = addRecordGuestSpaceResponse.getId()
                 
                 self.mention = CommentMention()
@@ -64,7 +64,7 @@ class DeleteCommentTest: QuickSpec {
             
             afterSuite {
                 _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [self.recordID]))
-                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.deleteRecords(self.APP_GUEST_SPACE_ID, [self.recordGuestSpaceID]))
+                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.deleteRecords(self.GUEST_SPACE_APP_ID, [self.recordGuestSpaceID]))
             }
             
             it("Test_256_ValidData") {
@@ -77,10 +77,10 @@ class DeleteCommentTest: QuickSpec {
             }
             
             it("Test_256_GuestSpaceValidData") {
-                let addCommentGuestSpaceResponse = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addComment(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, self.comment)) as! AddCommentResponse
+                let addCommentGuestSpaceResponse = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addComment(self.GUEST_SPACE_APP_ID, self.recordGuestSpaceID, self.comment)) as! AddCommentResponse
                 self.commentGuestSpaceID = addCommentGuestSpaceResponse.getId()
-                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.deleteComment(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, self.commentID))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.getComments(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.deleteComment(self.GUEST_SPACE_APP_ID, self.recordGuestSpaceID, self.commentID))
+                let result = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.getComments(self.GUEST_SPACE_APP_ID, self.recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
                 
                 expect(result.getComments()?.count).to(equal(0))
             }
@@ -105,8 +105,8 @@ class DeleteCommentTest: QuickSpec {
             
             it("Test_258_Error_NoPermissionForApp") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.deleteComment(self.APP_ID, self.recordID, self.commentID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
@@ -127,8 +127,8 @@ class DeleteCommentTest: QuickSpec {
             
             it("Test_260_Error_NoPermissionForField") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_PEMISSION_FIELD,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_PEMISSION_FIELD))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
                 let addCommentResponse = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(self.APP_ID, self.recordID, self.comment)) as! AddCommentResponse
                 self.commentID = addCommentResponse.getId()
                 _ = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.deleteComment(self.APP_ID, self.recordID, self.commentID))
@@ -157,8 +157,8 @@ class DeleteCommentTest: QuickSpec {
             
             it("Test_269_Error_DeleteOtherUserComment") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_PEMISSION_FIELD,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_PEMISSION_FIELD))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
                 let addCommentResponse = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment)) as! AddCommentResponse
                 self.commentID = addCommentResponse.getId()
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.deleteComment(self.APP_ID, self.recordID, self.commentID)) as! KintoneAPIException

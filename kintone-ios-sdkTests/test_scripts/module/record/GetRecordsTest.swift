@@ -11,7 +11,7 @@ import Nimble
 
 class GetRecordsTest: QuickSpec {
     override func spec() {
-        let RECORD_TEXT_FIELD: String! = "Text"
+        let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
         let NUMBER_OF_RECORDS = 5
         var recordIDs = [Int]()
         var recordTextValues = [String]()
@@ -29,7 +29,7 @@ class GetRecordsTest: QuickSpec {
             }
             
             //Add records
-            let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(TestConstant.Common.APP_ID, testDataList)) as! AddRecordsResponse
+            let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(TestConstant.InitData.SPACE_APP_ID!, testDataList)) as! AddRecordsResponse
             recordIDs = addRecordsResponse.getIDs()!
             
             query = RecordUtils.getRecordsQuery(recordIDs)
@@ -38,7 +38,7 @@ class GetRecordsTest: QuickSpec {
         describe("GetRecordsTest") {
             it("Test_004_Success_ValidData") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecords(
-                    TestConstant.Common.APP_ID,
+                    TestConstant.InitData.SPACE_APP_ID!,
                     query,
                     [RECORD_TEXT_FIELD],
                     true)) as! GetRecordsResponse
@@ -74,7 +74,7 @@ class GetRecordsTest: QuickSpec {
             
             it("Test_006_Error_InvalidQuery") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecords(
-                    TestConstant.Common.APP_ID,
+                    TestConstant.InitData.SPACE_APP_ID!,
                     "invalid",
                     [RECORD_TEXT_FIELD],
                     true)) as! KintoneAPIException
@@ -88,7 +88,7 @@ class GetRecordsTest: QuickSpec {
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermission.getRecords(
-                    TestConstant.Common.APP_ID,
+                    TestConstant.InitData.SPACE_APP_ID!,
                     query,
                     [RECORD_TEXT_FIELD],
                     true)) as! KintoneAPIException
@@ -118,14 +118,14 @@ class GetRecordsTest: QuickSpec {
                         testDataListTmp.append(testData)
                         testData = [:]
                     }
-                    let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(TestConstant.Common.APP_ID, testDataListTmp)) as! AddRecordsResponse
+                    let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(TestConstant.InitData.SPACE_APP_ID!, testDataListTmp)) as! AddRecordsResponse
                     recordIDs += addRecordsResponse.getIDs()!
                     testDataList += testDataListTmp
                 }
                 
                 let query = RecordUtils.getRecordsQuery(recordIDs)
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecords(
-                    TestConstant.Common.APP_ID,
+                    TestConstant.InitData.SPACE_APP_ID!,
                     query,
                     [RECORD_TEXT_FIELD],
                     true)) as! GetRecordsResponse
@@ -140,7 +140,7 @@ class GetRecordsTest: QuickSpec {
             it("Test_026_Error_QueryLargerThan500") {
                 let query = "$id > 0 order by $id asc limit 999 offset 0"
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecords(
-                    TestConstant.Common.APP_ID,
+                    TestConstant.InitData.SPACE_APP_ID!,
                     query,
                     [RECORD_TEXT_FIELD],
                     true)) as! KintoneAPIException
@@ -149,10 +149,10 @@ class GetRecordsTest: QuickSpec {
             
             it("Test_014_Success_ValidDataGuestSpace") {
                 let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
-                    TestConstant.Connection.GUEST_SPACE_ID))
-                let addRecordsResponseGuestSpace = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecords(TestConstant.Common.GUEST_SPACE_APP_ID, testDataList)) as! AddRecordsResponse
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
+                    TestConstant.InitData.GUEST_SPACE_ID!))
+                let addRecordsResponseGuestSpace = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecords(TestConstant.InitData.GUEST_SPACE_APP_ID!, testDataList)) as! AddRecordsResponse
                 let guestSpaceRecordIds = addRecordsResponseGuestSpace.getIDs()!
                 var idsStringGuestSpace = "("
                 for id in guestSpaceRecordIds {
@@ -164,7 +164,7 @@ class GetRecordsTest: QuickSpec {
                 }
                 let queryGuestSpace = "$id in " + idsStringGuestSpace + ")" +  " order by $id asc"
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecords(
-                    TestConstant.Common.GUEST_SPACE_APP_ID,
+                    TestConstant.InitData.GUEST_SPACE_APP_ID!,
                     queryGuestSpace,
                     [RECORD_TEXT_FIELD],
                     true)) as! GetRecordsResponse
@@ -175,14 +175,14 @@ class GetRecordsTest: QuickSpec {
                     }
                 }
                 
-                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: TestConstant.Common.GUEST_SPACE_APP_ID)
+                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: TestConstant.InitData.GUEST_SPACE_APP_ID!)
             }
             
             it("Test_014_Success_APITokenValidData") {
-                let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(TestConstant.Connection.APP_API_TOKEN))
+                let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.SPACE_APP_API_TOKEN))
                 
                 let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecords(
-                    TestConstant.Common.APP_ID,
+                    TestConstant.InitData.SPACE_APP_ID!,
                     query,
                     [RECORD_TEXT_FIELD],
                     true)) as! GetRecordsResponse

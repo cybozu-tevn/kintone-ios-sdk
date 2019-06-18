@@ -39,14 +39,14 @@ class DeployAppSettingsTest: QuickSpec {
             }
             
             it("Test_64_66_Success_GuestSpaceApp") {
-                let app = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
+                let app = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 var appIds = [Int]()
                 var appNames = [String]()
                 
                 for _ in 1...5 {
                     let appName = DataRandomization.generateString()
                     appNames.append(appName)
-                    let appId = AppUtils.createApp(appModule: app, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Common.GUEST_SPACE_THREAD_ID)
+                    let appId = AppUtils.createApp(appModule: app, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID)
                     appIds.append(appId)
                 }
                 
@@ -96,7 +96,7 @@ class DeployAppSettingsTest: QuickSpec {
             it("Test_69_Error_WithApiToken") {
                 var app = App(TestCommonHandling.createConnection())
                 let appName = DataRandomization.generateString()
-                let appId = AppUtils.createApp(appModule: app, appName: appName, spaceId: TestConstant.Common.SPACE_ID, threadId: TestConstant.Common.THREAD_ID)
+                let appId = AppUtils.createApp(appModule: app, appName: appName, spaceId: TestConstant.InitData.SPACE_ID, threadId: TestConstant.InitData.SPACE_THREAD_ID)
                 let APIToken = AppUtils.generateApiToken(app, appId)
                 app = App(TestCommonHandling.createConnection(APIToken))
                 AppUtils.initAppModule(connectionType: ConnectionType.API_TOKEN, apiToken: APIToken)

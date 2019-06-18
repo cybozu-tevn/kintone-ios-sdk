@@ -15,11 +15,11 @@ class GetCommentsTest: QuickSpec {
     private var recordModuleGuestSpace: Record!
     private var recordModuleApiToken: Record!
 
-    private let APP_ID: Int = 1
-    private let RECORD_ID: Int = 1
-    private let GUEST_SPACE_ID: Int = 4
-    private let APP_GUEST_SPACE_ID: Int = 224
-    
+    private let APP_ID: Int = TestConstant.InitData.APP_ID!
+    private let GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_ID!
+    private let APP_GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
+    private let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
+
     private var recordID: Int!
     private var recordGuestSpaceID: Int!
     
@@ -31,10 +31,9 @@ class GetCommentsTest: QuickSpec {
     private var commentGuestSpaceID: Int!
     private var comments: [Int] = []
     private var commentsGuestSpace: [Int] = []
-    private let API_TOKEN: String = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
-    private let NONEXISTENT_ID = 99999999
-    private let NEGATIVE_ID: Int = -1
+    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
+    private let NEGATIVE_ID: Int = TestConstant.Common.NEGATIVE_ID
     private let TOTAL_COMMENTS: Int = 10
     
     override func spec() {
@@ -43,8 +42,8 @@ class GetCommentsTest: QuickSpec {
             beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     self.GUEST_SPACE_ID))
                 self.recordModuleApiToken = Record(TestCommonHandling.createConnection(self.API_TOKEN))
                 // Add record to contains comments
@@ -80,8 +79,6 @@ class GetCommentsTest: QuickSpec {
             afterSuite {
                 _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [self.recordID]))
                 _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.deleteRecords(self.APP_GUEST_SPACE_ID, [self.recordGuestSpaceID]))
-                self.commentsGuestSpace.removeAll()
-                self.comments.removeAll()
             }
             
             it("Test_215_ValidData") {
@@ -95,7 +92,7 @@ class GetCommentsTest: QuickSpec {
                     let expectedResult = self.mentionCode + " \n" + self.commentContent + " "
                     expect(expectedResult).to(equal(comment.getText()))
                     expect(commentId).to(equal(comment.getId()))
-                    expect(TestConstant.Connection.ADMIN_USERNAME).to(equal(comment.getCreator()?.code))
+                    expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(comment.getCreator()?.code))
                     let mentions = comment.getMentions()
                     for user in mentions! {
                         expect(self.mentionCode).to(equal(user.getCode()))
@@ -213,8 +210,8 @@ class GetCommentsTest: QuickSpec {
             
             it("Test_227_Error_NoPermissionForApp") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.getComments(
                     self.APP_ID,
                     self.recordID,
@@ -228,8 +225,8 @@ class GetCommentsTest: QuickSpec {
             
             it("Test_228_Error_NoPermissionForRecord") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.getComments(
                     self.APP_ID,
                     self.recordID,
@@ -243,8 +240,8 @@ class GetCommentsTest: QuickSpec {
             
             it("Test_229_Error_NoPermissionForField") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_PEMISSION_FIELD,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_PEMISSION_FIELD))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.getComments(
                     self.APP_ID,
                     self.recordID,
@@ -306,7 +303,7 @@ class GetCommentsTest: QuickSpec {
                     let expectedResult = self.mentionCode + " \n" + self.commentContent + " "
                     expect(expectedResult).to(equal(comment.getText()))
                     expect(commentId).to(equal(comment.getId()))
-                    expect(TestConstant.Connection.ADMIN_USERNAME).to(equal(comment.getCreator()?.code))
+                    expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(comment.getCreator()?.code))
                     let mentions = comment.getMentions()
                     for user in mentions! {
                         expect(self.mentionCode).to(equal(user.getCode()))
@@ -395,7 +392,7 @@ class GetCommentsTest: QuickSpec {
                     let expectedResult = self.mentionCode + " \n" + self.commentContent + " "
                     expect(expectedResult).to(equal(comment.getText()))
                     expect(commentId).to(equal(comment.getId()))
-                    expect(TestConstant.Connection.ADMIN_USERNAME).to(equal(comment.getCreator()?.code))
+                    expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(comment.getCreator()?.code))
                     let mentions = comment.getMentions()
                     for user in mentions! {
                         expect(self.mentionCode).to(equal(user.getCode()))

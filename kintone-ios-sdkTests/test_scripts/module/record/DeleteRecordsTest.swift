@@ -16,33 +16,31 @@ class DeleteRecordsTest: QuickSpec {
     private var recordModuleGuestSpace: Record!
     private var recordModuleWithAPIToken: Record!
     
-    private let APP_ID = 1
-    private let APP_NEGATIVE_ID = -1
-    private let APP_NONEXISTENT_ID = 100000
-    private let GUEST_SPACE_ID = 4
-    private let APP_GUEST_SPACE_ID = 4
-    
+    private let APP_ID = TestConstant.InitData.APP_ID!
+    private let NEGATIVE_ID = TestConstant.Common.NEGATIVE_ID
+    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
+    private let GUEST_SPACE_ID = TestConstant.InitData.GUEST_SPACE_ID!
+    private let APP_GUEST_SPACE_ID = TestConstant.InitData.GUEST_SPACE_APP_ID!
+    private let APP_API_TOKEN = TestConstant.InitData.APP_API_TOKEN
+
     private var recordIDs = [Int]()
-    private var recordRevision: Int?
-    private let RECORD_TEXT_FIELD: String = "text"
-    private let RECORD_NUMBER_FILED: String = "number"
+    private let RECORD_TEXT_FIELD: String = TestConstant.InitData.TEXT_FIELD
+    private let RECORD_NUMBER_FILED: String = TestConstant.InitData.NUMBER_FIELD
     private var recordTextValues = [String]()
     private var testData: Dictionary<String, FieldValue>!
     private var testDatas = [Dictionary<String, FieldValue>]()
-    private let RECORD_NONEXISTENT_ID = 100000
     private let COUNT_NUMBER = 5
-    private let APP_API_TOKEN = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
     override func spec() {
         describe("DeleteRecord") {
             beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleWithoutDeletePermissionRecord = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORDS_PEMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_DELETE_RECORDS_PEMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORD_PEMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_DELETE_RECORD_PEMISSION))
                 self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     self.GUEST_SPACE_ID))
                 self.recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
             }
@@ -145,10 +143,10 @@ class DeleteRecordsTest: QuickSpec {
             }
             
             it("Test_129_Error_NoneExistentRecord") {
-                let result = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID, self.RECORD_NONEXISTENT_ID)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID, self.NONEXISTENT_ID)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.RECORD_NONEXISTENT_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NONEXISTENT_ID))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
@@ -179,10 +177,10 @@ class DeleteRecordsTest: QuickSpec {
                 let addRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecords(self.APP_ID, self.testDatas)) as! AddRecordsResponse
                 self.testDatas.removeAll()
                 self.recordIDs = addRecordsResponse.getIDs()!
-                let result = TestCommonHandling.awaitAsync(self.recordModuleWithoutDeletePermissionRecord.deleteRecords(self.APP_NONEXISTENT_ID, self.recordIDs)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(self.recordModuleWithoutDeletePermissionRecord.deleteRecords(self.NONEXISTENT_ID, self.recordIDs)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.APP_NONEXISTENT_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NONEXISTENT_ID))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
                 
@@ -198,10 +196,10 @@ class DeleteRecordsTest: QuickSpec {
                 let addRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecords(self.APP_ID, self.testDatas)) as! AddRecordsResponse
                 self.testDatas.removeAll()
                 self.recordIDs = addRecordsResponse.getIDs()!
-                let result = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_NEGATIVE_ID, self.recordIDs)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.NEGATIVE_ID, self.recordIDs)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.APP_NEGATIVE_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NEGATIVE_ID))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
                 

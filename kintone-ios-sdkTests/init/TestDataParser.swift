@@ -18,20 +18,24 @@ internal class TestDataParser: Codable {
         return kintoneTestData.proxy
     }
     
+    static func getAdministrator() -> user {
+        return kintoneTestData.administrators
+    }
+    
     static func getUsers() -> [user] {
         return kintoneTestData.users
     }
     
-    static func getGuestSpace() -> guestSpace {
-        return kintoneTestData.guestSpace
+    static func getGuestSpaceInfo() -> space {
+        return kintoneTestData.guestSpaceInfo
     }
     
-    static func getNormalSpace() -> normalSpace {
-        return kintoneTestData.normalSpace
+    static func getNormalSpaceInfo() -> space {
+        return kintoneTestData.normalSpaceInfo
     }
     
-    static func getApp() -> app {
-        return kintoneTestData.app
+    static func getApps() -> apps {
+        return kintoneTestData.apps
     }
 }
 
@@ -40,9 +44,9 @@ struct KintoneTestData: Decodable {
     var proxy: proxy
     var administrators: user
     var users: [user]
-    var guestSpace: guestSpace
-    var normalSpace: normalSpace
-    var app: app
+    var guestSpaceInfo: space
+    var normalSpaceInfo: space
+    var apps: apps
 }
 
 struct proxy: Decodable {
@@ -56,58 +60,117 @@ struct user: Decodable {
     var password: String
 }
 
-struct guestSpace: Decodable {
+struct userInfo: Decodable {
+    var code: String
+    var name: String
+}
+
+struct space: Decodable {
     var id: String
-    var threadID: String
-    var app: app
+    var spaceName: String
+    var threadId: String
+    var appId: String
     
     func getSpaceId() -> String {
         return id
     }
     
     func getThreadId() -> String {
-        return threadID
+        return threadId
+    }
+    
+    func getAppOfSpaceId() -> String {
+        return appId
     }
 }
 
-struct normalSpace: Decodable {
-    var id: String
-    var threadID: String
-    var app: app
-    
-    func getSpaceId() -> String {
-        return id
-    }
-    
-    func getThreadId() -> String {
-        return threadID
-    }
+struct apps: Decodable {
+    var appInSpace: app
+    var appInGuestSpace: app
+    var appWithMultipleFields: app
+    var appWithRequiredFields: app
+    var appWithUniqueFields: app
 }
 
 struct app: Decodable {
-    var id: String
-    var apiToken: String
-    var name: String
+    var appId: String
     var code: String
+    var name: String
+    var description: String
+    var createdAt: String
+    var creator: userInfo
+    var modifiedAt: String
+    var modifier: userInfo
+    var spaceId: String
+    var threadId: String
     var fieldCodes: [String]
+    var apiToken: apiToken
+    var userAppPermissions: userAppPermission
+    var userRecordPermissions: userRecordPermission
+    var userFieldPermissions: userFieldPermission
     
-    func getAppId() -> String {
-        return id
+    func getCreator() -> userInfo {
+        return self.creator
     }
     
-    func getApiToken() -> String {
-        return apiToken
-    }
-    
-    func getAppName() -> String {
-        return name
-    }
-    
-    func getAppCode() -> String {
-        return code
+    func getModifier() -> userInfo {
+        return self.modifier
     }
     
     func getFieldCodes() -> [String] {
         return fieldCodes
     }
+    
+    func getApiToken() -> apiToken {
+        return apiToken
+    }
+    
+    func getUserAppPermissions() -> userAppPermission {
+        return self.userAppPermissions
+    }
+    
+    func getUserRecordPermissions() -> userRecordPermission {
+        return self.userRecordPermissions
+    }
+    
+    func getUserFieldPermissions() -> userFieldPermission {
+        return self.userFieldPermissions
+    }
+}
+
+struct apiToken: Decodable {
+    var fullPermission: String
+    var viewPermission: String
+    var noPermission: String
+}
+
+struct appPermissions: Decodable {
+    var appEditable: Bool
+    var recordViewable: Bool
+    var recordAddable: Bool
+    var recordEditable: Bool
+    var recordDeletable: Bool
+    var recordImportable: Bool
+    var recordExportable: Bool
+}
+
+struct userAppPermission: Decodable {
+    var userNotHaveAppManagementRight: String
+    var userNotHavePermission: String
+    var userNotHaveViewRecordsRight: String
+    var userNotHaveAddRecordsRight: String
+    var userNotHaveEditRecordsRight: String
+    var userNotHaveDeleteRecordsRight: String
+}
+
+struct userRecordPermission: Decodable {
+    var userNotHavePermission: String
+    var userNotHaveViewRight: String
+    var userNotHaveEditRight: String
+    var userNotHaveDeleteRight: String
+}
+
+struct userFieldPermission: Decodable {
+    var userNotHaveViewRightOnTextField: String
+    var userNotHaveEditRightOnTextField: String
 }

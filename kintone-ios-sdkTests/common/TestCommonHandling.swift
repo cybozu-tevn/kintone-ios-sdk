@@ -15,7 +15,7 @@ class TestCommonHandling {
     ///   - username: String | the username of login user
     ///   - password: String | the password of login user
     /// - Returns: Connection | the connection create by username and password option
-    static func createConnection(_ username: String = TestConstant.Connection.ADMIN_USERNAME, _ password: String = TestConstant.Connection.ADMIN_PASSWORD) -> Connection {
+    static func createConnection(_ username: String = TestConstant.Connection.CRED_ADMIN_USERNAME, _ password: String = TestConstant.Connection.CRED_ADMIN_PASSWORD) -> Connection {
         let auth = Auth.init().setPasswordAuth(username, password)
         let conn = Connection(TestConstant.Connection.DOMAIN, auth)
         return conn

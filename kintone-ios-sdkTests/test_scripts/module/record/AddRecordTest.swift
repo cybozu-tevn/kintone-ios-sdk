@@ -16,35 +16,34 @@ class AddRecordTest: QuickSpec {
     private var recordModuleWithoutAddPermissionApp: Record!
     private var recordModuleWithAPIToken: Record!
     
-    private let APP_ID = 1
-    private let APP_HAVE_REQUIRED_FIELD_ID = 3
-    private let APP_NONEXISTENT_ID = 1000
-    private let APP_NEGATIVE_ID = -1
-    private let GUEST_SPACE_ID = 4
-    private let APP_GUEST_SPACE_ID = 4
-    private let APP_BLANK_ID = 6
-    private let APP_HAVE_PROHIBIT_DUPLICATE_VALUE_FIELD_ID = 222
+    private let APP_ID = TestConstant.InitData.APP_ID!
+    private let APP_HAVE_REQUIRED_FIELD_ID = TestConstant.InitData.APP_ID_HAS_REQUIRED_FIELDS!
+    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
+    private let NEGATIVE_ID = TestConstant.Common.NEGATIVE_ID
+    private let GUEST_SPACE_ID = TestConstant.InitData.GUEST_SPACE_ID!
+    private let APP_GUEST_SPACE_ID = TestConstant.InitData.GUEST_SPACE_APP_ID!
+    private let APP_BLANK_ID = TestConstant.InitData.APP_BLANK_ID
+    private let APP_HAVE_PROHIBIT_DUPLICATE_VALUE_FIELD_ID = TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!
+    private let APP_API_TOKEN = TestConstant.InitData.APP_API_TOKEN
 
     private var recordID: Int?
     private var recordRevision: Int?
-    private let RECORD_TEXT_FIELD: String = "text"
-    private let RECORD_NUMBER_FILED: String = "number"
+    private let RECORD_TEXT_FIELD: String = TestConstant.InitData.TEXT_FIELD
+    private let RECORD_NUMBER_FILED: String = TestConstant.InitData.NUMBER_FIELD
     private var recordTextValue: String?
     private var testData: Dictionary<String, FieldValue>! = [:]
-    
-    let APP_API_TOKEN = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
     override func spec() {
         describe("AddRecord") {
             beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     self.GUEST_SPACE_ID))
                 self.recordModuleWithoutAddPermissionApp = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_ADD_RECORDS_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_ADD_RECORDS_PERMISSION))
                 self.recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(self.APP_API_TOKEN))
             }
             
@@ -87,11 +86,11 @@ class AddRecordTest: QuickSpec {
             it("Test_028_Error_NonexistentAppID") {
                 self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let result = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_NONEXISTENT_ID, self.testData)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.NONEXISTENT_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 //Get expect error
                 var expectedError  = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.APP_NONEXISTENT_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NONEXISTENT_ID))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
@@ -99,7 +98,7 @@ class AddRecordTest: QuickSpec {
             it("Test_029_Error_NegativeAppID") {
                 self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let result = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_NEGATIVE_ID, self.testData)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.NEGATIVE_ID, self.testData)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 let expectedError  = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
                 

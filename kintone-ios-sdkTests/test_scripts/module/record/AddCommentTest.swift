@@ -15,11 +15,11 @@ class AddCommentTest: QuickSpec {
     private var recordModuleGuestSpace: Record!
     private var recordModuleApiToken: Record!
 
-    private let APP_ID: Int = 1
-    private let GUEST_SPACE_ID: Int = 4
-    private let APP_GUEST_SPACE_ID: Int = 224
-    private let NONEXISTENT_ID = 99999999
-    private let API_TOKEN: String = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
+    private let APP_ID: Int = TestConstant.InitData.APP_ID!
+    private let GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_ID!
+    private let APP_GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
+    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
+    private let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
 
     private var recordID: Int!
     private var recordGuestSpaceID: Int!
@@ -42,8 +42,8 @@ class AddCommentTest: QuickSpec {
             beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     self.GUEST_SPACE_ID))
                 self.recordModuleApiToken = Record(TestCommonHandling.createConnection(self.API_TOKEN))
 
@@ -78,7 +78,7 @@ class AddCommentTest: QuickSpec {
                 // 1 comment is added + details is correct
                 expect(totalComment + 1).to(equal(result.getComments()?.count))
                 expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
                 let mentions = result.getComments()?[0].getMentions()
                 for user in mentions! {
                     expect(self.mentionCode).to(equal(user.getCode()))
@@ -107,13 +107,13 @@ class AddCommentTest: QuickSpec {
             
             it("Test_238_MentionMultiUsers") {
                 let mentionDept = CommentMention()
-                mentionDept.setCode(TestConstant.Connection.DEPARTMENT_CODE)
-                mentionDept.setType(TestConstant.Connection.DEPARTMENT_TYPE)
+                mentionDept.setCode(TestConstant.InitData.DEPARTMENT_CODE)
+                mentionDept.setType(TestConstant.InitData.DEPARTMENT_TYPE)
                 self.mentionList.append(mentionDept)
                 
                 let mentionGroup = CommentMention()
-                mentionGroup.setCode(TestConstant.Connection.GROUP_CODE)
-                mentionGroup.setType(TestConstant.Connection.GROUP_TYPE)
+                mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
+                mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
                 self.mentionList.append(mentionGroup)
 
                 self.comment.setText(self.commentContent)
@@ -125,10 +125,10 @@ class AddCommentTest: QuickSpec {
                 let mentions = result.getComments()?[0].getMentions()
                 expect(mentions?[0].getCode()).to(equal(self.mentionCode))
                 expect(mentions?[0].getType()).to(equal(self.mentionType))
-                expect(mentions?[1].getCode()).to(equal(TestConstant.Connection.DEPARTMENT_CODE))
-                expect(mentions?[1].getType()).to(equal(TestConstant.Connection.DEPARTMENT_TYPE))
-                expect(mentions?[2].getCode()).to(equal(TestConstant.Connection.GROUP_CODE))
-                expect(mentions?[2].getType()).to(equal(TestConstant.Connection.GROUP_TYPE))
+                expect(mentions?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
+                expect(mentions?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
+                expect(mentions?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
+                expect(mentions?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
             }
             
             it("Test_240_NoMention") {
@@ -167,9 +167,12 @@ class AddCommentTest: QuickSpec {
             }
             
             it("Test_243_Error_NoPermissionForApp") {
+                self.mentionList.removeAll()
+                self.mentionList.append(self.mention)
+                self.comment.setMentions(self.mentionList)
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(self.APP_ID, self.recordID, self.comment)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
@@ -181,8 +184,8 @@ class AddCommentTest: QuickSpec {
                 self.mentionList.append(self.mention)
                 self.comment.setMentions(self.mentionList)
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(self.APP_ID, self.recordID, self.comment)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
@@ -191,8 +194,8 @@ class AddCommentTest: QuickSpec {
             
             it("Test_245_NoPermissionForField") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_PEMISSION_FIELD,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_PEMISSION_FIELD))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
                 
                 self.mentionList.removeAll()
                 self.mentionList.append(self.mention)
@@ -206,7 +209,7 @@ class AddCommentTest: QuickSpec {
                 
                 // 1 comment is added + details is correct
                 expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.CRED_USERNAME_WITHOUT_PEMISSION_FIELD).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION).to(equal(result.getComments()?[0].getCreator()?.code))
             }
             
             it("Test_246_Error_InvalidAppId") {
@@ -255,7 +258,7 @@ class AddCommentTest: QuickSpec {
                 // 1 comment is added + details is correct
                 expect(totalComment + 1).to(equal(result.getComments()?.count))
                 expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
                 let mentions = result.getComments()?[0].getMentions()
                 for user in mentions! {
                     expect(self.mentionCode).to(equal(user.getCode()))
@@ -306,7 +309,7 @@ class AddCommentTest: QuickSpec {
                 // 1 comment is added + details is correct
                 expect(totalComment + 1).to(equal(result.getComments()?.count))
                 expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.CRED_ADMIN).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(TestConstant.Common.ADMINISTRATOR_USER).to(equal(result.getComments()?[0].getCreator()?.code))
                 let mentions = result.getComments()?[0].getMentions()
                 for user in mentions! {
                     expect(self.mentionCode).to(equal(user.getCode()))
@@ -335,13 +338,13 @@ class AddCommentTest: QuickSpec {
             
             it("Test_238_239_APIToken_MentionMultiUsers") {
                 let mentionDept = CommentMention()
-                mentionDept.setCode(TestConstant.Connection.DEPARTMENT_CODE)
-                mentionDept.setType(TestConstant.Connection.DEPARTMENT_TYPE)
+                mentionDept.setCode(TestConstant.InitData.DEPARTMENT_CODE)
+                mentionDept.setType(TestConstant.InitData.DEPARTMENT_TYPE)
                 self.mentionList.append(mentionDept)
                 
                 let mentionGroup = CommentMention()
-                mentionGroup.setCode(TestConstant.Connection.GROUP_CODE)
-                mentionGroup.setType(TestConstant.Connection.GROUP_TYPE)
+                mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
+                mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
                 self.mentionList.append(mentionGroup)
                 
                 self.comment.setText(self.commentContent)
@@ -353,10 +356,10 @@ class AddCommentTest: QuickSpec {
                 let mentions = result.getComments()?[0].getMentions()
                 expect(mentions?[0].getCode()).to(equal(self.mentionCode))
                 expect(mentions?[0].getType()).to(equal(self.mentionType))
-                expect(mentions?[1].getCode()).to(equal(TestConstant.Connection.DEPARTMENT_CODE))
-                expect(mentions?[1].getType()).to(equal(TestConstant.Connection.DEPARTMENT_TYPE))
-                expect(mentions?[2].getCode()).to(equal(TestConstant.Connection.GROUP_CODE))
-                expect(mentions?[2].getType()).to(equal(TestConstant.Connection.GROUP_TYPE))
+                expect(mentions?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
+                expect(mentions?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
+                expect(mentions?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
+                expect(mentions?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
             }
             
             it("Test_240_APIToken_NoMention") {
@@ -374,8 +377,8 @@ class AddCommentTest: QuickSpec {
             it("Test_254_APIToken_CommentPostedByAdministrator") {
                 _ = TestCommonHandling.awaitAsync(self.recordModuleApiToken.addComment(self.APP_ID, self.recordID, self.comment))
                 let result = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
-                //dump(result)
-                expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Connection.CRED_ADMIN))
+
+                expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Common.ADMINISTRATOR_USER))
             }
         }
     }

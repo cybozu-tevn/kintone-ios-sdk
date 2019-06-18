@@ -48,16 +48,16 @@ class GetAppsTest: QuickSpec {
                     expect(app.getAppId()).to(equal(appIds![index]))
                     expect(app.getName()).to(equal("\(appName)\(index)"))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                     expect(app.getSpaceId()).to(beNil())
                     expect(app.getThreadId()).to(beNil())
                 }
             }
             
             it("test_008_SuccessWithLimit_GuestSpaceApp") {
-                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
+                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 offset = (TestCommonHandling.awaitAsync(guestAppModule.getApps()) as! [AppModel]).count
-                var guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Common.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
+                var guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 
                 let limit = 3
                 let getAppsRsp = TestCommonHandling.awaitAsync(guestAppModule.getApps(offset, limit)) as! [AppModel]
@@ -66,9 +66,9 @@ class GetAppsTest: QuickSpec {
                     expect(app.getAppId()).to(equal(guestAppIds![index]))
                     expect(app.getName()).to(equal("\(appName)\(index)"))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
-                    expect(app.getSpaceId()).to(equal(TestConstant.Connection.GUEST_SPACE_ID))
-                    expect(app.getThreadId()).to(equal(TestConstant.Common.GUEST_SPACE_THREAD_ID))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
+                    expect(app.getSpaceId()).to(equal(TestConstant.InitData.GUEST_SPACE_ID))
+                    expect(app.getThreadId()).to(equal(TestConstant.InitData.GUEST_SPACE_THREAD_ID))
                 }
                 AppUtils.deleteApps(appIds: guestAppIds!)
             }

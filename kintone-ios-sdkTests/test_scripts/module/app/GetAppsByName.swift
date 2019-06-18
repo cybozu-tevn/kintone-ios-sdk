@@ -33,24 +33,24 @@ class GetAppsByNameTest: QuickSpec {
                 for app in getAppsByNameRsp {
                     expect(app.getName()!).to(contain(appName))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                     expect(app.getSpaceId()).to(beNil())
                     expect(app.getThreadId()).to(beNil())
                 }
             }
             
             it("Test_041_SuccessWithName_GuestSpaceApp") {
-                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
-                let guestAppIds = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Common.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
+                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
+                let guestAppIds = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(guestAppModule.getAppsByName(appName)) as! [AppModel]
                 expect(getAppsByNameRsp.count).to(equal(guestAppIds.count))
                 for app in getAppsByNameRsp {
                     expect(app.getName()!).to(contain(appName))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
-                    expect(app.getSpaceId()).to(equal(TestConstant.Connection.GUEST_SPACE_ID))
-                    expect(app.getThreadId()).to(equal(TestConstant.Common.GUEST_SPACE_THREAD_ID))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
+                    expect(app.getSpaceId()).to(equal(TestConstant.InitData.GUEST_SPACE_ID))
+                    expect(app.getThreadId()).to(equal(TestConstant.InitData.GUEST_SPACE_THREAD_ID))
                 }
             }
             
@@ -61,7 +61,7 @@ class GetAppsByNameTest: QuickSpec {
                 for app in getAppsByNameRsp {
                     expect(app.getName()!).to(contain(appName))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                     expect(app.getSpaceId()).to(beNil())
                     expect(app.getThreadId()).to(beNil())
                 }
@@ -74,7 +74,7 @@ class GetAppsByNameTest: QuickSpec {
                 for app in getAppsByNameRsp {
                     expect(app.getName()!).to(contain(appName))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                     expect(app.getSpaceId()).to(beNil())
                     expect(app.getThreadId()).to(beNil())
                 }

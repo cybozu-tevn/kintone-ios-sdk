@@ -49,7 +49,7 @@ class GetAppsBySpaceIDs: QuickSpec {
                 expect(app.getAppId()).to(equal(appIds![index]))
                 expect(app.getName()).to(contain(appName))
                 expect(app.getCode()).to(equal(""))
-                expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                 expect(spaceIds.contains(app.getSpaceId()!)).to(beTrue())
                 //                expect(app.getThreadId()).to(beNil())
             }
@@ -63,7 +63,7 @@ class GetAppsBySpaceIDs: QuickSpec {
                 expect(app.getAppId()).to(equal(appIds![index]))
                 expect(app.getName()).to(contain(appName))
                 expect(app.getCode()).to(equal(""))
-                expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                 expect(spaceIds.contains(app.getSpaceId()!)).to(beTrue())
                 //                expect(app.getThreadId()).to(beNil())
             }

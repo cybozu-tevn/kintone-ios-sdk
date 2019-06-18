@@ -18,9 +18,9 @@ class DownloadFileTest: QuickSpec {
     private var recordId: Int!
     
     // the app has attachment field
-    private let APP_ID: Int! = 33
-    private let RECORD_TEXT_FIELD: String! = "Text"
-    private let RECORD_ATTCHMENT_FIELD: String! = "Attachment"
+    private let APP_ID: Int! = TestConstant.InitData.APP_ID
+    private let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
+    private let RECORD_ATTACHMENT_FIELD: String! = TestConstant.InitData.ATTACHMENT_FIELD
     private var fileKeys: [String]! = []
     
     override func spec() {
@@ -50,7 +50,7 @@ class DownloadFileTest: QuickSpec {
                 let uploadFileResponse1 = TestCommonHandling.awaitAsync(self.fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
                 let uploadFileResponse2 = TestCommonHandling.awaitAsync(self.fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
                 let fileList = [uploadFileResponse1, uploadFileResponse2]
-                recordTestData = RecordUtils.setRecordData(recordTestData, self.RECORD_ATTCHMENT_FIELD, FieldType.FILE, fileList)
+                recordTestData = RecordUtils.setRecordData(recordTestData, self.RECORD_ATTACHMENT_FIELD, FieldType.FILE, fileList)
                 
                 // Upload files and get data
                 let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, recordTestData)) as! AddRecordResponse
@@ -61,7 +61,7 @@ class DownloadFileTest: QuickSpec {
         describe("DowloadFile") {
             it("Test_006_Success_DowloadFile") {
                 let getRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID, self.recordId)) as! GetRecordResponse
-                let fileResults = getRecordResponse.getRecord()![self.RECORD_ATTCHMENT_FIELD]!.getValue() as! [FileModel]
+                let fileResults = getRecordResponse.getRecord()![self.RECORD_ATTACHMENT_FIELD]!.getValue() as! [FileModel]
                 for fileResult in fileResults {
                     self.fileKeys.append(fileResult.getFileKey()!)
                     if let downloadDir = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first {

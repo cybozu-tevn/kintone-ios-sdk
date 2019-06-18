@@ -44,24 +44,24 @@ class GetAppsByIDsTest: QuickSpec {
                 for (index, app) in getAppsByIDsRsp.enumerated() {
                     expect(app.getAppId()).to(equal(appIds![index]))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                     expect(app.getSpaceId()).to(beNil())
                     expect(app.getThreadId()).to(beNil())
                 }
             }
             
             it("test_019_Success_GuestSpaceApp") {
-                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD, TestConstant.Connection.GUEST_SPACE_ID))
-                let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.Connection.GUEST_SPACE_ID, threadId: TestConstant.Common.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
+                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
+                let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(guestAppModule.getAppsByIDs(guestAppIds)) as! [AppModel]
                 
                 expect(getAppsByIDsRsp.count).to(equal(guestAppIds?.count))
                 for (index, app) in getAppsByIDsRsp.enumerated() {
                     expect(app.getAppId()).to(equal(guestAppIds![index]))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
-                    expect(app.getSpaceId()).to(equal(TestConstant.Connection.GUEST_SPACE_ID))
-                    expect(app.getThreadId()).to(equal(TestConstant.Connection.GUEST_SPACE_ID))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
+                    expect(app.getSpaceId()).to(equal(TestConstant.InitData.GUEST_SPACE_ID))
+                    expect(app.getThreadId()).to(equal(TestConstant.InitData.GUEST_SPACE_ID))
                 }
             }
             
@@ -72,7 +72,7 @@ class GetAppsByIDsTest: QuickSpec {
                 for(index, app) in getAppsByIDsRsp.enumerated() {
                     expect(app.getAppId()).to(equal(appIds![index]))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                     expect(app.getSpaceId()).to(beNil())
                     expect(app.getThreadId()).to(beNil())
                 }
@@ -85,7 +85,7 @@ class GetAppsByIDsTest: QuickSpec {
                 for(index, app) in getAppsByIDsRsp.enumerated() {
                     expect(app.getAppId()).to(equal(appIds![index+offset]))
                     expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.ADMIN_USERNAME))
+                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                     expect(app.getSpaceId()).to(beNil())
                     expect(app.getThreadId()).to(beNil())
                 }

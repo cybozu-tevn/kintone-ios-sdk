@@ -15,7 +15,7 @@ class AppUtils {
     static var auth: Auth!
     static var conn: Connection!
     static var appModule: App!
-    static let devAuth = DevAuth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
+    static let devAuth = DevAuth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
     static let devConn = DevConnection(TestConstant.Connection.DOMAIN, devAuth)
     static let devAppModule = DevApp(devConn)
     
@@ -28,7 +28,7 @@ class AppUtils {
     
     /// Init App module with default connection for Admin user
     static func initAppModule() {
-        auth = Auth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
+        auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
         conn = Connection(TestConstant.Connection.DOMAIN, auth)
         appModule = App(conn)
     }
@@ -50,15 +50,15 @@ class AppUtils {
             conn = Connection(TestConstant.Connection.DOMAIN, AppUtils.auth)
             appModule = App(conn)
         case .GUEST_SPACE:
-            auth = Auth().setPasswordAuth(TestConstant.Connection.ADMIN_USERNAME, TestConstant.Connection.ADMIN_PASSWORD)
-            conn = Connection(TestConstant.Connection.DOMAIN, auth, TestConstant.Connection.GUEST_SPACE_ID)
+            auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
+            conn = Connection(TestConstant.Connection.DOMAIN, auth, TestConstant.InitData.GUEST_SPACE_ID!)
             appModule = App(conn)
         case .GUEST_SPACE_WITHOUT_PERMISSION:
             if(username == "" || password == "") {
                 fatalError("Please define username and password for this module")
             }
             auth = Auth().setPasswordAuth(username, password)
-            conn = Connection(TestConstant.Connection.DOMAIN, auth, TestConstant.Connection.GUEST_SPACE_ID)
+            conn = Connection(TestConstant.Connection.DOMAIN, auth, TestConstant.InitData.GUEST_SPACE_ID!)
             appModule = App(conn)
         case .API_TOKEN:
             if(apiToken == "") {

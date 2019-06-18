@@ -12,23 +12,20 @@ import Nimble
 
 class UpdateRecordsTest: QuickSpec {
     private var recordModule: Record!
-    
-    private let APP_ID = 1
-    private let GUEST_SPACE_ID = 4
-    private let APP_UPDATE_KEY_GUEST_SPACE_ID = 224
-    private let APP_HAVE_REQUIRED_FIELD_ID = 3
-    private let APP_HAVE_PROHIBIT_DUPLICATE_VALUE_FIELD_ID = 222
-    private let APP_ID_UPDATE_KEY = 218
-    private let NEGATIVE_APP_ID: Int = -1
-    
-    private let RECORD_TEXT_FIELD: String! = "text"
-    private let RECORD_TEXT_KEY: String! = "key"
-    private let RECORD_NUMBER_FILED: String = "number"
+    private let APP_ID = TestConstant.InitData.APP_ID!
+    private let GUEST_SPACE_ID = TestConstant.InitData.GUEST_SPACE_ID!
+    private let APP_UPDATE_KEY_GUEST_SPACE_ID = TestConstant.InitData.GUEST_SPACE_APP_ID!
+    private let APP_HAVE_REQUIRED_FIELD_ID = TestConstant.InitData.APP_ID_HAS_REQUIRED_FIELDS!
+    private let APP_HAVE_PROHIBIT_DUPLICATE_VALUE_FIELD_ID = TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!
+    private let NEGATIVE_APP_ID: Int = TestConstant.Common.NEGATIVE_ID
+    private let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
+
+    private let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
+    private let RECORD_TEXT_KEY: String! = TestConstant.InitData.TEXT_UPDATE_KEY_FIELD
+    private let RECORD_NUMBER_FILED: String = TestConstant.InitData.NUMBER_FIELD
     private var recordTextValue =  [String]()
     private var recordTextKeyValue = [String]()
     private var testData: Dictionary<String, FieldValue>!
-    
-    private let API_TOKEN: String = "DAVEoGAcQLp3qQmAwbISn3jUEKKLAFL9xDTrccxF"
     
     override func spec() {
         describe("UpdateRecords") {
@@ -80,8 +77,8 @@ class UpdateRecordsTest: QuickSpec {
             
             it("Test_107_Success_ValidDataByIdGuestSpace") {
                 let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     self.GUEST_SPACE_ID))
                 var recordIDs =  [Int]()
                 self.recordTextValue.removeAll()
@@ -184,7 +181,7 @@ class UpdateRecordsTest: QuickSpec {
                     self.RECORD_TEXT_FIELD,
                     FieldType.SINGLE_LINE_TEXT,
                     self.recordTextValue[self.recordTextValue.count-1])
-                var addRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID_UPDATE_KEY, self.testData)) as! AddRecordResponse
+                var addRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 recordIDs.append(addRecordsResponse.getId()!)
                 self.recordTextKeyValue.append(DataRandomization.generateString(prefix: "Record", length: 10))
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextKeyValue[self.recordTextKeyValue.count-1])
@@ -195,7 +192,7 @@ class UpdateRecordsTest: QuickSpec {
                     self.RECORD_TEXT_FIELD,
                     FieldType.SINGLE_LINE_TEXT,
                     self.recordTextValue[self.recordTextValue.count-1])
-                addRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID_UPDATE_KEY, self.testData)) as! AddRecordResponse
+                addRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 recordIDs.append(addRecordsResponse.getId()!)
                 self.recordTextValue.append(DataRandomization.generateString(prefix: "Record", length: 10))
                 self.testData = RecordUtils.setRecordData(
@@ -207,10 +204,10 @@ class UpdateRecordsTest: QuickSpec {
                 for updateKey in updateKeys {
                     recordsUpdateItem.append(RecordUpdateItem(nil, nil, updateKey, self.testData))
                 }
-                let updateRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.updateRecords(self.APP_ID_UPDATE_KEY, recordsUpdateItem)) as! UpdateRecordsResponse
+                let updateRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.updateRecords(self.APP_ID, recordsUpdateItem)) as! UpdateRecordsResponse
                 for record in updateRecordsResponse.getRecords()! {
                     expect(record.getRevision()).to(equal(2))
-                    let result = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID_UPDATE_KEY, record.getID()!)) as! GetRecordResponse
+                    let result = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID, record.getID()!)) as! GetRecordResponse
                     for(key, value) in result.getRecord()! {
                         if(key == self.RECORD_TEXT_FIELD) {
                             expect(self.recordTextValue[self.recordTextValue.count-1]).to(equal(value.getValue() as? String))
@@ -391,8 +388,8 @@ class UpdateRecordsTest: QuickSpec {
                 var recordIDs =  [Int]()
                 self.recordTextValue.removeAll()
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
                 self.recordTextValue.append(DataRandomization.generateString(prefix: "Record", length: 10))
                 self.testData = RecordUtils.setRecordData(
                     [:],

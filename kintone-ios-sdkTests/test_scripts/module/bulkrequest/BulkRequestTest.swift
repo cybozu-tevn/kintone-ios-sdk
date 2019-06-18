@@ -15,19 +15,18 @@ class BulkRequestTest: QuickSpec {
     private var bulkRequestModule: BulkRequest!
     private var recordModule: Record!
     
-    private let APP_ID = 219
-    private let APP_NUMBER_FIELD_ID: Int = 108
-    private let APP_ID_UPDATE_KEY: Int = 213
+    private let APP_ID = TestConstant.InitData.APP_ID!
+    private let APP_NUMBER_FIELD_ID: Int = TestConstant.InitData.APP_ID!
     private let RECORD_ID: String! = "$id"
     private let RECORD_REVISION: String! = "$revision"
     private let RECORD_ASSIGNEE: String! = "Assignee"
     private let RECORD_STATUS: String! = "Status"
-    private let RECORD_TEXT_FIELD: String = "text"
-    private let RECORD_NUMBER_FILED: String = "number"
-    private let RECORD_TEXT_KEY: String! = "key"
+    private let RECORD_TEXT_FIELD: String = TestConstant.InitData.TEXT_FIELD
+    private let RECORD_NUMBER_FILED: String = TestConstant.InitData.NUMBER_FIELD
+    private let RECORD_TEXT_KEY: String! = TestConstant.InitData.TEXT_UPDATE_KEY_FIELD
     private var recordTextValue: String!
     private var testData: Dictionary<String, FieldValue>!
-    private let NONEXISTENT_ID = 999999
+    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
     
     override func spec() {
         beforeSuite {
@@ -84,7 +83,7 @@ class BulkRequestTest: QuickSpec {
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
                 let addUpdateAssigneesRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 let updateAssigneesRecordId = addUpdateAssigneesRecordsResponse.getId()!
-                let assignees = [TestConstant.Connection.ADMIN_USERNAME]
+                let assignees = [TestConstant.Connection.CRED_ADMIN_USERNAME]
                 
                 // updateRecordStatus data
                 self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
@@ -132,7 +131,7 @@ class BulkRequestTest: QuickSpec {
                     _ = try self.bulkRequestModule.updateRecordAssignees(self.APP_ID, updateAssigneesRecordId, assignees, nil)
                     _ = try self.bulkRequestModule.updateRecordStatus(self.APP_ID, updateRecordStatusId, statusAction[0], nil, nil)
                     _ = try self.bulkRequestModule.updateRecordsStatus(self.APP_ID, itemList)
-                    
+
                     // insert deleted record request to bulk request
                     _ = try self.bulkRequestModule.deleteRecords(self.APP_ID, deleteRecordsIds)
                     _ = try self.bulkRequestModule.deleteRecordsWithRevision(self.APP_ID, idsWithRevision)
@@ -170,32 +169,38 @@ class BulkRequestTest: QuickSpec {
                             for (key, value) in record {
                                 if(key == self.RECORD_ID) {
                                     resultIDs.append(Int(value.getValue() as! String)!)
-                                    
                                     // update record by id
                                     if(Int(value.getValue() as! String)! == updateRecordId) {
+                                        print("UPDATE RECORD BY ID TEST")
                                         expect(updateRecordByIdValue).to(equal(record[self.RECORD_TEXT_FIELD]?.getValue() as? String))
                                         expect(2).to(equal(Int((record[self.RECORD_REVISION]?.getValue() as? String)!)))
                                     }
                                     // update record by key
                                     if(Int(value.getValue() as! String)! == recordByUpdateKeyId) {
+                                        print("UPDATE RECORD BY KEY TEST")
                                         expect(updateRecordByUpdateKeyValue).to(equal(record[self.RECORD_TEXT_FIELD]?.getValue() as? String))
                                         expect(2).to(equal(Int((record[self.RECORD_REVISION]?.getValue() as? String)!)))
                                     }
                                     // update records
                                     if(Int(value.getValue() as! String)! ==  updateRecordsId) {
+                                        print("UPDATE RECORDS TEST")
                                         expect(updateRecordsValue).to(equal(record[self.RECORD_TEXT_FIELD]?.getValue() as? String))
                                         expect(2).to(equal(Int((record[self.RECORD_REVISION]?.getValue() as? String)!)))
                                     }
-                                    //update assignees
+                                    // update assignees
                                     if(Int(value.getValue() as! String)! == updateAssigneesRecordId) {
+                                        print("UPDATE ASSIGNEE TEST")
                                         let assigneeResult = record[self.RECORD_ASSIGNEE]?.getValue() as! [Member]
                                         expect(assignees[0]).to(equal(assigneeResult[0].getName()!))
                                     }
-                                    
+                                    // update record status
                                     if(Int(value.getValue() as! String)! == updateRecordStatusId) {
+                                        print("UPDATE RECORD STATUS TEST")
                                         expect(status[0]).to(equal(record[self.RECORD_STATUS]?.getValue()! as? String))
                                     }
+                                    // update records status
                                     if(Int(value.getValue() as! String)! == updateRecordsFirstStatusId || Int(value.getValue() as! String)! == updateRecordsSecondStatusId) {
+                                        print("UPDATE RECORDs STATUS TEST")
                                         expect(status[0]).to(equal(record[self.RECORD_STATUS]?.getValue()! as? String))
                                     }
                                 }
@@ -208,16 +213,18 @@ class BulkRequestTest: QuickSpec {
                             }
                         }
                         // for delete records
+                        print("DELETE RECORD TEST")
                         expect(resultIDs).toNot(contain(deleteRecordsIds))
                         expect(resultIDs).toNot(contain(deleteRecordsId))
                         // for add record
+                        print("ADD RECORD/RECORDS TEST")
                         expect(resultTexts).to(contain(addRecordValue, addRecordsValue))
                         expect(countRecord).to(equal(2))
                 }
                 _ = waitForPromises(timeout: Double(TestConstant.Common.PROMISE_TIMEOUT))
                 for id in recordIDs {
                     if(id != deleteRecordsIds[0] || id != deleteRecordsId) {
-                        TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [id]))
+                        _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [id]))
                     }
                 }
             }
@@ -274,13 +281,13 @@ class BulkRequestTest: QuickSpec {
                 //Add record data to test
                 self.recordTextValue = DataRandomization.generateString(length: 10)
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
-                let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID_UPDATE_KEY, self.testData)) as! AddRecordResponse
+                let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
                 let recordID: Int = addRecordResponse.getId()!
                 
                 //Prepare data to update
                 self.recordTextValue = DataRandomization.generateString(length: 10)
                 self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
-                _ = TestCommonHandling.handleDoTryCatch {try self.bulkRequestModule.updateRecordByUpdateKey(self.APP_ID_UPDATE_KEY,
+                _ = TestCommonHandling.handleDoTryCatch {try self.bulkRequestModule.updateRecordByUpdateKey(self.APP_ID,
                                                                                                             wrongUpdateKey,
                                                                                                             self.testData,
                                                                                                             nil)}
@@ -291,7 +298,7 @@ class BulkRequestTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 //remove test data on the app
-                _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID_UPDATE_KEY, [recordID]))
+                _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [recordID]))
             }
             
             it("Test_010_Error_InvalidIDsWithDeleteRecords") {

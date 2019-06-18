@@ -18,9 +18,9 @@ class UploadFileTest: QuickSpec {
     private var recordId: Int!
     
     // the app has attachment field
-    private let APP_ID: Int! = 33
-    private let RECORD_TEXT_FIELD: String! = "Text"
-    private let RECORD_ATTACHMENT_FIELD: String! = "Attachment"
+    private let APP_ID: Int! = TestConstant.InitData.APP_ID
+    private let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
+    private let RECORD_ATTACHMENT_FIELD: String! = TestConstant.InitData.ATTACHMENT_FIELD
     
     override func spec() {
         beforeSuite {
@@ -66,7 +66,7 @@ class UploadFileTest: QuickSpec {
                                 expect(actualFileSize).to(equal(expectedFileSize))
                                 expect(actualFileContent).to(equal(expectedFileContent))
                                 }.catch {error in
-                                    dump(error)
+                                    expect(error).to(beNil())
                             }
                         }
                     }

@@ -13,7 +13,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
     override func spec() {
         let TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
         let TEXT_UPDATE_KEY_FIELD: String! = TestConstant.InitData.TEXT_UPDATE_KEY_FIELD
-        let APP_ID = TestConstant.InitData.APP_ID
+        let APP_ID = TestConstant.InitData.APP_ID!
         let recordModule = Record(TestCommonHandling.createConnection())
         
         describe("UpdateRecordByUpdateKeyTest") {
@@ -257,39 +257,39 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_085_Success_ValidDataGuestSpace") {
-                let guestSpaceAppId = TestConstant.Common.GUEST_SPACE_APP_ID
+                let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID
                 let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.ADMIN_USERNAME,
-                    TestConstant.Connection.ADMIN_PASSWORD,
-                    TestConstant.Connection.GUEST_SPACE_ID))
+                    TestConstant.Connection.CRED_ADMIN_USERNAME,
+                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
+                    TestConstant.InitData.GUEST_SPACE_ID!))
                 
                 // Add record for an App in Guest Space
                 let textUpdateKeyValue = DataRandomization.generateString()
                 var textValue = DataRandomization.generateString()
                 var testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, textValue)
                 testData = RecordUtils.setRecordData([:], TEXT_UPDATE_KEY_FIELD, FieldType.SINGLE_LINE_TEXT, textUpdateKeyValue)
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(guestSpaceAppId, testData)) as! AddRecordResponse
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(guestSpaceAppId!, testData)) as! AddRecordResponse
                 let recordId = addRecordResponse.getId()!
                 
                 // Update record by update key value
                 let updateKey = RecordUpdateKey(TEXT_UPDATE_KEY_FIELD, textUpdateKeyValue)
                 textValue = DataRandomization.generateString()
                 testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, textValue)
-                let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByUpdateKey(guestSpaceAppId, updateKey, testData, 1)) as! UpdateRecordResponse
+                let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByUpdateKey(guestSpaceAppId!, updateKey, testData, 1)) as! UpdateRecordResponse
                 
                 // Verify:
                 // - Record revision is updated to 2
                 // - Text field value is updated
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 
-                let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId, recordId)) as! GetRecordResponse
+                let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId!, recordId)) as! GetRecordResponse
                 for(key, value) in result.getRecord()! {
                     if(key == TEXT_FIELD) {
                         expect((value.getValue() as! String)).to(equal(textValue))
                     }
                 }
                 
-                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: guestSpaceAppId)
+                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: guestSpaceAppId!)
             }
             
             it("Test_085_Success_ValidApiToken") {
@@ -302,7 +302,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
                 let recordId = addRecordResponse.getId()!
                 
                 // Update record by update key value via API token
-                let conn = TestCommonHandling.createConnection(TestConstant.Connection.APP_API_TOKEN)
+                let conn = TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN)
                 let recordModuleWithApiToken = Record(conn)
                 
                 let updateKey = RecordUpdateKey(TEXT_UPDATE_KEY_FIELD, textUpdateKeyValue)
