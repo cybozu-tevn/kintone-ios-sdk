@@ -736,12 +736,12 @@
         },
         "INVALID_UPDATEKEY_NOT_UNIQUE": {
             "code": "GAIA_IQ27",
-            "message": "Failed to update record. The field (code: text) set as \"updateKey\" must be set to \"Prohibit duplicate values\"."
+            "message": "Failed to update record. The field (code: %VARIABLE) set as \"updateKey\" must be set to \"Prohibit duplicate values\"."
         }
     },
     "INVALID_UPDATEKEY_NOT_UNIQUE": {
         "code": "GAIA_IQ27",
-        "message": "Failed to update record. The field (code: text) set as \"updateKey\" must be set to \"Prohibit duplicate values\"."
+        "message": "Failed to update record. The field (code: %VARIABLE) set as \"updateKey\" must be set to \"Prohibit duplicate values\"."
     },
     "INCORRECT_FILE_KEY_DOWNLOAD": {
         "code": "GAIA_BL01",
