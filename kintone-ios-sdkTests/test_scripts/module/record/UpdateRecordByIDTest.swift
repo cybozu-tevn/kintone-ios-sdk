@@ -16,7 +16,7 @@ class UpdateRecordByIDTest: QuickSpec {
         let AppId = TestConstant.InitData.SPACE_APP_ID!
         let recordModule = Record(TestCommonHandling.createConnection())
         
-        describe("UpdateRecordByIDTest") {
+        describe("UpdateRecordByID") {
             it("Test_065_Success_ValidData") {
                 var recordTextValue = DataRandomization.generateString()
                 var testData = RecordUtils.setRecordData([:], RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValue)

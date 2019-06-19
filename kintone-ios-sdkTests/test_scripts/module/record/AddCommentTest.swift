@@ -11,120 +11,110 @@ import Nimble
 @testable import Promises
 
 class AddCommentTest: QuickSpec {
-    private var recordModule: Record!
-    private var recordModuleGuestSpace: Record!
-    private var recordModuleApiToken: Record!
-
-    private let APP_ID: Int = TestConstant.InitData.APP_ID!
-    private let GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_ID!
-    private let APP_GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
-    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
-    private let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
-
-    private var recordID: Int!
-    private var recordGuestSpaceID: Int!
-    
-    // Comment Data
-    private let mentionCode: String = "cybozu"
-    private let mentionType: String = "USER"
-    private let commentContent: String = "add comment test"
-    private let RECORD_TEXT_FIELD: String! = "text"
-
-    private var commentID: Int!
-    private var commentGuestSpaceID: Int!
-
-    private var mention: CommentMention!
-    private var comment: CommentContent!
-    private var mentionList = [CommentMention]()
-    
     override func spec() {
+        let APP_ID: Int = TestConstant.InitData.APP_ID!
+        let GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_ID!
+        let APP_GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
+        let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
+        let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
+        
+        var recordID: Int!
+        var recordGuestSpaceID: Int!
+        
+        // Comment Data
+        let mentionCode: String = "cybozu"
+        let mentionType: String = "USER"
+        let commentContent: String = "add comment test"
+        let RECORD_TEXT_FIELD: String! = "text"
+        var mention: CommentMention!
+        var comment: CommentContent!
+        var mentionList = [CommentMention]()
+        
+        let recordModule = Record(TestCommonHandling.createConnection())
+        let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
+            TestConstant.Connection.CRED_ADMIN_USERNAME,
+            TestConstant.Connection.CRED_ADMIN_PASSWORD,
+            GUEST_SPACE_ID))
+        let recordModuleApiToken = Record(TestCommonHandling.createConnection(API_TOKEN))
+        
         describe("AddCommen") {
             beforeSuite {
-                self.recordModule = Record(TestCommonHandling.createConnection())
-                self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_ADMIN_USERNAME,
-                    TestConstant.Connection.CRED_ADMIN_PASSWORD,
-                    self.GUEST_SPACE_ID))
-                self.recordModuleApiToken = Record(TestCommonHandling.createConnection(self.API_TOKEN))
-
                 // Add record to contains comments
                 let addData: Dictionary<String, FieldValue> = [:]
-                let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, addData)) as! AddRecordResponse
-                self.recordID = addRecordResponse.getId()
-                let addRecordGuestSpaceResponse = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addRecord(self.APP_GUEST_SPACE_ID, addData)) as! AddRecordResponse
-                self.recordGuestSpaceID = addRecordGuestSpaceResponse.getId()
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, addData)) as! AddRecordResponse
+                recordID = addRecordResponse.getId()
+                let addRecordGuestSpaceResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(APP_GUEST_SPACE_ID, addData)) as! AddRecordResponse
+                recordGuestSpaceID = addRecordGuestSpaceResponse.getId()
                 
-                self.mention = CommentMention()
-                self.mention.setCode(self.mentionCode)
-                self.mention.setType(self.mentionType)
-                self.mentionList.append(self.mention)
+                mention = CommentMention()
+                mention.setCode(mentionCode)
+                mention.setType(mentionType)
+                mentionList.append(mention)
                 
-                self.comment = CommentContent()
-                self.comment.setText(self.commentContent)
-                self.comment.setMentions(self.mentionList)
+                comment = CommentContent()
+                comment.setText(commentContent)
+                comment.setMentions(mentionList)
             }
 
             afterSuite {
-                _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [self.recordID]))
-                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.deleteRecords(self.APP_GUEST_SPACE_ID, [self.recordGuestSpaceID]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(APP_ID, [recordID]))
+                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(APP_GUEST_SPACE_ID, [recordGuestSpaceID]))
             }
             
             it("Test_236_ValidData") {
-                let getCommentResponse = TestCommonHandling.awaitAsync(self.recordModule.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                let getCommentResponse = TestCommonHandling.awaitAsync(recordModule.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 let totalComment = getCommentResponse.getComments()!.count
-                _ = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModule.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModule.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
                 expect(totalComment + 1).to(equal(result.getComments()?.count))
-                expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(mentionCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
                 expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
                 let mentions = result.getComments()?[0].getMentions()
                 for user in mentions! {
-                    expect(self.mentionCode).to(equal(user.getCode()))
-                    expect(self.mentionType).to(equal(user.getType()))
+                    expect(mentionCode).to(equal(user.getCode()))
+                    expect(mentionType).to(equal(user.getType()))
                 }
                 
                 // Revision is not increased
-                let resultRecord = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID, self.recordID)) as! GetRecordResponse
+                let resultRecord = TestCommonHandling.awaitAsync(recordModule.getRecord(APP_ID, recordID)) as! GetRecordResponse
                 let resultData: Dictionary<String, FieldValue> = resultRecord.getRecord()!
                 let revision = resultData["$revision"]?.getValue() as! String
                 expect(Int(revision)).to(equal(1))
-
             }
             
             it("Test_237_SpecialCharacter") {
                 let commentSpecialChars: String = "わたしは、あなたを愛しています"
-                self.comment.setText(commentSpecialChars)
+                comment.setText(commentSpecialChars)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModule.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModule.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
-                expect(self.mentionCode + " \n" + commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
-
+                expect(mentionCode + " \n" + commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
             }
             
             it("Test_238_MentionMultiUsers") {
                 let mentionDept = CommentMention()
                 mentionDept.setCode(TestConstant.InitData.DEPARTMENT_CODE)
                 mentionDept.setType(TestConstant.InitData.DEPARTMENT_TYPE)
-                self.mentionList.append(mentionDept)
+                mentionList.append(mentionDept)
                 
                 let mentionGroup = CommentMention()
                 mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
                 mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
-                self.mentionList.append(mentionGroup)
+                mentionList.append(mentionGroup)
 
-                self.comment.setText(self.commentContent)
-                self.comment.setMentions(self.mentionList)
+                comment.setText(commentContent)
+                comment.setMentions(mentionList)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModule.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModule.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentions = result.getComments()?[0].getMentions()
-                expect(mentions?[0].getCode()).to(equal(self.mentionCode))
-                expect(mentions?[0].getType()).to(equal(self.mentionType))
+                expect(mentions?[0].getCode()).to(equal(mentionCode))
+                expect(mentions?[0].getType()).to(equal(mentionType))
                 expect(mentions?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
                 expect(mentions?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
                 expect(mentions?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
@@ -132,61 +122,61 @@ class AddCommentTest: QuickSpec {
             }
             
             it("Test_240_NoMention") {
-                self.comment.setMentions(nil)
-                self.comment.setText(self.commentContent)
+                comment.setMentions(nil)
+                comment.setText(commentContent)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModule.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModule.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentions = result.getComments()?[0].getMentions()
                 expect(0).to(equal(mentions?.count))
-                expect(self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(commentContent + " ").to(equal(result.getComments()?[0].getText()))
             }
             
             it("Test_241_Error_BlankContent") {
                 let commentBlank = CommentContent()
                 
-                let result = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, commentBlank)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, recordID, commentBlank)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.MISSING_COMMENT_TEXT_ERROR()!
-                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String(self.RECORD_TEXT_FIELD))
+                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String(RECORD_TEXT_FIELD))
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_242_Error_NonexistentMentionUser") {
                 let mentionInvalidUser = CommentMention()
                 mentionInvalidUser.setCode("NONEXISTENT_USER")
-                mentionInvalidUser.setType(self.mentionType)
-                self.mentionList.append(mentionInvalidUser)
-                self.comment.setMentions(self.mentionList)
+                mentionInvalidUser.setType(mentionType)
+                mentionList.append(mentionInvalidUser)
+                comment.setMentions(mentionList)
                 
-                let result = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, recordID, comment)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.NONEXISTENT_USER_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_243_Error_NoPermissionForApp") {
-                self.mentionList.removeAll()
-                self.mentionList.append(self.mention)
-                self.comment.setMentions(self.mentionList)
+                mentionList.removeAll()
+                mentionList.append(mention)
+                comment.setMentions(mentionList)
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
-                let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(self.APP_ID, self.recordID, self.comment)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(APP_ID, recordID, comment)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_244_Error_NoPermissionForRecord") {
-                self.mentionList.removeAll()
-                self.mentionList.append(self.mention)
-                self.comment.setMentions(self.mentionList)
+                mentionList.removeAll()
+                mentionList.append(mention)
+                comment.setMentions(mentionList)
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
-                let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(self.APP_ID, self.recordID, self.comment)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(APP_ID, recordID, comment)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
@@ -197,35 +187,35 @@ class AddCommentTest: QuickSpec {
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 
-                self.mentionList.removeAll()
-                self.mentionList.append(self.mention)
+                mentionList.removeAll()
+                mentionList.append(mention)
                 
-                self.comment = CommentContent()
-                self.comment.setText(self.commentContent)
-                self.comment.setMentions(self.mentionList)
+                comment = CommentContent()
+                comment.setText(commentContent)
+                comment.setMentions(mentionList)
                 
-                _ = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModule.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModule.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
-                expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(mentionCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
                 expect(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION).to(equal(result.getComments()?[0].getCreator()?.code))
             }
             
             it("Test_246_Error_InvalidAppId") {
-                let result = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.NONEXISTENT_ID, self.recordID, self.comment)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.addComment(NONEXISTENT_ID, recordID, comment)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NONEXISTENT_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(NONEXISTENT_ID))
 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_247_Error_InvalidRecordId") {
-                let result = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.NONEXISTENT_ID, self.comment)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, NONEXISTENT_ID, comment)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NONEXISTENT_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(NONEXISTENT_ID))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
@@ -233,16 +223,16 @@ class AddCommentTest: QuickSpec {
             it("test_255_MentionInactiveUserDepartmentGroup") {
                 let mentionInactiveUser = CommentMention()
                 mentionInactiveUser.setCode(TestConstant.Connection.CRED_USERNAME_INACTIVE)
-                mentionInactiveUser.setType(self.mentionType)
-                self.mentionList = [mentionInactiveUser]
-                self.comment.setMentions(self.mentionList)
+                mentionInactiveUser.setType(mentionType)
+                mentionList = [mentionInactiveUser]
+                comment.setMentions(mentionList)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModule.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModule.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModule.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentions = result.getComments()?[0].getMentions()
                 expect(mentions?[0].getCode()).to(equal(TestConstant.Connection.CRED_USERNAME_INACTIVE))
-                expect(mentions?[0].getType()).to(equal(self.mentionType))
+                expect(mentions?[0].getType()).to(equal(mentionType))
             }
             
             /***
@@ -250,23 +240,23 @@ class AddCommentTest: QuickSpec {
              ***/
             
             it("Test_236_GuestSpace_ValidData") {
-                let getCommentResponse = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.getComments(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
+                let getCommentResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(APP_GUEST_SPACE_ID, recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
                 let totalComment = getCommentResponse.getComments()!.count
-                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addComment(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.getComments(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addComment(APP_GUEST_SPACE_ID, recordGuestSpaceID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(APP_GUEST_SPACE_ID, recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
                 expect(totalComment + 1).to(equal(result.getComments()?.count))
-                expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(mentionCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
                 expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
                 let mentions = result.getComments()?[0].getMentions()
                 for user in mentions! {
-                    expect(self.mentionCode).to(equal(user.getCode()))
-                    expect(self.mentionType).to(equal(user.getType()))
+                    expect(mentionCode).to(equal(user.getCode()))
+                    expect(mentionType).to(equal(user.getType()))
                 }
                 
                 // Revision is not increased
-                let resultRecord = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.getRecord(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID)) as! GetRecordResponse
+                let resultRecord = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(APP_GUEST_SPACE_ID, recordGuestSpaceID)) as! GetRecordResponse
                 let resultData: Dictionary<String, FieldValue> = resultRecord.getRecord()!
                 let revision = resultData["$revision"]?.getValue() as! String
                 expect(Int(revision)).to(equal(1))
@@ -274,26 +264,26 @@ class AddCommentTest: QuickSpec {
             
             it("Test_237_GuestSpace_SpecialCharacter") {
                 let commentSpecialChars: String = "わたしは、あなたを愛しています"
-                self.comment.setText(commentSpecialChars)
+                comment.setText(commentSpecialChars)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addComment(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.getComments(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addComment(APP_GUEST_SPACE_ID, recordGuestSpaceID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(APP_GUEST_SPACE_ID, recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
-                expect(self.mentionCode + " \n" + commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
+                expect(mentionCode + " \n" + commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
                 
             }
             
             it("Test_240_GuestSpace_NoMention") {
-                self.comment.setMentions(nil)
-                self.comment.setText(self.commentContent)
+                comment.setMentions(nil)
+                comment.setText(commentContent)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.addComment(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleGuestSpace.getComments(self.APP_GUEST_SPACE_ID, self.recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addComment(APP_GUEST_SPACE_ID, recordGuestSpaceID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(APP_GUEST_SPACE_ID, recordGuestSpaceID, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentions = result.getComments()?[0].getMentions()
                 expect(0).to(equal(mentions?.count))
-                expect(self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(commentContent + " ").to(equal(result.getComments()?[0].getText()))
             }
             
             /***
@@ -301,23 +291,23 @@ class AddCommentTest: QuickSpec {
              ***/
             
             it("Test_236_APIToken_ValidData") {
-                let getCommentResponse = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                let getCommentResponse = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 let totalComment = getCommentResponse.getComments()!.count
-                _ = TestCommonHandling.awaitAsync(self.recordModuleApiToken.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
                 expect(totalComment + 1).to(equal(result.getComments()?.count))
-                expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(mentionCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
                 expect(TestConstant.Common.ADMINISTRATOR_USER).to(equal(result.getComments()?[0].getCreator()?.code))
                 let mentions = result.getComments()?[0].getMentions()
                 for user in mentions! {
-                    expect(self.mentionCode).to(equal(user.getCode()))
-                    expect(self.mentionType).to(equal(user.getType()))
+                    expect(mentionCode).to(equal(user.getCode()))
+                    expect(mentionType).to(equal(user.getType()))
                 }
                 
                 // Revision is not increased
-                let resultRecord = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getRecord(self.APP_ID, self.recordID)) as! GetRecordResponse
+                let resultRecord = TestCommonHandling.awaitAsync(recordModuleApiToken.getRecord(APP_ID, recordID)) as! GetRecordResponse
                 let resultData: Dictionary<String, FieldValue> = resultRecord.getRecord()!
                 let revision = resultData["$revision"]?.getValue() as! String
                 expect(Int(revision)).to(equal(1))
@@ -326,36 +316,35 @@ class AddCommentTest: QuickSpec {
             
             it("Test_237_APIToken_SpecialCharacter") {
                 let commentSpecialChars: String = "わたしは、あなたを愛しています"
-                self.comment.setText(commentSpecialChars)
+                comment.setText(commentSpecialChars)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModuleApiToken.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
-                expect(self.mentionCode + " \n" + commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
-                
+                expect(mentionCode + " \n" + commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
             }
             
             it("Test_238_239_APIToken_MentionMultiUsers") {
                 let mentionDept = CommentMention()
                 mentionDept.setCode(TestConstant.InitData.DEPARTMENT_CODE)
                 mentionDept.setType(TestConstant.InitData.DEPARTMENT_TYPE)
-                self.mentionList.append(mentionDept)
+                mentionList.append(mentionDept)
                 
                 let mentionGroup = CommentMention()
                 mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
                 mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
-                self.mentionList.append(mentionGroup)
+                mentionList.append(mentionGroup)
                 
-                self.comment.setText(self.commentContent)
-                self.comment.setMentions(self.mentionList)
+                comment.setText(commentContent)
+                comment.setMentions(mentionList)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModuleApiToken.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentions = result.getComments()?[0].getMentions()
-                expect(mentions?[0].getCode()).to(equal(self.mentionCode))
-                expect(mentions?[0].getType()).to(equal(self.mentionType))
+                expect(mentions?[0].getCode()).to(equal(mentionCode))
+                expect(mentions?[0].getType()).to(equal(mentionType))
                 expect(mentions?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
                 expect(mentions?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
                 expect(mentions?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
@@ -363,20 +352,20 @@ class AddCommentTest: QuickSpec {
             }
             
             it("Test_240_APIToken_NoMention") {
-                self.comment.setMentions(nil)
-                self.comment.setText(self.commentContent)
+                comment.setMentions(nil)
+                comment.setText(commentContent)
                 
-                _ = TestCommonHandling.awaitAsync(self.recordModuleApiToken.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentions = result.getComments()?[0].getMentions()
                 expect(mentions?.count).to(equal(0))
-                expect(result.getComments()?[0].getText()).to(equal(self.commentContent + " "))
+                expect(result.getComments()?[0].getText()).to(equal(commentContent + " "))
             }
             
             it("Test_254_APIToken_CommentPostedByAdministrator") {
-                _ = TestCommonHandling.awaitAsync(self.recordModuleApiToken.addComment(self.APP_ID, self.recordID, self.comment))
-                let result = TestCommonHandling.awaitAsync(self.recordModuleApiToken.getComments(self.APP_ID, self.recordID, nil, nil, nil)) as! GetCommentsResponse
+                _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(APP_ID, recordID, comment))
+                let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(APP_ID, recordID, nil, nil, nil)) as! GetCommentsResponse
 
                 expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Common.ADMINISTRATOR_USER))
             }

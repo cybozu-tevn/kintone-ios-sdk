@@ -11,33 +11,27 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class DownloadFileTest: QuickSpec {
-    private var auth: Auth!
-    private var fileModule: File!
-    private var recordModule: Record!
-    private var conn: Connection!
-    private var recordId: Int!
-    
-    // the app has attachment field
-    private let APP_ID: Int! = TestConstant.InitData.APP_ID
-    private let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
-    private let RECORD_ATTACHMENT_FIELD: String! = TestConstant.InitData.ATTACHMENT_FIELD
-    private var fileKeys: [String]! = []
-    
     override func spec() {
+        // the app has attachment field
+        let APP_ID = TestConstant.InitData.APP_ID
+        let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
+        let RECORD_ATTACHMENT_FIELD: String! = TestConstant.InitData.ATTACHMENT_FIELD
+        var fileKeys: [String]! = []
+    
+        var recordId: Int!
         var expectedFileName: String!
         var expectedFileSize: Int!
         var expectedFileContent: String!
+        let conn = TestCommonHandling.createConnection()
+        let recordModule = Record(conn)
+        let fileModule = File(conn)
         
         beforeSuite {
-            self.conn = TestCommonHandling.createConnection()
-            self.recordModule = Record(self.conn)
-            self.fileModule = File(self.conn)
-            
             // Prepare test data
             let bundleUploadFile = Bundle(for: type(of: self))
             var recordTestData: [String: FieldValue] = [:]
             recordTestData = RecordUtils.setRecordData(recordTestData,
-                                                       self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT,
+                                                       RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT,
                                                        "Upload single file")
             
             if let uploadFilePath = bundleUploadFile.url(forResource: "test", withExtension: "xlsx") {
@@ -47,26 +41,26 @@ class DownloadFileTest: QuickSpec {
                 expectedFileContent = try! String(contentsOf: uploadFilePath, encoding: String.Encoding.unicode)
                 
                 // Prepare upload files
-                let uploadFileResponse1 = TestCommonHandling.awaitAsync(self.fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
-                let uploadFileResponse2 = TestCommonHandling.awaitAsync(self.fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
+                let uploadFileResponse1 = TestCommonHandling.awaitAsync(fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
+                let uploadFileResponse2 = TestCommonHandling.awaitAsync(fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
                 let fileList = [uploadFileResponse1, uploadFileResponse2]
-                recordTestData = RecordUtils.setRecordData(recordTestData, self.RECORD_ATTACHMENT_FIELD, FieldType.FILE, fileList)
+                recordTestData = RecordUtils.setRecordData(recordTestData, RECORD_ATTACHMENT_FIELD, FieldType.FILE, fileList)
                 
                 // Upload files and get data
-                let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, recordTestData)) as! AddRecordResponse
-                self.recordId = addRecordResponse.getId()!
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID!, recordTestData)) as! AddRecordResponse
+                recordId = addRecordResponse.getId()!
             }
         }
         
         describe("DowloadFile") {
             it("Test_006_Success_DowloadFile") {
-                let getRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.getRecord(self.APP_ID, self.recordId)) as! GetRecordResponse
-                let fileResults = getRecordResponse.getRecord()![self.RECORD_ATTACHMENT_FIELD]!.getValue() as! [FileModel]
+                let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(APP_ID!, recordId)) as! GetRecordResponse
+                let fileResults = getRecordResponse.getRecord()![RECORD_ATTACHMENT_FIELD]!.getValue() as! [FileModel]
                 for fileResult in fileResults {
-                    self.fileKeys.append(fileResult.getFileKey()!)
+                    fileKeys.append(fileResult.getFileKey()!)
                     if let downloadDir = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first {
                         let filePath = downloadDir.appendingPathComponent(fileResult.getName()!)
-                        self.fileModule.download(fileResult.getFileKey()!, filePath.absoluteString).then {
+                        fileModule.download(fileResult.getFileKey()!, filePath.absoluteString).then {
                             let actualResourcesFile = try! filePath.resourceValues(forKeys: [.fileSizeKey])
                             let actualFileName = filePath.lastPathComponent
                             let actualFileSize = actualResourcesFile.fileSize
@@ -75,22 +69,22 @@ class DownloadFileTest: QuickSpec {
                             expect(actualFileSize).to(equal(expectedFileSize))
                             expect(actualFileContent).to(equal(expectedFileContent))
                             }.catch {error in
-                                dump(error)
+                                expect(error).to(beNil())
                         }
                     }
                 }
             }
             
             it("Test_007_Error_DownloadNoneExistFilePath") {
-                for fileKey in self.fileKeys {
-                    let result = TestCommonHandling.awaitAsync(self.fileModule.download(fileKey, "none_exist_file_path")) is NSError
+                for fileKey in fileKeys {
+                    let result = TestCommonHandling.awaitAsync(fileModule.download(fileKey, "none_exist_file_path")) is NSError
                     expect(result).to(beTruthy())
                 }
             }
             
             it("Test_008_Error_DownloadNonexistFileKey") {
                 let nonexistentFileKey = "Nonexistent"
-                let result = TestCommonHandling.awaitAsync(self.fileModule.download(nonexistentFileKey, "")) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(fileModule.download(nonexistentFileKey, "")) as! KintoneAPIException
                 let actualError = result.getErrorResponse()
                 var expectedError  = KintoneErrorParser.INCORRECT_FILE_KEY_DOWNLOAD()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: nonexistentFileKey)
@@ -101,7 +95,7 @@ class DownloadFileTest: QuickSpec {
         
         afterSuite {
             // delete added test record
-            _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [self.recordId!]))
+            _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(APP_ID!, [recordId!]))
         }
     }
 }
