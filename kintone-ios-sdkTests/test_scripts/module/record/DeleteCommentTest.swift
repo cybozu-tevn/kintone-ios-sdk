@@ -127,8 +127,8 @@ class DeleteCommentTest: QuickSpec {
             
             it("Test_260_Error_NoPermissionForField") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 let addCommentResponse = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(self.APP_ID, self.recordID, self.comment)) as! AddCommentResponse
                 self.commentID = addCommentResponse.getId()
                 _ = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.deleteComment(self.APP_ID, self.recordID, self.commentID))
@@ -157,8 +157,8 @@ class DeleteCommentTest: QuickSpec {
             
             it("Test_269_Error_DeleteOtherUserComment") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 let addCommentResponse = TestCommonHandling.awaitAsync(self.recordModule.addComment(self.APP_ID, self.recordID, self.comment)) as! AddCommentResponse
                 self.commentID = addCommentResponse.getId()
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.deleteComment(self.APP_ID, self.recordID, self.commentID)) as! KintoneAPIException

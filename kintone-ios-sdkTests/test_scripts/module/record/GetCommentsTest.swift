@@ -240,8 +240,8 @@ class GetCommentsTest: QuickSpec {
             
             it("Test_229_Error_NoPermissionForField") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.getComments(
                     self.APP_ID,
                     self.recordID,

@@ -194,8 +194,8 @@ class AddCommentTest: QuickSpec {
             
             it("Test_245_NoPermissionForField") {
                 let recordModuleWithoutPermission = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 
                 self.mentionList.removeAll()
                 self.mentionList.append(self.mention)
@@ -209,7 +209,7 @@ class AddCommentTest: QuickSpec {
                 
                 // 1 comment is added + details is correct
                 expect(self.mentionCode + " \n" + self.commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION).to(equal(result.getComments()?[0].getCreator()?.code))
             }
             
             it("Test_246_Error_InvalidAppId") {

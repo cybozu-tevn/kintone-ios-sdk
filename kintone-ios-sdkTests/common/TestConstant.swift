@@ -21,7 +21,7 @@ public class TestConstant {
         static let CRED_ADMIN_USERNAME = TestDataParser.getAdministrator().username
         static let CRED_ADMIN_PASSWORD = TestDataParser.getAdministrator().password
         
-        // permisstion on app for user
+        // User credentials with permissions on App
         static let CRED_USERNAME_WITHOUT_CREATE_APP_PERMISSION = "user12"
         static let CRED_PASSWORD_WITHOUT_CREATE_APP_PERMISSION = "user12"
         static let CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION = TestDataParser.getUsers()[1].username
@@ -37,19 +37,19 @@ public class TestConstant {
         static let CRED_USERNAME_WITHOUT_DELETE_RECORDS_PERMISSION = TestDataParser.getUsers()[6].username
         static let CRED_PASSWORD_WITHOUT_DELETE_RECORDS_PERMISSION = TestDataParser.getUsers()[6].password
         
-        // permisstion on record for user
+        // User credentials with permissions on record
         static let CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION = TestDataParser.getUsers()[5].username
         static let CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION = TestDataParser.getUsers()[5].password
-        static let CRED_USERNAME_WITHOUT_EDIT_RECORD_PEMISSION = TestDataParser.getUsers()[4].username
-        static let CRED_PASSWORD_WITHOUT_EDIT_RECORD_PEMISSION = TestDataParser.getUsers()[4].password
-        static let CRED_USERNAME_WITHOUT_DELETE_RECORD_PEMISSION = TestDataParser.getUsers()[3].username
-        static let CRED_PASSWORD_WITHOUT_DELETE_RECORD_PEMISSION = TestDataParser.getUsers()[3].password
+        static let CRED_USERNAME_WITHOUT_EDIT_RECORD_PERMISSION = TestDataParser.getUsers()[4].username
+        static let CRED_PASSWORD_WITHOUT_EDIT_RECORD_PERMISSION = TestDataParser.getUsers()[4].password
+        static let CRED_USERNAME_WITHOUT_DELETE_RECORD_PERMISSION = TestDataParser.getUsers()[3].username
+        static let CRED_PASSWORD_WITHOUT_DELETE_RECORD_PERMISSION = TestDataParser.getUsers()[3].password
         
-        // permisstion on fields for user
-        static let CRED_USERNAME_WITHOUT_VIEW_FIELD_PEMISSION = TestDataParser.getUsers()[2].username
-        static let CRED_PASSWORD_WITHOUT_VIEW_FIELD_PEMISSION = TestDataParser.getUsers()[2].password
-        static let CRED_USERNAME_WITHOUT_EDIT_FIELD_PEMISSION = TestDataParser.getUsers()[1].username
-        static let CRED_PASSWORD_WITHOUT_EDIT_FIELDPEMISSION = TestDataParser.getUsers()[1].password
+        // User credentials with permissions on field
+        static let CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION = TestDataParser.getUsers()[2].username
+        static let CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION = TestDataParser.getUsers()[2].password
+        static let CRED_USERNAME_WITHOUT_EDIT_FIELD_PERMISSION = TestDataParser.getUsers()[1].username
+        static let CRED_PASSWORD_WITHOUT_EDIT_FIELD_PERMISSION = TestDataParser.getUsers()[1].password
         
         // inacive user
         static let CRED_USERNAME_INACTIVE = TestDataParser.getUsers()[10].username
@@ -83,7 +83,7 @@ public class TestConstant {
         static let ATTACHMENT_FIELD = "Attachment"
         static let TABLE_FIELD = "Table"
         
-        // fields code from appWithUniqueFields
+        // fields code from appWithUniqueFields app
         static let NUMBER_PROHIBIT_DUPLICATE_2ND_FIELD = "Number_unique_2nd"
         static let TABLE_PROHIBIT_DUPLICATE_FIELD = "Table_unique"
         
@@ -96,15 +96,15 @@ public class TestConstant {
         static var GUEST_SPACE_THREAD_ID  = Int(TestDataParser.getGuestSpaceInfo().getThreadId())
         static let GUEST_SPACE_APP_ID = Int(TestDataParser.getApps().appInGuestSpace.appId)
         
-        // the default app is appWithMultipleFields
+        // the default app is appWithMultipleFields app
         static let APP_ID = Int(TestDataParser.getApps().appWithMultipleFields.appId)
-        
+        static let APP_DESCRIPTION = TestDataParser.getApps().appWithMultipleFields.description
+        static let APP_NAME = TestDataParser.getApps().appWithMultipleFields.name
+
         static let APP_ID_HAS_MULTIPLE_FIELDS = Int(TestDataParser.getApps().appWithMultipleFields.appId)
         static let APP_ID_HAS_REQUIRED_FIELDS = Int(TestDataParser.getApps().appWithRequiredFields.appId)
         static let APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS = Int(TestDataParser.getApps().appWithUniqueFields.appId)
         static let APP_BLANK_ID = 7
-        static let APP_DESCRIPTION = TestDataParser.getApps().appWithMultipleFields.description
-        static let APP_NAME = TestDataParser.getApps().appWithMultipleFields.name
         
         static let APP_API_TOKEN = TestDataParser.getApps().appWithMultipleFields.apiToken.fullPermission
         static let SPACE_APP_API_TOKEN = TestDataParser.getApps().appInSpace.apiToken.fullPermission

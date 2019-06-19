@@ -36,8 +36,8 @@ class DeleteRecordsTest: QuickSpec {
             beforeSuite {
                 self.recordModule = Record(TestCommonHandling.createConnection())
                 self.recordModuleWithoutDeletePermissionRecord = Record(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORD_PEMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_DELETE_RECORD_PEMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORD_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_DELETE_RECORD_PERMISSION))
                 self.recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,
