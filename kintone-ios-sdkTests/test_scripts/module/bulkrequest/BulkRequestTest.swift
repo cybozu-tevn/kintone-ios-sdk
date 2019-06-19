@@ -11,135 +11,130 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class BulkRequestTest: QuickSpec {
-    private var conn: Connection!
-    private var bulkRequestModule: BulkRequest!
-    private var recordModule: Record!
-    
-    private let APP_ID = TestConstant.InitData.APP_ID!
-    private let APP_NUMBER_FIELD_ID: Int = TestConstant.InitData.APP_ID!
-    private let RECORD_ID: String! = "$id"
-    private let RECORD_REVISION: String! = "$revision"
-    private let RECORD_ASSIGNEE: String! = "Assignee"
-    private let RECORD_STATUS: String! = "Status"
-    private let RECORD_TEXT_FIELD: String = TestConstant.InitData.TEXT_FIELD
-    private let RECORD_NUMBER_FILED: String = TestConstant.InitData.NUMBER_FIELD
-    private let RECORD_TEXT_KEY: String! = TestConstant.InitData.TEXT_UPDATE_KEY_FIELD
-    private var recordTextValue: String!
-    private var testData: Dictionary<String, FieldValue>!
-    private let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
-    
     override func spec() {
-        beforeSuite {
-            self.conn = TestCommonHandling.createConnection()
-            self.recordModule = Record(self.conn)
-        }
+        let APP_ID = TestConstant.InitData.APP_ID!
+        let RECORD_ID: String! = "$id"
+        let RECORD_REVISION: String! = "$revision"
+        let RECORD_ASSIGNEE: String! = "Assignee"
+        let RECORD_STATUS: String! = "Status"
+        let TEXT_FIELD: String = TestConstant.InitData.TEXT_FIELD
+        let NUMBER_FIELD: String = TestConstant.InitData.NUMBER_FIELD
+        let TEXT_UPDATE_KEY_FIELD: String! = TestConstant.InitData.TEXT_UPDATE_KEY_FIELD
+        let NONEXISTENT_ID = TestConstant.Common.NONEXISTENT_ID
+        
+        let conn = TestCommonHandling.createConnection()
+        let recordModule = Record(conn)
+        var bulkRequestModule: BulkRequest!
         
         describe("BulkRequest") {
+            beforeEach {
+                bulkRequestModule = BulkRequest(conn)
+            }
+            
             it("Test_002_Success_ValidRequest") {
                 var recordIDs = [Int]()
                 let statusAction = ["Start", "Complete"]
                 let status = ["In progress", "Completed"]
-                self.bulkRequestModule = BulkRequest(self.conn)
-
+                
                 // addRecord data
-                let addRecordValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                let addRecordData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, addRecordValue)
+                let addRecordValue = DataRandomization.generateString(prefix: "Record-addRecord", length: 10)
+                let addRecordData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, addRecordValue)
                 
                 // addRecords data
-                let addRecordsValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                let addRecordsDataFirst = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, addRecordsValue)
-                let addRecordsDataSecond = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, addRecordsValue)
+                let addRecordsValue = DataRandomization.generateString(prefix: "Record-addRecords", length: 10)
+                let addRecordsDataFirst = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, addRecordsValue)
+                let addRecordsDataSecond = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, addRecordsValue)
                 let addRecordsDataList = [addRecordsDataFirst, addRecordsDataSecond]
                 
                 // updateRecordByID data
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let addUpdateRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                var textValue = DataRandomization.generateString(prefix: "Record", length: 10)
+                var testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let addUpdateRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let updateRecordId = addUpdateRecordResponse.getId()!
-                let updateRecordByIdValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                let updateRecordByIdData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, updateRecordByIdValue)
+                let updateRecordByIdValue = DataRandomization.generateString(prefix: "Record-updateRecordByID", length: 10)
+                let updateRecordByIdData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, updateRecordByIdValue)
                 
                 // updateRecordByUpdateKey data
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 5)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let addRecordByUpdateKeyResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                textValue = DataRandomization.generateString(prefix: "Record-updateRecordByUpdateKey", length: 5)
+                testData = RecordUtils.setRecordData([:], TEXT_UPDATE_KEY_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let addRecordByUpdateKeyResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let recordByUpdateKeyId = addRecordByUpdateKeyResponse.getId()!
-                let updateKey: RecordUpdateKey = RecordUpdateKey(self.RECORD_TEXT_KEY, self.recordTextValue)
+                let updateKey: RecordUpdateKey = RecordUpdateKey(TEXT_UPDATE_KEY_FIELD, textValue)
                 let updateRecordByUpdateKeyValue = DataRandomization.generateString()
-                let updateRecordByUpdateKeyData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, updateRecordByUpdateKeyValue)
+                let updateRecordByUpdateKeyData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, updateRecordByUpdateKeyValue)
                 
                 // updateRecords data
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let addUpdateRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                textValue = DataRandomization.generateString(prefix: "Record-updateRecords", length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_UPDATE_KEY_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let addUpdateRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let updateRecordsId = addUpdateRecordsResponse.getId()!
                 let updateRecordsValue = DataRandomization.generateString()
-                let updateRecordsData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, updateRecordsValue)
+                let updateRecordsData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, updateRecordsValue)
                 let updateDataItem = RecordUpdateItem(updateRecordsId, nil, nil, updateRecordsData)
                 let updateItemList = [updateDataItem]
                 
                 // updateRecordAssignees data
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let addUpdateAssigneesRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                textValue = DataRandomization.generateString(prefix: "Record-updateRecordAssignees", length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_UPDATE_KEY_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let addUpdateAssigneesRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let updateAssigneesRecordId = addUpdateAssigneesRecordsResponse.getId()!
                 let assignees = [TestConstant.Connection.CRED_ADMIN_USERNAME]
                 
                 // updateRecordStatus data
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let addUpdateRecordStatusResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                textValue = DataRandomization.generateString(prefix: "Record-updateRecordStatus", length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_UPDATE_KEY_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let addUpdateRecordStatusResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let updateRecordStatusId = addUpdateRecordStatusResponse.getId()!
                 
                 // updateRecordsStatus data
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let updateRecordsFirstStatusResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                textValue = DataRandomization.generateString(prefix: "Record-updateRecordsStatus", length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_UPDATE_KEY_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let updateRecordsFirstStatusResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let updateRecordsFirstStatusId = updateRecordsFirstStatusResponse.getId()!
                 
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_KEY, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let updateRecordsSecondStatusResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                textValue = DataRandomization.generateString(prefix: "Record", length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_UPDATE_KEY_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let updateRecordsSecondStatusResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let updateRecordsSecondStatusId = updateRecordsSecondStatusResponse.getId()!
                 let item1 = RecordUpdateStatusItem(statusAction[0], nil, updateRecordsFirstStatusId, nil)
                 let item2 = RecordUpdateStatusItem(statusAction[0], nil, updateRecordsSecondStatusId, nil)
                 let itemList = [item1, item2]
                 
                 // deleteRecords data
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecords(self.APP_ID, [self.testData])) as! AddRecordsResponse
+                textValue = DataRandomization.generateString(prefix: "Record-deleteRecords", length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(APP_ID, [testData])) as! AddRecordsResponse
                 let deleteRecordsIds = addRecordResponse.getIDs()!
                 
                 // deleteRecordsWithRevision data
                 var idsWithRevision: [Int: Int]  = [:]
-                self.recordTextValue = DataRandomization.generateString(prefix: "Record", length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue as Any)
-                let addRecordsResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
+                textValue = DataRandomization.generateString(prefix: "Record-deleteRecordsWithRevision", length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, textValue as Any)
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
                 let deleteRecordsId = addRecordsResponse.getId()!
                 idsWithRevision[deleteRecordsId] = addRecordsResponse.getRevision()
                 
                 do {
                     // insert add record request into bulk request
-                    _ = try self.bulkRequestModule.addRecord(self.APP_ID, addRecordData)
-                    _ = try self.bulkRequestModule.addRecords(self.APP_ID, addRecordsDataList)
-
+                    _ = try bulkRequestModule.addRecord(APP_ID, addRecordData)
+                    _ = try bulkRequestModule.addRecords(APP_ID, addRecordsDataList)
+                    
                     // insert update record request into bulk request
-                    _ = try self.bulkRequestModule.updateRecordByID(self.APP_ID, updateRecordId, updateRecordByIdData, nil)
-                    _ = try self.bulkRequestModule.updateRecordByUpdateKey(self.APP_ID, updateKey, updateRecordByUpdateKeyData, nil)
-                    _ = try self.bulkRequestModule.updateRecords(self.APP_ID, updateItemList)
-                    _ = try self.bulkRequestModule.updateRecordAssignees(self.APP_ID, updateAssigneesRecordId, assignees, nil)
-                    _ = try self.bulkRequestModule.updateRecordStatus(self.APP_ID, updateRecordStatusId, statusAction[0], nil, nil)
-                    _ = try self.bulkRequestModule.updateRecordsStatus(self.APP_ID, itemList)
-
+                    _ = try bulkRequestModule.updateRecordByID(APP_ID, updateRecordId, updateRecordByIdData, nil)
+                    _ = try bulkRequestModule.updateRecordByUpdateKey(APP_ID, updateKey, updateRecordByUpdateKeyData, nil)
+                    _ = try bulkRequestModule.updateRecords(APP_ID, updateItemList)
+                    _ = try bulkRequestModule.updateRecordAssignees(APP_ID, updateAssigneesRecordId, assignees, nil)
+                    _ = try bulkRequestModule.updateRecordStatus(APP_ID, updateRecordStatusId, statusAction[0], nil, nil)
+                    _ = try bulkRequestModule.updateRecordsStatus(APP_ID, itemList)
+                    
                     // insert deleted record request to bulk request
-                    _ = try self.bulkRequestModule.deleteRecords(self.APP_ID, deleteRecordsIds)
-                    _ = try self.bulkRequestModule.deleteRecordsWithRevision(self.APP_ID, idsWithRevision)
+                    _ = try bulkRequestModule.deleteRecords(APP_ID, deleteRecordsIds)
+                    _ = try bulkRequestModule.deleteRecordsWithRevision(APP_ID, idsWithRevision)
                 } catch let err {
                     expect(err).to(beNil())
                 }
                 
-                self.bulkRequestModule.execute().then {responses -> Promise<GetRecordsResponse> in
+                bulkRequestModule.execute().then {responses -> Promise<GetRecordsResponse> in
                     for item in responses.getResults()! {
                         if let addRecordResponse = item as? AddRecordResponse {
                             recordIDs.append(addRecordResponse.getId()!)
@@ -158,8 +153,8 @@ class BulkRequestTest: QuickSpec {
                     recordIDs.append(deleteRecordsId)
                     
                     let query = RecordUtils.getRecordsQuery(recordIDs)
-                    let fields = [self.RECORD_ID, self.RECORD_REVISION, self.RECORD_ASSIGNEE, self.RECORD_STATUS, self.RECORD_TEXT_FIELD]
-                    return self.recordModule.getRecords(self.APP_ID, query, fields as? [String], true)
+                    let fields = [RECORD_ID, RECORD_REVISION, RECORD_ASSIGNEE, RECORD_STATUS, TEXT_FIELD]
+                    return recordModule.getRecords(APP_ID, query, fields as? [String], true)
                     }.then { response in
                         var resultIDs: [Int] = []
                         var resultTexts: [String] = []
@@ -167,44 +162,44 @@ class BulkRequestTest: QuickSpec {
                         
                         for record in response.getRecords()! {
                             for (key, value) in record {
-                                if(key == self.RECORD_ID) {
+                                if(key == RECORD_ID) {
                                     resultIDs.append(Int(value.getValue() as! String)!)
                                     // update record by id
                                     if(Int(value.getValue() as! String)! == updateRecordId) {
                                         print("UPDATE RECORD BY ID TEST")
-                                        expect(updateRecordByIdValue).to(equal(record[self.RECORD_TEXT_FIELD]?.getValue() as? String))
-                                        expect(2).to(equal(Int((record[self.RECORD_REVISION]?.getValue() as? String)!)))
+                                        expect(updateRecordByIdValue).to(equal(record[TEXT_FIELD]?.getValue() as? String))
+                                        expect(2).to(equal(Int((record[RECORD_REVISION]?.getValue() as? String)!)))
                                     }
                                     // update record by key
                                     if(Int(value.getValue() as! String)! == recordByUpdateKeyId) {
                                         print("UPDATE RECORD BY KEY TEST")
-                                        expect(updateRecordByUpdateKeyValue).to(equal(record[self.RECORD_TEXT_FIELD]?.getValue() as? String))
-                                        expect(2).to(equal(Int((record[self.RECORD_REVISION]?.getValue() as? String)!)))
+                                        expect(updateRecordByUpdateKeyValue).to(equal(record[TEXT_FIELD]?.getValue() as? String))
+                                        expect(2).to(equal(Int((record[RECORD_REVISION]?.getValue() as? String)!)))
                                     }
                                     // update records
                                     if(Int(value.getValue() as! String)! ==  updateRecordsId) {
                                         print("UPDATE RECORDS TEST")
-                                        expect(updateRecordsValue).to(equal(record[self.RECORD_TEXT_FIELD]?.getValue() as? String))
-                                        expect(2).to(equal(Int((record[self.RECORD_REVISION]?.getValue() as? String)!)))
+                                        expect(updateRecordsValue).to(equal(record[TEXT_FIELD]?.getValue() as? String))
+                                        expect(2).to(equal(Int((record[RECORD_REVISION]?.getValue() as? String)!)))
                                     }
                                     // update assignees
                                     if(Int(value.getValue() as! String)! == updateAssigneesRecordId) {
                                         print("UPDATE ASSIGNEE TEST")
-                                        let assigneeResult = record[self.RECORD_ASSIGNEE]?.getValue() as! [Member]
+                                        let assigneeResult = record[RECORD_ASSIGNEE]?.getValue() as! [Member]
                                         expect(assignees[0]).to(equal(assigneeResult[0].getName()!))
                                     }
                                     // update record status
                                     if(Int(value.getValue() as! String)! == updateRecordStatusId) {
                                         print("UPDATE RECORD STATUS TEST")
-                                        expect(status[0]).to(equal(record[self.RECORD_STATUS]?.getValue()! as? String))
+                                        expect(status[0]).to(equal(record[RECORD_STATUS]?.getValue()! as? String))
                                     }
                                     // update records status
                                     if(Int(value.getValue() as! String)! == updateRecordsFirstStatusId || Int(value.getValue() as! String)! == updateRecordsSecondStatusId) {
-                                        print("UPDATE RECORDs STATUS TEST")
-                                        expect(status[0]).to(equal(record[self.RECORD_STATUS]?.getValue()! as? String))
+                                        print("UPDATE RECORDS STATUS TEST")
+                                        expect(status[0]).to(equal(record[RECORD_STATUS]?.getValue()! as? String))
                                     }
                                 }
-                                if(key == self.RECORD_TEXT_FIELD) {
+                                if(key == TEXT_FIELD) {
                                     if((value.getValue()! as! String) == addRecordsValue) {
                                         countRecord += 1
                                     }
@@ -222,93 +217,81 @@ class BulkRequestTest: QuickSpec {
                         expect(countRecord).to(equal(2))
                 }
                 _ = waitForPromises(timeout: Double(TestConstant.Common.PROMISE_TIMEOUT))
+                
                 for id in recordIDs {
                     if(id != deleteRecordsIds[0] || id != deleteRecordsId) {
-                        _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [id]))
+                        _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(APP_ID, [id]))
                     }
                 }
             }
             
             it("Test_004_Error_InputTextToNumberWithAddRecord") {
-                self.bulkRequestModule = BulkRequest(self.conn)
-                
-                self.recordTextValue = DataRandomization.generateString()
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_NUMBER_FILED, FieldType.NUMBER, self.recordTextValue)
-                _ = TestCommonHandling.handleDoTryCatch {try self.bulkRequestModule.addRecord(self.APP_NUMBER_FIELD_ID, self.testData)}
-                let result = TestCommonHandling.awaitAsync(self.bulkRequestModule.execute()) as! KintoneAPIException
+                let textValue = DataRandomization.generateString()
+                let testData = RecordUtils.setRecordData([:], NUMBER_FIELD, FieldType.NUMBER, textValue)
+                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.addRecord(APP_ID, testData)}
+                let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
                 let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.INVALID_FIELD_TYPE_NUMBER_ERROR()!
-                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "[\(self.RECORD_NUMBER_FILED)]")
+                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "[\(NUMBER_FIELD)]")
                 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_005_Error_InputTextToNumberWithAddRecords") {
-                self.bulkRequestModule = BulkRequest(self.conn)
-                
-                self.recordTextValue = DataRandomization.generateString()
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_NUMBER_FILED, FieldType.NUMBER, self.recordTextValue)
-                _ = TestCommonHandling.handleDoTryCatch {try self.bulkRequestModule.addRecords(self.APP_NUMBER_FIELD_ID, [self.testData])}
-                let result = TestCommonHandling.awaitAsync(self.bulkRequestModule.execute()) as! KintoneAPIException
+                let textValue = DataRandomization.generateString()
+                let testData = RecordUtils.setRecordData([:], NUMBER_FIELD, FieldType.NUMBER, textValue)
+                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.addRecords(APP_ID, [testData])}
+                let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
                 let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.INVALID_FIELD_TYPE_NUMBER_ERROR()!
-                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "s[\(0)][\(self.RECORD_NUMBER_FILED)]")
+                expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "s[\(0)][\(NUMBER_FIELD)]")
                 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_006_Error_NonexistentIDWithUpdateRecordByID") {
-                self.bulkRequestModule = BulkRequest(self.conn)
-                
-                self.recordTextValue = DataRandomization.generateString()
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_NUMBER_FILED, FieldType.NUMBER, self.recordTextValue)
-                _ = TestCommonHandling.handleDoTryCatch {try self.bulkRequestModule.updateRecordByID(self.APP_ID, self.NONEXISTENT_ID, nil, nil)}
-                let result = TestCommonHandling.awaitAsync(self.bulkRequestModule.execute()) as! KintoneAPIException
+            it("Test_006_Error_NonexistentRecordIDWithUpdateRecordByID") {
+                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.updateRecordByID(APP_ID, NONEXISTENT_ID, nil, nil)}
+                let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
                 let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NONEXISTENT_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(NONEXISTENT_ID))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            /// Prepare app with 2 fields following as:
-            /// fiels 1 -> code: key , unique: Prohibit duplicate values, type: SINGLE_LINE_TEXT
-            /// fiels 2 -> code: text , unique: none, type: SINGLE_LINE_TEXT
+            /// Prepare app with 2 fields as following:
+            /// field 1 -> unique: Prohibit duplicate values, type: SINGLE_LINE_TEXT
+            /// field 2 -> unique: none, type: SINGLE_LINE_TEXT
             it("Test_007_Error_WrongUpdateKeyWithUpdateRecordByUpdateKey") {
-                self.bulkRequestModule = BulkRequest(self.conn)
-                let wrongUpdateKey = RecordUpdateKey(self.RECORD_TEXT_KEY, "Wrong Update Key Value")
-
-                //Add record data to test
-                self.recordTextValue = DataRandomization.generateString(length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
-                let addRecordResponse = TestCommonHandling.awaitAsync(self.recordModule.addRecord(self.APP_ID, self.testData)) as! AddRecordResponse
-                let recordID: Int = addRecordResponse.getId()!
+                let wrongUpdateKey = RecordUpdateKey(TEXT_UPDATE_KEY_FIELD, "Wrong Update Key Value")
                 
-                //Prepare data to update
-                self.recordTextValue = DataRandomization.generateString(length: 10)
-                self.testData = RecordUtils.setRecordData([:], self.RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, self.recordTextValue)
-                _ = TestCommonHandling.handleDoTryCatch {try self.bulkRequestModule.updateRecordByUpdateKey(self.APP_ID,
-                                                                                                            wrongUpdateKey,
-                                                                                                            self.testData,
-                                                                                                            nil)}
-                let result = TestCommonHandling.awaitAsync(self.bulkRequestModule.execute()) as! KintoneAPIException
+                // Add record data to test
+                var textValue = DataRandomization.generateString(length: 10)
+                var testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, textValue)
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, testData)) as! AddRecordResponse
+                let recordID = addRecordResponse.getId()!
+                
+                // Prepare data to update
+                textValue = DataRandomization.generateString(length: 10)
+                testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, textValue)
+                _ = TestCommonHandling.handleDoTryCatch {
+                    try bulkRequestModule.updateRecordByUpdateKey(APP_ID, wrongUpdateKey, testData, nil)}
+                let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
                 let actualError = result.getErrorResponses()![0]
                 let expectedError = KintoneErrorParser.INCORRECT_UPDATEKEY_VALUE_ERROR()!
                 
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 //remove test data on the app
-                _ = TestCommonHandling.awaitAsync(self.recordModule.deleteRecords(self.APP_ID, [recordID]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(APP_ID, [recordID]))
             }
             
             it("Test_010_Error_InvalidIDsWithDeleteRecords") {
-                self.bulkRequestModule = BulkRequest(self.conn)
-                
-                _ = TestCommonHandling.handleDoTryCatch {try self.bulkRequestModule.deleteRecords(self.APP_ID, [self.NONEXISTENT_ID])}
-                let result = TestCommonHandling.awaitAsync(self.bulkRequestModule.execute()) as! KintoneAPIException
+                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.deleteRecords(APP_ID, [NONEXISTENT_ID])}
+                let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
                 let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(self.NONEXISTENT_ID))
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(NONEXISTENT_ID))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
             }
