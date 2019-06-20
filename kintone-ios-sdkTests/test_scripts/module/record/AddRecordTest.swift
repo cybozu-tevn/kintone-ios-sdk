@@ -180,13 +180,13 @@ class AddRecordTest: QuickSpec {
             }
             
             it("Test_045_Success_BlankApp") {
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_BLANK_ID, nil)) as! AddRecordResponse
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_BLANK_ID!, nil)) as! AddRecordResponse
                 recordID = addRecordResponse.getId()
                 recordRevision = addRecordResponse.getRevision()
                 
                 expect(recordID).toNot(beNil())
                 expect(1).to(equal(recordRevision))
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(APP_BLANK_ID, [recordID!]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(APP_BLANK_ID!, [recordID!]))
             }// End it
         }// End describe
     }// End spec function

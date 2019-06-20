@@ -26,11 +26,11 @@ internal class TestDataParser: Codable {
         return kintoneTestData.users
     }
     
-    static func getGuestSpaceInfo() -> space {
+    static func getGuestSpaceInfo() -> [space] {
         return kintoneTestData.guestSpaceInfo
     }
     
-    static func getNormalSpaceInfo() -> space {
+    static func getNormalSpaceInfo() -> [space] {
         return kintoneTestData.normalSpaceInfo
     }
     
@@ -44,8 +44,8 @@ struct KintoneTestData: Decodable {
     var proxy: proxy
     var administrators: user
     var users: [user]
-    var guestSpaceInfo: space
-    var normalSpaceInfo: space
+    var guestSpaceInfo: [space]
+    var normalSpaceInfo: [space]
     var apps: apps
 }
 
@@ -85,11 +85,12 @@ struct space: Decodable {
 }
 
 struct apps: Decodable {
-    var appInSpace: app
-    var appInGuestSpace: app
+    var appInSpace: [app]
+    var appInGuestSpace: [app]
     var appWithMultipleFields: app
     var appWithRequiredFields: app
     var appWithUniqueFields: app
+    var appWithoutField: app
 }
 
 struct app: Decodable {

@@ -1,5 +1,5 @@
 {
-    "domain": "te-phong-prepration.cybozu-dev.com",
+    "domain": "kintone-ios-sdk-test.kintone-dev.com",
     "proxy": {
         "host": "dc-ty3-squid-1.cb.local",
         "ip": "10.224.136.40",
@@ -9,6 +9,7 @@
         "username": "cybozu",
         "password": "cybozu"
     },
+    "orgName": "org1",
     "users": [
         {
             "username": "user1",
@@ -55,114 +56,224 @@
             "password": "user11"
         }
     ],
-    "guestSpaceInfo": {
-        "id": "2",
-        "spaceName": "Initial Space - Guest",
-        "threadId": "2",
-        "appId": "2"
-    },
-    "normalSpaceInfo": {
-        "id": "3",
-        "spaceName": "Initial Space",
-        "threadId": "3",
-        "appId": "3"
-    },
-    "apps": {
-        "appInSpace": {
-            "appId": "3",
-            "code": "",
-            "name": "Initial App In Space",
-            "description": "<div>Description of Initial App in Space</div>",
-            "createdAt": "2019-06-18T09:59:19.000Z",
-            "creator": {
-                "code": "cybozu",
-                "name": "cybozu"
-            },
-            "modifiedAt": "2019-06-18T09:59:19.000Z",
-            "modifier": {
-                "code": "cybozu",
-                "name": "cybozu"
-            },
-            "spaceId": "3",
-            "threadId": "3",
-            "fieldCodes": [],
-            "apiToken": {
-                "fullPermission": "GnvPfkp80UXB518RAXp5gHizigME55oW5qmmp8lO",
-                "viewPermission": "6s61Ud84Hk0mYq56PvJV0644hkpFJkhoe1SymlSc",
-                "noPermission": "ZAI5VmZVCequmHvG2k5abNyviJqKIuUI2RDYTtMj"
-            },
-            "userAppPermissions": {
-                "userNotHaveAppManagementRight": "user2",
-                "userNotHavePermission": "user10",
-                "userNotHaveViewRecordsRight": "user10",
-                "userNotHaveAddRecordsRight": "user9",
-                "userNotHaveEditRecordsRight": "user8",
-                "userNotHaveDeleteRecordsRight": "user7"
-            },
-            "userRecordPermissions": {
-                "userNotHavePermission": "user6",
-                "userNotHaveViewRight": "user6",
-                "userNotHaveEditRight": "user5",
-                "userNotHaveDeleteRight": "user4"
-            },
-            "userFieldPermissions": {
-                "userNotHaveViewRightOnTextField": "user3",
-                "userNotHaveEditRightOnTextField": "user2"
-            }
-        },
-        "appInGuestSpace": {
-            "appId": "2",
-            "code": "",
-            "name": "Initial App In Space",
-            "description": "<div>Description of Initial App in Space</div>",
-            "createdAt": "2019-06-18T09:59:06.000Z",
-            "creator": {
-                "code": "cybozu",
-                "name": "cybozu"
-            },
-            "modifiedAt": "2019-06-18T09:59:06.000Z",
-            "modifier": {
-                "code": "cybozu",
-                "name": "cybozu"
-            },
-            "spaceId": "2",
+    "guestSpaceInfo": [
+        {
+            "id": "2",
+            "spaceName": "Initial Space - Guest",
             "threadId": "2",
-            "fieldCodes": [],
-            "apiToken": {
-                "fullPermission": "G9wqwZoAsukKYwqV3RDbPBJr2YzQg9XdYoDpkNti",
-                "viewPermission": "tvWhW8JISsrkaOezrpfG7VllTCUjZ7zKAsPb497x",
-                "noPermission": "irRNAlcOzqohI889l9D9ifmSKesIflBcHaFuNYlC"
-            },
-            "userAppPermissions": {
-                "userNotHaveAppManagementRight": "user2",
-                "userNotHavePermission": "user10",
-                "userNotHaveViewRecordsRight": "user10",
-                "userNotHaveAddRecordsRight": "user9",
-                "userNotHaveEditRecordsRight": "user8",
-                "userNotHaveDeleteRecordsRight": "user7"
-            },
-            "userRecordPermissions": {
-                "userNotHavePermission": "user6",
-                "userNotHaveViewRight": "user6",
-                "userNotHaveEditRight": "user5",
-                "userNotHaveDeleteRight": "user4"
-            },
-            "userFieldPermissions": {
-                "userNotHaveViewRightOnTextField": "user3",
-                "userNotHaveEditRightOnTextField": "user2"
-            }
+            "appId": "2"
+        }
+    ],
+    "normalSpaceInfo": [
+        {
+            "id": "3",
+            "spaceName": "Initial Space",
+            "threadId": "3",
+            "appId": "3"
         },
+        {
+            "id": "4",
+            "spaceName": "Initial Space",
+            "threadId": "4",
+            "appId": "4"
+        }
+    ],
+    "apps": {
+        "appInSpace": [
+            {
+                "appId": "3",
+                "code": "",
+                "name": "Initial App In Space",
+                "description": "<div>Description of Initial App in Space</div>",
+                "createdAt": "2019-06-20T02:00:55.000Z",
+                "creator": {
+                    "code": "cybozu",
+                    "name": "cybozu"
+                },
+                "modifiedAt": "2019-06-20T02:00:55.000Z",
+                "modifier": {
+                    "code": "cybozu",
+                    "name": "cybozu"
+                },
+                "spaceId": "3",
+                "threadId": "3",
+                "fieldCodes": [
+                    "Status",
+                    "Assignee",
+                    "Text_Update_Key",
+                    "Table",
+                    "Categories",
+                    "Text",
+                    "Attachment",
+                    "Updated_by",
+                    "Date",
+                    "Number_Prohibit_Duplicate_Value",
+                    "Updated_datetime",
+                    "Created_datetime",
+                    "Number",
+                    "Record_number",
+                    "Created_by",
+                    "Text_Area",
+                    "Link"
+                ],
+                "apiToken": {
+                    "fullPermission": "FrJDbyAbY7BoQupwyT02xYzL3OaejDGQR7X7z9Rs",
+                    "viewPermission": "DJGOmarT7Ctb5OC34KjJwoeDo6aimCZMbgi2W3as",
+                    "noPermission": "nLnbiaWzh7f13uXHOt9SWUx5jauBqhZXEAbgFjFY"
+                },
+                "userAppPermissions": {
+                    "userNotHaveAppManagementRight": "user2",
+                    "userNotHavePermission": "user10",
+                    "userNotHaveViewRecordsRight": "user10",
+                    "userNotHaveAddRecordsRight": "user9",
+                    "userNotHaveEditRecordsRight": "user8",
+                    "userNotHaveDeleteRecordsRight": "user7"
+                },
+                "userRecordPermissions": {
+                    "userNotHavePermission": "user6",
+                    "userNotHaveViewRight": "user6",
+                    "userNotHaveEditRight": "user5",
+                    "userNotHaveDeleteRight": "user4"
+                },
+                "userFieldPermissions": {
+                    "userNotHaveViewRightOnTextField": "user3",
+                    "userNotHaveEditRightOnTextField": "user2"
+                }
+            },
+            {
+                "appId": "4",
+                "code": "",
+                "name": "Initial App In Space",
+                "description": "<div>Description of Initial App in Space</div>",
+                "createdAt": "2019-06-20T02:01:05.000Z",
+                "creator": {
+                    "code": "cybozu",
+                    "name": "cybozu"
+                },
+                "modifiedAt": "2019-06-20T02:01:05.000Z",
+                "modifier": {
+                    "code": "cybozu",
+                    "name": "cybozu"
+                },
+                "spaceId": "4",
+                "threadId": "4",
+                "fieldCodes": [
+                    "Status",
+                    "Assignee",
+                    "Text_Update_Key",
+                    "Table",
+                    "Categories",
+                    "Text",
+                    "Attachment",
+                    "Updated_by",
+                    "Date",
+                    "Number_Prohibit_Duplicate_Value",
+                    "Updated_datetime",
+                    "Created_datetime",
+                    "Number",
+                    "Record_number",
+                    "Created_by",
+                    "Text_Area",
+                    "Link"
+                ],
+                "apiToken": {
+                    "fullPermission": "M9yxybZP8FdPUfRJgHVhDWOlofL3U1vXb1EMpLwS",
+                    "viewPermission": "7qUnTOenGWgL8x9vABsC2uwzRzaxo8SigNsWk8pj",
+                    "noPermission": "sBRAKWgR8YyEjlRCdOYtP1fHNxmmo1IUQfvJrJol"
+                },
+                "userAppPermissions": {
+                    "userNotHaveAppManagementRight": "user2",
+                    "userNotHavePermission": "user10",
+                    "userNotHaveViewRecordsRight": "user10",
+                    "userNotHaveAddRecordsRight": "user9",
+                    "userNotHaveEditRecordsRight": "user8",
+                    "userNotHaveDeleteRecordsRight": "user7"
+                },
+                "userRecordPermissions": {
+                    "userNotHavePermission": "user6",
+                    "userNotHaveViewRight": "user6",
+                    "userNotHaveEditRight": "user5",
+                    "userNotHaveDeleteRight": "user4"
+                },
+                "userFieldPermissions": {
+                    "userNotHaveViewRightOnTextField": "user3",
+                    "userNotHaveEditRightOnTextField": "user2"
+                }
+            }
+        ],
+        "appInGuestSpace": [
+            {
+                "appId": "2",
+                "code": "",
+                "name": "Initial App In Space",
+                "description": "<div>Description of Initial App in Space</div>",
+                "createdAt": "2019-06-20T02:00:23.000Z",
+                "creator": {
+                    "code": "cybozu",
+                    "name": "cybozu"
+                },
+                "modifiedAt": "2019-06-20T02:00:23.000Z",
+                "modifier": {
+                    "code": "cybozu",
+                    "name": "cybozu"
+                },
+                "spaceId": "2",
+                "threadId": "2",
+                "fieldCodes": [
+                    "Status",
+                    "Assignee",
+                    "Text_Update_Key",
+                    "Table",
+                    "Categories",
+                    "Text",
+                    "Attachment",
+                    "Updated_by",
+                    "Date",
+                    "Number_Prohibit_Duplicate_Value",
+                    "Updated_datetime",
+                    "Created_datetime",
+                    "Number",
+                    "Record_number",
+                    "Created_by",
+                    "Text_Area",
+                    "Link"
+                ],
+                "apiToken": {
+                    "fullPermission": "Yeq7pWyBvbHOMiDE56IqUIGzwVJ7dvOOoa9fjWr5",
+                    "viewPermission": "H1seAzTKfLSWiLgDEZr0kaU9SSXSGdrqOp5K5xVw",
+                    "noPermission": "0V0Tl8sLLkjSg3i4S1mQbmOBBzYpc1iVXhQ3uvnB"
+                },
+                "userAppPermissions": {
+                    "userNotHaveAppManagementRight": "user2",
+                    "userNotHavePermission": "user10",
+                    "userNotHaveViewRecordsRight": "user10",
+                    "userNotHaveAddRecordsRight": "user9",
+                    "userNotHaveEditRecordsRight": "user8",
+                    "userNotHaveDeleteRecordsRight": "user7"
+                },
+                "userRecordPermissions": {
+                    "userNotHavePermission": "user6",
+                    "userNotHaveViewRight": "user6",
+                    "userNotHaveEditRight": "user5",
+                    "userNotHaveDeleteRight": "user4"
+                },
+                "userFieldPermissions": {
+                    "userNotHaveViewRightOnTextField": "user3",
+                    "userNotHaveEditRightOnTextField": "user2"
+                }
+            }
+        ],
         "appWithMultipleFields": {
-            "appId": "4",
-            "code": "APP4",
+            "appId": "5",
+            "code": "APP5",
             "name": "Initial App with multiple fields",
             "description": "",
-            "createdAt": "2019-06-18T09:59:27.000Z",
+            "createdAt": "2019-06-20T02:01:14.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-06-18T09:59:42.000Z",
+            "modifiedAt": "2019-06-20T02:01:27.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -181,9 +292,9 @@
                 "Table"
             ],
             "apiToken": {
-                "fullPermission": "UVSB7SEpQfzToaGWy6qjF2r9amg4wq09kKA3xxEv",
-                "viewPermission": "VHLkh25L4m0vGzL7mSYpXgSgP8hMWT2xTQEH2eKS",
-                "noPermission": "miGKanC5OcWExr8vHimpuQdWL3gHMzgpOsLl7wlF"
+                "fullPermission": "SlxF1TMhJUTNSAEduR3PsxZ8ynAGc32dyf7xCOw1",
+                "viewPermission": "Ry5AHRzEOp2aSmfbKSpnZ3tbK1dGduqEPpGA60Ju",
+                "noPermission": "seiriMTMiwMUgAMU8YKDd6Oo2xihcXDD3ra2oB9p"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",
@@ -205,16 +316,16 @@
             }
         },
         "appWithRequiredFields": {
-            "appId": "5",
-            "code": "APP5",
+            "appId": "6",
+            "code": "APP6",
             "name": "Initial App with required fields",
             "description": "",
-            "createdAt": "2019-06-18T09:59:43.000Z",
+            "createdAt": "2019-06-20T02:01:29.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-06-18T09:59:54.000Z",
+            "modifiedAt": "2019-06-20T02:01:39.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -225,9 +336,9 @@
                 "Text"
             ],
             "apiToken": {
-                "fullPermission": "ND9yIkkurDlAPa4pKkNMyUEPGdJ8mOh8PxbOhJ8M",
-                "viewPermission": "FfGv7Y5rCjhrksiFtJvMMCI2aukGgJVHmWVa7Kxv",
-                "noPermission": "Q7D9a67e5eVc0jsAalPyJc6Kg3dN5oOw3dVFRB9s"
+                "fullPermission": "utHwftWRNR32xav2wIRR842wCdpzPno2JB3wtS3u",
+                "viewPermission": "po2KENxva7GPskRaTSIDoW13jCu1oiqp8BC2VYkI",
+                "noPermission": "YzgBpVPScc4jB1aCskkRtYEBgxbFj4vmg03znWQb"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",
@@ -249,16 +360,16 @@
             }
         },
         "appWithUniqueFields": {
-            "appId": "6",
-            "code": "APP6",
+            "appId": "7",
+            "code": "APP7",
             "name": "Initial App with prohibit duplicate value fields",
             "description": "",
-            "createdAt": "2019-06-18T09:59:55.000Z",
+            "createdAt": "2019-06-20T02:01:40.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-06-18T10:00:07.000Z",
+            "modifiedAt": "2019-06-20T02:01:51.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -272,9 +383,9 @@
                 "Table_unique"
             ],
             "apiToken": {
-                "fullPermission": "ZcdbLZU4uRyjO0m3oJh9WMbP3HDl2ol5R6XNWUIB",
-                "viewPermission": "zkHIy1Oi4D6t7SBuiDzOgNPNliaejTKvkzInPeKM",
-                "noPermission": "zoODnOaPH4OQBEkC05oa5LoySDDqyLbc2urkqoAP"
+                "fullPermission": "4Qo5yOexs8Okn5XbIeqeXyhqraXiPkgQu5hvWntw",
+                "viewPermission": "13AI98W05qwY8w4wuF65EwIk1UG7BWDYvit6sXCY",
+                "noPermission": "1fFqk8BhdSdAqiIKp9ZR2cqw83e1UNaRtZDmmbkR"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",
@@ -283,6 +394,48 @@
                 "userNotHaveAddRecordsRight": "user9",
                 "userNotHaveEditRecordsRight": "user8",
                 "userNotHaveDeleteRecordsRight": "user7"
+            },
+            "userRecordPermissions": {
+                "userNotHavePermission": "",
+                "userNotHaveViewRight": "",
+                "userNotHaveEditRight": "",
+                "userNotHaveDeleteRight": ""
+            },
+            "userFieldPermissions": {
+                "userNotHaveViewRightOnTextField": "",
+                "userNotHaveEditRightOnTextField": ""
+            }
+        },
+        "appWithoutField": {
+            "appId": "8",
+            "code": "APP8",
+            "name": "Blank App",
+            "description": "",
+            "createdAt": "2019-06-20T02:01:53.000Z",
+            "creator": {
+                "code": "cybozu",
+                "name": "cybozu"
+            },
+            "modifiedAt": "2019-06-20T02:02:02.000Z",
+            "modifier": {
+                "code": "cybozu",
+                "name": "cybozu"
+            },
+            "spaceId": "",
+            "threadId": "",
+            "fieldCodes": [],
+            "apiToken": {
+                "fullPermission": "sBgbtHWMZ38KwrzF5QDKYebulJMnoDLCA8Cd87WS",
+                "viewPermission": "ybWCXOER6YICRW4ltG2LluDry9GNaLC92N34yLoT",
+                "noPermission": "tfVz1c2DciVGnw0FQKwy311YVm4V6rWzpweS8Mfo"
+            },
+            "userAppPermissions": {
+                "userNotHaveAppManagementRight": "",
+                "userNotHavePermission": "",
+                "userNotHaveViewRecordsRight": "",
+                "userNotHaveAddRecordsRight": "",
+                "userNotHaveEditRecordsRight": "",
+                "userNotHaveDeleteRecordsRight": ""
             },
             "userRecordPermissions": {
                 "userNotHavePermission": "",

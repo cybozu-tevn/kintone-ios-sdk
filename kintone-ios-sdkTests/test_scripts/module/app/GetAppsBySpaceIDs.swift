@@ -15,7 +15,7 @@ class GetAppsBySpaceIDs: QuickSpec {
         let appName = "App Name"
         
         // TODO: need to use dynamic spaceIds
-        let spaceIds: [Int] = [7, 9] // TestConstant.Connection.SPACE_ID
+        let spaceIds: [Int] = [TestConstant.InitData.SPACE_ID!, TestConstant.InitData.SPACE_2_ID!]
         let amountOfApps = 5
         var appIds: [Int]? = []
         

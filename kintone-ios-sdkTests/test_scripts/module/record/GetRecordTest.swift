@@ -159,7 +159,7 @@ class GetRecordTest: QuickSpec {
             }
             
             it("Test_013_Success_BlankApp") {
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_BLANK_ID, nil)) as! AddRecordResponse
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_BLANK_ID!, nil)) as! AddRecordResponse
                 let blankRecordId = addRecordResponse.getId()
                 
                 var defaultKey =  [
@@ -169,9 +169,13 @@ class GetRecordTest: QuickSpec {
                     "$revision": "$revision",
                     "Updated_by": "Updated_by",
                     "Created_by": "Created_by",
-                    "Record_number": "Record_number"
+                    "Record_number": "Record_number",
+                    "Assignee": "Assignee",
+                    "Status": "Status"
                 ]
-                let result = TestCommonHandling.awaitAsync(recordModule.getRecord(APP_BLANK_ID, blankRecordId!)) as! GetRecordResponse
+                let result = TestCommonHandling.awaitAsync(recordModule.getRecord(APP_BLANK_ID!, blankRecordId!)) as! GetRecordResponse
+                
+                dump(result)
                 for (key, _) in result.getRecord()! {
                     expect(defaultKey[key]).to(equal(key))
                 }

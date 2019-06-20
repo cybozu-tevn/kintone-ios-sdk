@@ -87,14 +87,16 @@ public class TestConstant {
         static let NUMBER_PROHIBIT_DUPLICATE_2ND_FIELD = "Number_unique_2nd"
         static let TABLE_PROHIBIT_DUPLICATE_FIELD = "Table_unique"
         
-        static let SPACE_ID = Int(TestDataParser.getNormalSpaceInfo().getSpaceId())
-        static var SPACE_THREAD_ID = Int(TestDataParser.getNormalSpaceInfo().getThreadId())
-        static let SPACE_APP_ID = Int(TestDataParser.getApps().appInSpace.appId)
-        static let SPACE_APP_DESCRIPTION = TestDataParser.getApps().appInSpace.description
+        static let SPACE_ID = Int(TestDataParser.getNormalSpaceInfo()[0].getSpaceId())
+        static var SPACE_THREAD_ID = Int(TestDataParser.getNormalSpaceInfo()[0].getThreadId())
+        static let SPACE_APP_ID = Int(TestDataParser.getApps().appInSpace[0].appId)
+        static let SPACE_APP_DESCRIPTION = TestDataParser.getApps().appInSpace[0].description
 
-        static let GUEST_SPACE_ID = Int(TestDataParser.getGuestSpaceInfo().getSpaceId())
-        static var GUEST_SPACE_THREAD_ID  = Int(TestDataParser.getGuestSpaceInfo().getThreadId())
-        static let GUEST_SPACE_APP_ID = Int(TestDataParser.getApps().appInGuestSpace.appId)
+        static let SPACE_2_ID = Int(TestDataParser.getNormalSpaceInfo()[1].getSpaceId())
+        
+        static let GUEST_SPACE_ID = Int(TestDataParser.getGuestSpaceInfo()[0].getSpaceId())
+        static var GUEST_SPACE_THREAD_ID  = Int(TestDataParser.getGuestSpaceInfo()[0].getThreadId())
+        static let GUEST_SPACE_APP_ID = Int(TestDataParser.getApps().appInGuestSpace[0].appId)
         
         // the default app is appWithMultipleFields app
         static let APP_ID = Int(TestDataParser.getApps().appWithMultipleFields.appId)
@@ -104,13 +106,13 @@ public class TestConstant {
         static let APP_ID_HAS_MULTIPLE_FIELDS = Int(TestDataParser.getApps().appWithMultipleFields.appId)
         static let APP_ID_HAS_REQUIRED_FIELDS = Int(TestDataParser.getApps().appWithRequiredFields.appId)
         static let APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS = Int(TestDataParser.getApps().appWithUniqueFields.appId)
-        static let APP_BLANK_ID = 7
+        static let APP_BLANK_ID = Int(TestDataParser.getApps().appWithoutField.appId)
         
         static let APP_API_TOKEN = TestDataParser.getApps().appWithMultipleFields.apiToken.fullPermission
-        static let SPACE_APP_API_TOKEN = TestDataParser.getApps().appInSpace.apiToken.fullPermission
-        static let SPACE_APP_API_TOKEN_ONLY_VIEW_RECORD_PERMISSION = TestDataParser.getApps().appInSpace.apiToken.viewPermission
-        static let SPACE_APP_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION = TestDataParser.getApps().appInSpace.apiToken.noPermission
+        static let SPACE_APP_API_TOKEN = TestDataParser.getApps().appInSpace[0].apiToken.fullPermission
+        static let SPACE_APP_API_TOKEN_ONLY_VIEW_RECORD_PERMISSION = TestDataParser.getApps().appInSpace[0].apiToken.viewPermission
+        static let SPACE_APP_API_TOKEN_WITHOUT_VIEW_RECORD_PERMISSION = TestDataParser.getApps().appInSpace[0].apiToken.noPermission
         
-        static let GUEST_APP_API_TOKEN = TestDataParser.getApps().appInGuestSpace.apiToken.fullPermission
+        static let GUEST_APP_API_TOKEN = TestDataParser.getApps().appInGuestSpace[0].apiToken.fullPermission
     }
 }
