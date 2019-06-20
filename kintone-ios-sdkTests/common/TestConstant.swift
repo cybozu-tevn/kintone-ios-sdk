@@ -102,6 +102,7 @@ public class TestConstant {
         static let APP_ID = Int(TestDataParser.getApps().appWithMultipleFields.appId)
         static let APP_DESCRIPTION = TestDataParser.getApps().appWithMultipleFields.description
         static let APP_NAME = TestDataParser.getApps().appWithMultipleFields.name
+        static let FIELD_CODES = TestDataParser.getApps().appWithMultipleFields.fieldCodes
 
         static let APP_ID_HAS_MULTIPLE_FIELDS = Int(TestDataParser.getApps().appWithMultipleFields.appId)
         static let APP_ID_HAS_REQUIRED_FIELDS = Int(TestDataParser.getApps().appWithRequiredFields.appId)
