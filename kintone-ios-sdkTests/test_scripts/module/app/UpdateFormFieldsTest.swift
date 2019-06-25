@@ -19,7 +19,8 @@ class UpdateFormFieldsTest: QuickSpec {
             TestConstant.InitData.GUEST_SPACE_ID!))
         let APP_ID = TestConstant.InitData.APP_ID!
         let GUEST_SPACE_APP_ID = TestConstant.InitData.GUEST_SPACE_THREAD_ID!
-        
+        let fieldCodes = TestConstant.InitData.FIELD_CODES
+
         describe("UpdateFormFields") {
             it("Test_053_FailedWithApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
@@ -40,11 +41,38 @@ class UpdateFormFieldsTest: QuickSpec {
                 let currentRevision = currentForm.getRevision()
                 var fields = [String: Field]()
                 fields = currentForm.getProperties()!
-                let fieldCode = "Text"
-                let singleLineText = SingleLineTextField(fieldCode)
-                singleLineText.setLabel("updated label")
-                fields[fieldCode] = singleLineText
-
+                for fieldCode in fieldCodes {
+                    if(fieldCode == TestConstant.InitData.TEXT_FIELD || fieldCode == TestConstant.InitData.TEXT_UPDATE_KEY_FIELD) {
+                        let singleLineTextField = SingleLineTextField(fieldCode)
+                        singleLineTextField.setLabel("updated label")
+                        fields[fieldCode] = singleLineTextField
+                    }
+                    if(fieldCode == TestConstant.InitData.NUMBER_FIELD || fieldCode == TestConstant.InitData.NUMBER_PROHIBIT_DUPLICATE_FIELD) {
+                        let numberField = NumberField(fieldCode)
+                        numberField.setLabel("updated label")
+                        fields[fieldCode] = numberField
+                    }
+                    if(fieldCode == TestConstant.InitData.TEXT_AREA_FIELD) {
+                        let multiLineTextField = MultiLineTextField(fieldCode)
+                        multiLineTextField.setLabel("updated label")
+                        fields[fieldCode] = multiLineTextField
+                    }
+                    if(fieldCode == TestConstant.InitData.DATE_FIELD) {
+                        let dateField = DateField(fieldCode)
+                        dateField.setLabel("updated label")
+                        fields[fieldCode] = dateField
+                    }
+                    if(fieldCode == TestConstant.InitData.LINK_FIELD) {
+                        let linkField = LinkField(fieldCode)
+                        linkField.setLabel("updated label")
+                        fields[fieldCode] = linkField
+                    }
+                    if(fieldCode == TestConstant.InitData.ATTACHMENT_FIELD) {
+                        let attachmentField = AttachmentField(fieldCode)
+                        attachmentField.setLabel("updated label")
+                        fields[fieldCode] = attachmentField
+                    }
+                }
                 let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(APP_ID, fields, currentRevision)) as! BasicResponse
                 expect(result.getRevision()).to(equal(currentRevision! + 1))
                 
@@ -58,10 +86,38 @@ class UpdateFormFieldsTest: QuickSpec {
                 let currentRevision = currentForm.getRevision()
                 var fields = [String: Field]()
                 fields = currentForm.getProperties()!
-                let fieldCode = "Text"
-                let singleLineText = SingleLineTextField(fieldCode)
-                singleLineText.setLabel("updated label")
-                fields[fieldCode] = singleLineText
+                for fieldCode in fieldCodes {
+                    if(fieldCode == TestConstant.InitData.TEXT_FIELD || fieldCode == TestConstant.InitData.TEXT_UPDATE_KEY_FIELD) {
+                        let singleLineTextField = SingleLineTextField(fieldCode)
+                        singleLineTextField.setLabel("updated label")
+                        fields[fieldCode] = singleLineTextField
+                    }
+                    if(fieldCode == TestConstant.InitData.NUMBER_FIELD || fieldCode == TestConstant.InitData.NUMBER_PROHIBIT_DUPLICATE_FIELD) {
+                        let numberField = NumberField(fieldCode)
+                        numberField.setLabel("updated label")
+                        fields[fieldCode] = numberField
+                    }
+                    if(fieldCode == TestConstant.InitData.TEXT_AREA_FIELD) {
+                        let multiLineTextField = MultiLineTextField(fieldCode)
+                        multiLineTextField.setLabel("updated label")
+                        fields[fieldCode] = multiLineTextField
+                    }
+                    if(fieldCode == TestConstant.InitData.DATE_FIELD) {
+                        let dateField = DateField(fieldCode)
+                        dateField.setLabel("updated label")
+                        fields[fieldCode] = dateField
+                    }
+                    if(fieldCode == TestConstant.InitData.LINK_FIELD) {
+                        let linkField = LinkField(fieldCode)
+                        linkField.setLabel("updated label")
+                        fields[fieldCode] = linkField
+                    }
+                    if(fieldCode == TestConstant.InitData.ATTACHMENT_FIELD) {
+                        let attachmentField = AttachmentField(fieldCode)
+                        attachmentField.setLabel("updated label")
+                        fields[fieldCode] = attachmentField
+                    }
+                }
                 
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateFormFields(GUEST_SPACE_APP_ID, fields, currentRevision)) as! BasicResponse
                 expect(result.getRevision()).to(equal(currentRevision! + 1))
