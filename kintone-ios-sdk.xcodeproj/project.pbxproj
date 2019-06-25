@@ -85,6 +85,7 @@
 		3FF04B3022803E4800E401FF /* TestConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2E22803E4800E401FF /* TestConstant.swift */; };
 		4CBE648021CCCC44006375D9 /* URLSessionPinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE647E21CCCC43006375D9 /* URLSessionPinningDelegate.swift */; };
 		4CBE648121CCCC44006375D9 /* ExtensionCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */; };
+		68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */; };
 		682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */; };
 		68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB3229E1F0600F96F0B /* ConnectionTest.swift */; };
 		68621DB6229E42A000F96F0B /* UploadFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB5229E42A000F96F0B /* UploadFileTest.swift */; };
@@ -334,6 +335,7 @@
 		3FF04B2E22803E4800E401FF /* TestConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConstant.swift; sourceTree = "<group>"; };
 		4CBE647E21CCCC43006375D9 /* URLSessionPinningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionPinningDelegate.swift; sourceTree = "<group>"; };
 		4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionCommon.swift; sourceTree = "<group>"; };
+		68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFormFieldsTest.swift; sourceTree = "<group>"; };
 		682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataParser.swift; sourceTree = "<group>"; };
 		68621DB3229E1F0600F96F0B /* ConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTest.swift; sourceTree = "<group>"; };
 		68621DB5229E42A000F96F0B /* UploadFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileTest.swift; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */,
 				68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */,
 				68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */,
+				68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1723,6 +1726,7 @@
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
 				B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */,
+				68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
