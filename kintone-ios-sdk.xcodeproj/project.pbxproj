@@ -133,6 +133,7 @@
 		68CE4EFB22B72CC000E6E23A /* InitializationData.json in Resources */ = {isa = PBXBuildFile; fileRef = 68CE4EFA22B72CC000E6E23A /* InitializationData.json */; };
 		68CE4F0122BB410C00E6E23A /* GetFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */; };
 		68CE4F0322BB9CED00E6E23A /* AddFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */; };
+		68CE4F0522BCC8BC00E6E23A /* UpdateFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */; };
 		A88FEE1C2159DD8B00A7E838 /* UpdateViewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */; };
 		A88FEE1D2159DD8B00A7E838 /* GetAppsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */; };
 		A88FEE1E2159DD8B00A7E838 /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE042159DD8A00A7E838 /* BasicResponse.swift */; };
@@ -383,6 +384,7 @@
 		68CE4EFA22B72CC000E6E23A /* InitializationData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InitializationData.json; sourceTree = "<group>"; };
 		68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFormFieldsTest.swift; sourceTree = "<group>"; };
 		68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFormFieldsTest.swift; sourceTree = "<group>"; };
+		68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFormFieldsTest.swift; sourceTree = "<group>"; };
 		A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewsResponse.swift; sourceTree = "<group>"; };
 		A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsResponse.swift; sourceTree = "<group>"; };
 		A88FEE042159DD8A00A7E838 /* BasicResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
@@ -844,6 +846,7 @@
 				3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */,
 				68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */,
 				68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */,
+				68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1654,6 +1657,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F4C845022AFB61A008ECE6D /* SpaceMember.swift in Sources */,
+				68CE4F0522BCC8BC00E6E23A /* UpdateFormFieldsTest.swift in Sources */,
 				68CE4EF922B0FBE300E6E23A /* DeleteCommentTest.swift in Sources */,
 				68C67E6C2282DBEE00244922 /* TokenEntity.swift in Sources */,
 				3F4C845622B2071E008ECE6D /* AddPreviewAppTest.swift in Sources */,
