@@ -59,7 +59,7 @@ class UpdateRecordStatusTest: QuickSpec {
                 // Update record status
                 // 1. cybozu updates status: Start action
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
                 revision = revision + 2
                 
                 // 2. cybozu updates status: Test action + assignee (user1)
@@ -92,12 +92,12 @@ class UpdateRecordStatusTest: QuickSpec {
                 // Update record status
                 // 1. cybozu updates status: Start action
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
                 
                 // 2. cybozu updates status: Test action + assignee (user1)
                 let assignee = TestConstant.InitData.USERS[0]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, testAction, assignee.username, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordStatus(AppId, recordId, testAction, assignee.username, nil))
                 
                 // 3. non-assignee (user2) updates status: Review action
                 let notAssignee = TestConstant.InitData.USERS[1]
@@ -159,7 +159,7 @@ class UpdateRecordStatusTest: QuickSpec {
             //
             it("Test_181_Error_ChangeStatusWithoutAsssignee") {
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
                 let result = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(AppId, recordId, testAction, nil, nil)) as! KintoneAPIException
                 
@@ -183,7 +183,7 @@ class UpdateRecordStatusTest: QuickSpec {
             
             it("Test_185_Error_NonexistentAssignee") {
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
                 let nonexistentUser = "nonexistent user blah blah"
                 let result = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(AppId, recordId, testAction, nonexistentUser, nil)) as! KintoneAPIException
@@ -414,7 +414,7 @@ class UpdateRecordStatusTest: QuickSpec {
             it("Test_177_GuestSpace_StatusAndAssignee") {
                 // 1. cybozu updates status: Start action
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil))
                 revision = revision + 2
                 
                 // 2. cybozu updates status: Test action + assignee (user1)
@@ -446,12 +446,12 @@ class UpdateRecordStatusTest: QuickSpec {
             it("Test_178_GuestSpace_NotAssigneeChangeStatus") {
                 // 1. cybozu updates status: Start action
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil))
                 
                 // 2. cybozu updates status: Test action + assignee (user1)
                 let assignee = TestConstant.InitData.USERS[0]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, testAction, assignee.username, nil)) as! UpdateRecordResponse
+                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, testAction, assignee.username, nil))
                 
                 // 3. non-assignee (user2) updates status: Review action
                 let user2 = TestConstant.InitData.USERS[1]
@@ -466,7 +466,7 @@ class UpdateRecordStatusTest: QuickSpec {
             it("Test_181_GuestSpace_Error_ChangeStatusWithoutAsssignee") {
                 // 1. cybozu updates status: Start action
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil))
                 
                 // 2. cybozu updates status: Test action + without assignee
                 let result = TestCommonHandling.awaitAsync(
@@ -523,7 +523,7 @@ class UpdateRecordStatusTest: QuickSpec {
             it("Test_177_APIToken_StatusAndAssignee") {
                 // 1. Updates status: Start action
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordStatus(AppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModuleAPIToken.updateRecordStatus(AppId, recordId, startAction, nil, nil))
                 revision = revision + 2
                 
                 // 2. Updates status: Test action + assignee (user1)
@@ -556,12 +556,12 @@ class UpdateRecordStatusTest: QuickSpec {
             it("Test_178_APIToken_NotAssigneeChangeStatus") {
                 // 1. cybozu updates status: Start action
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordStatus(AppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModuleAPIToken.updateRecordStatus(AppId, recordId, startAction, nil, nil))
                 
                 // 2. cybozu updates status: Test action + assignee (user1)
                 let assignee = TestConstant.InitData.USERS[0]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, testAction, assignee.username, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordStatus(AppId, recordId, testAction, assignee.username, nil))
                 
                 // 3. non-assignee (in this case, API Token is presented for Administrator user who is non-assignee) updates status: Review action
                 let result = TestCommonHandling.awaitAsync(
@@ -572,7 +572,7 @@ class UpdateRecordStatusTest: QuickSpec {
             
             it("Test_181_APIToken_Error_ChangeStatusWithoutAsssignee") {
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordStatus(AppId, recordId, startAction, nil, nil)) as! UpdateRecordResponse
+                    recordModuleAPIToken.updateRecordStatus(AppId, recordId, startAction, nil, nil))
                 let result = TestCommonHandling.awaitAsync(
                     recordModuleAPIToken.updateRecordStatus(AppId, recordId, testAction, nil, nil)) as! KintoneAPIException
                 
