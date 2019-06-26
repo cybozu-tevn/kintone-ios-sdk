@@ -87,6 +87,7 @@
 		4CBE648121CCCC44006375D9 /* ExtensionCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */; };
 		68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */; };
 		682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */; };
+		683B288222C2352D00727C52 /* GetViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288122C2352D00727C52 /* GetViewsTest.swift */; };
 		68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB3229E1F0600F96F0B /* ConnectionTest.swift */; };
 		68621DB6229E42A000F96F0B /* UploadFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB5229E42A000F96F0B /* UploadFileTest.swift */; };
 		68621DB8229E66B000F96F0B /* DownloadFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB7229E66B000F96F0B /* DownloadFileTest.swift */; };
@@ -338,6 +339,7 @@
 		4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionCommon.swift; sourceTree = "<group>"; };
 		68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFormFieldsTest.swift; sourceTree = "<group>"; };
 		682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataParser.swift; sourceTree = "<group>"; };
+		683B288122C2352D00727C52 /* GetViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViewsTest.swift; sourceTree = "<group>"; };
 		68621DB3229E1F0600F96F0B /* ConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTest.swift; sourceTree = "<group>"; };
 		68621DB5229E42A000F96F0B /* UploadFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileTest.swift; sourceTree = "<group>"; };
 		68621DB7229E66B000F96F0B /* DownloadFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileTest.swift; sourceTree = "<group>"; };
@@ -852,6 +854,7 @@
 				68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */,
 				68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */,
 				68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */,
+				683B288122C2352D00727C52 /* GetViewsTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1725,6 +1728,7 @@
 				68C67E7D2282DC8D00244922 /* GetApiTokenListRequest.swift in Sources */,
 				3F4C845422B0945F008ECE6D /* GetAppsByCodesTest.swift in Sources */,
 				3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */,
+				683B288222C2352D00727C52 /* GetViewsTest.swift in Sources */,
 				68C67E262280433600244922 /* KintoneError.swift in Sources */,
 				68C67E7C2282DC8D00244922 /* GetApiTokenListResponse.swift in Sources */,
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,

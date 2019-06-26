@@ -109,10 +109,10 @@ class DeleteFormFieldsTest: QuickSpec {
             }
             
             it("Test_052_FailedWithPermissionDenied") {
-                let appModuleWothoutPermission = App(TestCommonHandling.createConnection(
+                let appModuleWithoutPermission = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
-                let result = TestCommonHandling.awaitAsync(appModuleWothoutPermission.deleteFormFields(APP_ID, fieldCodes)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(appModuleWithoutPermission.deleteFormFields(APP_ID, fieldCodes)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
