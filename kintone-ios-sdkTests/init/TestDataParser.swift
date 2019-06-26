@@ -91,6 +91,7 @@ struct apps: Decodable {
     var appWithRequiredFields: app
     var appWithUniqueFields: app
     var appWithoutField: app
+    var appWithProcess: app
 }
 
 struct app: Decodable {
@@ -109,6 +110,7 @@ struct app: Decodable {
     var userAppPermissions: userAppPermission
     var userRecordPermissions: userRecordPermission
     var userFieldPermissions: userFieldPermission
+    var process: process
     
     func getCreator() -> userInfo {
         return self.creator
@@ -136,6 +138,10 @@ struct app: Decodable {
     
     func getUserFieldPermissions() -> userFieldPermission {
         return self.userFieldPermissions
+    }
+    
+    func getProcess() -> process {
+        return self.process
     }
 }
 
@@ -174,4 +180,9 @@ struct userRecordPermission: Decodable {
 struct userFieldPermission: Decodable {
     var userNotHaveViewRightOnTextField: String
     var userNotHaveEditRightOnTextField: String
+}
+
+struct process: Decodable {
+    var actions: [String]
+    var states: [String]
 }

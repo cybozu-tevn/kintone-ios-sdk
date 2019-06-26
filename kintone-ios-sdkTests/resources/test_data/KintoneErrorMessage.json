@@ -386,7 +386,7 @@
     },
     "NONEXISTENT_USER_ERROR": {
         "code": "GAIA_IL26",
-        "message": "The specified user (code：NONEXISTENT_USER) not found."
+        "message": "The specified user (code：%VARIABLE) not found."
     },
     "INCORRECT_REVISION_ERROR": {
         "code": "GAIA_CO03",
