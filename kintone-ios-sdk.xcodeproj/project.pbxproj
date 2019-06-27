@@ -235,6 +235,7 @@
 		B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */; };
 		B7A3595922B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */; };
 		B7A3595B22B91550007E31E5 /* UpdateRecordStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */; };
+		B7C87F7022C322EE00AFFFB8 /* UpdateRecordsStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -491,6 +492,7 @@
 		B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordByIDTest.swift; sourceTree = "<group>"; };
 		B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordByUpdateKeyTest.swift; sourceTree = "<group>"; };
 		B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordStatusTest.swift; sourceTree = "<group>"; };
+		B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordsStatusTest.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1287,6 +1289,7 @@
 				B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */,
 				B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */,
 				B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */,
+				B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */,
 				68C67E292280436400244922 /* GetRecordTest.swift */,
 				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
 				68C67E312281A57200244922 /* DeleteRecordsTest.swift */,
@@ -1684,6 +1687,7 @@
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
 				68C67E782282DC7000244922 /* GenerateApiTokenRequest.swift in Sources */,
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
+				B7C87F7022C322EE00AFFFB8 /* UpdateRecordsStatusTest.swift in Sources */,
 				68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */,
 				68C67E6D2282DBEE00244922 /* ApiToken.swift in Sources */,
 				68C67E802282DCA400244922 /* UpdateApiTokenRequest.swift in Sources */,
