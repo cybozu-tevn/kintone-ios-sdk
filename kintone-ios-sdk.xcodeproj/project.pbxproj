@@ -88,6 +88,7 @@
 		68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */; };
 		682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */; };
 		683B288222C2352D00727C52 /* GetViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288122C2352D00727C52 /* GetViewsTest.swift */; };
+		683B288422C35C4D00727C52 /* UpdateViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288322C35C4D00727C52 /* UpdateViewsTest.swift */; };
 		68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB3229E1F0600F96F0B /* ConnectionTest.swift */; };
 		68621DB6229E42A000F96F0B /* UploadFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB5229E42A000F96F0B /* UploadFileTest.swift */; };
 		68621DB8229E66B000F96F0B /* DownloadFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB7229E66B000F96F0B /* DownloadFileTest.swift */; };
@@ -341,6 +342,7 @@
 		68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFormFieldsTest.swift; sourceTree = "<group>"; };
 		682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataParser.swift; sourceTree = "<group>"; };
 		683B288122C2352D00727C52 /* GetViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViewsTest.swift; sourceTree = "<group>"; };
+		683B288322C35C4D00727C52 /* UpdateViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewsTest.swift; sourceTree = "<group>"; };
 		68621DB3229E1F0600F96F0B /* ConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTest.swift; sourceTree = "<group>"; };
 		68621DB5229E42A000F96F0B /* UploadFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileTest.swift; sourceTree = "<group>"; };
 		68621DB7229E66B000F96F0B /* DownloadFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileTest.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 				68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */,
 				68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */,
 				683B288122C2352D00727C52 /* GetViewsTest.swift */,
+				683B288322C35C4D00727C52 /* UpdateViewsTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1716,6 +1719,7 @@
 				68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */,
 				68C67E552282DB5F00244922 /* DeleteAppRequest.swift in Sources */,
 				682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */,
+				683B288422C35C4D00727C52 /* UpdateViewsTest.swift in Sources */,
 				68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */,
 				3F4C844F22AFA55E008ECE6D /* AccessRightEntity.swift in Sources */,
 				68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */,

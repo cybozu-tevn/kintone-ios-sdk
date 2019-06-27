@@ -94,7 +94,6 @@ class GetViewsTest: QuickSpec {
         }
         
         describe("GetViews") {
-            print("===== \(APP_ID) and \(GUEST_SPACE_APP_ID) ====")
             // API TOKEN
             it("Test_003_Error_APITokenAuthentication") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
