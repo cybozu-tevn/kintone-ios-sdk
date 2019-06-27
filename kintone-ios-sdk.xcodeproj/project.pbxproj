@@ -238,6 +238,7 @@
 		B7A3595922B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */; };
 		B7A3595B22B91550007E31E5 /* UpdateRecordStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */; };
 		B7C87F7022C322EE00AFFFB8 /* UpdateRecordsStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */; };
+		B7C87F7222C4600E00AFFFB8 /* UpdateRecordAssigneesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C87F7122C4600D00AFFFB8 /* UpdateRecordAssigneesTest.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -497,6 +498,7 @@
 		B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordByUpdateKeyTest.swift; sourceTree = "<group>"; };
 		B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordStatusTest.swift; sourceTree = "<group>"; };
 		B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordsStatusTest.swift; sourceTree = "<group>"; };
+		B7C87F7122C4600D00AFFFB8 /* UpdateRecordAssigneesTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordAssigneesTest.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1294,6 +1296,7 @@
 			children = (
 				B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */,
 				B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */,
+				B7C87F7122C4600D00AFFFB8 /* UpdateRecordAssigneesTest.swift */,
 				B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */,
 				B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */,
 				68C67E292280436400244922 /* GetRecordTest.swift */,
@@ -1680,6 +1683,7 @@
 				68C67E6C2282DBEE00244922 /* TokenEntity.swift in Sources */,
 				3F4C845622B2071E008ECE6D /* AddPreviewAppTest.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
+				B7C87F7222C4600E00AFFFB8 /* UpdateRecordAssigneesTest.swift in Sources */,
 				3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */,
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
 				B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */,

@@ -36,8 +36,23 @@ class DataRandomization {
     ///
     /// - Parameter length: Int | the expected length of the number
     /// - Returns: the random number
-    public func generateNumber(_ length: Int) -> Int {
+    public static func generateNumber(_ length: Int) -> Int {
         let numbers = "0123456789"
         return Int(String((0...length-1).map { _ in numbers.randomElement()! }))!
+    }
+    
+
+    /// Generate number of items with a specified prefix
+    ///
+    /// - Parameters:
+    ///   - numberOfItems: Int | number of items
+    ///   - prefix: String
+    /// - Returns: Array of items
+    public static func generateDataItems(numberOfItems: Int, prefix: String) -> Array<String> {
+        var items = Array<String>()
+        for i in 1...numberOfItems {
+            items.append(prefix + String(format: "%03d", i))
+        }
+        return items
     }
 }
