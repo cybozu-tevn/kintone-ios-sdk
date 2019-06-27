@@ -26,7 +26,7 @@ class UpdateRecordsStatusTest: QuickSpec {
         let recordModule = Record(TestCommonHandling.createConnection())
         
         // ---------------- NORMAL SPACE
-        describe("UpdateRecordStatus_1") {
+        describe("UpdateRecordsStatus_1") {
             beforeEach {
                 let testData1 = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 let testData2 = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
@@ -260,7 +260,7 @@ class UpdateRecordsStatusTest: QuickSpec {
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.MORE_THAN_100_UPDATE_RECORDS_ERROR()!)
             }
             
-            it("Test_213_Error_100Records") {
+            it("Test_213_100Records") {
                 // Prepare 100 records
                 let addData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 var addDataList: [Dictionary<String, FieldValue>] = []
@@ -294,7 +294,7 @@ class UpdateRecordsStatusTest: QuickSpec {
         }
         
         // ---------------- GUEST SPACE
-        describe("UpdateRecordStatus_2") {
+        describe("UpdateRecordsStatus_2") {
             let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
                 TestConstant.Connection.CRED_ADMIN_USERNAME,
                 TestConstant.Connection.CRED_ADMIN_PASSWORD,
@@ -314,8 +314,7 @@ class UpdateRecordsStatusTest: QuickSpec {
             }
             
             afterEach {
-                _ = TestCommonHandling.awaitAsync(
-                    recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [record1Id]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, [record1Id, record2Id]))
             }
             
             it("Test_200_GuestSpace_StatusOnly") {
@@ -342,7 +341,7 @@ class UpdateRecordsStatusTest: QuickSpec {
             }
             
             it("Test_201_GuestSpace_StatusAndAssignee") {
-                // 1. Updates status for records: Start action
+                // 1. Update status for records: Start action
                 var record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 var record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, nil)
                 var recordsStatusItem = [record1StatusItem, record2StatusItem]
@@ -382,7 +381,7 @@ class UpdateRecordsStatusTest: QuickSpec {
         }
         
         // ---------------- API TOKEN
-        describe("UpdateRecordStatus_3") {
+        describe("UpdateRecordsStatus_3") {
             let recordModuleAPIToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.APP_WITH_PROCESS_API_TOKEN))
             
             beforeEach {
@@ -399,8 +398,7 @@ class UpdateRecordsStatusTest: QuickSpec {
             }
             
             afterEach {
-                _ = TestCommonHandling.awaitAsync(
-                    recordModule.deleteRecords(AppId, [record1Id]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, [record1Id, record2Id]))
             }
             
             it("Test_200_APIToken_StatusOnly") {
@@ -427,7 +425,7 @@ class UpdateRecordsStatusTest: QuickSpec {
             }
             
             it("Test_201_APIToken_StatusAndAssignee") {
-                // 1. Updates status for records: Start action
+                // 1. Update status for records: Start action
                 var record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 var record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, nil)
                 var recordsStatusItem = [record1StatusItem, record2StatusItem]
