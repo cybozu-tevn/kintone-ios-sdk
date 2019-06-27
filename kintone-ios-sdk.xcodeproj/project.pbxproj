@@ -130,6 +130,7 @@
 		68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E892282DCD600244922 /* AddSpaceResponse.swift */; };
 		68C67E8D2282DCD700244922 /* AddSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */; };
 		68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */; };
+		68C94B1A22C45BF400F01591 /* GetFormLayoutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C94B1922C45BF300F01591 /* GetFormLayoutTest.swift */; };
 		68CE4EF522B0F5FF00E6E23A /* AddCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */; };
 		68CE4EF722B0FBC700E6E23A /* GetCommentsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4EF622B0FBC600E6E23A /* GetCommentsTest.swift */; };
 		68CE4EF922B0FBE300E6E23A /* DeleteCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4EF822B0FBE300E6E23A /* DeleteCommentTest.swift */; };
@@ -386,6 +387,7 @@
 		68C67E892282DCD600244922 /* AddSpaceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceResponse.swift; sourceTree = "<group>"; };
 		68C67E8A2282DCD600244922 /* AddSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpaceRequest.swift; sourceTree = "<group>"; };
 		68C67E8B2282DCD700244922 /* DeleteSpaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSpaceRequest.swift; sourceTree = "<group>"; };
+		68C94B1922C45BF300F01591 /* GetFormLayoutTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFormLayoutTest.swift; sourceTree = "<group>"; };
 		68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentTest.swift; sourceTree = "<group>"; };
 		68CE4EF622B0FBC600E6E23A /* GetCommentsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCommentsTest.swift; sourceTree = "<group>"; };
 		68CE4EF822B0FBE300E6E23A /* DeleteCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCommentTest.swift; sourceTree = "<group>"; };
@@ -860,6 +862,7 @@
 				68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */,
 				683B288122C2352D00727C52 /* GetViewsTest.swift */,
 				683B288322C35C4D00727C52 /* UpdateViewsTest.swift */,
+				68C94B1922C45BF300F01591 /* GetFormLayoutTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1689,6 +1692,7 @@
 				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
 				68C67E782282DC7000244922 /* GenerateApiTokenRequest.swift in Sources */,
+				68C94B1A22C45BF400F01591 /* GetFormLayoutTest.swift in Sources */,
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
 				B7C87F7022C322EE00AFFFB8 /* UpdateRecordsStatusTest.swift in Sources */,
 				68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */,
