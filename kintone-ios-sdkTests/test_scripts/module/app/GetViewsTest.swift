@@ -3,7 +3,6 @@
 // Created on 6/25/19
 //
 
-import Foundation
 import Quick
 import Nimble
 @testable import kintone_ios_sdk
@@ -19,8 +18,8 @@ class GetViewsTest: QuickSpec {
         let appModuleWithoutPermission = App(TestCommonHandling.createConnection(
             TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
             TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
-        let APP_ID = TestConstant.InitData.SPACE_APP_ID!
-        let GUEST_SPACE_APP_ID = TestConstant.InitData.GUEST_SPACE_APP_ID!
+        let appId = TestConstant.InitData.SPACE_APP_ID!
+        let guetsSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
         
         // View Data
         var viewEntry: [String: ViewModel] = [String: ViewModel]()
@@ -42,7 +41,7 @@ class GetViewsTest: QuickSpec {
         var currentViews: [String: ViewModel] = [String: ViewModel]()
         
         beforeSuite {
-            var getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(APP_ID, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
+            var getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
             currentViews = getViewsResponse.getViews()!
             
             // Add 1 Live View + 1 Prelive View for testing
@@ -56,17 +55,17 @@ class GetViewsTest: QuickSpec {
             viewEntry[viewName] = updateViewModel
             totalOfLiveView = viewEntry.count
             
-            _ = TestCommonHandling.awaitAsync(appModule.updateViews(APP_ID, viewEntry))
-            let previewApp: PreviewApp? = PreviewApp(APP_ID, -1)
+            _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntry))
+            let previewApp: PreviewApp? = PreviewApp(appId, -1)
             _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: APP_ID)
+            AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(GUEST_SPACE_APP_ID, viewEntry))
-            let previewAppGuestSpace: PreviewApp? = PreviewApp(GUEST_SPACE_APP_ID, -1)
+            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, viewEntry))
+            let previewAppGuestSpace: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
             _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewAppGuestSpace!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: GUEST_SPACE_APP_ID)
+            AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
             
-            getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(APP_ID, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
+            getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
             viewEntryPrelive = getViewsResponse.getViews()!
             updateViewModelPrelive.setName(viewNamePrelive)
             updateViewModelPrelive.setSort(viewSort)
@@ -77,36 +76,36 @@ class GetViewsTest: QuickSpec {
             viewEntryPrelive[viewNamePrelive] = updateViewModelPrelive
             totalOfAllView = viewEntryPrelive.count
     
-            _ = TestCommonHandling.awaitAsync(appModule.updateViews(APP_ID, viewEntryPrelive))
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(GUEST_SPACE_APP_ID, viewEntryPrelive))
+            _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntryPrelive))
+            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, viewEntryPrelive))
         }
         
         afterSuite {
-            _ = TestCommonHandling.awaitAsync(appModule.updateViews(APP_ID, currentViews))
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(GUEST_SPACE_APP_ID, currentViews))
-            let previewApp: PreviewApp? = PreviewApp(APP_ID, -1)
-            let previewGuestSpaceApp: PreviewApp? = PreviewApp(GUEST_SPACE_APP_ID, -1)
+            _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
+            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, currentViews))
+            let previewApp: PreviewApp? = PreviewApp(appId, -1)
+            let previewGuestSpaceApp: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
             _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: APP_ID)
+            AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: GUEST_SPACE_APP_ID)
+            AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
         }
         
         describe("GetViews") {
             // API TOKEN
             it("Test_003_Error_APITokenAuthentication") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
-                let result = TestCommonHandling.awaitAsync(appModuleApiToken.getViews(APP_ID, LanguageSetting.DEFAULT, true)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(appModuleApiToken.getViews(appId, LanguageSetting.DEFAULT, true)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             // NORMAL SPACE
-            it("Test_004_008_ValidRequest") {
+            it("Test_004_008_Success_ValidRequest") {
                 // Prelive view settings is returned when specifying isPreview is True
                 isPreview = true
-                let result = TestCommonHandling.awaitAsync(appModule.getViews(APP_ID, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
+                let result = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
                 let viewsList = result.getViews()
                 
                 expect(viewsList?.count).to(equal(totalOfAllView))
@@ -123,9 +122,9 @@ class GetViewsTest: QuickSpec {
                 }
             }
             
-            it("Test_005_WithoutIsPreview") {
+            it("Test_005_Success_WithoutIsPreview") {
                 // Live view settings is returned when not specifying isPreview
-                let result = TestCommonHandling.awaitAsync(appModule.getViews(APP_ID, LanguageSetting.DEFAULT)) as! GetViewsResponse
+                let result = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT)) as! GetViewsResponse
                 let viewsList = result.getViews()
                 
                 expect(viewsList?.count).to(equal(totalOfLiveView))
@@ -142,10 +141,10 @@ class GetViewsTest: QuickSpec {
                 }
             }
             
-            it("Test_008_IsPreviewFalse") {
+            it("Test_008_Success_IsPreviewFalse") {
                 // Live view settings is returned when specifying isPreview False
                 isPreview = false
-                let result = TestCommonHandling.awaitAsync(appModule.getViews(APP_ID, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
+                let result = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
                 let viewsList = result.getViews()
                 
                 expect(viewsList?.count).to(equal(totalOfLiveView))
@@ -180,9 +179,9 @@ class GetViewsTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_011_InvalidLanguage") {
+            it("Test_011_Success_InvalidLanguage") {
                 // KCB-613 -> return default language when inputting invalid language
-                let result = TestCommonHandling.awaitAsync(appModule.getViews(APP_ID, LanguageSetting.init(rawValue: "invalid"), isPreview)) as! GetViewsResponse
+                let result = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.init(rawValue: "invalid"), isPreview)) as! GetViewsResponse
                 let viewsList = result.getViews()
                 
                 expect(viewsList?.count).to(equal(totalOfLiveView))
@@ -199,26 +198,26 @@ class GetViewsTest: QuickSpec {
                 }
             }
             
-            it("Test_012_LiveAppWithoutManageAppPermission") {
+            it("Test_012_Error_LiveAppWithoutManageAppPermission") {
                 isPreview = false
-                let result = TestCommonHandling.awaitAsync(appModuleWithoutPermission.getViews(APP_ID, LanguageSetting.DEFAULT, isPreview)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(appModuleWithoutPermission.getViews(appId, LanguageSetting.DEFAULT, isPreview)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_013_PreliveAppWithoutManageAppPermission") {
+            it("Test_013_Error_PreliveAppWithoutManageAppPermission") {
                 isPreview = true
-                let result = TestCommonHandling.awaitAsync(appModuleWithoutPermission.getViews(APP_ID, LanguageSetting.DEFAULT, isPreview)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(appModuleWithoutPermission.getViews(appId, LanguageSetting.DEFAULT, isPreview)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             // GUEST SPACE
-            it("Test_004_GuestSpace_ValidRequest") {
+            it("Test_004_Success_ValidRequest_GuestSpace") {
                 isPreview = true
-                let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(GUEST_SPACE_APP_ID, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
+                let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guetsSpaceAppId, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
                 
                 let viewsList = result.getViews()
                 expect(viewsList?.count).to(equal(totalOfAllView))

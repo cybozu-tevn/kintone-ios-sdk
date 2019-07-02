@@ -1,9 +1,6 @@
 //
-//  GetApp.swift
-//  kintone-ios-sdkTests
-//
-//  Created by Vu Tran on 5/6/19.
-//  Copyright © 2019 Cybozu. All rights reserved.
+// kintone-ios-sdkTests
+// Created on 5/10/19
 //
 
 import Quick
