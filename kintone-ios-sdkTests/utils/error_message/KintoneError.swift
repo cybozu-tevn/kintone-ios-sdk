@@ -91,6 +91,7 @@ internal class KintoneErrorMessage: Codable {
     var APP_ID_LARGER_THAN_300_ERROR: KintoneError!
     var APP_ID_LARGER_THAN_100_ERROR: KintoneError!
     var RECORD_ID_LARGER_THAN_100_ERROR: KintoneError!
+    var RECORD_ID_AND_REVISION_LARGER_THAN_100_ERROR: KintoneError!
     var RECORD_ID_LARGER_THAN_100_ERROR_ADD_RECORD: KintoneError!
     var CODES_LARGER_THAN_100_ERROR: KintoneError!
     var SPACE_ID_LARGER_THAN_100_ERROR: KintoneError!

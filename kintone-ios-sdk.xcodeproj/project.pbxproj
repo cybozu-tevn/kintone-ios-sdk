@@ -229,6 +229,7 @@
 		ABE0235D216F4652002C47EC /* test.pptx in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235A216F4651002C47EC /* test.pptx */; };
 		ABE0235E216F4652002C47EC /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235B216F4652002C47EC /* test.txt */; };
 		ABE0235F216F4652002C47EC /* test.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235C216F4652002C47EC /* test.xlsx */; };
+		B7294CF322C8FCD400188740 /* UpdateGeneralSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */; };
 		B7A2AD8A22977C1E00AA4196 /* DataRandomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */; };
 		B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8E229F714300AA4196 /* RecordUtils.swift */; };
 		B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */; };
@@ -239,6 +240,7 @@
 		B7A3595B22B91550007E31E5 /* UpdateRecordStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */; };
 		B7C87F7022C322EE00AFFFB8 /* UpdateRecordsStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */; };
 		B7C87F7222C4600E00AFFFB8 /* UpdateRecordAssigneesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C87F7122C4600D00AFFFB8 /* UpdateRecordAssigneesTest.swift */; };
+		B7C87F7422C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C87F7322C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
 /* End PBXBuildFile section */
@@ -489,6 +491,7 @@
 		ABE0235A216F4651002C47EC /* test.pptx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.pptx; sourceTree = "<group>"; };
 		ABE0235B216F4652002C47EC /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		ABE0235C216F4652002C47EC /* test.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.xlsx; sourceTree = "<group>"; };
+		B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateGeneralSettingsTest.swift; sourceTree = "<group>"; };
 		B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRandomization.swift; sourceTree = "<group>"; };
 		B7A2AD8E229F714300AA4196 /* RecordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUtils.swift; sourceTree = "<group>"; };
 		B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployAppSettingsTest.swift; sourceTree = "<group>"; };
@@ -499,6 +502,7 @@
 		B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordStatusTest.swift; sourceTree = "<group>"; };
 		B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordsStatusTest.swift; sourceTree = "<group>"; };
 		B7C87F7122C4600D00AFFFB8 /* UpdateRecordAssigneesTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecordAssigneesTest.swift; sourceTree = "<group>"; };
+		B7C87F7322C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteRecordsWithRevisionTest.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -864,6 +868,7 @@
 				68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */,
 				683B288122C2352D00727C52 /* GetViewsTest.swift */,
 				683B288322C35C4D00727C52 /* UpdateViewsTest.swift */,
+				B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */,
 				68C94B1922C45BF300F01591 /* GetFormLayoutTest.swift */,
 			);
 			path = app;
@@ -1302,6 +1307,7 @@
 				68C67E292280436400244922 /* GetRecordTest.swift */,
 				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
 				68C67E312281A57200244922 /* DeleteRecordsTest.swift */,
+				B7C87F7322C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift */,
 				68C67E352282AD1100244922 /* UpdateRecordsTest.swift */,
 				B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */,
 				68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */,
@@ -1701,6 +1707,7 @@
 				B7C87F7022C322EE00AFFFB8 /* UpdateRecordsStatusTest.swift in Sources */,
 				68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */,
 				68C67E6D2282DBEE00244922 /* ApiToken.swift in Sources */,
+				B7C87F7422C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift in Sources */,
 				68C67E802282DCA400244922 /* UpdateApiTokenRequest.swift in Sources */,
 				3FE11982228C04F6004A8AB7 /* GetAppsByIDs.swift in Sources */,
 				3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */,
@@ -1712,6 +1719,7 @@
 				B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,
 				68CE4F0122BB410C00E6E23A /* GetFormFieldsTest.swift in Sources */,
+				B7294CF322C8FCD400188740 /* UpdateGeneralSettingsTest.swift in Sources */,
 				B7A3592822A6B8DC007E31E5 /* GetRecordsTest.swift in Sources */,
 				68C67E6E2282DBEE00244922 /* ApiTokenItem.swift in Sources */,
 				68621DB8229E66B000F96F0B /* DownloadFileTest.swift in Sources */,

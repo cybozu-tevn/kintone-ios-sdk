@@ -562,6 +562,22 @@
             }
         }
     },
+    "RECORD_ID_AND_REVISION_LARGER_THAN_100_ERROR": {
+        "code": "CB_VA01",
+        "message": "Missing or invalid input.",
+        "errors": {
+            "revisions": {
+                "messages": [
+                    "size must be between 0 and 100"
+                ]
+            },
+            "ids": {
+                "messages": [
+                    "Between 1 and 100 records can be deleted at one time."
+                ]
+            }
+        }
+    },
     "INVALID_COMMENT_ORDER_ERROR": {
         "code": "CB_VA01",
         "message": "Missing or invalid input.",

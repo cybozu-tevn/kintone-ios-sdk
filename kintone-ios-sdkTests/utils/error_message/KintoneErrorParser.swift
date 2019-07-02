@@ -291,6 +291,10 @@ class KintoneErrorParser {
         return result.RECORD_ID_LARGER_THAN_100_ERROR
     }
     
+    static func RECORD_ID_AND_REVISION_LARGER_THAN_100_ERROR() -> KintoneError? {
+        return result.RECORD_ID_AND_REVISION_LARGER_THAN_100_ERROR
+    }
+    
     static func COMMENTS_FEATURE_DISABLED_ERROR() -> KintoneError? {
         return result.COMMENTS_FEATURE_DISABLED_ERROR
     }
