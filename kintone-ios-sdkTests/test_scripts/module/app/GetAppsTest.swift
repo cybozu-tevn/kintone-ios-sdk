@@ -1,8 +1,7 @@
-///**
-/**
- kintone-ios-sdkTests
- Created on 5/10/19
- */
+//
+// kintone-ios-sdkTests
+// Created on 5/10/19
+// 
 
 import Quick
 import Nimble

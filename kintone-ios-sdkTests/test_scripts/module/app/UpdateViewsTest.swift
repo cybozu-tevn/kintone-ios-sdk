@@ -1,8 +1,7 @@
-///**
-/**
- kintone-ios-sdkTests
- Created on 6/26/19
- */
+//
+// kintone-ios-sdkTests
+// Created on 6/26/19
+// 
 
 import Foundation
 import Quick
