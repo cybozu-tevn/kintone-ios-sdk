@@ -25,7 +25,7 @@ class GetAppDeployStatusTest: QuickSpec {
             AppUtils.deleteApps(appIds: appIds!)
         }
         
-        describe("GetAppDeployStatusTest") {
+        describe("GetAppDeployStatus") {
             it("Test_079_Success") {
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds!)) as! GetAppDeployStatusResponse
                 for appDeployStatus in getAppDeployStatusRsp.getApps()! {
@@ -36,7 +36,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 }
             }
             
-            it("Test_079_Success_GuestSpaceApp") {
+            it("Test_079_Success_GuestSpace") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 
                 let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
@@ -64,7 +64,7 @@ class GetAppDeployStatusTest: QuickSpec {
             //                AppUtils.deleteApps(appIds: appIds)
             //            }
             
-            it("Test_081_FailedWithApiToken") {
+            it("Test_081_Error_ApiToken") {
                 let apiToken = AppUtils.generateApiToken(app, appIds![0])
                 let tokenPermission = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
                 AppUtils.updateTokenPermission(appModule: app, appId: appIds![0], token: tokenPermission)
@@ -74,7 +74,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), KintoneErrorParser.API_TOKEN_ERROR()!)
             }
             
-            it("Test_082_FailedWithoutAppId") {
+            it("Test_082_Error_WithoutAppId") {
                 let apiToken = AppUtils.generateApiToken(app, appIds![0])
                 let tokenPermission = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
                 AppUtils.updateTokenPermission(appModule: app, appId: appIds![0], token: tokenPermission)
@@ -85,7 +85,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), KintoneErrorParser.MISSING_APPS_ERROR()!)
             }
             
-            it("Test_083_FailedWithNonExistentAppId") {
+            it("Test_083_Error_NonExistentAppId") {
                 let nonExistentAppIds = [TestConstant.Common.NONEXISTENT_ID]
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(nonExistentAppIds)) as! KintoneAPIException
                 var expectedErr = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()
@@ -93,7 +93,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
             }
             
-            it("Test_084_FailedWithDuplicatedAppId") {
+            it("Test_084_Error_DuplicatedAppId") {
                 let duplicateAppIds = [appIds![0], appIds![0]]
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(duplicateAppIds)) as! KintoneAPIException
                 var expectedErr = KintoneErrorParser.DUPLICATE_APP_ID_ERROR()
@@ -101,7 +101,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
             }
             
-            it("Test_085_FailedWithNegativeAppId") {
+            it("Test_085_Error_NegativeAppId") {
                 let negativeAppIds = [-1]
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(negativeAppIds)) as! KintoneAPIException
                 var expectedErr = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()
@@ -109,7 +109,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
             }
             
-            it("Test_086_FailedWithZeroAppId") {
+            it("Test_086_Error_ZeroAppId") {
                 let negativeAppIds = [0]
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(negativeAppIds)) as! KintoneAPIException
                 var expectedErr = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()
@@ -117,14 +117,14 @@ class GetAppDeployStatusTest: QuickSpec {
                 TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
             }
             
-            it("Test_087_FailedWithMoreThan300AppIds") {
+            it("Test_087_Error_MoreThan300AppIds") {
                 let appIds = [Int](repeating: 1, count: 301)
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds)) as! KintoneAPIException
                 let expectedErr = KintoneErrorParser.MORE_THAN_300_APP_IDS()
                 TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
             }
             
-            it("Test_088_FailedWithoutPermission") {
+            it("Test_088_Error_WithoutPermission") {
                 //                let entityAdmin = DevMemberEntity(DevMemberType.USER, TestConstant.Connection.ADMIN_USERNAME)
                 //                let admin = SpaceMember(entityAdmin, true)
                 //                var members = [SpaceMember]()

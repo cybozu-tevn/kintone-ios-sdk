@@ -15,7 +15,7 @@ class GetAppsByIDsTest: QuickSpec {
         let amountOfApps = 5
         var appIds: [Int]?
         
-        describe("GetAppsByIDsTest") {
+        describe("GetAppsByIDs") {
             
             beforeSuite {
                 print("=== TEST PREPARATION ===")
@@ -27,7 +27,7 @@ class GetAppsByIDsTest: QuickSpec {
                 AppUtils.deleteApps(appIds: appIds!)
             }
             
-            it("test_018_FailedWithApiToken") {
+            it("Test_018_Error_ApiToken") {
                 let apiToken = AppUtils.generateApiToken(app, appIds![0])
                 let tokenPermission  = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
                 AppUtils.updateTokenPermission(appModule: app, appId: appIds![0], token: tokenPermission)
@@ -37,7 +37,7 @@ class GetAppsByIDsTest: QuickSpec {
                 TestCommonHandling.compareError(getAppsByIDsRsp.getErrorResponse(), KintoneErrorParser.API_TOKEN_ERROR()!)
             }
             
-            it("test_019_Success") {
+            it("Test_019_Success") {
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds)) as! [AppModel]
                 expect(getAppsByIDsRsp.count).to(equal(appIds?.count))
                 for (index, app) in getAppsByIDsRsp.enumerated() {
@@ -49,7 +49,7 @@ class GetAppsByIDsTest: QuickSpec {
                 }
             }
             
-            it("test_019_Success_GuestSpaceApp") {
+            it("Test_019_Success_GuestSpace") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(guestAppModule.getAppsByIDs(guestAppIds)) as! [AppModel]
@@ -64,7 +64,7 @@ class GetAppsByIDsTest: QuickSpec {
                 }
             }
             
-            it("test_020_027_SusscessWithLimit") {
+            it("Test_020_027_Susscess_Limit") {
                 let limit = 2
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds, nil, limit)) as! [AppModel]
                 expect(getAppsByIDsRsp.count).to(equal(limit))
@@ -77,7 +77,7 @@ class GetAppsByIDsTest: QuickSpec {
                 }
             }
             
-            it("test_021_SuccessWithOffset") {
+            it("Test_021_Success_Offset") {
                 let offset = 2
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds, offset, nil)) as! [AppModel]
                 expect(getAppsByIDsRsp.count).to(equal(appIds!.count - offset))
@@ -90,25 +90,25 @@ class GetAppsByIDsTest: QuickSpec {
                 }
             }
             
-            it("test_023_FailedWithLimitZero") {
+            it("Test_023_Error_LimitZero") {
                 let limit = 0
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds, nil, limit)) as! KintoneAPIException
                 TestCommonHandling.compareError(getAppsByIDsRsp.getErrorResponse(), KintoneErrorParser.NEGATIVE_LIMIT_ERROR()!)
             }
             
-            it("test_024_FailedWithLimitGreaterThan100") {
+            it("Test_024_Error_LimitGreaterThan100") {
                 let limit = 101
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds, nil, limit)) as!KintoneAPIException
                 TestCommonHandling.compareError(getAppsByIDsRsp.getErrorResponse(), KintoneErrorParser.LIMIT_LARGER_THAN_100_ERRORS()!)
             }
             
-            it("test_025_FailedWithNegativeOffset") {
+            it("Test_025_Error_NegativeOffset") {
                 let offset = -1
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds, offset, nil)) as! KintoneAPIException
                 TestCommonHandling.compareError(getAppsByIDsRsp.getErrorResponse(), KintoneErrorParser.NEGATIVE_OFFSET_ERROR()!)
             }
             
-            it("test_028_FailedWithOffsetExceedValue") {
+            it("Test_028_Error_OffsetExceedValue") {
                 let offset = TestConstant.Common.MAX_VALUE + 1
                 let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds, offset, nil)) as!KintoneAPIException
                 TestCommonHandling.compareError(getAppsByIDsRsp.getErrorResponse(), KintoneErrorParser.OFFSET_LARGER_THAN_2147483647_ERROR()!)

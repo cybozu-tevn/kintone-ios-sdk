@@ -24,9 +24,9 @@ class GetAppTest: QuickSpec {
             AppUtils.deleteApp(appId: appId!)
         }
         
-        describe("GetAppTest") {
+        describe("GetApp") {
             
-            it("test_003_SuccessWithApiToken") {
+            it("Test_003_Success_ApiToken") {
                 let apiToken = AppUtils.generateApiToken(app, appId!)
                 let tokenPermission  = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
                 AppUtils.updateTokenPermission(appModule: app, appId: appId!, token: tokenPermission)
@@ -42,7 +42,7 @@ class GetAppTest: QuickSpec {
                 expect(getAppRsp.getThreadId()).to(beNil())
             }
             
-            it("test_004_Success") {
+            it("Test_004_Success") {
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appId!)) as! AppModel
                 expect(getAppRsp.getAppId()).to(equal(appId))
                 expect(getAppRsp.getName()).to(equal(appName))
@@ -52,7 +52,7 @@ class GetAppTest: QuickSpec {
                 expect(getAppRsp.getThreadId()).to(beNil())
             }
             
-            it("test_004_Success_With_GuesSpaceApp") {
+            it("Test_004_Success_GuesSpace") {
                 // Test setting up
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 let guestAppId = AppUtils.createApp(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID)
@@ -69,7 +69,7 @@ class GetAppTest: QuickSpec {
                 AppUtils.deleteApp(appId: guestAppId)
             }
             
-            it("test_005_FailedWithInvalidAppId") {
+            it("Test_005_Error_InvalidAppId") {
                 let invalidAppId = 9999 // non-existed appId
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(invalidAppId)) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()

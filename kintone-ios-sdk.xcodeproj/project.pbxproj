@@ -74,11 +74,11 @@
 		3F4C845022AFB61A008ECE6D /* SpaceMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E862282DCCC00244922 /* SpaceMember.swift */; };
 		3F4C845422B0945F008ECE6D /* GetAppsByCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */; };
 		3F4C845622B2071E008ECE6D /* AddPreviewAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */; };
-		3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift */; };
+		3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift */; };
 		3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD1F5D228531490043FD31 /* GetAppsTest.swift */; };
-		3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */; };
+		3FE11980228C04F6004A8AB7 /* GetAppsByNameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197D228C04F6004A8AB7 /* GetAppsByNameTest.swift */; };
 		3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */; };
-		3FE11982228C04F6004A8AB7 /* GetAppsByIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197F228C04F6004A8AB7 /* GetAppsByIDs.swift */; };
+		3FE11982228C04F6004A8AB7 /* GetAppsByIDsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197F228C04F6004A8AB7 /* GetAppsByIDsTest.swift */; };
 		3FF04B2B22803E2800E401FF /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2922803E2800E401FF /* AppUtils.swift */; };
 		3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2A22803E2800E401FF /* GetAppTest.swift */; };
 		3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */; };
@@ -333,11 +333,11 @@
 		3EFD81302146060200A1499F /* SubTableValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTableValueItem.swift; sourceTree = "<group>"; };
 		3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsByCodesTest.swift; sourceTree = "<group>"; };
 		3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPreviewAppTest.swift; sourceTree = "<group>"; };
-		3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsBySpaceIDs.swift; sourceTree = "<group>"; };
+		3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsBySpaceIDsTest.swift; sourceTree = "<group>"; };
 		3FBD1F5D228531490043FD31 /* GetAppsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsTest.swift; sourceTree = "<group>"; };
-		3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByName.swift; sourceTree = "<group>"; };
+		3FE1197D228C04F6004A8AB7 /* GetAppsByNameTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByNameTest.swift; sourceTree = "<group>"; };
 		3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppDeployStatusTest.swift; sourceTree = "<group>"; };
-		3FE1197F228C04F6004A8AB7 /* GetAppsByIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByIDs.swift; sourceTree = "<group>"; };
+		3FE1197F228C04F6004A8AB7 /* GetAppsByIDsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByIDsTest.swift; sourceTree = "<group>"; };
 		3FF04B2922803E2800E401FF /* AppUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		3FF04B2A22803E2800E401FF /* GetAppTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppTest.swift; sourceTree = "<group>"; };
 		3FF04B2D22803E4800E401FF /* TestCommonHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCommonHandling.swift; sourceTree = "<group>"; };
@@ -856,12 +856,12 @@
 			isa = PBXGroup;
 			children = (
 				3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */,
-				3FE1197F228C04F6004A8AB7 /* GetAppsByIDs.swift */,
-				3FE1197D228C04F6004A8AB7 /* GetAppsByName.swift */,
+				3FE1197F228C04F6004A8AB7 /* GetAppsByIDsTest.swift */,
+				3FE1197D228C04F6004A8AB7 /* GetAppsByNameTest.swift */,
 				3FF04B2A22803E2800E401FF /* GetAppTest.swift */,
 				3FBD1F5D228531490043FD31 /* GetAppsTest.swift */,
 				B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */,
-				3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift */,
+				3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift */,
 				3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */,
 				3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */,
 				68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */,
@@ -1693,7 +1693,7 @@
 				3F4C845622B2071E008ECE6D /* AddPreviewAppTest.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
 				B7C87F7222C4600E00AFFFB8 /* UpdateRecordAssigneesTest.swift in Sources */,
-				3FE11980228C04F6004A8AB7 /* GetAppsByName.swift in Sources */,
+				3FE11980228C04F6004A8AB7 /* GetAppsByNameTest.swift in Sources */,
 				68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */,
 				B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */,
 				68C67E422282DA7000244922 /* DevConnection.swift in Sources */,
@@ -1712,12 +1712,12 @@
 				68C67E6D2282DBEE00244922 /* ApiToken.swift in Sources */,
 				B7C87F7422C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift in Sources */,
 				68C67E802282DCA400244922 /* UpdateApiTokenRequest.swift in Sources */,
-				3FE11982228C04F6004A8AB7 /* GetAppsByIDs.swift in Sources */,
+				3FE11982228C04F6004A8AB7 /* GetAppsByIDsTest.swift in Sources */,
 				3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */,
 				68CE4EF522B0F5FF00E6E23A /* AddCommentTest.swift in Sources */,
 				68C67E512282DB3200244922 /* DevAppApp.swift in Sources */,
 				68C67E6F2282DBEE00244922 /* ApiTokenItems.swift in Sources */,
-				3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDs.swift in Sources */,
+				3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift in Sources */,
 				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
 				B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,

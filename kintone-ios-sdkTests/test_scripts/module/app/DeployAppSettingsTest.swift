@@ -36,7 +36,7 @@ class DeployAppSettingsTest: QuickSpec {
                 AppUtils.deleteApps(appIds: appIds)
             }
             
-            it("Test_64_66_Success_GuestSpaceApp") {
+            it("Test_064_066_Success_GuestSpaceApp") {
                 let app = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 var appIds = [Int]()
                 var appNames = [String]()
@@ -61,7 +61,7 @@ class DeployAppSettingsTest: QuickSpec {
                 AppUtils.deleteApps(appIds: appIds)
             }
             
-            it("Test_65_Success_WithRevertTrue") {
+            it("Test_065_Success_RevertTrue") {
                 let app = App(TestCommonHandling.createConnection())
                 let appName = DataRandomization.generateString()
                 let addPreviewAppResponse = TestCommonHandling.awaitAsync(app.addPreviewApp(appName)) as! PreviewApp
@@ -77,7 +77,7 @@ class DeployAppSettingsTest: QuickSpec {
                 AppUtils.deleteApp(appId: appId)
             }
             
-            it("Test_68_Success_WithoutRevision") {
+            it("Test_068_Success_WithoutRevision") {
                 let app = App(TestCommonHandling.createConnection())
                 let appName = DataRandomization.generateString()
                 let addPreviewAppResponse = TestCommonHandling.awaitAsync(app.addPreviewApp(appName)) as! PreviewApp
@@ -91,7 +91,7 @@ class DeployAppSettingsTest: QuickSpec {
                 AppUtils.deleteApp(appId: appId)
             }
             
-            it("Test_69_Error_WithApiToken") {
+            it("Test_069_Error_ApiToken") {
                 var app = App(TestCommonHandling.createConnection())
                 let appName = DataRandomization.generateString()
                 let appId = AppUtils.createApp(appModule: app, appName: appName, spaceId: TestConstant.InitData.SPACE_ID, threadId: TestConstant.InitData.SPACE_THREAD_ID)
@@ -105,7 +105,7 @@ class DeployAppSettingsTest: QuickSpec {
                 
             }
             
-            it("Test_70_Error_NonexistentApp") {
+            it("Test_070_Error_NonexistentApp") {
                 let app = App(TestCommonHandling.createConnection())
                 let deployAppSettingsResponse = TestCommonHandling.awaitAsync(app.deployAppSettings([PreviewApp(TestConstant.Common.NONEXISTENT_ID)])) as! KintoneAPIException
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()
@@ -113,7 +113,7 @@ class DeployAppSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(deployAppSettingsResponse.getErrorResponse(), expectedError!)
             }
             
-            it("Test_71_Error_WrongRevision") {
+            it("Test_071_Error_WrongRevision") {
                 let app = App(TestCommonHandling.createConnection())
                 let appName = DataRandomization.generateString()
                 let addPreviewAppResponse = TestCommonHandling.awaitAsync(app.addPreviewApp(appName)) as! PreviewApp
@@ -127,7 +127,7 @@ class DeployAppSettingsTest: QuickSpec {
                 AppUtils.deleteApp(appId: appId)
             }
             
-            it("Test_72_Error_InvalidRevision") {
+            it("Test_072_Error_InvalidRevision") {
                 let app = App(TestCommonHandling.createConnection())
                 let appName = DataRandomization.generateString()
                 let addPreviewAppResponse = TestCommonHandling.awaitAsync(app.addPreviewApp(appName)) as! PreviewApp
@@ -141,7 +141,7 @@ class DeployAppSettingsTest: QuickSpec {
                 AppUtils.deleteApp(appId: appId)
             }
             
-            it("Test_74_Error_NonexistedAppId") {
+            it("Test_074_Error_NonexistedAppId") {
                 let app = App(TestCommonHandling.createConnection())
                 let preViewApp = PreviewApp(TestConstant.Common.NONEXISTENT_ID)
                 let deployAppSettingsResponse = TestCommonHandling.awaitAsync(app.deployAppSettings([preViewApp])) as! KintoneAPIException
@@ -150,7 +150,7 @@ class DeployAppSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(deployAppSettingsResponse.getErrorResponse(), expectedError!)
             }
             
-            it("Test_75_Error_ZeroAppId") {
+            it("Test_075_Error_ZeroAppId") {
                 let app = App(TestCommonHandling.createConnection())
                 let preViewApp = PreviewApp(0)
                 let deployAppSettingsResponse = TestCommonHandling.awaitAsync(app.deployAppSettings([preViewApp])) as! KintoneAPIException
@@ -159,7 +159,7 @@ class DeployAppSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(deployAppSettingsResponse.getErrorResponse(), expectedError!)
             }
             
-            it("Test_76_Error_NegativeAppId") {
+            it("Test_076_Error_NegativeAppId") {
                 let app = App(TestCommonHandling.createConnection())
                 let preViewApp = PreviewApp(-4)
                 let deployAppSettingsResponse = TestCommonHandling.awaitAsync(app.deployAppSettings([preViewApp])) as! KintoneAPIException

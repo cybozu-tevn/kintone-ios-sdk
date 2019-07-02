@@ -26,7 +26,7 @@ class GetAppsByNameTest: QuickSpec {
         }
         
         describe("GetAppsByName") {
-            it("Test_041_SuccessWithName") {
+            it("Test_041_Success_Name") {
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(app.getAppsByName(appName)) as! [AppModel]
                 expect(getAppsByNameRsp.count).to(equal(appIds?.count))
                 for app in getAppsByNameRsp {
@@ -38,7 +38,7 @@ class GetAppsByNameTest: QuickSpec {
                 }
             }
             
-            it("Test_041_SuccessWithName_GuestSpaceApp") {
+            it("Test_041_Success_Name_GuestSpace") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 let guestAppIds = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 
@@ -53,7 +53,7 @@ class GetAppsByNameTest: QuickSpec {
                 }
             }
             
-            it("Test_042_049_SuccessWithLimit") {
+            it("Test_042_049_Success_Limit") {
                 let limit = 2
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(app.getAppsByName(appName, nil, limit)) as! [AppModel]
                 expect(getAppsByNameRsp.count).to(equal(limit))
@@ -66,7 +66,7 @@ class GetAppsByNameTest: QuickSpec {
                 }
             }
             
-            it("Test_043_SuccessWithOffset") {
+            it("Test_043_Success_Offset") {
                 let offset = 2
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(app.getAppsByName(appName, offset, nil)) as! [AppModel]
                 expect(getAppsByNameRsp.count).to(equal(appIds!.count - offset))
@@ -90,25 +90,25 @@ class GetAppsByNameTest: QuickSpec {
             //        AppFunctions.deleteApps(appIds: appIds100Apps)
             //    }
             
-            it("Test_045_FailedWithLimitZero") {
+            it("Test_045_Error_LimitZero") {
                 let limit = 0
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(app.getAppsByName(appName, nil, limit)) as! KintoneAPIException
                 TestCommonHandling.compareError(getAppsByNameRsp.getErrorResponse(), KintoneErrorParser.NEGATIVE_LIMIT_ERROR()!)
             }
             
-            it("Test_046_FailedWithLimitGreaterThan100") {
+            it("Test_046_Error_LimitGreaterThan100") {
                 let limit = 101
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(app.getAppsByName(appName, nil, limit)) as! KintoneAPIException
                 TestCommonHandling.compareError(getAppsByNameRsp.getErrorResponse(), KintoneErrorParser.LIMIT_LARGER_THAN_100_ERRORS()!)
             }
             
-            it("Test_047_FailedWithNegativeOffset") {
+            it("Test_047_Error_NegativeOffset") {
                 let offset = -2
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(app.getAppsByName(appName, offset, nil)) as! KintoneAPIException
                 TestCommonHandling.compareError(getAppsByNameRsp.getErrorResponse(), KintoneErrorParser.NEGATIVE_OFFSET_ERROR()!)
             }
             
-            it("Test_050_FailedWithOffsetExceedValue") {
+            it("Test_050_Error_OffsetExceedValue") {
                 let offset = TestConstant.Common.MAX_VALUE + 1
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(app.getAppsByName(appName, offset, nil)) as! KintoneAPIException
                 TestCommonHandling.compareError(getAppsByNameRsp.getErrorResponse(), KintoneErrorParser.OFFSET_LARGER_THAN_2147483647_ERROR()!)
