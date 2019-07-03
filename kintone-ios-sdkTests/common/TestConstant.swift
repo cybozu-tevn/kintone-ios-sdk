@@ -98,6 +98,7 @@ public class TestConstant {
         static let LINK_FIELD = FIELD_CODES[6] // "Link"
         static let ATTACHMENT_FIELD = FIELD_CODES[7] // "Attachment"
         static let TABLE_FIELD = FIELD_CODES[8] // "Table"
+        static let REQUIRE_FIELD = apps.appWithRequiredFields.fieldCodes[0]
         
         // fields code from appWithUniqueFields app
         static let NUMBER_PROHIBIT_DUPLICATE_2ND_FIELD = "Number_unique_2nd"

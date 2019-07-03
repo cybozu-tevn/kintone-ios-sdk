@@ -139,6 +139,7 @@
 		68CE4F0122BB410C00E6E23A /* GetFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */; };
 		68CE4F0322BB9CED00E6E23A /* AddFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */; };
 		68CE4F0522BCC8BC00E6E23A /* UpdateFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */; };
+		68F9923622CC428100B0C550 /* AddRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9923522CC428100B0C550 /* AddRecordsTest.swift */; };
 		A88FEE1C2159DD8B00A7E838 /* UpdateViewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */; };
 		A88FEE1D2159DD8B00A7E838 /* GetAppsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */; };
 		A88FEE1E2159DD8B00A7E838 /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE042159DD8A00A7E838 /* BasicResponse.swift */; };
@@ -400,6 +401,7 @@
 		68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFormFieldsTest.swift; sourceTree = "<group>"; };
 		68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFormFieldsTest.swift; sourceTree = "<group>"; };
 		68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFormFieldsTest.swift; sourceTree = "<group>"; };
+		68F9923522CC428100B0C550 /* AddRecordsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordsTest.swift; sourceTree = "<group>"; };
 		A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewsResponse.swift; sourceTree = "<group>"; };
 		A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsResponse.swift; sourceTree = "<group>"; };
 		A88FEE042159DD8A00A7E838 /* BasicResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
@@ -1316,6 +1318,7 @@
 				68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */,
 				68CE4EF622B0FBC600E6E23A /* GetCommentsTest.swift */,
 				68CE4EF822B0FBE300E6E23A /* DeleteCommentTest.swift */,
+				68F9923522CC428100B0C550 /* AddRecordsTest.swift */,
 			);
 			path = record;
 			sourceTree = "<group>";
@@ -1760,6 +1763,7 @@
 				68C67E262280433600244922 /* KintoneError.swift in Sources */,
 				68C67E7C2282DC8D00244922 /* GetApiTokenListResponse.swift in Sources */,
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,
+				68F9923622CC428100B0C550 /* AddRecordsTest.swift in Sources */,
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
 				B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */,
 				68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */,
