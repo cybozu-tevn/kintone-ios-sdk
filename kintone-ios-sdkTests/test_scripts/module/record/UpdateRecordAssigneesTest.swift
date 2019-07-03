@@ -1,5 +1,5 @@
 //
-//  UpdateRecordStatusTest.swift
+//  UpdateRecordAssigneesTest.swift
 //  kintone-ios-sdkTests
 //
 
@@ -9,10 +9,8 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class UpdateRecordAssigneesTest: QuickSpec {
-    
     override func spec() {
         let appId = TestConstant.InitData.APP_ID_HAS_PROCESS!
-        let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
         let textField: String! = TestConstant.InitData.TEXT_FIELD
         var recordId: Int!
         var revision: Int!
@@ -35,9 +33,9 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
             
-            it("Test_155_OneAssignee") {
+            it("Test_155_Success_OneAssignee") {
                 // Update Assignees for current state
-                let result = TestCommonHandling.awaitAsync(
+                let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
                     recordModule.getRecord(appId, recordId)) as! GetRecordResponse
@@ -47,11 +45,11 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 // Verify:
                 // - Revision is increased by 1
                 // - Assignee is updated
-                expect(result.getRevision()).to(equal(revision + 1))
+                expect(updateRecordResponse.getRevision()).to(equal(revision + 1))
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
             }
             
-            it("Test_157_MultiAssignees") {
+            it("Test_157_Success_MultiAssignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
@@ -59,7 +57,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 
                 // Update Assignees for current state
                 let assignees = [TestConstant.InitData.USERS[0].username, TestConstant.InitData.USERS[1].username]
-                let result = TestCommonHandling.awaitAsync(
+                let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
                 
@@ -71,12 +69,12 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 // Verify:
                 // - Revision is increased
                 // - Assignees are updated
-                expect(result.getRevision()).to(equal(revision))
+                expect(updateRecordResponse.getRevision()).to(equal(revision))
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
             
-            it("Test_158_100Assignees") {
+            it("Test_158_Success_100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
@@ -84,7 +82,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 
                 // Set 100 assignees for current state of record
                 let assignees = DataRandomization.generateDataItems(numberOfItems: 100, prefix: "user")
-                let result = TestCommonHandling.awaitAsync(
+                let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
                 
@@ -96,7 +94,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 // Verify:
                 // - Revision is increased
                 // - Assignees are updated
-                expect(result.getRevision()).to(equal(revision))
+                expect(updateRecordResponse.getRevision()).to(equal(revision))
                 for i in 0...99 {
                     expect(recordAssignees[i].getName()).to(equal(assignees[i]))
                 }
@@ -137,20 +135,20 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_162_DefaultRevision") {
+            it("Test_162_Success_DefaultRevision") {
                 let defaultRevision = -1
-                let result = TestCommonHandling.awaitAsync(
+                let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordAssignees(appId, recordId, assignees, defaultRevision)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
                     recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
-                expect(result.getRevision()).to(equal(revision + 1))
+                expect(updateRecordResponse.getRevision()).to(equal(revision + 1))
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
             }
             
-            it("Test_163_Error_DuplicateAssignee") {
+            it("Test_163_Success_DuplicateAssignee") {
                 let assignees = [TestConstant.InitData.USERS[0].username, TestConstant.InitData.USERS[0].username]
                 let result = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
@@ -197,7 +195,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_167_NoPermissionField") {
+            it("Test_167_Error_NoPermissionField") {
                 let recordModuleWithoutPermissionField = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(
@@ -214,9 +212,9 @@ class UpdateRecordAssigneesTest: QuickSpec {
                     recordModule.updateRecordAssignees(TestConstant.Common.NONEXISTENT_ID, recordId, assignees, nil)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()
-                var errorMessage = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
-                errorMessage.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
-                TestCommonHandling.compareError(result.getErrorResponse(), errorMessage)
+                var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
+                TestCommonHandling.compareError(actualError, expectedError)
                 
                 // negative appID
                 result = TestCommonHandling.awaitAsync(
@@ -267,6 +265,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
         
         // ---------------- GUEST SPACE
         describe("UpdateRecordAssignees_2") {
+            let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
             let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
                 TestConstant.Connection.CRED_ADMIN_USERNAME,
                 TestConstant.Connection.CRED_ADMIN_PASSWORD,
@@ -285,8 +284,8 @@ class UpdateRecordAssigneesTest: QuickSpec {
                     recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [recordId]))
             }
             
-            it("Test_155_OneAssignee") {
-                let result = TestCommonHandling.awaitAsync(
+            it("Test_155_Success_OneAssignee") {
+                let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.updateRecordAssignees(guestSpaceAppId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.getRecord(guestSpaceAppId, recordId)) as! GetRecordResponse
@@ -296,11 +295,11 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 // Verify:
                 // - Revision is increased by 1
                 // - Assignee is updated
-                expect(result.getRevision()).to(equal(revision + 1))
+                expect(updateRecordResponse.getRevision()).to(equal(revision + 1))
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
             }
             
-            it("Test_157_MultiAssignees") {
+            it("Test_157_Success_MultiAssignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil))
@@ -308,7 +307,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 
                 // Update Assignees for current state
                 let assignees = [TestConstant.InitData.USERS[0].username, TestConstant.InitData.USERS[1].username]
-                let result = TestCommonHandling.awaitAsync(
+                let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.updateRecordAssignees(guestSpaceAppId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
                 
@@ -320,7 +319,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 // Verify:
                 // - Revision is increased
                 // - Assignees are updated
-                expect(result.getRevision()).to(equal(revision))
+                expect(updateRecordResponse.getRevision()).to(equal(revision))
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
@@ -334,7 +333,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
             //
             //                // Set 100 assignees for current state of record
             //                let assignees = DataRandomization.generateDataItems(numberOfItems: 100, prefix: "user")
-            //                let result = TestCommonHandling.awaitAsync(
+            //                let updateRecordResponse = TestCommonHandling.awaitAsync(
             //                    recordModuleGuestSpace.updateRecordAssignees(guestSpaceAppId, recordId, assignees, nil)) as! UpdateRecordResponse
             //                revision += 1
             //
@@ -346,7 +345,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
             //                // Verify:
             //                // - Revision is increased
             //                // - Assignees are updated
-            //                expect(result.getRevision()).to(equal(revision))
+            //                expect(updateRecordResponse.getRevision()).to(equal(revision))
             //                for i in 0...99 {
             //                    expect(recordAssignees[i].getName()).to(equal(assignees[i]))
             //                }
@@ -370,7 +369,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                     recordModule.deleteRecords(appId, [recordId]))
             }
             
-            it("Test_155_OneAssignee") {
+            it("Test_155_Success_OneAssignee") {
                 let result = TestCommonHandling.awaitAsync(
                     recordModuleAPIToken.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
@@ -385,7 +384,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
             }
             
-            it("Test_157_MultiAssignees") {
+            it("Test_157_Success_MultiAssignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
@@ -410,7 +409,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
             
-            it("Test_158_100Assignees") {
+            it("Test_158_Success_100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
