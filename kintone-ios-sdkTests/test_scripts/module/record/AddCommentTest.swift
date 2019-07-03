@@ -3,7 +3,6 @@
 // Created on 6/12/19
 //
 
-import Foundation
 import Quick
 import Nimble
 @testable import kintone_ios_sdk

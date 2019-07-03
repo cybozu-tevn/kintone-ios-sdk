@@ -3,8 +3,6 @@
 // Created on 5/24/19
 // 
 
-import Foundation
-
 class DataRandomization {
     
     /// Generate random string with uppercase letters only

@@ -3,7 +3,6 @@
 // Created on 5/27/19
 // 
 
-import Foundation
 import kintone_ios_sdk
 import XCTest
 @testable import Promises

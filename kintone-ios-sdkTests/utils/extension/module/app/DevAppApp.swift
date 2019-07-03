@@ -3,7 +3,6 @@
 //  kintone-ios-sdkTests
 //
 
-import Foundation
 import Promises
 import kintone_ios_sdk
 public protocol DevAppApp {

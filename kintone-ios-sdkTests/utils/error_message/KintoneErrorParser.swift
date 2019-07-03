@@ -6,8 +6,6 @@
 //  Copyright © 2019 Cybozu. All rights reserved.
 //
 
-import Foundation
-
 class KintoneErrorParser {
     static let result = TestCommonHandling.handleDoTryCatch {try JSONHandler("KintoneErrorMessage").parseJSON(KintoneErrorMessage.self)} as! KintoneErrorMessage
     

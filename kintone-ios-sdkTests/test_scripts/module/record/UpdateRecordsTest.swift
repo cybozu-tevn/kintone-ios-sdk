@@ -3,7 +3,6 @@
 // Created on 5/8/19
 // 
 
-import Foundation
 import Quick
 import Nimble
 @testable import Promises
