@@ -3,7 +3,6 @@
 // Created on 5/7/19
 //
 
-import Foundation
 import Quick
 import Nimble
 @testable import Promises
@@ -11,11 +10,11 @@ import Nimble
 
 class DeleteRecordsWithRevisionTest: QuickSpec {
     override func spec() {
-        let AppId = TestConstant.InitData.APP_ID!
+        let appId = TestConstant.InitData.APP_ID!
         let textField: String = TestConstant.InitData.TEXT_FIELD
-        var textValues = [String]()
+        var textFieldValues = [String]()
         var testData: Dictionary<String, FieldValue>!
-        let NUMBER_OF_RECORDS = 5
+        let numberOfRecords = 5
         
         let recordModule = Record(TestCommonHandling.createConnection())
         
@@ -25,7 +24,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let testDataList = [testData]
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -34,11 +33,11 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 for (index, value) in recordIDs.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(AppId, dictOfIDAndRevision))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, dictOfIDAndRevision))
                 
                 // Verify deleted records not existing
                 for item in recordIDs {
-                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, item)) as! KintoneAPIException
+                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, item)) as! KintoneAPIException
                     
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                     expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(item))
@@ -48,12 +47,12 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             
             it("Test_141_Success_MultipleRecords") {
                 var testDataList = [Dictionary<String, FieldValue>]()
-                for _ in 0...NUMBER_OF_RECORDS-1 {
+                for _ in 0...numberOfRecords-1 {
                     let textValue = DataRandomization.generateString()
                     let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                     testDataList.append(testData)
                 }
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -61,10 +60,10 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 for (index, value) in recordIDs.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(AppId, dictOfIDAndRevision))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, dictOfIDAndRevision))
                 
                 for item in recordIDs {
-                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, item)) as! KintoneAPIException
+                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, item)) as! KintoneAPIException
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                     expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(item))
                     TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
@@ -72,7 +71,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             }
             
             it("Test_142_Error_NonexistentRecord") {
-                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(AppId, [TestConstant.Common.NONEXISTENT_ID:nil])) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, [TestConstant.Common.NONEXISTENT_ID:nil])) as! KintoneAPIException
                 
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
@@ -84,34 +83,34 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let testDataList = [testData]
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 
                 var dictOfIDAndRevision = [Int:Int]()
                 for (_, value) in recordIDs.enumerated() {
                     dictOfIDAndRevision[value] = TestConstant.Common.NONEXISTENT_ID
                 }
-                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(AppId, dictOfIDAndRevision)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, dictOfIDAndRevision)) as! KintoneAPIException
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.INCORRECT_REVISION_RECORD_ERROR()!)
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, recordIDs))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIDs))
             }
             
             it("Test_144_RevisionNegative1") {
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let testDataList = [testData]
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 
                 var dictOfIDAndRevision = [Int:Int]()
                 for (_, value) in recordIDs.enumerated() {
                     dictOfIDAndRevision[value] = -1
                 }
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(AppId, dictOfIDAndRevision))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, dictOfIDAndRevision))
                 
                 for item in recordIDs {
-                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, item)) as! KintoneAPIException
+                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, item)) as! KintoneAPIException
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                     expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(item))
                     TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
@@ -122,7 +121,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let testDataList = [testData]
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -132,18 +131,18 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 }
                 let recordModuleWithoutDeleteRecordPermissionOnApp = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORDS_PERMISSION, TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORDS_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutDeleteRecordPermissionOnApp.deleteRecordsWithRevision(AppId, dictOfIDAndRevision)) as! KintoneAPIException
+                    recordModuleWithoutDeleteRecordPermissionOnApp.deleteRecordsWithRevision(appId, dictOfIDAndRevision)) as! KintoneAPIException
                 
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, recordIDs))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIDs))
             }
             
             it("Test_146_Error_NoPermissionRecord") {
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let testDataList = [testData]
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -153,18 +152,18 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 }
                 let recordModuleWithoutDeleteRecordPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORD_PERMISSION, TestConstant.Connection.CRED_USERNAME_WITHOUT_DELETE_RECORD_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutDeleteRecordPermission.deleteRecordsWithRevision(AppId, dictOfIDAndRevision)) as! KintoneAPIException
+                    recordModuleWithoutDeleteRecordPermission.deleteRecordsWithRevision(appId, dictOfIDAndRevision)) as! KintoneAPIException
                 
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, recordIDs))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIDs))
             }
             
             it("Test_147_Error_NonexistentApp") {
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let testDataList = [testData]
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -179,14 +178,14 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
                 TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, recordIDs))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIDs))
             }
             
             it("Test_148_Error_NegativeAppID") {
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let testDataList = [testData]
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -201,7 +200,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: "-1")
                 TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, recordIDs))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIDs))
             }
             
             it("Test_153_100Records") {
@@ -212,7 +211,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                     testDataList.append(testData)
                 }
                 
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -220,10 +219,10 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 for (index, value) in recordIDs.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(AppId, dictOfIDAndRevision))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, dictOfIDAndRevision))
                 
                 for item in recordIDs {
-                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(AppId, item)) as! KintoneAPIException
+                    let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, item)) as! KintoneAPIException
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                     expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(item))
                     TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
@@ -238,14 +237,14 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                     let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                     testDataList.append(testData)
                 }
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
                 var recordIDs = addRecordsResponse.getIDs()!
                 var recordRevisions = addRecordsResponse.getRevisions()!
                 
                 // Add the 101st record
                 let textValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(AppId, testData)) as! AddRecordResponse
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse
                 let recordId = addRecordResponse.getId()!
                 recordIDs.append(recordId)
                 recordRevisions.append(addRecordResponse.getRevision()!)
@@ -254,18 +253,18 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 for (index, value) in recordIDs.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
-                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(AppId, dictOfIDAndRevision)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, dictOfIDAndRevision)) as! KintoneAPIException
                 
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.RECORD_ID_AND_REVISION_LARGER_THAN_100_ERROR()!)
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, recordIDs))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIDs))
             }
             
             it("Test_128_Success_MultipleRecordsGuestSpace") {
                 var testDataList = [Dictionary<String, FieldValue>]()
-                for i in 0...NUMBER_OF_RECORDS-1 {
-                    textValues.append(DataRandomization.generateString(prefix: "Record", length: 10))
-                    testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValues[i])
+                for i in 0...numberOfRecords-1 {
+                    textFieldValues.append(DataRandomization.generateString(prefix: "Record", length: 10))
+                    testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
                     testDataList.append(testData)
                     testData = [:]
                 }
@@ -297,15 +296,15 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             
             it("Test_128_Success_MultipleRecordsAPIToken") {
                 var testDataList = [Dictionary<String, FieldValue>]()
-                for i in 0...NUMBER_OF_RECORDS-1 {
-                    textValues.append(DataRandomization.generateString(prefix: "Record", length: 10))
-                    testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValues[i])
+                for i in 0...numberOfRecords-1 {
+                    textFieldValues.append(DataRandomization.generateString(prefix: "Record", length: 10))
+                    testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
                     testDataList.append(testData)
                     testData = [:]
                 }
                 
                 let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
-                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.addRecords(AppId, testDataList)) as! AddRecordsResponse
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.addRecords(appId, testDataList)) as! AddRecordsResponse
                 let recordIDs = addRecordsResponse.getIDs()!
                 let recordRevisions = addRecordsResponse.getRevisions()!
                 
@@ -313,10 +312,10 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 for (index, value) in recordIDs.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
-                _ = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.deleteRecordsWithRevision(AppId, dictOfIDAndRevision))
+                _ = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.deleteRecordsWithRevision(appId, dictOfIDAndRevision))
                 
                 for item in recordIDs {
-                    let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecord(AppId, item)) as! KintoneAPIException
+                    let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecord(appId, item)) as! KintoneAPIException
                     let actualError = result.getErrorResponse()
                     var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                     expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(item))

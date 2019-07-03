@@ -3,7 +3,6 @@
 //  kintone-ios-sdkTests
 //
 
-import Foundation
 import Quick
 import Nimble
 @testable import Promises
@@ -12,7 +11,7 @@ import Nimble
 class UpdateRecordAssigneesTest: QuickSpec {
     
     override func spec() {
-        let AppId = TestConstant.InitData.APP_ID_HAS_PROCESS!
+        let appId = TestConstant.InitData.APP_ID_HAS_PROCESS!
         let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
         let textField: String! = TestConstant.InitData.TEXT_FIELD
         var recordId: Int!
@@ -27,20 +26,21 @@ class UpdateRecordAssigneesTest: QuickSpec {
             beforeEach {
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 let addRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.addRecord(AppId, testData)) as! AddRecordResponse
+                    recordModule.addRecord(appId, testData)) as! AddRecordResponse
                 recordId = addRecordResponse.getId()
                 revision = addRecordResponse.getRevision()
             }
-
+            
             afterEach {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, [recordId]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
             
             it("Test_155_OneAssignee") {
+                // Update Assignees for current state
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, assignees, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
@@ -54,17 +54,17 @@ class UpdateRecordAssigneesTest: QuickSpec {
             it("Test_157_MultiAssignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
+                    recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
                 revision += 2
                 
                 // Update Assignees for current state
                 let assignees = [TestConstant.InitData.USERS[0].username, TestConstant.InitData.USERS[1].username]
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, assignees, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
                 
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
@@ -79,17 +79,17 @@ class UpdateRecordAssigneesTest: QuickSpec {
             it("Test_158_100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
+                    recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
                 revision += 2
                 
                 // Set 100 assignees for current state of record
                 let assignees = DataRandomization.generateDataItems(numberOfItems: 100, prefix: "user")
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, assignees, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
                 
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
@@ -105,39 +105,44 @@ class UpdateRecordAssigneesTest: QuickSpec {
             it("Test_159_Error_MoreThan100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
+                    recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
                 revision += 2
                 
                 // Set more than 100 assignees for current state of record
                 let assignees = DataRandomization.generateDataItems(numberOfItems: 101, prefix: "user")
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, assignees, nil)) as! KintoneAPIException
+                    recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.ASSIGNEES_MORE_THAN_100_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.ASSIGNEES_MORE_THAN_100_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_160_Error_InvalidRecordID") {
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, TestConstant.Common.NONEXISTENT_ID, assignees, nil)) as! KintoneAPIException
+                    recordModule.updateRecordAssignees(appId, TestConstant.Common.NONEXISTENT_ID, assignees, nil)) as! KintoneAPIException
                 
-                var errorMessage = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                errorMessage.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
-                TestCommonHandling.compareError(result.getErrorResponse(), errorMessage)
+                let actualError = result.getErrorResponse()
+                var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_161_Error_InvalidRevision") {
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, assignees, 9999)) as! KintoneAPIException
+                    recordModule.updateRecordAssignees(appId, recordId, assignees, 9999)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.INCORRECT_REVISION_RECORD_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.INCORRECT_REVISION_RECORD_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_162_DefaultRevision") {
                 let defaultRevision = -1
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, assignees, defaultRevision)) as! UpdateRecordResponse
+                    recordModule.updateRecordAssignees(appId, recordId, assignees, defaultRevision)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
@@ -148,9 +153,9 @@ class UpdateRecordAssigneesTest: QuickSpec {
             it("Test_163_Error_DuplicateAssignee") {
                 let assignees = [TestConstant.InitData.USERS[0].username, TestConstant.InitData.USERS[0].username]
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, assignees, nil)) as! UpdateRecordResponse
+                    recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
@@ -162,38 +167,45 @@ class UpdateRecordAssigneesTest: QuickSpec {
             it("Test_164_Error_NonexistentAssignee") {
                 let nonexistentUser = ["nonexistent user blah blah"]
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordAssignees(AppId, recordId, nonexistentUser, nil)) as! KintoneAPIException
+                    recordModule.updateRecordAssignees(appId, recordId, nonexistentUser, nil)) as! KintoneAPIException
                 
+                let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_USER_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: nonexistentUser[0])
-                TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_165_Error_NoPermissionApp") {
                 let recordModuleWithoutPermissionApp = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutPermissionApp.updateRecordAssignees(AppId, recordId, assignees, nil)) as! KintoneAPIException
+                    recordModuleWithoutPermissionApp.updateRecordAssignees(appId, recordId, assignees, nil)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_166_Error_NoPermissionRecord") {
                 let recordModuleWithoutPermissionRecord = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutPermissionRecord.updateRecordAssignees(AppId, recordId, assignees, nil)) as! KintoneAPIException
+                    recordModuleWithoutPermissionRecord.updateRecordAssignees(appId, recordId, assignees, nil)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_167_NoPermissionField") {
                 let recordModuleWithoutPermissionField = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutPermissionField.updateRecordAssignees(AppId, recordId, assignees, nil)) as! KintoneAPIException
+                    recordModuleWithoutPermissionField.updateRecordAssignees(appId, recordId, assignees, nil)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_169_Error_InvalidAppID") {
@@ -201,6 +213,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 var result = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordAssignees(TestConstant.Common.NONEXISTENT_ID, recordId, assignees, nil)) as! KintoneAPIException
                 
+                let actualError = result.getErrorResponse()
                 var errorMessage = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 errorMessage.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
                 TestCommonHandling.compareError(result.getErrorResponse(), errorMessage)
@@ -246,7 +259,9 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 // let result = TestCommonHandling.awaitAsync(
                 // recordModule.updateRecordAssignees(AppId, recordId, assignees, nil)) as! KintoneAPIException
                 //
-                // TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PROCESS_MANAGEMENT_DISABLED_ERROR()!)
+                // let actualError = result.getErrorResponse()
+                // let expectedError = KintoneErrorParser.PROCESS_MANAGEMENT_DISABLED_ERROR()!
+                // TestCommonHandling.compareError(actualError, expectedError)
             }
         }
         
@@ -345,21 +360,21 @@ class UpdateRecordAssigneesTest: QuickSpec {
             beforeEach {
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 let addRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.addRecord(AppId, testData)) as! AddRecordResponse
+                    recordModuleAPIToken.addRecord(appId, testData)) as! AddRecordResponse
                 recordId = addRecordResponse.getId()
                 revision = addRecordResponse.getRevision()
             }
             
             afterEach {
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.deleteRecords(AppId, [recordId]))
+                    recordModule.deleteRecords(appId, [recordId]))
             }
             
             it("Test_155_OneAssignee") {
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordAssignees(AppId, recordId, assignees, nil)) as! UpdateRecordResponse
+                    recordModuleAPIToken.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
@@ -373,17 +388,17 @@ class UpdateRecordAssigneesTest: QuickSpec {
             it("Test_157_MultiAssignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
+                    recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
                 revision += 2
                 
                 // Update Assignees for current state
                 let assignees = [TestConstant.InitData.USERS[0].username, TestConstant.InitData.USERS[1].username]
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordAssignees(AppId, recordId, assignees, nil)) as! UpdateRecordResponse
+                    recordModuleAPIToken.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
                 
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 
@@ -398,17 +413,17 @@ class UpdateRecordAssigneesTest: QuickSpec {
             it("Test_158_100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordStatus(AppId, recordId, startAction, nil, nil))
+                    recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
                 revision += 2
                 
                 // Set 100 assignees for current state of record
                 let assignees = DataRandomization.generateDataItems(numberOfItems: 100, prefix: "user")
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordAssignees(AppId, recordId, assignees, nil)) as! UpdateRecordResponse
+                    recordModuleAPIToken.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
                 
                 let getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, recordId)) as! GetRecordResponse
+                    recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 let recordData = getRecordResponse.getRecord()!
                 let recordAssignees = recordData["Assignee"]?.getValue() as! [Member]
                 

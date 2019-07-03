@@ -3,7 +3,6 @@
 //  kintone-ios-sdkTests
 //
 
-import Foundation
 import Quick
 import Nimble
 @testable import Promises
@@ -11,69 +10,60 @@ import Nimble
 
 class GetRecordsTest: QuickSpec {
     override func spec() {
-        let APP_ID = TestConstant.InitData.APP_ID!
-        let TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
-        let NUMBER_OF_RECORDS = 5
-        var recordIDs = [Int]()
-        var recordTextValues = [String]()
-        var testData: Dictionary<String, FieldValue>!
+        let appId = TestConstant.InitData.APP_ID!
+        let textField: String! = TestConstant.InitData.TEXT_FIELD
+        let numberOfRecords = 5
+        var recordIds = [Int]()
+        var textFieldValues = [String]()
         var testDataList = [Dictionary<String, FieldValue>]()
         var query: String!
         let recordModule = Record(TestCommonHandling.createConnection())
         
         beforeSuite {
-            // Prepare records
-            for i in 0...NUMBER_OF_RECORDS-1 {
-                recordTextValues.append(DataRandomization.generateString())
-                testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValues[i])
-                testDataList.append(testData)
-                testData = [:]
-            }
-            
-            let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(APP_ID, testDataList)) as! AddRecordsResponse
-            recordIDs = addRecordsResponse.getIDs()!
-            
-            query = RecordUtils.getRecordsQuery(recordIDs)
+            _prepareRecords(numberOfRecords)
+            query = RecordUtils.getRecordsQuery(recordIds)
         }
         
         afterSuite {
-            RecordUtils.deleteAllRecords(recordModule: recordModule, appID: APP_ID)
+            RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
         }
         
-        describe("GetRecordsTest") {
+        describe("GetRecords") {
             it("Test_004_Success_ValidData") {
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.getRecords(APP_ID, query, [TEXT_FIELD], true)) as! GetRecordsResponse
+                    recordModule.getRecords(appId, query, [textField], true)) as! GetRecordsResponse
                 
-                expect(result.getTotalCount()!).to(equal(NUMBER_OF_RECORDS))
+                expect(result.getTotalCount()!).to(equal(numberOfRecords))
                 for(index, dval) in (result.getRecords()!.enumerated()) {
                     for (_, value) in dval {
-                        expect(value.getValue() as? String).to(equal(recordTextValues[index]))
+                        expect(value.getValue() as? String).to(equal(textFieldValues[index]))
                     }
                 }
             }
             
-            it("Test_005_Error_NonexistentAppID") {
+            it("Test_005_Error_NonexistentAppId") {
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.getRecords(TestConstant.Common.NONEXISTENT_ID, query, [TEXT_FIELD], true)) as! KintoneAPIException
+                    recordModule.getRecords(TestConstant.Common.NONEXISTENT_ID, query, [textField], true)) as! KintoneAPIException
                 
+                let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
-                TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_005_Error_NegativeAppID") {
+            it("Test_005_Error_NegativeAppId") {
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.getRecords(-4, query, [TEXT_FIELD], true)) as! KintoneAPIException
+                    recordModule.getRecords(-4, query, [textField], true)) as! KintoneAPIException
                 
+                let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(-4))
-                TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_006_Error_InvalidQuery") {
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.getRecords(APP_ID, "invalid", [TEXT_FIELD], true)) as! KintoneAPIException
+                    recordModule.getRecords(appId, "invalid", [textField], true)) as! KintoneAPIException
                 
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.INVALID_QUERY_GET_DATA_ERROR()!)
             }
@@ -82,7 +72,7 @@ class GetRecordsTest: QuickSpec {
                 let recordModuleWithoutViewRecordsPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutViewRecordsPermission.getRecords(APP_ID, query, [TEXT_FIELD], true)) as! KintoneAPIException
+                    recordModuleWithoutViewRecordsPermission.getRecords(appId, query, [textField], true)) as! KintoneAPIException
                 
                 TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
             }
@@ -91,7 +81,7 @@ class GetRecordsTest: QuickSpec {
                 let recordModuleWithoutViewOnRecordPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutViewOnRecordPermission.getRecords(APP_ID, query, [TEXT_FIELD], true)) as! GetRecordsResponse
+                    recordModuleWithoutViewOnRecordPermission.getRecords(appId, query, [textField], true)) as! GetRecordsResponse
                 
                 expect(result.getTotalCount()).to(equal(0))
             }
@@ -100,7 +90,7 @@ class GetRecordsTest: QuickSpec {
                 let recordModuleWithoutViewOnFieldPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithoutViewOnFieldPermission.getRecords(APP_ID, query, [TEXT_FIELD], true)) as! GetRecordsResponse
+                    recordModuleWithoutViewOnFieldPermission.getRecords(appId, query, [textField], true)) as! GetRecordsResponse
                 
                 for(_, dval) in (result.getRecords()!.enumerated()) {
                     expect(dval).to(equal([:]))
@@ -108,31 +98,26 @@ class GetRecordsTest: QuickSpec {
             }
             
             it("Test_025_Success_RetrivedAtOneIs500") {
-                //We have create 5 records at setUp so we just need more 455
-                let countNumber = 495
-                
-                for _ in 1...5 {
-                    var testDataListTmp = [Dictionary<String, FieldValue>]()
-                    for _ in 0...countNumber/5-1 {
-                        recordTextValues.append(DataRandomization.generateString())
-                        testData = RecordUtils.setRecordData([:], TEXT_FIELD, FieldType.SINGLE_LINE_TEXT, recordTextValues[recordTextValues.count-1])
-                        testDataListTmp.append(testData)
-                        testData = [:]
-                    }
-                    let addRecordsResponse = TestCommonHandling.awaitAsync(
-                        recordModule.addRecords(APP_ID, testDataListTmp)) as! AddRecordsResponse
-                    recordIDs += addRecordsResponse.getIDs()!
-                    testDataList += testDataListTmp
+                // There are 5 records prepared at beforeSuite hook so we just need prepare more 495 records
+                var recordIds_500 = recordIds
+                var textFieldValues_500 = textFieldValues
+                for _ in 0...3 {
+                    _prepareRecords(100)
+                    recordIds_500 += recordIds
+                    textFieldValues_500 += textFieldValues
                 }
+                _prepareRecords(95)
+                recordIds_500 += recordIds
+                textFieldValues_500 += textFieldValues
                 
-                let query = RecordUtils.getRecordsQuery(recordIDs)
+                let query = RecordUtils.getRecordsQuery(recordIds_500)
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.getRecords(APP_ID, query, [TEXT_FIELD], true)) as! GetRecordsResponse
+                    recordModule.getRecords(appId, query, [textField], true)) as! GetRecordsResponse
                 
                 expect(result.getTotalCount()).to(equal(500))
                 for(index, dval) in (result.getRecords()!.enumerated()) {
                     for (_, value) in dval {
-                        expect(value.getValue() as? String).to(equal(recordTextValues[index]))
+                        expect(value.getValue() as? String).to(equal(textFieldValues_500[index]))
                     }
                 }
             }
@@ -140,17 +125,27 @@ class GetRecordsTest: QuickSpec {
             it("Test_026_Error_QueryLargerThan500") {
                 let query = "$id > 0 order by $id asc limit 999 offset 0"
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.getRecords(APP_ID, query, [TEXT_FIELD], true)) as! KintoneAPIException
+                    recordModule.getRecords(appId, query, [textField], true)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.LIMIT_LARGER_THAN_500_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.LIMIT_LARGER_THAN_500_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_014_Success_ValidDataGuestSpace") {
+            // --------- GUEST SPACE ---------
+            it("Test_014_Success_ValidData_GuestSpace") {
                 let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     TestConstant.InitData.GUEST_SPACE_ID!))
                 let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
+                var textFieldValues = [String]()
+                var testDataList = [Dictionary<String, FieldValue>]()
+                for i in 0...numberOfRecords-1 {
+                    textFieldValues.append(DataRandomization.generateString())
+                    let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
+                    testDataList.append(testData)
+                }
                 
                 let addRecordsResponseGuestSpace = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.addRecords(guestSpaceAppId, testDataList)) as! AddRecordsResponse
@@ -166,31 +161,44 @@ class GetRecordsTest: QuickSpec {
                 }
                 let queryGuestSpace = "$id in " + idsStringGuestSpace + ")" +  " order by $id asc"
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleGuestSpace.getRecords(guestSpaceAppId, queryGuestSpace, [TEXT_FIELD], true)) as! GetRecordsResponse
+                    recordModuleGuestSpace.getRecords(guestSpaceAppId, queryGuestSpace, [textField], true)) as! GetRecordsResponse
                 
-                expect(result.getTotalCount()!).to(equal(NUMBER_OF_RECORDS))
+                expect(result.getTotalCount()!).to(equal(numberOfRecords))
                 for(index, dval) in (result.getRecords()!.enumerated()) {
                     for (_, value) in dval {
-                        expect(value.getValue() as? String).to(equal(recordTextValues[index]))
+                        expect(value.getValue() as? String).to(equal(textFieldValues[index]))
                     }
                 }
                 
                 RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: guestSpaceAppId)
             }
             
-            it("Test_014_Success_APITokenValidData") {
+            // --------- API Token ---------
+            it("Test_014_Success_ValidData_APIToken") {
                 let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModuleWithAPIToken.getRecords(APP_ID, query, [TEXT_FIELD], true)) as! GetRecordsResponse
+                    recordModuleWithAPIToken.getRecords(appId, query, [textField], true)) as! GetRecordsResponse
                 
-                expect(result.getTotalCount()!).to(equal(NUMBER_OF_RECORDS))
+                expect(result.getTotalCount()!).to(equal(numberOfRecords))
                 for(index, dval) in (result.getRecords()!.enumerated()) {
                     for (_, value) in dval {
-                        expect(value.getValue() as? String).to(equal(recordTextValues[index]))
+                        expect(value.getValue() as? String).to(equal(textFieldValues[index]))
                     }
                 }
             }
+        }
+        
+        func _prepareRecords(_ numberOfRecords: Int) {
+            var testDataList = [Dictionary<String, FieldValue>]()
+            for i in 0...numberOfRecords-1 {
+                textFieldValues.append(DataRandomization.generateString())
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
+                testDataList.append(testData)
+            }
+            
+            let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
+            recordIds = addRecordsResponse.getIDs()!
         }
     }
 }
