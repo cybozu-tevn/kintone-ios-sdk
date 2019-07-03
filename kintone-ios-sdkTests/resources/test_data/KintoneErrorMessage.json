@@ -7,6 +7,10 @@
         "code": "CB_NO02",
         "message": "No privilege to proceed."
     },
+    "PERMISSION_EDIT_FIELD_ERROR": {
+        "code": "GAIA_FU01",
+        "message": "Edit permissions are required to edit field \"%VARIABLE\"."
+    },
     "MISSING_APPS_ERROR": {
         "code": "CB_VA01",
         "message": "Missing or invalid input.",

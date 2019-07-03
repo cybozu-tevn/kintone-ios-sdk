@@ -17,6 +17,10 @@ class KintoneErrorParser {
         return result.PERMISSION_ERROR
     }
     
+    static func PERMISSION_EDIT_FIELD_ERROR() -> KintoneError? {
+        return result.PERMISSION_EDIT_FIELD_ERROR
+    }
+    
     static func MISSING_APPS_ERROR() -> KintoneError? {
         return result.MISSING_APPS_ERROR
     }

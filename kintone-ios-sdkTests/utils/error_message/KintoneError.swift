@@ -9,7 +9,8 @@
 internal class KintoneErrorMessage: Codable {
     var API_TOKEN_ERROR: KintoneError!
     var PERMISSION_ERROR: KintoneError!
-    
+    var PERMISSION_EDIT_FIELD_ERROR: KintoneError!
+
     var MISSING_APPS_ERROR: KintoneError!
     var MISSING_APP_ERROR: KintoneError!
     var MISSING_APP_ID_ERROR: KintoneError!
