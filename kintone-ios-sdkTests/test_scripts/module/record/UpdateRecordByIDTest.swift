@@ -22,7 +22,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 // Prepare record
                 let recordId = _prepareRecord(appId)
                 
-                // Set new value and update record by id
+                // Set new value for text field and update record by id
                 let textFieldValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appId, recordId, testData, 1)) as! UpdateRecordResponse
@@ -132,11 +132,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
             }
             
-            // When you wan to check different cases below please set up by manual
-            //Error will display when user does not have View records or Edit permission for app
-            //Error will display when user does not have View records or Edit permission for the record
-            //Error will display when user does not have View records or Edit permission for the field
-            it("Test_069_70_71_Error_WithoutPermission") {
+            it("Test_069_Error_WithoutPermissionOnApp") {
                 let recordId = _prepareRecord(appId)
                 
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
@@ -146,6 +142,37 @@ class UpdateRecordByIDTest: QuickSpec {
                 
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
+                
+                RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
+            }
+            
+            it("Test_070_Error_WithoutPermissionOnRecord") {
+                let recordId = _prepareRecord(appId)
+                
+                let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
+                let textFieldValue = DataRandomization.generateString()
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermission.updateRecordByID(appId, recordId, testData, nil)) as! KintoneAPIException
+                
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
+                
+                RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
+            }
+            
+            it("Test_071_Error_WithoutPermissionOnField") {
+                let recordId = _prepareRecord(appId)
+                
+                let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
+                let textFieldValue = DataRandomization.generateString()
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
+                let result = TestCommonHandling.awaitAsync(recordModuleWithoutViewPermission.updateRecordByID(appId, recordId, testData, nil)) as! KintoneAPIException
+                
+                let actualError = result.getErrorResponse()
+                var expectedError = KintoneErrorParser.PERMISSION_EDIT_FIELD_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: textField)
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
@@ -217,7 +244,7 @@ class UpdateRecordByIDTest: QuickSpec {
                 RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appIdHasRequiredFields)
             }
             
-            it("Test_077_Success_InValidField") {
+            it("Test_077_Success_InvalidField") {
                 let recordId = _prepareRecord(appId)
                 
                 let textFieldValue = DataRandomization.generateString()
@@ -245,15 +272,19 @@ class UpdateRecordByIDTest: QuickSpec {
                 RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
             }
             
-            it("Test_079_Error_DuplicateDataWithProhibitValue") {
+            it("Test_079_Error_DuplicateDataForProhibitDuplicateValueField") {
+                // Add the first record into an app having prohibit duplicate value field
                 let appIdHasProhibitDuplicateValueFields = TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!
                 let textFieldValue = DataRandomization.generateString()
                 var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
                 _ = TestCommonHandling.awaitAsync(recordModule.addRecord(TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!, testData)) as! AddRecordResponse
+
+                // Add the second record into an app having prohibit duplicate value field
                 testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, "Avoid duplicate")
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appIdHasProhibitDuplicateValueFields, testData)) as! AddRecordResponse
                 let recordId = addRecordResponse.getId()!
                 
+                // Update value of text field for the second record and its value is duplicated with value of text field in the first record
                 testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appIdHasProhibitDuplicateValueFields, recordId, testData, nil)) as! KintoneAPIException
                 
