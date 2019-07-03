@@ -47,7 +47,7 @@ class UpdateFormLayoutTest: QuickSpec {
         var fieldSubTableLayout: [FieldLayout]? = [FieldLayout]()
         let fieldSize: FieldSize? = FieldSize()
         
-        describe("UpdateFormLayout") {
+        describe("UpdateFormLayout_1") {
             beforeSuite {
                 // The field size will be updated
                 fieldSize?.setWidth(fieldWidth)
@@ -152,15 +152,15 @@ class UpdateFormLayoutTest: QuickSpec {
                 let updateFormLayout = TestCommonHandling.awaitAsync(appModule.updateFormLayout(appId, itemLayoutRequest!)) as! BasicResponse
                 result = TestCommonHandling.awaitAsync(appModule.getFormLayout(appId, true)) as! FormLayout
                 
-                //Verify the revision will be increased by 1
-                expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
-                
                 // Get row and subtable data
                 let row1Result = result.getLayout()![0] as! RowLayout
                 let row2Result = result.getLayout()![1] as! RowLayout
                 let row3Result = result.getLayout()![2] as! RowLayout
                 let row4Result = result.getLayout()![3] as! RowLayout
                 let tableResult = result.getLayout()![4] as! SubTableLayout
+                
+                //Verify the revision will be increased by 1
+                expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
                 
                 // Verify fields of first row
                 expect(row1Result.getFields()![0].getCode()).to(equal(numberField))
@@ -191,7 +191,7 @@ class UpdateFormLayoutTest: QuickSpec {
                 expect(tableResult.getFields()![0].getSize()?.getWidth()).to(equal(fieldWidth))
             }
             
-            it("Test_065_066_Success_ValidData_GuestSpace") {
+            it("Test_065_066_Success_ValidData_GuestSpaceApp") {
                 let appModuleGuestSpace = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,
@@ -202,14 +202,14 @@ class UpdateFormLayoutTest: QuickSpec {
                 let updateFormLayout = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateFormLayout(guestSpaceAppId, itemLayoutRequest!)) as! BasicResponse
                 result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormLayout(guestSpaceAppId, true)) as! FormLayout
                 
-                expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
-                
                 let row1Result = result.getLayout()![0] as! RowLayout
                 let row2Result = result.getLayout()![1] as! RowLayout
                 let row3Result = result.getLayout()![2] as! RowLayout
                 let row4Result = result.getLayout()![3] as! RowLayout
                 let tableResult = result.getLayout()![4] as! SubTableLayout
                 
+                expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
+
                 expect(row1Result.getFields()![0].getCode()).to(equal(numberField))
                 expect(row1Result.getFields()![1].getCode()).to(equal(numberRequireField))
                 expect(row1Result.getFields()![0].getSize()?.getWidth()).to(equal(fieldWidth))
@@ -245,14 +245,14 @@ class UpdateFormLayoutTest: QuickSpec {
                 let updateFormLayout = TestCommonHandling.awaitAsync(appModule.updateFormLayout(appId, itemLayoutRequest!, -1)) as! BasicResponse
                 result = TestCommonHandling.awaitAsync(appModule.getFormLayout(appId, true)) as! FormLayout
                 
-                expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
-                
                 let row1Result = result.getLayout()![0] as! RowLayout
                 let row2Result = result.getLayout()![1] as! RowLayout
                 let row3Result = result.getLayout()![2] as! RowLayout
                 let row4Result = result.getLayout()![3] as! RowLayout
                 let tableResult = result.getLayout()![4] as! SubTableLayout
                 
+                expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
+
                 expect(row1Result.getFields()![0].getCode()).to(equal(numberField))
                 expect(row1Result.getFields()![1].getCode()).to(equal(numberRequireField))
                 expect(row1Result.getFields()![0].getSize()?.getWidth()).to(equal(fieldWidth))
@@ -299,7 +299,7 @@ class UpdateFormLayoutTest: QuickSpec {
             }
         }
         
-        describe("UpdateFormLayout") {
+        describe("UpdateFormLayout_2") {
             beforeEach {
                 // Clear update data
                 itemLayoutRequest? = []

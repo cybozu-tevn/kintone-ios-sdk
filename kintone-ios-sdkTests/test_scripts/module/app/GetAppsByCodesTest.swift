@@ -10,13 +10,13 @@ import Nimble
 
 class GetAppsByCodesTest: QuickSpec {
     override func spec() {
+        let app = App(TestCommonHandling.createConnection())
+        let appName = "App Name"
+        let amountOfApps = 5
+        var appIds: [Int]?
+        var appCodes = [String]()
+        
         describe("GetAppsByCode") {
-            let app = App(TestCommonHandling.createConnection())
-            let appName = "App Name"
-            let amountOfApps = 5
-            var appIds: [Int]?
-            var appCodes = [String]()
-            
             beforeSuite {
                 print("=== TEST PREPARATION ===")
                 appIds = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)

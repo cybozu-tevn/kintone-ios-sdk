@@ -41,8 +41,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getIcon()?.getKey()).to(equal(settings.getIcon()?.getKey()))
             }
             
-            it("Test_029_SuccessWithAppName") {
-                print("aaaa1-2")
+            it("Test_029_Success_AppName") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setName(DataRandomization.generateString(prefix: "updated appName", length: 20))
                 
@@ -55,7 +54,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getName()).to(equal(settings.getName()))
             }
             
-            it("Test_030_SuccessWithAppDescription") {
+            it("Test_030_Success_AppDescription") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setDescription(DataRandomization.generateString(prefix: "updated description"))
                 
@@ -68,8 +67,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getDescription()).to(equal(settings.getDescription()))
             }
             
-            
-            it("Test_031_SuccessWithAppIcon") {
+            it("Test_031_Success_AppIcon") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 let appIcon = Icon("APP38", Icon.IconType.PRESET)
                 settings.setIcon(appIcon)
@@ -83,7 +81,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getIcon()?.getKey()).to(equal(settings.getIcon()?.getKey()))
             }
             
-            it("Test_032_SuccessWithAppTheme_White") {
+            it("Test_032_Success_AppTheme_White") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setTheme(GeneralSettings.IconTheme.WHITE)
                 
@@ -96,7 +94,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getTheme()).to(equal(settings.getTheme()))
             }
             
-            it("Test_033_SuccessWithAppTheme_Red") {
+            it("Test_033_Success_AppTheme_Red") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setTheme(GeneralSettings.IconTheme.RED)
                 
@@ -109,7 +107,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getTheme()).to(equal(settings.getTheme()))
             }
             
-            it("Test_034_SuccessWithAppTheme_Blue") {
+            it("Test_034_Success_AppTheme_Blue") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setTheme(GeneralSettings.IconTheme.BLUE)
                 
@@ -122,7 +120,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getTheme()).to(equal(settings.getTheme()))
             }
             
-            it("Test_035_SuccessWithAppTheme_Green") {
+            it("Test_035_Success_AppTheme_Green") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setTheme(GeneralSettings.IconTheme.GREEN)
                 
@@ -135,7 +133,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getTheme()).to(equal(settings.getTheme()))
             }
             
-            it("Test_036_SuccessWithAppTheme_Yellow") {
+            it("Test_036_Success_AppTheme_Yellow") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setTheme(GeneralSettings.IconTheme.YELLOW)
                 
@@ -148,7 +146,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getTheme()).to(equal(settings.getTheme()))
             }
             
-            it("Test_037_SuccessWithAppTheme_Black") {
+            it("Test_037_Success_AppTheme_Black") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setTheme(GeneralSettings.IconTheme.BLACK)
                 
@@ -161,7 +159,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(getGeneralSettingsResponse.getTheme()).to(equal(settings.getTheme()))
             }
             
-            it("Test_038_SuccessWithApp_WithoutRevision") {
+            it("Test_038_Success_WithoutRevision") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 let currentRevision = settings.getRevision()
                 settings.setRevision()
@@ -173,7 +171,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(updateGeneralSettingsResponse.getRevision()).to(equal(currentRevision! + 1))
             }
             
-            it("Test_039_SuccessWithApp_NegativeRevision") {
+            it("Test_039_Success_NegativeRevision") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 let currentRevision = settings.getRevision()
                 settings.setRevision(-1)
@@ -185,7 +183,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(updateGeneralSettingsResponse.getRevision()).to(equal(currentRevision! + 1))
             }
             
-            it("Test_040_SuccessWithoutGeneralSetting") {
+            it("Test_040_Success_WithoutGeneralSetting") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 
                 let updateGeneralSettingsResponse = TestCommonHandling.awaitAsync(
@@ -194,7 +192,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(updateGeneralSettingsResponse.getRevision()).to(equal(settings.getRevision()! + 1))
             }
             
-            it("Test_041_FailedWithApiToken") {
+            it("Test_041_Error_ApiToken") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 
                 let appModuleWithAPIToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
@@ -204,7 +202,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(updateGeneralSettingsResponse.getErrorResponse(), KintoneErrorParser.API_TOKEN_ERROR()!)
             }
             
-            it("Test_042_FailedWithWrongRevision") {
+            it("Test_042_Error_WrongRevision") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setRevision(TestConstant.Common.NONEXISTENT_ID)
                 settings.setName("updated appName")
@@ -216,7 +214,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(updateGeneralSettingsResponse.getErrorResponse(), expectedError)
             }
             
-            it("Test_043_FailedWithInvalidRevision") {
+            it("Test_043_Error_InvalidRevision") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setRevision(-4)
                 settings.setName("updated appName")
@@ -227,20 +225,19 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(updateGeneralSettingsResponse.getErrorResponse(), KintoneErrorParser.NEGATIVE_REVISION_ERROR()!)
             }
             
-            it("Test_045_FailedWithNonexistedAppId") {
+            it("Test_045_Error_NonexistedAppId") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setName("updated appName")
                 
                 let updateGeneralSettingsResponse = TestCommonHandling.awaitAsync(
                     appModule.updateGeneralSettings(TestConstant.Common.NONEXISTENT_ID, settings)) as! KintoneAPIException
                 
-                
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
                 TestCommonHandling.compareError(updateGeneralSettingsResponse.getErrorResponse(), expectedError)
             }
             
-            it("Test_046_FailedWithZeroAppId") {
+            it("Test_046_Error_ZeroAppId") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setName("updated appName")
                 
@@ -250,7 +247,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(updateGeneralSettingsResponse.getErrorResponse(), KintoneErrorParser.NEGATIVE_APP_ID_ERROR()!)
             }
             
-            it("Test_047_FailedWithNegativeAppId") {
+            it("Test_047_Error_NegativeAppId") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setName("updated appName")
                 
@@ -260,7 +257,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 TestCommonHandling.compareError(updateGeneralSettingsResponse.getErrorResponse(), KintoneErrorParser.NEGATIVE_APP_ID_ERROR()!)
             }
             
-            it("Test_051_PermissionDenied") {
+            it("Test_051_Error_PermissionDenied") {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setName("updated appName")
                 
@@ -272,7 +269,7 @@ class UpdateGeneralSettingsTest: QuickSpec {
         }
         
         describe("UpdateGeneralSettings_2") {
-            it("Test_029_SuccessWithAppName_GuestSpaceApp") {
+            it("Test_029_Success_AppName_GuestSpaceApp") {
                 print("aaaa2-1")
                 let appModuleGuestSpace = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 let appName = DataRandomization.generateString()

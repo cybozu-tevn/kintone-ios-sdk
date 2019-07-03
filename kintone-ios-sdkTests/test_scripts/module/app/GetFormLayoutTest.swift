@@ -31,7 +31,7 @@ class GetFormLayoutTest: QuickSpec {
                 expect(result.getRevision()).toNot(beNil())
             }
             
-            it("Test_16_Success_GuestSpace") {
+            it("Test_16_Success_GuestSpaceApp") {
                 let appModuleGuestSpace = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,

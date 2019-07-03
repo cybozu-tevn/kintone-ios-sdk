@@ -36,51 +36,51 @@ class UpdateViewsTest: QuickSpec {
         var totalOfAllView: Int = 0
         var totalOfAllViewGuestSpaceApp: Int = 0
         
-        beforeSuite {
-            // Prepare view entry for test app in normal space
-            let getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
-            currentViews = getViewsResponse.getViews()!
-            viewEntry = currentViews
-            updateViewModel.setName(viewName)
-            updateViewModel.setSort(viewSort)
-            updateViewModel.setType(viewType)
-            updateViewModel.setFilterCond(viewFilter)
-            updateViewModel.setIndex(viewIndex)
-            updateViewModel.setFields(viewFields)
-            viewEntry[viewName] = updateViewModel
-            totalOfAllView = viewEntry.count
-        
-            // Prepare view entry for test app in guest space
-            let getViewsGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
-            currentGuestSpaceAppViews = getViewsGuestSpaceAppResponse.getViews()!
-            viewGuestSpaceAppEntry = currentGuestSpaceAppViews
-            updateViewGuestSpaceAppModel.setName(viewName)
-            updateViewGuestSpaceAppModel.setSort(viewSort)
-            updateViewGuestSpaceAppModel.setType(viewType)
-            updateViewGuestSpaceAppModel.setFilterCond(viewFilter)
-            updateViewGuestSpaceAppModel.setIndex(viewIndex)
-            updateViewGuestSpaceAppModel.setFields(viewFields)
-            viewGuestSpaceAppEntry[viewName] = updateViewGuestSpaceAppModel
-            totalOfAllViewGuestSpaceApp = viewGuestSpaceAppEntry.count
-        }
-        
-        afterSuite {
-            // Remove data after tested
-            let previewApp: PreviewApp? = PreviewApp(appId, -1)
-            _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
-            _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
-            
-            let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, currentGuestSpaceAppViews))
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
-
-        }
-        
         describe("UpdateViews") {
+            beforeSuite {
+                // Prepare view entry for test app in normal space
+                let getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
+                currentViews = getViewsResponse.getViews()!
+                viewEntry = currentViews
+                updateViewModel.setName(viewName)
+                updateViewModel.setSort(viewSort)
+                updateViewModel.setType(viewType)
+                updateViewModel.setFilterCond(viewFilter)
+                updateViewModel.setIndex(viewIndex)
+                updateViewModel.setFields(viewFields)
+                viewEntry[viewName] = updateViewModel
+                totalOfAllView = viewEntry.count
+                
+                // Prepare view entry for test app in guest space
+                let getViewsGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
+                currentGuestSpaceAppViews = getViewsGuestSpaceAppResponse.getViews()!
+                viewGuestSpaceAppEntry = currentGuestSpaceAppViews
+                updateViewGuestSpaceAppModel.setName(viewName)
+                updateViewGuestSpaceAppModel.setSort(viewSort)
+                updateViewGuestSpaceAppModel.setType(viewType)
+                updateViewGuestSpaceAppModel.setFilterCond(viewFilter)
+                updateViewGuestSpaceAppModel.setIndex(viewIndex)
+                updateViewGuestSpaceAppModel.setFields(viewFields)
+                viewGuestSpaceAppEntry[viewName] = updateViewGuestSpaceAppModel
+                totalOfAllViewGuestSpaceApp = viewGuestSpaceAppEntry.count
+            }
+            
+            afterSuite {
+                // Remove data after tested
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
+                
+                let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, currentGuestSpaceAppViews))
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
+                
+            }
+            
             // API TOKEN
-            it("Test_015_ApiToken_Error_APITokenAuthentication") {
+            it("Test_015_Error_ApiTokenAuthentication_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 let result = TestCommonHandling.awaitAsync(appModuleApiToken.updateViews(appId, viewEntry)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
@@ -254,7 +254,7 @@ class UpdateViewsTest: QuickSpec {
             }
             
             // GUEST SPACE
-            it("Test_016_Success_ValidRequest_GuestSpace") {
+            it("Test_016_Success_ValidRequest_GuestSpaceApp") {
                 let getViewGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
                 let currentRevision = getViewGuestSpaceAppResponse.getRevision()!
                 
@@ -284,7 +284,7 @@ class UpdateViewsTest: QuickSpec {
                 }
             }
             
-            it("Test_027_Success_DefaultRevision_GuestSpace") {
+            it("Test_027_Success_DefaultRevision_GuestSpaceApp") {
                 // Get current Revision
                 let getViewGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
                 let currentRevision = getViewGuestSpaceAppResponse.getRevision()!

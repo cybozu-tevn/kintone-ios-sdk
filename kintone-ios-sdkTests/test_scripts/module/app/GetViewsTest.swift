@@ -93,7 +93,7 @@ class GetViewsTest: QuickSpec {
         
         describe("GetViews") {
             // API TOKEN
-            it("Test_003_Error_APITokenAuthentication") {
+            it("Test_003_Error_ApiTokenAuthentication_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 let result = TestCommonHandling.awaitAsync(appModuleApiToken.getViews(appId, LanguageSetting.DEFAULT, true)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
@@ -215,7 +215,7 @@ class GetViewsTest: QuickSpec {
             }
             
             // GUEST SPACE
-            it("Test_004_Success_ValidRequest_GuestSpace") {
+            it("Test_004_Success_ValidRequest_GuestSpaceApp") {
                 isPreview = true
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guetsSpaceAppId, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
                 

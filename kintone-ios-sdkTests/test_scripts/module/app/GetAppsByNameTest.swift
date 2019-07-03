@@ -38,7 +38,7 @@ class GetAppsByNameTest: QuickSpec {
                 }
             }
             
-            it("Test_041_Success_Name_GuestSpace") {
+            it("Test_041_Success_Name_GuestSpaceApp") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 let guestAppIds = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 

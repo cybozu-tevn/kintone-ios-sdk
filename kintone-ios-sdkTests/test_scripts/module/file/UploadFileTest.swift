@@ -12,26 +12,28 @@ import Nimble
 class UploadFileTest: QuickSpec {
     override func spec() {
         // the app has attachment field
-        let APP_ID: Int! = TestConstant.InitData.APP_ID
-        let RECORD_TEXT_FIELD: String! = TestConstant.InitData.TEXT_FIELD
-        let RECORD_ATTACHMENT_FIELD: String! = TestConstant.InitData.ATTACHMENT_FIELD
+        let appId: Int! = TestConstant.InitData.APP_ID
+        let recordTextField: String! = TestConstant.InitData.TEXT_FIELD
+        let recordAttachmentField: String! = TestConstant.InitData.ATTACHMENT_FIELD
         var recordId: Int!
 
         let conn = TestCommonHandling.createConnection()
         let recordModule = Record(conn)
         let fileModule = File(conn)
-        
-        afterSuite {
-            _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(APP_ID, [recordId!]))
-        }
-        
+    
         describe("UploadFile") {
+            afterSuite {
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
+            }
+            
             it("Test_002_003_Success_UploadFile") {
                 let bundleUploadFile = Bundle(for: type(of: self))
                 var recordTestData: [String: FieldValue] = [:]
-                recordTestData = RecordUtils.setRecordData(recordTestData,
-                                                           RECORD_TEXT_FIELD, FieldType.SINGLE_LINE_TEXT,
-                                                           "Upload single file")
+                recordTestData = RecordUtils.setRecordData(
+                    recordTestData,
+                    recordTextField,
+                    FieldType.SINGLE_LINE_TEXT,
+                    "Upload single file")
                 
                 if let uploadFilePath = bundleUploadFile.url(forResource: "test", withExtension: "txt") {
                     let resourcesFile = try! uploadFilePath.resourceValues(forKeys: [.fileSizeKey])
@@ -43,13 +45,13 @@ class UploadFileTest: QuickSpec {
                     let uploadFileResponse1 = TestCommonHandling.awaitAsync(fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
                     let uploadFileResponse2 = TestCommonHandling.awaitAsync(fileModule.upload(uploadFilePath.absoluteString)) as! FileModel
                     let fileList = [uploadFileResponse1, uploadFileResponse2]
-                    recordTestData = RecordUtils.setRecordData(recordTestData, RECORD_ATTACHMENT_FIELD, FieldType.FILE, fileList)
+                    recordTestData = RecordUtils.setRecordData(recordTestData, recordAttachmentField, FieldType.FILE, fileList)
                     
                     //upload files and get data
-                    let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(APP_ID, recordTestData)) as! AddRecordResponse
+                    let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, recordTestData)) as! AddRecordResponse
                     recordId = addRecordResponse.getId()!
-                    let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(APP_ID, recordId)) as! GetRecordResponse
-                    let fileResults = getRecordResponse.getRecord()![RECORD_ATTACHMENT_FIELD]!.getValue() as! [FileModel]
+                    let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId)) as! GetRecordResponse
+                    let fileResults = getRecordResponse.getRecord()![recordAttachmentField]!.getValue() as! [FileModel]
                     for fileResult in fileResults {
                         if let downloadDir = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first {
                             let filePath = downloadDir.appendingPathComponent(fileResult.getName()!)

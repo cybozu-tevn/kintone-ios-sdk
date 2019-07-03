@@ -17,7 +17,6 @@ class GetAppsTest: QuickSpec {
         var offset: Int?
         
         describe("GetApps") {
-            
             beforeSuite {
                 print("=== TEST PREPARATION ===")
                 offset = (TestCommonHandling.awaitAsync(app.getApps()) as! [AppModel]).count
@@ -53,7 +52,7 @@ class GetAppsTest: QuickSpec {
                 }
             }
             
-            it("Test_008_Success_Limit_GuestSpace") {
+            it("Test_008_Success_Limit_GuestSpaceApp") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 offset = (TestCommonHandling.awaitAsync(guestAppModule.getApps()) as! [AppModel]).count
                 var guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)

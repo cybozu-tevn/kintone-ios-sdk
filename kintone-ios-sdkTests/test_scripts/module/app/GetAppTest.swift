@@ -52,7 +52,7 @@ class GetAppTest: QuickSpec {
                 expect(getAppRsp.getThreadId()).to(beNil())
             }
             
-            it("Test_004_Success_GuesSpace") {
+            it("Test_004_Success_GuesSpaceApp") {
                 // Test setting up
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 let guestAppId = AppUtils.createApp(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID)

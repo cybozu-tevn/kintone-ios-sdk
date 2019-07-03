@@ -15,17 +15,17 @@ class GetAppDeployStatusTest: QuickSpec {
         let amountOfApps = 5
         var appIds: [Int]?
         
-        beforeSuite {
-            print("=== TEST PREPARATION ===")
-            appIds = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
-        }
-        
-        afterSuite {
-            print("=== TEST CLEANING UP ===")
-            AppUtils.deleteApps(appIds: appIds!)
-        }
-        
         describe("GetAppDeployStatus") {
+            beforeSuite {
+                print("=== TEST PREPARATION ===")
+                appIds = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
+            }
+            
+            afterSuite {
+                print("=== TEST CLEANING UP ===")
+                AppUtils.deleteApps(appIds: appIds!)
+            }
+            
             it("Test_079_Success") {
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds!)) as! GetAppDeployStatusResponse
                 for appDeployStatus in getAppDeployStatusRsp.getApps()! {
@@ -36,7 +36,7 @@ class GetAppDeployStatusTest: QuickSpec {
                 }
             }
             
-            it("Test_079_Success_GuestSpace") {
+            it("Test_079_Success_GuestSpaceApp") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 
                 let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
