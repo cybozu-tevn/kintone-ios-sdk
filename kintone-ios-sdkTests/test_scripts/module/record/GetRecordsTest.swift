@@ -19,16 +19,16 @@ class GetRecordsTest: QuickSpec {
         var query: String!
         let recordModule = Record(TestCommonHandling.createConnection())
         
-        beforeSuite {
-            _prepareRecords(numberOfRecords)
-            query = RecordUtils.getRecordsQuery(recordIds)
-        }
-        
-        afterSuite {
-            RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
-        }
-        
         describe("GetRecords") {
+            beforeSuite {
+                _prepareRecords(numberOfRecords)
+                query = RecordUtils.getRecordsQuery(recordIds)
+            }
+            
+            afterSuite {
+                RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
+            }
+            
             it("Test_004_Success_ValidData") {
                 let result = TestCommonHandling.awaitAsync(
                     recordModule.getRecords(appId, query, [textField], true)) as! GetRecordsResponse
@@ -74,7 +74,9 @@ class GetRecordsTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(
                     recordModuleWithoutViewRecordsPermission.getRecords(appId, query, [textField], true)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_022_Error_WithoutViewOnRecordPermission") {
