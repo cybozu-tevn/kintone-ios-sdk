@@ -284,7 +284,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                     recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [recordId]))
             }
             
-            it("Test_155_Success_OneAssignee") {
+            it("Test_155_Success_OneAssignee_GuestSpace") {
                 let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.updateRecordAssignees(guestSpaceAppId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
@@ -299,7 +299,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
             }
             
-            it("Test_157_Success_MultiAssignees") {
+            it("Test_157_Success_MultiAssignees_GuestSpace") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.updateRecordStatus(guestSpaceAppId, recordId, startAction, nil, nil))
@@ -369,7 +369,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                     recordModule.deleteRecords(appId, [recordId]))
             }
             
-            it("Test_155_Success_OneAssignee") {
+            it("Test_155_Success_OneAssignee_APIToken") {
                 let result = TestCommonHandling.awaitAsync(
                     recordModuleAPIToken.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(
@@ -384,7 +384,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[0].getName()).to(equal(assignees[0]))
             }
             
-            it("Test_157_Success_MultiAssignees") {
+            it("Test_157_Success_MultiAssignees_APIToken") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
@@ -409,7 +409,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
             
-            it("Test_158_Success_100Assignees") {
+            it("Test_158_Success_100Assignees_APIToken") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
