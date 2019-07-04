@@ -23,38 +23,38 @@ public class TestConstant {
         
         // User credentials with permissions on App
         static let users = TestDataParser.getUsers()
-        static let CRED_USERNAME_WITHOUT_CREATE_APP_PERMISSION = users[11].username
-        static let CRED_PASSWORD_WITHOUT_CREATE_APP_PERMISSION = users[11].password
-        static let CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION = users[1].username
-        static let CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION = users[1].password
-        static let CRED_USERNAME_WITHOUT_APP_PERMISSION = users[9].username
-        static let CRED_PASSWORD_WITHOUT_APP_PERMISSION = users[9].password
-        static let CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION = users[9].username
-        static let CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION = users[9].password
-        static let CRED_USERNAME_WITHOUT_ADD_RECORDS_PERMISSION = users[8].username
-        static let CRED_PASSWORD_WITHOUT_ADD_RECORDS_PERMISSION = users[8].password
-        static let CRED_USERNAME_WITHOUT_EDIT_RECORDS_PERMISSION = users[7].username
-        static let CRED_PASSWORD_WITHOUT_EDIT_RECORDS_PERMISSION = users[7].password
-        static let CRED_USERNAME_WITHOUT_DELETE_RECORDS_PERMISSION = users[6].username
-        static let CRED_PASSWORD_WITHOUT_DELETE_RECORDS_PERMISSION = users[6].password
+        static let CRED_USERNAME_WITHOUT_CREATE_APP_PERMISSION = users.clone[11].username
+        static let CRED_PASSWORD_WITHOUT_CREATE_APP_PERMISSION = users.clone[11].password
+        static let CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION = users.clone[1].username
+        static let CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION = users.clone[1].password
+        static let CRED_USERNAME_WITHOUT_APP_PERMISSION = users.clone[9].username
+        static let CRED_PASSWORD_WITHOUT_APP_PERMISSION = users.clone[9].password
+        static let CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION = users.clone[9].username
+        static let CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION = users.clone[9].password
+        static let CRED_USERNAME_WITHOUT_ADD_RECORDS_PERMISSION = users.clone[8].username
+        static let CRED_PASSWORD_WITHOUT_ADD_RECORDS_PERMISSION = users.clone[8].password
+        static let CRED_USERNAME_WITHOUT_EDIT_RECORDS_PERMISSION = users.clone[7].username
+        static let CRED_PASSWORD_WITHOUT_EDIT_RECORDS_PERMISSION = users.clone[7].password
+        static let CRED_USERNAME_WITHOUT_DELETE_RECORDS_PERMISSION = users.clone[6].username
+        static let CRED_PASSWORD_WITHOUT_DELETE_RECORDS_PERMISSION = users.clone[6].password
         
         // User credentials with permissions on record
-        static let CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION = users[5].username
-        static let CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION = users[5].password
-        static let CRED_USERNAME_WITHOUT_EDIT_RECORD_PERMISSION = users[4].username
-        static let CRED_PASSWORD_WITHOUT_EDIT_RECORD_PERMISSION = users[4].password
-        static let CRED_USERNAME_WITHOUT_DELETE_RECORD_PERMISSION = users[3].username
-        static let CRED_PASSWORD_WITHOUT_DELETE_RECORD_PERMISSION = users[3].password
+        static let CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION = users.clone[5].username
+        static let CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION = users.clone[5].password
+        static let CRED_USERNAME_WITHOUT_EDIT_RECORD_PERMISSION = users.clone[4].username
+        static let CRED_PASSWORD_WITHOUT_EDIT_RECORD_PERMISSION = users.clone[4].password
+        static let CRED_USERNAME_WITHOUT_DELETE_RECORD_PERMISSION = users.clone[3].username
+        static let CRED_PASSWORD_WITHOUT_DELETE_RECORD_PERMISSION = users.clone[3].password
         
         // User credentials with permissions on field
-        static let CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION = users[2].username
-        static let CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION = users[2].password
-        static let CRED_USERNAME_WITHOUT_EDIT_FIELD_PERMISSION = users[1].username
-        static let CRED_PASSWORD_WITHOUT_EDIT_FIELD_PERMISSION = users[1].password
+        static let CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION = users.clone[2].username
+        static let CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION = users.clone[2].password
+        static let CRED_USERNAME_WITHOUT_EDIT_FIELD_PERMISSION = users.clone[1].username
+        static let CRED_PASSWORD_WITHOUT_EDIT_FIELD_PERMISSION = users.clone[1].password
         
         // inacive user
-        static let CRED_USERNAME_INACTIVE = users[10].username
-        static let CRED_PASSWORD_INACTIVE = users[10].password
+        static let CRED_USERNAME_INACTIVE = users.clone[10].username
+        static let CRED_PASSWORD_INACTIVE = users.clone[10].password
     }
     
     class Common {
@@ -68,7 +68,7 @@ public class TestConstant {
     }
     
     class InitData {
-        static let USERS = TestDataParser.getUsers()
+        static let USERS = TestDataParser.getUsers().clone
         
         static let DEPARTMENT_CODE = "department"
         static let DEPARTMENT_TYPE = "ORGANIZATION"

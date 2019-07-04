@@ -15,11 +15,11 @@ internal class TestDataParser: Codable {
         return kintoneTestData.proxy
     }
     
-    static func getAdministrator() -> user {
+    static func getAdministrator() -> administrator {
         return kintoneTestData.administrators
     }
     
-    static func getUsers() -> [user] {
+    static func getUsers() -> users {
         return kintoneTestData.users
     }
     
@@ -39,8 +39,8 @@ internal class TestDataParser: Codable {
 struct KintoneTestData: Decodable {
     var domain: String
     var proxy: proxy
-    var administrators: user
-    var users: [user]
+    var administrators: administrator
+    var users: users
     var guestSpaceInfo: [space]
     var normalSpaceInfo: [space]
     var apps: apps
@@ -52,9 +52,20 @@ struct proxy: Decodable {
     var port: Int
 }
 
+struct administrator: Decodable {
+    var username: String
+    var password: String
+}
+
+struct users: Decodable {
+    var amount: Int
+    var clone: [user]
+}
+
 struct user: Decodable {
     var username: String
     var password: String
+    var id: String
 }
 
 struct userInfo: Decodable {
