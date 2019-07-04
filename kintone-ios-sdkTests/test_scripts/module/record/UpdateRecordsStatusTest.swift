@@ -9,9 +9,20 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class UpdateRecordsStatusTest: QuickSpec {
-    
+    /**
+     * Initial app with process management
+     * Actions     |  Status After Action Taken
+     * ------------|------------------------------
+     *  Start      |  In progress -> One assignee in the list must take action
+     *             |                    (user1, user2, cybozu, Administrator)
+     *  Test       |  Testing     -> User chooses on assignee from the list to take action
+     *             |                    (user1, cybozu)
+     *  Review     |  Reviewing   -> All assignees in the list must take action
+     *             |                    (user1, user2, cybozu)
+     *  Complete   |  Completed
+     */
     override func spec() {
-        let AppId = TestConstant.InitData.APP_ID_HAS_PROCESS!
+        let appId = TestConstant.InitData.APP_ID_HAS_PROCESS!
         let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
         let textField: String! = TestConstant.InitData.TEXT_FIELD
         var record1Id: Int!
@@ -30,30 +41,32 @@ class UpdateRecordsStatusTest: QuickSpec {
                 let testData1 = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 let testData2 = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 let addRecord1Response = TestCommonHandling.awaitAsync(
-                    recordModule.addRecord(AppId, testData1)) as! AddRecordResponse
+                    recordModule.addRecord(appId, testData1)) as! AddRecordResponse
                 let addRecord2Response = TestCommonHandling.awaitAsync(
-                    recordModule.addRecord(AppId, testData2)) as! AddRecordResponse
+                    recordModule.addRecord(appId, testData2)) as! AddRecordResponse
                 
                 record1Id = addRecord1Response.getId()
                 record2Id = addRecord2Response.getId()
                 revision = addRecord1Response.getRevision()
             }
+
             afterEach {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, [record1Id, record2Id]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [record1Id, record2Id]))
             }
             
-            it("Test_200_StatusOnly") {
+            it("Test_200_Success_StatusOnly") {
+                // Update status: Start action -> In progress status
                 let record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 let record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, -1)
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
                 
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem))
                 var getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, record1Id)) as! GetRecordResponse
+                    recordModule.getRecord(appId, record1Id)) as! GetRecordResponse
                 let record1Data = getRecordResponse.getRecord()!
                 getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, record2Id)) as! GetRecordResponse
+                    recordModule.getRecord(appId, record2Id)) as! GetRecordResponse
                 let record2Data = getRecordResponse.getRecord()!
                 
                 // Verify:
@@ -65,28 +78,29 @@ class UpdateRecordsStatusTest: QuickSpec {
                 expect(record2Data["Status"]?.getValue() as? String).to(equal(inProgressStatus))
             }
             
-            it("Test_201_StatusAndAssignee") {
+            it("Test_201_Success_StatusAndAssignee") {
+                // 1. Updates status: Start action -> In progress status
                 var record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 var record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, nil)
                 var recordsStatusItem = [record1StatusItem, record2StatusItem]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem))
                 revision += 2
                 
-                // Update status with assignee
+                // 2. Updates status: Test action + assignee (user1) -> Testing status
                 let assignee = TestConstant.InitData.USERS[0]
                 record1StatusItem = RecordUpdateStatusItem(testAction, assignee.username, record1Id, nil)
                 record2StatusItem = RecordUpdateStatusItem(testAction, assignee.username, record2Id, nil)
                 recordsStatusItem = [record1StatusItem, record2StatusItem]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem))
                 revision += 2
                 
                 var getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, record1Id)) as! GetRecordResponse
+                    recordModule.getRecord(appId, record1Id)) as! GetRecordResponse
                 let record1Data = getRecordResponse.getRecord()!
                 getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, record2Id)) as! GetRecordResponse
+                    recordModule.getRecord(appId, record2Id)) as! GetRecordResponse
                 let record2Data = getRecordResponse.getRecord()!
                 let record1Assignees = record1Data["Assignee"]?.getValue() as! [Member]
                 let record2Assignees = record2Data["Assignee"]?.getValue() as! [Member]
@@ -109,9 +123,11 @@ class UpdateRecordsStatusTest: QuickSpec {
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem)) as! KintoneAPIException
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.INVALID_STATUS_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.INVALID_STATUS_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_203_Error_InvalidAssignee") {
@@ -119,18 +135,19 @@ class UpdateRecordsStatusTest: QuickSpec {
                 var record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, nil)
                 var recordsStatusItem = [record1StatusItem, record2StatusItem]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem))
                 
                 let nonexistentUser = "nonexistent user blah blah"
                 record1StatusItem = RecordUpdateStatusItem(testAction, nonexistentUser, record1Id, nil)
                 record2StatusItem = RecordUpdateStatusItem(testAction, nonexistentUser, record2Id, nil)
                 recordsStatusItem = [record1StatusItem, record2StatusItem]
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem)) as! KintoneAPIException
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem)) as! KintoneAPIException
                 
+                let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_USER_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: nonexistentUser)
-                TestCommonHandling.compareError(result.getErrorResponse(), expectedError)
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_204_Error_InvalidRecordID") {
@@ -140,11 +157,12 @@ class UpdateRecordsStatusTest: QuickSpec {
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem)) as! KintoneAPIException
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem)) as! KintoneAPIException
                 
-                var errorMessage = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                errorMessage.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(nonexistentId))
-                TestCommonHandling.compareError(result.getErrorResponse(), errorMessage)
+                let actualError = result.getErrorResponse()
+                var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(nonexistentId))
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_205_Error_InvalidRevision") {
@@ -153,9 +171,11 @@ class UpdateRecordsStatusTest: QuickSpec {
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem)) as! KintoneAPIException
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.INCORRECT_REVISION_RECORD_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.INCORRECT_REVISION_RECORD_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_206_Error_InvalidAppID") {
@@ -163,14 +183,16 @@ class UpdateRecordsStatusTest: QuickSpec {
                 let record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, 9999)
                 let record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, 9999)
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
-                
+                let nonexistentId = TestConstant.Common.NONEXISTENT_ID
+
                 var result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(TestConstant.Common.NONEXISTENT_ID, recordsStatusItem)) as! KintoneAPIException
-                var errorMessage = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
-                errorMessage.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
-                
-                TestCommonHandling.compareError(result.getErrorResponse(), errorMessage)
-                
+                    recordModule.updateRecordsStatus(nonexistentId, recordsStatusItem)) as! KintoneAPIException
+
+                let actualError = result.getErrorResponse()
+                var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(nonexistentId))
+                TestCommonHandling.compareError(actualError, expectedError)
+
                 // negative appID
                 result = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordsStatus(-1, recordsStatusItem)) as! KintoneAPIException
@@ -200,9 +222,11 @@ class UpdateRecordsStatusTest: QuickSpec {
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem)) as! KintoneAPIException
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.MISSING_RECORD_ID_UPDATE_RECORDS_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.MISSING_RECORD_ID_UPDATE_RECORDS_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_209_Error_MissingAssignees") {
@@ -210,16 +234,18 @@ class UpdateRecordsStatusTest: QuickSpec {
                 var record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, nil)
                 var recordsStatusItem = [record1StatusItem, record2StatusItem]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem))
                 
                 // Update status without assignee
                 record1StatusItem = RecordUpdateStatusItem(testAction, nil, record1Id, nil)
                 record2StatusItem = RecordUpdateStatusItem(testAction, nil, record2Id, nil)
                 recordsStatusItem = [record1StatusItem, record2StatusItem]
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem)) as! KintoneAPIException
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.MISSING_ASSIGNEE_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.MISSING_ASSIGNEE_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             //            it("Test_211_Error_InvalidInputType") {
@@ -254,19 +280,21 @@ class UpdateRecordsStatusTest: QuickSpec {
                 }
                 
                 let result = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem)) as! KintoneAPIException
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem)) as! KintoneAPIException
                 
-                TestCommonHandling.compareError(result.getErrorResponse(), KintoneErrorParser.MORE_THAN_100_UPDATE_RECORDS_ERROR()!)
+                let actualError = result.getErrorResponse()
+                let expectedError = KintoneErrorParser.MORE_THAN_100_UPDATE_RECORDS_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_213_100Records") {
+            it("Test_213_Success_100Records") {
                 // Prepare 100 records
                 let addData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 var addDataList: [Dictionary<String, FieldValue>] = []
                 for _ in 0...99 {
                     addDataList.append(addData)
                 }
-                let add100RecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(AppId, addDataList)) as! AddRecordsResponse
+                let add100RecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, addDataList)) as! AddRecordsResponse
                 let recordIDs = add100RecordsResponse.getIDs()
                 
                 // Prepare 100 status update items and update
@@ -276,19 +304,19 @@ class UpdateRecordsStatusTest: QuickSpec {
                     recordsStatusItem.append(recordStatusItem)
                 }
                 _ = TestCommonHandling.awaitAsync(
-                    recordModule.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModule.updateRecordsStatus(appId, recordsStatusItem))
                 
                 // Verify all records are updated status
                 for id in recordIDs! {
                     let getRecordResponse = TestCommonHandling.awaitAsync(
-                        recordModule.getRecord(AppId, id)) as! GetRecordResponse
+                        recordModule.getRecord(appId, id)) as! GetRecordResponse
                     let recordData = getRecordResponse.getRecord()!
                     
                     expect(Int(recordData["$revision"]?.getValue() as! String)).to(equal(revision + 2))
                     expect(recordData["Status"]?.getValue() as? String).to(equal(inProgressStatus))
                 }
-
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, recordIDs!))
+                
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIDs!))
             }
         }
         
@@ -306,17 +334,17 @@ class UpdateRecordsStatusTest: QuickSpec {
                     recordModuleGuestSpace.addRecord(guestSpaceAppId, testData1)) as! AddRecordResponse
                 let addRecord2Response = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.addRecord(guestSpaceAppId, testData2)) as! AddRecordResponse
-
+                
                 record1Id = addRecord1Response.getId()
                 record2Id = addRecord2Response.getId()
                 revision = addRecord1Response.getRevision()
             }
             
             afterEach {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, [record1Id, record2Id]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [record1Id, record2Id]))
             }
             
-            it("Test_200_GuestSpace_StatusOnly") {
+            it("Test_200_StatusOnly_GuestSpace") {
                 let record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 let record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, -1)
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
@@ -339,7 +367,7 @@ class UpdateRecordsStatusTest: QuickSpec {
                 expect(record2Data["Status"]?.getValue() as? String).to(equal(inProgressStatus))
             }
             
-            it("Test_201_GuestSpace_StatusAndAssignee") {
+            it("Test_201_StatusAndAssignee_GuestSpace") {
                 // 1. Update status for records: Start action
                 var record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 var record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, nil)
@@ -387,31 +415,31 @@ class UpdateRecordsStatusTest: QuickSpec {
                 let testData1 = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 let testData2 = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
                 let addRecord1Response = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.addRecord(AppId, testData1)) as! AddRecordResponse
+                    recordModuleAPIToken.addRecord(appId, testData1)) as! AddRecordResponse
                 let addRecord2Response = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.addRecord(AppId, testData2)) as! AddRecordResponse
-
+                    recordModuleAPIToken.addRecord(appId, testData2)) as! AddRecordResponse
+                
                 record1Id = addRecord1Response.getId()
                 record2Id = addRecord2Response.getId()
                 revision = addRecord1Response.getRevision()
             }
             
             afterEach {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(AppId, [record1Id, record2Id]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [record1Id, record2Id]))
             }
             
-            it("Test_200_APIToken_StatusOnly") {
+            it("Test_200_StatusOnly_APIToken") {
                 let record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 let record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, -1)
                 let recordsStatusItem = [record1StatusItem, record2StatusItem]
                 
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModuleAPIToken.updateRecordsStatus(appId, recordsStatusItem))
                 var getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.getRecord(AppId, record1Id)) as! GetRecordResponse
+                    recordModuleAPIToken.getRecord(appId, record1Id)) as! GetRecordResponse
                 let record1Data = getRecordResponse.getRecord()!
                 getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.getRecord(AppId, record2Id)) as! GetRecordResponse
+                    recordModuleAPIToken.getRecord(appId, record2Id)) as! GetRecordResponse
                 let record2Data = getRecordResponse.getRecord()!
                 
                 // Verify:
@@ -423,13 +451,13 @@ class UpdateRecordsStatusTest: QuickSpec {
                 expect(record2Data["Status"]?.getValue() as? String).to(equal(inProgressStatus))
             }
             
-            it("Test_201_APIToken_StatusAndAssignee") {
+            it("Test_201_StatusAndAssignee_APIToken") {
                 // 1. Update status for records: Start action
                 var record1StatusItem = RecordUpdateStatusItem(startAction, nil, record1Id, nil)
                 var record2StatusItem = RecordUpdateStatusItem(startAction, nil, record2Id, nil)
                 var recordsStatusItem = [record1StatusItem, record2StatusItem]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModuleAPIToken.updateRecordsStatus(appId, recordsStatusItem))
                 revision += 2
                 
                 // 2. Update status for records: Test action + assignee
@@ -438,14 +466,14 @@ class UpdateRecordsStatusTest: QuickSpec {
                 record2StatusItem = RecordUpdateStatusItem(testAction, assignee.username, record2Id, nil)
                 recordsStatusItem = [record1StatusItem, record2StatusItem]
                 _ = TestCommonHandling.awaitAsync(
-                    recordModuleAPIToken.updateRecordsStatus(AppId, recordsStatusItem))
+                    recordModuleAPIToken.updateRecordsStatus(appId, recordsStatusItem))
                 revision += 2
                 
                 var getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, record1Id)) as! GetRecordResponse
+                    recordModule.getRecord(appId, record1Id)) as! GetRecordResponse
                 let record1Data = getRecordResponse.getRecord()!
                 getRecordResponse = TestCommonHandling.awaitAsync(
-                    recordModule.getRecord(AppId, record2Id)) as! GetRecordResponse
+                    recordModule.getRecord(appId, record2Id)) as! GetRecordResponse
                 let record2Data = getRecordResponse.getRecord()!
                 let record1Assignees = record1Data["Assignee"]?.getValue() as! [Member]
                 let record2Assignees = record2Data["Assignee"]?.getValue() as! [Member]
