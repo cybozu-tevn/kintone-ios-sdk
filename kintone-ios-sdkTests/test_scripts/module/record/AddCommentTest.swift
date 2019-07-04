@@ -133,6 +133,7 @@ class AddCommentTest: QuickSpec {
                 let commentBlank = CommentContent()
                 
                 let result = TestCommonHandling.awaitAsync(recordModule.addComment(appId, recordId, commentBlank)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.MISSING_COMMENT_TEXT_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String("text"))
@@ -147,6 +148,7 @@ class AddCommentTest: QuickSpec {
                 comment.setMentions(mentionList)
                 
                 let result = TestCommonHandling.awaitAsync(recordModule.addComment(appId, recordId, comment)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.NONEXISTENT_USER_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String("NONEXISTENT_USER"))
@@ -161,6 +163,7 @@ class AddCommentTest: QuickSpec {
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(appId, recordId, comment)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
@@ -174,6 +177,7 @@ class AddCommentTest: QuickSpec {
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(appId, recordId, comment)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
@@ -279,7 +283,6 @@ class AddCommentTest: QuickSpec {
                 expect(0).to(equal(mentions?.count))
                 expect(commentContent + " ").to(equal(result.getComments()?[0].getText()))
             }
-            
             
             // API TOKEN
             it("Test_236_Success_ValidData_ApiToken") {

@@ -21,8 +21,8 @@ class GetCommentsTest: QuickSpec {
         let mentionCode: String = "cybozu"
         let mentionType: String = "USER"
         let commentContent: String = DataRandomization.generateString(prefix: "GetComments", length: 10)
-        var commentID: Int!
-        var commentGuestSpaceID: Int!
+        var commentId: Int!
+        var commentGuestSpaceId: Int!
         var comments: [Int] = []
         var commentsGuestSpace: [Int] = []
         
@@ -57,15 +57,15 @@ class GetCommentsTest: QuickSpec {
                 // Add >10 comments - Normal Space
                 for _ in 0...14 {
                     let addCommentResponse = TestCommonHandling.awaitAsync(recordModule.addComment(appId, recordId, comment)) as! AddCommentResponse
-                    commentID = addCommentResponse.getId()
-                    comments.append(Int(commentID))
+                    commentId = addCommentResponse.getId()
+                    comments.append(Int(commentId))
                     
                     let addCommentGuestSpaceResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addComment(
                         guestSpaceAppId,
                         recordGuestSpaceId,
                         comment)) as! AddCommentResponse
-                    commentGuestSpaceID = addCommentGuestSpaceResponse.getId()
-                    commentsGuestSpace.append(Int(commentGuestSpaceID))
+                    commentGuestSpaceId = addCommentGuestSpaceResponse.getId()
+                    commentsGuestSpace.append(Int(commentGuestSpaceId))
                 }
             }
             
@@ -80,7 +80,7 @@ class GetCommentsTest: QuickSpec {
                 // Only 10 comments are returned by default
                 expect(numberOfComments).to(equal(result.getComments()?.count))
                 
-                var commentId = Int(commentID)
+                var commentId = Int(commentId)
                 for comment in result.getComments()! {
                     let expectedResult = mentionCode + " \n" + commentContent + " "
                     expect(expectedResult).to(equal(comment.getText()))
@@ -198,7 +198,7 @@ class GetCommentsTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, "desc", offsetvalue, limitValue)) as! GetCommentsResponse
 
                 expect(limitValue).to(equal(result.getComments()?.count))
-                var commentId = Int(commentID) - offsetvalue
+                var commentId = Int(commentId) - offsetvalue
                 for value in result.getComments()! {
                     expect(commentId).to(equal(value.getId()))
                     commentId -= 1
@@ -294,7 +294,7 @@ class GetCommentsTest: QuickSpec {
                 // Only 10 comments are returned by default
                 expect(numberOfComments).to(equal(result.getComments()?.count))
                 
-                var commentId = Int(commentGuestSpaceID)
+                var commentId = Int(commentGuestSpaceId)
                 for comment in result.getComments()! {
                     let expectedResult = mentionCode + " \n" + commentContent + " "
                     expect(expectedResult).to(equal(comment.getText()))
@@ -369,7 +369,7 @@ class GetCommentsTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(guestSpaceAppId, recordGuestSpaceId, "desc", offsetValue, limitValue)) as! GetCommentsResponse
 
                 expect(limitValue).to(equal(result.getComments()?.count))
-                var commentId = Int(commentGuestSpaceID) - offsetValue
+                var commentId = Int(commentGuestSpaceId) - offsetValue
                 for value in result.getComments()! {
                     expect(commentId).to(equal(value.getId()))
                     commentId -= 1
@@ -383,7 +383,7 @@ class GetCommentsTest: QuickSpec {
                 // Only 10 comments are returned by default
                 expect(numberOfComments).to(equal(result.getComments()?.count))
                 
-                var commentId = Int(commentID)
+                var commentId = Int(commentId)
                 for comment in result.getComments()! {
                     let expectedResult = mentionCode + " \n" + commentContent + " "
                     expect(expectedResult).to(equal(comment.getText()))
@@ -458,7 +458,7 @@ class GetCommentsTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, "desc", offsetValue, limitValue)) as! GetCommentsResponse
 
                 expect(limitValue).to(equal(result.getComments()?.count))
-                var commentId = Int(commentID) - offsetValue
+                var commentId = Int(commentId) - offsetValue
                 for value in result.getComments()! {
                     expect(commentId).to(equal(value.getId()))
                     commentId -= 1
