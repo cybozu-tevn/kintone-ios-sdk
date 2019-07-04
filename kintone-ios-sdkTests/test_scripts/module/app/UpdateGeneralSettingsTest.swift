@@ -289,8 +289,8 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 settings.setName("updated appName")
                 
-                let appModuleWithoutViewRecordsPermission = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
-                let updateGeneralSettingsRsp = TestCommonHandling.awaitAsync(appModuleWithoutViewRecordsPermission.updateGeneralSettings(appId, settings)) as! KintoneAPIException
+                let appModuleWithoutManageAppPermission = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
+                let updateGeneralSettingsRsp = TestCommonHandling.awaitAsync(appModuleWithoutManageAppPermission.updateGeneralSettings(appId, settings)) as! KintoneAPIException
                 
                 let actualError = updateGeneralSettingsRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
