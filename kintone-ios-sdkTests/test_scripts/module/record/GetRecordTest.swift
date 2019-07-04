@@ -14,7 +14,7 @@ import Nimble
 class GetRecordTest: QuickSpec {
     override func spec() {
         let recordModule = Record(TestCommonHandling.createConnection())
-        let appId = TestConstant.InitData.APP_ID
+        let appId = TestConstant.InitData.SPACE_APP_ID
         let noneExistentId = TestConstant.Common.NONEXISTENT_ID
         let negativeId = TestConstant.Common.NEGATIVE_ID
 
@@ -67,7 +67,7 @@ class GetRecordTest: QuickSpec {
             }
             
             it("Test_003_Success_ValidData_ApiToken") {
-                let apiToken = TestConstant.InitData.APP_API_TOKEN
+                let apiToken = TestConstant.InitData.SPACE_APP_API_TOKEN
                 let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(apiToken))
                 let result = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.getRecord(appId!, recordId!)) as! GetRecordResponse
                 
