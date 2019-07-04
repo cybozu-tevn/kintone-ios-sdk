@@ -10,14 +10,7 @@ public class TestConstant {
         static let PROXY_IP = TestDataParser.getProxy().ip
         static let PROXY_PORT = TestDataParser.getProxy().port
         
-
-        // The information will be detect from environment variables
-        static let DOMAIN = environment["DOMAIN"]!
-        static let ADMIN_USERNAME = environment["ADMIN_USERNAME"]!
-        static let ADMIN_PASSWORD = environment["ADMIN_PASSWORD"]!
-
-        
-        //static let DOMAIN = TestDataParser.getDomain()
+        static let DOMAIN = TestDataParser.getDomain()
         static let CRED_ADMIN_USERNAME = TestDataParser.getAdministrator().username
         static let CRED_ADMIN_PASSWORD = TestDataParser.getAdministrator().password
         
