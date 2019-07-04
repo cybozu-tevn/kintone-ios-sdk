@@ -39,7 +39,7 @@ class DeleteFormFieldsTest: QuickSpec {
                 AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
-            it("Test_040_Success_Revision_GuestSpaceApp") {
+            it("Test_040_Success_Revision_GuestSpace") {
                 let currentForm = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(guestSpaceAppId, LanguageSetting.DEFAULT)) as! FormFields
                 let currentRevision = currentForm.getRevision()
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.deleteFormFields(guestSpaceAppId, fieldCodes, currentRevision)) as! BasicResponse

@@ -79,7 +79,7 @@ class UpdateFormFieldsTest: QuickSpec {
                 AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
-            it("Test_054_Success_Revision_GuestSpaceApp") {
+            it("Test_054_Success_Revision_GuestSpace") {
                 let currentForm = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(guestSpaceAppId, LanguageSetting.DEFAULT)) as! FormFields
                 let currentRevision = currentForm.getRevision()
                 var fields = [String: Field]()

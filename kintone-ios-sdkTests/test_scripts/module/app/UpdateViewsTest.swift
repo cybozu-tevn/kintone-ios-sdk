@@ -165,7 +165,7 @@ class UpdateViewsTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_023_Error_InvalidAppID") {
+            it("Test_023_Error_InvalidAppId") {
                 var result = TestCommonHandling.awaitAsync(appModule.updateViews(TestConstant.Common.NONEXISTENT_ID, viewEntry)) as! KintoneAPIException
                 var actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
@@ -254,7 +254,7 @@ class UpdateViewsTest: QuickSpec {
             }
             
             // GUEST SPACE
-            it("Test_016_Success_ValidRequest_GuestSpaceApp") {
+            it("Test_016_Success_ValidRequest_GuestSpace") {
                 let getViewGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
                 let currentRevision = getViewGuestSpaceAppResponse.getRevision()!
                 
@@ -284,7 +284,7 @@ class UpdateViewsTest: QuickSpec {
                 }
             }
             
-            it("Test_027_Success_DefaultRevision_GuestSpaceApp") {
+            it("Test_027_Success_DefaultRevision_GuestSpace") {
                 // Get current Revision
                 let getViewGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
                 let currentRevision = getViewGuestSpaceAppResponse.getRevision()!

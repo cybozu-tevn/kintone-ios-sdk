@@ -35,7 +35,7 @@ class GetFormFieldsTest: QuickSpec {
                 expect(actualResult).to(contain(TestConstant.InitData.FIELD_CODES))
             }
             
-            it("Test_005_Success_IsPreviewTrue_GuestSpaceApp") {
+            it("Test_005_Success_IsPreviewTrue_GuestSpace") {
                 let appModuleGuestSpace = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,

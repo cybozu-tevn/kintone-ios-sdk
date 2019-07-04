@@ -191,7 +191,7 @@ class UpdateFormLayoutTest: QuickSpec {
                 expect(tableResult.getFields()![0].getSize()?.getWidth()).to(equal(fieldWidth))
             }
             
-            it("Test_065_066_Success_ValidData_GuestSpaceApp") {
+            it("Test_065_066_Success_ValidData_GuestSpace") {
                 let appModuleGuestSpace = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,
@@ -277,7 +277,7 @@ class UpdateFormLayoutTest: QuickSpec {
                 expect(tableResult.getFields()![0].getSize()?.getWidth()).to(equal(fieldWidth))
             }
             
-            it("Test_071_Error_InvalidAppID") {
+            it("Test_071_Error_InvalidAppId") {
                 // Nonexistent app id
                 var result = TestCommonHandling.awaitAsync(appModule.updateFormLayout(TestConstant.Common.NONEXISTENT_ID, itemLayoutRequest!)) as! KintoneAPIException
                 var actualError = result.getErrorResponse()!

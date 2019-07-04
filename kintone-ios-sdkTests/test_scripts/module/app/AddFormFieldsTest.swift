@@ -204,7 +204,7 @@ class AddFormFieldsTest: QuickSpec {
                 expect(actualResult).to(contain(fieldCodes))
             }
             
-            it("Test_028_Success_Revision_GuestSpaceApp") {
+            it("Test_028_Success_Revision_GuestSpace") {
                 let appModuleGuestSpace = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,

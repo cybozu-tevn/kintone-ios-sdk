@@ -161,7 +161,7 @@ class GetViewsTest: QuickSpec {
                 }
             }
             
-            it("Test_009_Error_InvalidAppID") {
+            it("Test_009_Error_InvalidAppId") {
                 var result = TestCommonHandling.awaitAsync(appModule.getViews(TestConstant.Common.NONEXISTENT_ID, LanguageSetting.DEFAULT, isPreview)) as! KintoneAPIException
                 var actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
@@ -215,7 +215,7 @@ class GetViewsTest: QuickSpec {
             }
             
             // GUEST SPACE
-            it("Test_004_Success_ValidRequest_GuestSpaceApp") {
+            it("Test_004_Success_ValidRequest_GuestSpace") {
                 isPreview = true
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guetsSpaceAppId, LanguageSetting.DEFAULT, isPreview)) as! GetViewsResponse
                 
