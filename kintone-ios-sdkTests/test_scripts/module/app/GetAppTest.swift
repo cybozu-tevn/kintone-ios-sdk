@@ -19,7 +19,7 @@ class GetAppTest: QuickSpec {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(String(appInfo.apiToken.fullPermission)))
                 let getAppRsp = TestCommonHandling.awaitAsync(appModuleApiToken.getApp(appId)) as! AppModel
                 
-                expect(getAppRsp.getAppId()).to(equal(Int(appInfo.appId)!))
+                expect(getAppRsp.getAppId()).to(equal(appId))
                 expect(getAppRsp.getName()).to(equal(appInfo.name))
                 expect(getAppRsp.getCode()).to(equal(appInfo.code))
                 expect(getAppRsp.getDescription()).to(equal(appInfo.description))
@@ -31,7 +31,7 @@ class GetAppTest: QuickSpec {
             it("Test_004_Success") {
                 let getAppRsp = TestCommonHandling.awaitAsync(appModule.getApp(appId)) as! AppModel
                 
-                expect(getAppRsp.getAppId()).to(equal(Int(appInfo.appId)!))
+                expect(getAppRsp.getAppId()).to(equal(appId))
                 expect(getAppRsp.getName()).to(equal(appInfo.name))
                 expect(getAppRsp.getCode()).to(equal(appInfo.code))
                 expect(getAppRsp.getDescription()).to(equal(appInfo.description))
@@ -59,7 +59,7 @@ class GetAppTest: QuickSpec {
             }
             
             it("Test_005_Error_InvalidAppId") {
-                let invalidAppId = 9999 // non-existed appId
+                let invalidAppId = TestConstant.Common.NONEXISTENT_ID
                 let result = TestCommonHandling.awaitAsync(appModule.getApp(invalidAppId)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()
