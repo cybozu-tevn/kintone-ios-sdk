@@ -101,6 +101,7 @@ public class TestConstant {
         static let normalSpaces = TestDataParser.getNormalSpaceInfo()
         static let guestSpaces = TestDataParser.getGuestSpaceInfo()
         static let apps = TestDataParser.getApps()
+        static let APPS_TEST_GET_APPS = [apps.appInSpace[0], apps.appWithMultipleFields, apps.appWithRequiredFields, apps.appWithUniqueFields, apps.appWithProcess]
         
         static let SPACE_ID = Int(normalSpaces[0].getSpaceId())
         static let SPACE_THREAD_ID = Int(normalSpaces[0].getThreadId())
