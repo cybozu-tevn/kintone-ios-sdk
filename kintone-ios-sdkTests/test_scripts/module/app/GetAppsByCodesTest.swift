@@ -10,121 +10,178 @@ import Nimble
 
 class GetAppsByCodesTest: QuickSpec {
     override func spec() {
-        let app = App(TestCommonHandling.createConnection())
-        let appName = "App Name"
+        let appModule = App(TestCommonHandling.createConnection())
         let amountOfApps = 5
-        var appIds: [Int]?
+        var appIds: [Int]!
         var appCodes = [String]()
+        var appNames = [String]()
         
         describe("GetAppsByCode") {
             beforeSuite {
                 print("=== TEST PREPARATION ===")
-                appIds = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
-                for appId in appIds! {
-                    let appCodeForUpdate = DataRandomization.generateString(length: 4)
-                    appCodes.append(appCodeForUpdate)
-                    AppUtils.updateMiscSetting(appModule: app, code: appCodeForUpdate, id: appId, name: appName)
+                // Prepare Apps
+                let appNamePrefix = DataRandomization.generateString(prefix: "App-GetAppsByCode", length: 5)
+                appIds = AppUtils.createApps(appModule: appModule, appName: appNamePrefix, spaceId: nil, threadId: nil, amount: amountOfApps)
+                let getAppsByIDsRsp = TestCommonHandling.awaitAsync(appModule.getAppsByIDs(appIds)) as! [AppModel]
+                
+                // Set App code for Apps
+                for (index, app) in getAppsByIDsRsp.enumerated() {
+                    let appCode = DataRandomization.generateString(length: 4)
+                    let appName = app.getName()!
+                    appCodes.append(appCode)
+                    appNames.append(appName)
+                    AppUtils.updateMiscSetting(appModule: appModule, code: appCode, id: appIds[index], name: appName)
                 }
             }
             
             afterSuite {
                 print("=== TEST CLEANING UP ===")
-                AppUtils.deleteApps(appIds: appIds!)
+                AppUtils.deleteApps(appIds: appIds)
             }
             
             it("Test_030_Error_ApiToken") {
-                let apiToken = AppUtils.generateApiToken(app, appIds![0])
+                let apiToken = AppUtils.generateApiToken(appModule, appIds[0])
                 let tokenPermission = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
-                AppUtils.updateTokenPermission(appModule: app, appId: appIds![0], token: tokenPermission)
+                AppUtils.updateTokenPermission(appModule: appModule, appId: appIds[0], token: tokenPermission)
                 let appModule = App(TestCommonHandling.createConnection(apiToken))
-                let getAppsByCodes = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppsByCodes.getErrorResponse(), KintoneErrorParser.API_TOKEN_ERROR()!)
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes)) as! KintoneAPIException
+                
+                let actualError = getAppsByCodesRsp.getErrorResponse()
+                let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_031_Success_WithCodes_GuestSpaceApp") {
+            it("Test_031_Success_WithCodes_GuestSpace") {
+                // Prepare Apps for guest space
+                let guestSpaceId = TestConstant.InitData.GUEST_SPACE_ID
+                let guestSpaceAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, guestSpaceId!))
+                
+                let guestAppNamePrefix = DataRandomization.generateString(prefix: "App-GetAppsByCodes Guest space", length: 5)
+                let guestSpaceAppIds = AppUtils.createApps(appModule: guestSpaceAppModule, appName: guestAppNamePrefix, spaceId: guestSpaceId, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
+                let getAppsByIDsRsp = TestCommonHandling.awaitAsync(guestSpaceAppModule.getAppsByIDs(guestSpaceAppIds)) as! [AppModel]
+                
+                // Set App code for Apps
+                var guestSpaceAppNames = [String]()
                 var guestSpaceAppCodes = [String]()
-                let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
-                let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
-                for appId in guestAppIds! {
-                    let appCodeForUpdate = DataRandomization.generateString(length: 4)
-                    guestSpaceAppCodes.append(appCodeForUpdate)
-                    AppUtils.updateMiscSetting(appModule: guestAppModule, code: appCodeForUpdate, id: appId, name: appName)
+                for (index, app) in getAppsByIDsRsp.enumerated() {
+                    let appCode = DataRandomization.generateString(length: 4)
+                    let appName = app.getName()!
+                    guestSpaceAppCodes.append(appCode)
+                    guestSpaceAppNames.append(appName)
+                    AppUtils.updateMiscSetting(appModule: guestSpaceAppModule, code: appCode, id: guestSpaceAppIds[index], name: appName)
                 }
-                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(guestSpaceAppCodes)) as! [AppModel]
-                expect(getAppsByCodesRsp.count).to(equal(guestAppIds?.count))
-                for app in getAppsByCodesRsp {
-                    expect(app.getName()).to(contain(appName))
+                
+                // Verify getting Apps by App code
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(guestSpaceAppModule.getAppsByCodes(guestSpaceAppCodes)) as! [AppModel]
+                
+                expect(getAppsByCodesRsp.count).to(equal(guestSpaceAppIds.count))
+                for (index, app) in getAppsByCodesRsp.enumerated() {
+                    expect(app.getAppId()).to(equal(guestSpaceAppIds[index]))
+                    expect(app.getName()).to(equal(guestSpaceAppNames[index]))
+                    expect(app.getCode()).to(equal(guestSpaceAppCodes[index]))
                 }
+                
+                AppUtils.deleteApps(appIds: guestSpaceAppIds)
             }
             
             it("Test_031_Success_WithCodes") {
-                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(appCodes)) as! [AppModel]
-                expect(getAppsByCodesRsp.count).to(equal(appIds?.count))
-                for app in getAppsByCodesRsp {
-                    expect(app.getName()).to(contain(appName))
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes)) as! [AppModel]
+                
+                expect(getAppsByCodesRsp.count).to(equal(appIds.count))
+                for (index, app) in getAppsByCodesRsp.enumerated() {
+                    expect(app.getAppId()).to(equal(appIds[index]))
+                    expect(app.getName()).to(equal(appNames[index]))
+                    expect(app.getCode()).to(equal(appCodes[index]))
                 }
             }
             
             it("Test_032_038_Success_Limit") {
                 let limit = 2
-                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(appCodes, nil, limit)) as! [AppModel]
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes, nil, limit)) as! [AppModel]
+                
                 expect(getAppsByCodesRsp.count).to(equal(limit))
-                for app in getAppsByCodesRsp {
-                    expect(app.getName()).to(equal(appName))
+                for (index, app) in getAppsByCodesRsp.enumerated() {
+                    expect(app.getAppId()).to(equal(appIds[index]))
+                    expect(app.getName()).to(equal(appNames[index]))
+                    expect(app.getCode()).to(equal(appCodes[index]))
                 }
             }
             
             it("Test_033_Success_Offset") {
                 let offset = 2
-                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(appCodes, offset, nil)) as! [AppModel]
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes, offset, nil)) as! [AppModel]
+                
                 expect(getAppsByCodesRsp.count).to(equal(appCodes.count - offset))
-                for app in getAppsByCodesRsp {
-                    expect(app.getName()).to(equal(appName))
+                for (index, app) in getAppsByCodesRsp.enumerated() {
+                    expect(app.getAppId()).to(equal(appIds[index + offset]))
+                    expect(app.getName()).to(equal(appNames[index + offset]))
+                    expect(app.getCode()).to(equal(appCodes[index + offset]))
                 }
             }
             
             it("Test_034_Error_LimitZero") {
                 let limit = 0
-                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(appCodes, nil, limit)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppsByCodesRsp.getErrorResponse(), KintoneErrorParser.NEGATIVE_LIMIT_ERROR()!)
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes, nil, limit)) as! KintoneAPIException
+                
+                let actualError = getAppsByCodesRsp.getErrorResponse()
+                let expectedError = KintoneErrorParser.NEGATIVE_LIMIT_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_035_Error_LimitGreaterThan100") {
                 let limit = 101
-                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(appCodes, nil, limit)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppsByCodesRsp.getErrorResponse(), KintoneErrorParser.LIMIT_LARGER_THAN_100_ERRORS()!)
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes, nil, limit)) as! KintoneAPIException
+                
+                let actualError = getAppsByCodesRsp.getErrorResponse()
+                let expectedError = KintoneErrorParser.LIMIT_LARGER_THAN_100_ERRORS()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_036_Error_NegativeOffset") {
                 let offset = -2
-                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(appCodes, offset, nil)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppsByCodesRsp.getErrorResponse(), KintoneErrorParser.NEGATIVE_OFFSET_ERROR()!)
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes, offset, nil)) as! KintoneAPIException
+                
+                let actualError = getAppsByCodesRsp.getErrorResponse()
+                let expectedError = KintoneErrorParser.NEGATIVE_OFFSET_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
-//            This case is used so much time, if you want to execute it, please un-rem
+//            // This test is commented out because it takes so much time for executing
 //            it("Test_037_Success_Maximum100Apps") {
-//                let appIds100Apps = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: 100)
-//                var codes100Apps = [String]()
-//                var names100Apps = [String]()
-//                let getAppsByIDsRsp = TestCommonHandling.awaitAsync(app.getAppsByIDs(appIds100Apps)) as! [AppModel]
-//                for(index, eachApp) in getAppsByIDsRsp.enumerated() {
-//                    codes100Apps.append(DataRandomization.generateString(length: 4))
-//                    names100Apps.append(eachApp.getName()!)
-//                    AppUtils.updateMiscSetting(appModule: app, code: codes100Apps[index], id: eachApp.getAppId()!, name: eachApp.getName()!)
+//                // Prepare Apps
+//                let appNamePrefix = DataRandomization.generateString(prefix: "AppName", length: 5)
+//                let appIds100 = AppUtils.createApps(appModule: appModule, appName: appNamePrefix, spaceId: nil, threadId: nil, amount: 100)
+//                let getAppsByIDsRsp = TestCommonHandling.awaitAsync(appModule.getAppsByIDs(appIds)) as! [AppModel]
+//                
+//                // Set App code for Apps
+//                var appCodes100 = [String]()
+//                var appNames100 = [String]()
+//                for (index, app) in getAppsByIDsRsp.enumerated() {
+//                    let appCode = DataRandomization.generateString(length: 4)
+//                    let appName = app.getName()!
+//                    appCodes100.append(appCode)
+//                    appCodes100.append(appName)
+//                    AppUtils.updateMiscSetting(appModule: appModule, code: appCode, id: appIds100[index], name: appName)
 //                }
-//                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(app.getAppsByCodes(codes100Apps)) as! [AppModel]
-//                expect(getAppsByCodesRsp.count).to(equal(codes100Apps.count))
-//                for(index, eachApp) in getAppsByCodesRsp.enumerated() {
-//                    expect(eachApp.getName()).to(equal(names100Apps[index]))
+//                
+//                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes100)) as! [AppModel]
+//                
+//                expect(getAppsByCodesRsp.count).to(equal(appIds100.count))
+//                for(index, app) in getAppsByCodesRsp.enumerated() {
+//                    expect(app.getAppId()).to(equal(appIds100[index]))
+//                    expect(app.getName()).to(equal(appNames100[index]))
 //                }
-//
-//                AppUtils.deleteApps(appIds: appIds100Apps)
+//                
+//                AppUtils.deleteApps(appIds: appIds100)
 //            }
             
             it("Test_039_Error_OffsetExceedValue") {
                 let offset = TestConstant.Common.MAX_VALUE + 1
-                let getAppsByCodes = TestCommonHandling.awaitAsync(app.getAppsByCodes(appCodes, offset, nil)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppsByCodes.getErrorResponse(), KintoneErrorParser.OFFSET_LARGER_THAN_2147483647_ERROR()!)
+                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes, offset, nil)) as! KintoneAPIException
+                
+                let actualError = getAppsByCodesRsp.getErrorResponse()
+                let expectedError = KintoneErrorParser.OFFSET_LARGER_THAN_2147483647_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
         }
     }
