@@ -65,6 +65,7 @@ struct users: Decodable {
 struct user: Decodable {
     var username: String
     var password: String
+    var code: String
     var id: String
 }
 
