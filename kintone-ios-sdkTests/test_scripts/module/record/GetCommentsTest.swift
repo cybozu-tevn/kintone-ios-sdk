@@ -104,7 +104,7 @@ class GetCommentsTest: QuickSpec {
                 }
             }
             
-            it("Test_217_Success_SortDesending") {
+            it("Test_217_Success_SortDescending") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, "desc", nil, nil)) as! GetCommentsResponse
                 var commentIndex = comments.count - 1
                 for value in result.getComments()! {
@@ -319,7 +319,7 @@ class GetCommentsTest: QuickSpec {
                 }
             }
             
-            it("Test_217_Success_SortDesending_GuestSpace") {
+            it("Test_217_Success_SortDescending_GuestSpace") {
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(guestSpaceAppId, recordGuestSpaceId, "desc", nil, nil)) as! GetCommentsResponse
                 var commentIndex = commentsGuestSpace.count - 1
                 
@@ -408,7 +408,7 @@ class GetCommentsTest: QuickSpec {
                 }
             }
             
-            it("Test_217_SortDesending_ApiToken") {
+            it("Test_217_SortDescending_ApiToken") {
                 let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, "desc", nil, nil)) as! GetCommentsResponse
                 var commentIndex = comments.count - 1
                 

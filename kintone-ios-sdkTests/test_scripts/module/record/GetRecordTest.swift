@@ -143,7 +143,6 @@ class GetRecordTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            // When user don't have View records permission for field - ex: txt_Name field
             it("Test_010_Error_WithoutFieldRecordPermission") {
                 let usernameWithoutViewFieldPermission = TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION
                 let passwordWithoutViewFieldPermission = TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION

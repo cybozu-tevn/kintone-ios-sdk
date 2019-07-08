@@ -31,8 +31,8 @@ class BulkRequestTest: QuickSpec {
             
             it("Test_002_Success_ValidRequest") {
                 var recordIds = [Int]()
-                let statusAction = ["Start", "Complete"]
-                let status = ["In progress", "Completed"]
+                let recordAction = TestConstant.InitData.ACTION_START
+                let recordStatus = TestConstant.InitData.STATE_IN_PROGRESS
                 
                 // addRecord data
                 let addRecordValue = DataRandomization.generateString(prefix: "Record-addRecord", length: 10)
@@ -94,8 +94,8 @@ class BulkRequestTest: QuickSpec {
                 testData = RecordUtils.setRecordData([:], updateKeyField, FieldType.SINGLE_LINE_TEXT, textValue as Any)
                 let updateRecordsSecondStatusResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse
                 let updateRecordsSecondStatusId = updateRecordsSecondStatusResponse.getId()!
-                let item1 = RecordUpdateStatusItem(statusAction[0], nil, updateRecordsFirstStatusId, nil)
-                let item2 = RecordUpdateStatusItem(statusAction[0], nil, updateRecordsSecondStatusId, nil)
+                let item1 = RecordUpdateStatusItem(recordAction, nil, updateRecordsFirstStatusId, nil)
+                let item2 = RecordUpdateStatusItem(recordAction, nil, updateRecordsSecondStatusId, nil)
                 let itemList = [item1, item2]
                 
                 // deleteRecords data
@@ -122,7 +122,7 @@ class BulkRequestTest: QuickSpec {
                     _ = try bulkRequestModule.updateRecordByUpdateKey(appId, updateKey, updateRecordByUpdateKeyData, nil)
                     _ = try bulkRequestModule.updateRecords(appId, updateItemList)
                     _ = try bulkRequestModule.updateRecordAssignees(appId, updateAssigneesRecordId, assignees, nil)
-                    _ = try bulkRequestModule.updateRecordStatus(appId, updateRecordStatusId, statusAction[0], nil, nil)
+                    _ = try bulkRequestModule.updateRecordStatus(appId, updateRecordStatusId, recordAction, nil, nil)
                     _ = try bulkRequestModule.updateRecordsStatus(appId, itemList)
                     
                     // insert deleted record request to bulk request
@@ -189,12 +189,12 @@ class BulkRequestTest: QuickSpec {
                                     // update record status
                                     if(Int(value.getValue() as! String)! == updateRecordStatusId) {
                                         print("UPDATE RECORD STATUS TEST")
-                                        expect(status[0]).to(equal(record[statusCode]?.getValue()! as? String))
+                                        expect(recordStatus).to(equal(record[statusCode]?.getValue()! as? String))
                                     }
                                     // update records status
                                     if(Int(value.getValue() as! String)! == updateRecordsFirstStatusId || Int(value.getValue() as! String)! == updateRecordsSecondStatusId) {
                                         print("UPDATE RECORDS STATUS TEST")
-                                        expect(status[0]).to(equal(record[statusCode]?.getValue()! as? String))
+                                        expect(recordStatus).to(equal(record[statusCode]?.getValue()! as? String))
                                     }
                                 }
                                 if(key == textField) {
@@ -250,8 +250,8 @@ class BulkRequestTest: QuickSpec {
             it("Test_006_Error_NonexistentRecordIDWithUpdateRecordByID") {
                 _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.updateRecordByID(appId, nonexistentId, nil, nil)}
                 let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
-                let actualError = result.getErrorResponses()![0]
                 
+                let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(nonexistentId))
                 TestCommonHandling.compareError(actualError, expectedError)

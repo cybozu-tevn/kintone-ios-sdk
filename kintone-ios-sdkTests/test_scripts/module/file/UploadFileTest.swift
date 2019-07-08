@@ -10,24 +10,30 @@ import Nimble
 
 class UploadFileTest: QuickSpec {
     override func spec() {
-        let appId: Int! = TestConstant.InitData.APP_ID
-        let textField: String! = TestConstant.InitData.TEXT_FIELD
-        let attachmentField: String! = TestConstant.InitData.ATTACHMENT_FIELD
-        var recordId: Int!
-        
         let conn = TestCommonHandling.createConnection()
         let recordModule = Record(conn)
         let fileModule = File(conn)
         
+        // the app has attachment field
+        let appId: Int! = TestConstant.InitData.APP_ID
+        var recordId: Int!
+
         describe("UploadFile") {
             afterSuite {
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
             }
             
             it("Test_002_003_Success_UploadFile") {
+                let textField: String! = TestConstant.InitData.TEXT_FIELD
+                let attachmentField: String! = TestConstant.InitData.ATTACHMENT_FIELD
                 let bundleUploadFile = Bundle(for: type(of: self))
                 var recordTestData: [String: FieldValue] = [:]
-                recordTestData = RecordUtils.setRecordData(recordTestData, textField, FieldType.SINGLE_LINE_TEXT,"Upload single file")
+                recordTestData = RecordUtils.setRecordData(recordTestData, textField, FieldType.SINGLE_LINE_TEXT, "Upload single file")
+                recordTestData = RecordUtils.setRecordData(
+                    recordTestData,
+                    textField,
+                    FieldType.SINGLE_LINE_TEXT,
+                    "Upload single file")
                 
                 if let uploadFilePath = bundleUploadFile.url(forResource: "test", withExtension: "txt") {
                     let resourcesFile = try! uploadFilePath.resourceValues(forKeys: [.fileSizeKey])
@@ -48,6 +54,7 @@ class UploadFileTest: QuickSpec {
                     // Get record -> download file -> verify file info
                     let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                     let fileResults = getRecordResponse.getRecord()![attachmentField]!.getValue() as! [FileModel]
+
                     for fileResult in fileResults {
                         if let downloadDir = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first {
                             let filePath = downloadDir.appendingPathComponent(fileResult.getName()!)

@@ -9,54 +9,58 @@ import Nimble
 @testable import kintone_ios_sdk
 
 class ConnectionTest: QuickSpec {
-    let APP_ID: Int = TestConstant.InitData.APP_ID!
-    let API_TOKEN: String = TestConstant.InitData.APP_API_TOKEN
-    let GUEST_SPACE_ID: Int = TestConstant.InitData.GUEST_SPACE_ID!
-    let GUEST_SPACE_APP_ID: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
-    let INVALID_PROXY_IP: String = TestConstant.Common.INVALID_PROXY_IP
-    let INVALID_PROXY_HOST_PORT: Int = TestConstant.Common.INVALID_PROXY_HOST_PORT
-    
     override func spec() {
+        let appId: Int = TestConstant.InitData.APP_ID!
+        
         describe("Connection") {
-            it("Test_002_ValidRequest") {
+            it("Test_002_Success_ValidRequest") {
                 let auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
                 conn.setProxy(TestConstant.Connection.PROXY_IP, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
-                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is AddRecordResponse
+                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, [:])) is AddRecordResponse
+                
                 expect(result).to(beTruthy())
             }
             
-            it("Test_002_ValidRequestGuestSpace") {
+            it("Test_002_Success_ValidRequest_GuestSpace") {
+                let guestSpaceId: Int = TestConstant.InitData.GUEST_SPACE_ID!
+                let guestSpaceAppId: Int = TestConstant.InitData.GUEST_SPACE_APP_ID!
                 let auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
-                let conn = Connection(TestConstant.Connection.DOMAIN, auth, self.GUEST_SPACE_ID)
+                let conn = Connection(TestConstant.Connection.DOMAIN, auth, guestSpaceId)
                 conn.setProxy(TestConstant.Connection.PROXY_IP, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
-                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.GUEST_SPACE_APP_ID, [:])) is AddRecordResponse
+                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(guestSpaceAppId, [:])) is AddRecordResponse
+                
                 expect(result).to(beTruthy())
             }
             
-            it("Test_002_ValidRequestApiToken") {
-                let auth = Auth().setApiToken(self.API_TOKEN)
+            it("Test_002_Success_ValidRequest_ApiToken") {
+                let apiToken: String = TestConstant.InitData.APP_API_TOKEN
+                let auth = Auth().setApiToken(apiToken)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
                 conn.setProxy(TestConstant.Connection.PROXY_IP, TestConstant.Connection.PROXY_PORT)
                 let recordModule = Record(conn)
                 
-                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is AddRecordResponse
+                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, [:])) is AddRecordResponse
+                
                 expect(result).to(beTruthy())
             }
             
-            it("Test_003_005_InvalidRequest") {
+            it("Test_003_005_Error_InvalidRequest") {
+                let invalidProxyIp: String = TestConstant.Common.INVALID_PROXY_IP
+                let invalidProxyPort: Int = TestConstant.Common.INVALID_PROXY_HOST_PORT
                 let auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
                 let conn = Connection(TestConstant.Connection.DOMAIN, auth)
-                conn.setProxy(self.INVALID_PROXY_IP, self.INVALID_PROXY_HOST_PORT)
+                conn.setProxy(invalidProxyIp, invalidProxyPort)
                 let recordModule = Record(conn)
                 
-                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(self.APP_ID, [:])) is NSError
+                let result = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, [:])) is NSError
+                
                 expect(result).to(beTruthy())
-            } //End it
-        } //End describe
-    } //End spec func
+            }
+        }
+    }
 }

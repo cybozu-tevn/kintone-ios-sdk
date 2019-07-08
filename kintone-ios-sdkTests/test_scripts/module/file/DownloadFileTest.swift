@@ -59,6 +59,7 @@ class DownloadFileTest: QuickSpec {
                 // Get record -> download file -> verify file info
                 let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId!, recordId)) as! GetRecordResponse
                 let fileResults = getRecordResponse.getRecord()![attachmentField]!.getValue() as! [FileModel]
+
                 for fileResult in fileResults {
                     fileKeys.append(fileResult.getFileKey()!)
                     if let downloadDir = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first {
