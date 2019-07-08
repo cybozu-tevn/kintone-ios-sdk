@@ -10,15 +10,15 @@ import Nimble
 
 class GetAppDeployStatusTest: QuickSpec {
     override func spec() {
-        let app = App(TestCommonHandling.createConnection())
-        let appName = "App Name"
+        let appModule = App(TestCommonHandling.createConnection())
+        let appName = DataRandomization.generateString(length: 8)
         let amountOfApps = 5
         var appIds: [Int]?
         
         describe("GetAppDeployStatus") {
             beforeSuite {
                 print("=== TEST PREPARATION ===")
-                appIds = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
+                appIds = AppUtils.createApps(appModule: appModule, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
             }
             
             afterSuite {
@@ -27,114 +27,179 @@ class GetAppDeployStatusTest: QuickSpec {
             }
             
             it("Test_079_Success") {
-                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds!)) as! GetAppDeployStatusResponse
-                for appDeployStatus in getAppDeployStatusRsp.getApps()! {
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds!)) as! GetAppDeployStatusResponse
+                
+                let appsDeployStatus = getAppDeployStatusRsp.getApps()!
+                for (index, appDeployStatus) in appsDeployStatus.enumerated() {
                     let appId = appDeployStatus.getApp()!
-                    let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appId)) as! AppModel
-                    expect(getAppRsp.getName()).to(contain(appName))
+                    let getAppRsp = TestCommonHandling.awaitAsync(appModule.getApp(appId)) as! AppModel
+                    
+                    expect(getAppRsp.getName()).to(equal("\(appName)\(index)"))
                     expect(appDeployStatus.getStatus()).to(equal(AppDeployStatus.Status.SUCCESS))
                 }
             }
             
-            it("Test_079_Success_GuestSpaceApp") {
+            it("Test_079_Success_GuestSpace") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
-                
                 let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
                 
                 let getAppDeployeStatusRsp = TestCommonHandling.awaitAsync(guestAppModule.getAppDeployStatus(guestAppIds!)) as! GetAppDeployStatusResponse
-                for appDeployStatus in getAppDeployeStatusRsp.getApps()! {
+                
+                let guestAppsDeployStatus = getAppDeployeStatusRsp.getApps()!
+                for (index, appDeployStatus) in guestAppsDeployStatus.enumerated() {
                     let appId = appDeployStatus.getApp()!
                     let getAppRsp = TestCommonHandling.awaitAsync(guestAppModule.getApp(appId)) as! AppModel
-                    expect(getAppRsp.getName()).to(contain(appName))
+                    
+                    expect(getAppRsp.getName()).to(equal("\(appName)\(index)"))
                     expect(appDeployStatus.getStatus()).to(equal(AppDeployStatus.Status.SUCCESS))
                 }
+                
                 AppUtils.deleteApps(appIds: guestAppIds!)
             }
             
-            // This case is used so much time, if you want to execute it, please un-rem
-            //            fit("Test_080_Maximum300Apps") {
+            // This case takes a lot of time to be run, so it need to be commented out for running on demand
+            //            fit("Test_080_Success_Maximum300Apps") {
             //                let appIds = AppUtils.createApps(appModule: app, appName: appName, spaceId: nil, threadId: nil, amount: 300)
+            //
             //                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds)) as! GetAppDeployStatusResponse
+            //
             //                expect(getAppDeployStatusRsp.getApps()?.count).to(equal(appIds.count))
             //                for appDeployStt in getAppDeployStatusRsp.getApps()! {
             //                    expect(appDeployStt.getStatus()).to(equal(AppDeployStatus.Status.SUCCESS))
             //                    let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(appDeployStt.getApp()!)) as! AppModel
             //                    expect(getAppRsp.getName()).to(contain(appName))
             //                }
+            //
             //                AppUtils.deleteApps(appIds: appIds)
             //            }
             
             it("Test_081_Error_ApiToken") {
-                let apiToken = AppUtils.generateApiToken(app, appIds![0])
+                let apiToken = AppUtils.generateApiToken(appModule, appIds![0])
                 let tokenPermission = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
-                AppUtils.updateTokenPermission(appModule: app, appId: appIds![0], token: tokenPermission)
-                
+                AppUtils.updateTokenPermission(appModule: appModule, appId: appIds![0], token: tokenPermission)
                 let appModule = App(TestCommonHandling.createConnection(apiToken))
+                
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds!)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), KintoneErrorParser.API_TOKEN_ERROR()!)
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                let expectedCode = KintoneErrorParser.API_TOKEN_ERROR()?.getCode()
+                let expectedMessage = KintoneErrorParser.API_TOKEN_ERROR()?.getMessage()
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
             }
             
             it("Test_082_Error_WithoutAppId") {
-                let apiToken = AppUtils.generateApiToken(app, appIds![0])
+                let apiToken = AppUtils.generateApiToken(appModule, appIds![0])
                 let tokenPermission = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
-                AppUtils.updateTokenPermission(appModule: app, appId: appIds![0], token: tokenPermission)
-                
-                let emptyArray = [Int]()
+                AppUtils.updateTokenPermission(appModule: appModule, appId: appIds![0], token: tokenPermission)
                 let appModule = App(TestCommonHandling.createConnection(apiToken))
-                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(emptyArray)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), KintoneErrorParser.MISSING_APPS_ERROR()!)
+                
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus([])) as! KintoneAPIException
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                let actualErrors = getAppDeployStatusRsp.getErrorResponse()?.getErrors()
+                let expectedCode = KintoneErrorParser.MISSING_APPS_ERROR()?.getCode()
+                let expectedMessage = KintoneErrorParser.MISSING_APPS_ERROR()?.getMessage()
+                let expectedErrors = KintoneErrorParser.MISSING_APPS_ERROR()?.getErrors()
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
+                expect(actualErrors).to(equal(expectedErrors))
             }
             
             it("Test_083_Error_NonExistentAppId") {
                 let nonExistentAppIds = [TestConstant.Common.NONEXISTENT_ID]
-                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(nonExistentAppIds)) as! KintoneAPIException
-                var expectedErr = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()
-                expectedErr?.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(nonExistentAppIds[0]))
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(nonExistentAppIds)) as! KintoneAPIException
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let expectedCode = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                var expectedMessage = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()?.getMessage()
+                expectedMessage = expectedMessage?.replacingOccurrences(of: "%VARIABLE", with: String(TestConstant.Common.NONEXISTENT_ID))
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
             }
             
             it("Test_084_Error_DuplicatedAppId") {
                 let duplicateAppIds = [appIds![0], appIds![0]]
-                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(duplicateAppIds)) as! KintoneAPIException
-                var expectedErr = KintoneErrorParser.DUPLICATE_APP_ID_ERROR()
-                expectedErr?.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String(1))
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(duplicateAppIds)) as! KintoneAPIException
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                let actualErrors = getAppDeployStatusRsp.getErrorResponse()?.getErrors()
+                let expectedCode = KintoneErrorParser.DUPLICATE_APP_ID_ERROR()?.getCode()
+                let expectedMessage = KintoneErrorParser.DUPLICATE_APP_ID_ERROR()?.getMessage()
+                var expectedErrors = KintoneErrorParser.DUPLICATE_APP_ID_ERROR()
+                expectedErrors?.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String(1))
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
+                expect(actualErrors).to(equal(expectedErrors?.errors))
             }
             
             it("Test_085_Error_NegativeAppId") {
-                let negativeAppIds = [-1]
-                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(negativeAppIds)) as! KintoneAPIException
-                var expectedErr = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()
-                expectedErr?.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "")
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus([-100])) as! KintoneAPIException
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                let actualErrors = getAppDeployStatusRsp.getErrorResponse()?.getErrors()
+                let expectedCode = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()?.getCode()
+                let expectedMessage = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()?.getMessage()
+                var expectedErrors = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()
+                expectedErrors?.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "")
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
+                expect(actualErrors).to(equal(expectedErrors?.errors))
             }
             
             it("Test_086_Error_ZeroAppId") {
-                let negativeAppIds = [0]
-                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(negativeAppIds)) as! KintoneAPIException
-                var expectedErr = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()
-                expectedErr?.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "")
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus([0])) as! KintoneAPIException
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                let actualErrors = getAppDeployStatusRsp.getErrorResponse()?.getErrors()
+                let expectedCode = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()?.getCode()
+                let expectedMessage = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()?.getMessage()
+                var expectedErrors = KintoneErrorParser.NEGATIVE_APPS_ID_ERROR()
+                expectedErrors?.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "")
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
+                expect(actualErrors).to(equal(expectedErrors?.errors))
             }
             
             it("Test_087_Error_MoreThan300AppIds") {
                 let appIds = [Int](repeating: 1, count: 301)
-                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(app.getAppDeployStatus(appIds)) as! KintoneAPIException
-                let expectedErr = KintoneErrorParser.MORE_THAN_300_APP_IDS()
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), expectedErr!)
+                let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds)) as! KintoneAPIException
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                let actualErrors = getAppDeployStatusRsp.getErrorResponse()?.getErrors()
+                let expectedCode = KintoneErrorParser.MORE_THAN_300_APP_IDS()?.getCode()
+                let expectedMessage = KintoneErrorParser.MORE_THAN_300_APP_IDS()?.getMessage()
+                let expectedErrors = KintoneErrorParser.MORE_THAN_300_APP_IDS()?.getErrors()
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
+                expect(actualErrors).to(equal(expectedErrors))
             }
             
             it("Test_088_Error_WithoutPermission") {
-                //                let entityAdmin = DevMemberEntity(DevMemberType.USER, TestConstant.Connection.ADMIN_USERNAME)
-                //                let admin = SpaceMember(entityAdmin, true)
-                //                var members = [SpaceMember]()
-                //                members.append(admin)
-                //                let spaceId = SpaceUtils.addSpace(idTemplate: 1, name: "TestPermission", members: members, isPrivate: false)
-                //                let appId = AppUtils.createApp(appModule: app, appName: appName, spaceId: spaceId, threadId: spaceId)
-                
                 let appModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds!)) as! KintoneAPIException
-                TestCommonHandling.compareError(getAppDeployStatusRsp.getErrorResponse(), KintoneErrorParser.PERMISSION_ERROR()!)
+                
+                let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
+                let actualMessage = getAppDeployStatusRsp.getErrorResponse()?.getMessage()
+                let expectedCode = KintoneErrorParser.PERMISSION_ERROR()?.getCode()
+                let expectedMessage = KintoneErrorParser.PERMISSION_ERROR()?.getMessage()
+                
+                expect(actualCode).to(equal(expectedCode))
+                expect(actualMessage).to(equal(expectedMessage))
             }
         }
     }
