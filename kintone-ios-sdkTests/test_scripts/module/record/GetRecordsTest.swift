@@ -15,7 +15,6 @@ class GetRecordsTest: QuickSpec {
         let numberOfRecords = 5
         var recordIds = [Int]()
         var textFieldValues = [String]()
-        var testDataList = [Dictionary<String, FieldValue>]()
         var query: String!
         let recordModule = Record(TestCommonHandling.createConnection())
         
@@ -141,20 +140,20 @@ class GetRecordsTest: QuickSpec {
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     TestConstant.InitData.GUEST_SPACE_ID!))
                 let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
-                var textFieldValues = [String]()
+                
                 var testDataList = [Dictionary<String, FieldValue>]()
+                var textFieldValues = [String]()
                 for i in 0...numberOfRecords-1 {
                     textFieldValues.append(DataRandomization.generateString())
                     let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
                     testDataList.append(testData)
                 }
                 
-                let addRecordsResponseGuestSpace = TestCommonHandling.awaitAsync(
-                    recordModuleGuestSpace.addRecords(guestSpaceAppId, testDataList)) as! AddRecordsResponse
-                let guestSpaceRecordIds = addRecordsResponseGuestSpace.getIDs()!
+                let addRecordsResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecords(guestSpaceAppId, testDataList)) as! AddRecordsResponse
+                let recordIds = addRecordsResponse.getIDs()!
                 
                 var idsStringGuestSpace = "("
-                for id in guestSpaceRecordIds {
+                for id in recordIds {
                     if idsStringGuestSpace == "(" {
                         idsStringGuestSpace += String(id)
                     } else {
@@ -193,6 +192,7 @@ class GetRecordsTest: QuickSpec {
         
         func _prepareRecords(_ numberOfRecords: Int) {
             var testDataList = [Dictionary<String, FieldValue>]()
+            textFieldValues.removeAll()
             for i in 0...numberOfRecords-1 {
                 textFieldValues.append(DataRandomization.generateString())
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
