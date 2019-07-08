@@ -1,27 +1,29 @@
 # Usages:
 # - run all tests and generate report in html format (by default)
 # $fastlane test
+#
 # - run all tests and generate report in junit format
 # $fastlane test junit:true
-# - run test for specific test class (Eg: GetAppTest) and generate report in html format
-# $fastlane test test_class:"GetAppTest" html:true
 #
+# - run test for specific test class (Eg: GetAppTest, GetRecordTest) and generate report in html format
+# $fastlane test test_class:"GetAppTest","GetRecordTest" html:true
+#
+# - run test for specific module (Eg: record) and generate report in html format
+# $fastlane test test_module:"record" html:true
 #
 default_platform(:ios)
 
+
 # common configurations
-project_name="kintone-ios-sdk"
-scheme="kintone-ios-sdkTests"
-destination="platform=iOS Simulator,OS=12.2,name=iPhone X"
+#
+project_name = "kintone-ios-sdk"
+scheme = "kintone-ios-sdkTests"
+destination = "platform=iOS Simulator,OS=12.2,name=iPhone X"
 #domain=ENV["DOMAIN"]
 #admin_username=ENV["ADMIN_USERNAME"]
 #admin_password=ENV["ADMIN_PASSWORD"]
 
 platform :ios do
-#  before_all do
-#    setup_circle_ci
-#  end
-
   desc "Run tests, optionally generating report."
   lane :test do |options|
     opts = {
@@ -33,10 +35,73 @@ platform :ios do
       :output_style => 'basic',
       :code_coverage => true,
       :include_simulator_logs => false,
- #     :xcargs => "DOMAIN=#{domain} ADMIN_USERNAME=#{admin_username} ADMIN_PASSWORD=#{admin_password}"
+      #:xcargs => "DOMAIN=#{domain} ADMIN_USERNAME=#{admin_username} ADMIN_PASSWORD=#{admin_password}"
     }
-    opts[:only_testing] = options[:test_class] ? ["#{scheme}/#{options[:test_class]}"] : [scheme] 
+
+    test_module = options[:test_module]
+    test_class = options[:test_class]
+    if test_module || test_class then
+      if test_module then 
+        case test_module
+        when "app"
+          fileNames = getFileNames("module/app")
+          opts[:only_testing] = generateTestClassToTest(fileNames, scheme)
+
+        when "record"
+          fileNames = getFileNames("module/record")
+          opts[:only_testing] = generateTestClassToTest(fileNames, scheme)
+
+        when "file"
+          fileNames = getFileNames("module/file")
+          opts[:only_testing] = generateTestClassToTest(fileNames, scheme)
+
+        when "bulkrequest"
+          fileNames = getFileNames("module/bulkrequest")
+          opts[:only_testing] = generateTestClassToTest(fileNames, scheme)
+
+        when "connection"
+          fileNames = getFileNames("connection")
+          opts[:only_testing] = generateTestClassToTest(fileNames, scheme)
+        end
+      end
+
+      if test_class then
+        test_class = test_class.split(",")
+        opts[:only_testing] = generateTestClassToTest(test_class, scheme)
+      end
+    else
+      opts[:only_testing] = [scheme] 
+    end
+
     opts[:output_types] = options[:junit] ? "junit" : "html"
     scan(opts)
   end
 end
+
+# The function to get all file of module
+#
+# - Parameter moduleName | the module name to get all file
+# - Returns: the array of all fiels name
+def getFileNames(moduleName)
+  dir = "../kintone-ios-sdkTests/test_scripts/#{moduleName}/*" 
+  fileNames = Dir[dir].select{ |f| File.file? f }.map{ |f| File.basename(f, File.extname(f)) }
+
+  return fileNames 
+end
+
+# The function to generate test class
+#
+# - Parameters 
+#   + classNames | all class name to test
+#   + scheme | the scheme of project
+# - Returns: the string to test all input class
+def generateTestClassToTest(classNames, scheme)
+    testString = classNames.map { |className| 
+      testString =  "#{scheme}/#{className}"
+
+      testString
+    }.join(",")
+
+  return testString
+end
+
