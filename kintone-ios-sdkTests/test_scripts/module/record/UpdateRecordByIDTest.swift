@@ -20,7 +20,7 @@ class UpdateRecordByIDTest: QuickSpec {
         describe("UpdateRecordByID") {
             it("Test_065_Success_ValidData") {
                 // Prepare record
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 // Set new value for text field and update record by id
                 let textFieldValue = DataRandomization.generateString()
@@ -43,7 +43,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_066_Success_RevisionNegative1") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let textFieldValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
@@ -61,7 +61,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_067_Error_WrongRevision") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let textFieldValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
@@ -75,7 +75,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_068_Error_UpdateCreatedByField") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let testValue = Member("user1", "user1")
                 let testData = RecordUtils.setRecordData([:], "Created_by", FieldType.CREATOR, testValue)
@@ -90,7 +90,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_068_Error_UpdateUpdatedByField") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let testValue = Member("user1", "user1")
                 let testData = RecordUtils.setRecordData([:], "Updated_by", FieldType.MODIFIER, testValue)
@@ -105,7 +105,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_068_Error_UpdateCreatedDateTimeField") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let testData = RecordUtils.setRecordData([:], "Created_datetime", FieldType.CREATED_TIME, "2018-12-05T10:00:00Z")
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appId, recordId, testData, nil)) as! KintoneAPIException
@@ -119,7 +119,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_068_Error_UpdateUpdatedDateTimeField") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let testData = RecordUtils.setRecordData([:], "Updated_datetime", FieldType.UPDATED_TIME, "2018-12-05T10:00:00Z")
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appId, recordId, testData, nil)) as! KintoneAPIException
@@ -133,7 +133,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_069_Error_WithoutPermissionOnApp") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
                 let textFieldValue = DataRandomization.generateString()
@@ -148,7 +148,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_070_Error_WithoutPermissionOnRecord") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
                 let textFieldValue = DataRandomization.generateString()
@@ -163,7 +163,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_071_Error_WithoutPermissionOnField") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
                 let textFieldValue = DataRandomization.generateString()
@@ -214,7 +214,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_075_Success_WithoutRecordData") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appId, recordId, nil, 1)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId)) as! GetRecordResponse
@@ -231,7 +231,7 @@ class UpdateRecordByIDTest: QuickSpec {
             
             it("Test_076_Error_WithoutRecordDataWithRequiredField") {
                 let appIdHasRequiredFields = TestConstant.InitData.APP_ID_HAS_REQUIRED_FIELDS!
-                let recordId = _prepareRecord(appIdHasRequiredFields)
+                let recordId = _prepareRecord(recordModule, appIdHasRequiredFields)
                 
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, "")
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appIdHasRequiredFields, recordId, testData, 1)) as! KintoneAPIException
@@ -245,7 +245,7 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_077_Success_InvalidField") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let textFieldValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], "Invalid", FieldType.SINGLE_LINE_TEXT, textFieldValue)
@@ -257,7 +257,8 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_078_Error_InputTextToNumberField") {
-                var testData = RecordUtils.setRecordData([:], numberField, FieldType.NUMBER, 123579)
+                let numberFieldValue = 123579
+                var testData = RecordUtils.setRecordData([:], numberField, FieldType.NUMBER, numberFieldValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse
                 let recordId = addRecordResponse.getId()!
                 
@@ -275,12 +276,10 @@ class UpdateRecordByIDTest: QuickSpec {
             it("Test_079_Error_DuplicateDataForProhibitDuplicateValueField") {
                 // Add the first record into an app having prohibit duplicate value field
                 let appIdHasProhibitDuplicateValueFields = TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!
-                let textFieldValue = DataRandomization.generateString()
-                var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
-                _ = TestCommonHandling.awaitAsync(recordModule.addRecord(TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!, testData)) as! AddRecordResponse
-
+                _ = _prepareRecord(recordModule, appIdHasProhibitDuplicateValueFields)
+                
                 // Add the second record into an app having prohibit duplicate value field
-                testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, "Avoid duplicate")
+                var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, "Avoid duplicate")
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appIdHasProhibitDuplicateValueFields, testData)) as! AddRecordResponse
                 let recordId = addRecordResponse.getId()!
                 
@@ -297,17 +296,11 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_065_Success_ValidData_APIToken") {
-                let auth = Auth().setApiToken(TestConstant.InitData.SPACE_APP_API_TOKEN)
-                let conn = Connection(TestConstant.Connection.DOMAIN, auth)
-                let recordModule = Record(conn)
+                let recordId = _prepareRecord(recordModule, appId)
                 
-                var textFieldValue = DataRandomization.generateString()
-                var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()!
-                
-                textFieldValue = DataRandomization.generateString()
-                testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
+                let recordModuleApiToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.SPACE_APP_API_TOKEN))
+                let textFieldValue = DataRandomization.generateString()
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appId, recordId, testData, 1)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 
@@ -326,15 +319,14 @@ class UpdateRecordByIDTest: QuickSpec {
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     TestConstant.InitData.GUEST_SPACE_ID!))
-                var textFieldValue = DataRandomization.generateString()
-                var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(TestConstant.InitData.GUEST_SPACE_APP_ID!, testData)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()!
+                let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
                 
-                textFieldValue = DataRandomization.generateString()
-                testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
-                let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByID(TestConstant.InitData.GUEST_SPACE_APP_ID!, recordId, testData, 1)) as! UpdateRecordResponse
-                let getRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(TestConstant.InitData.GUEST_SPACE_APP_ID!, recordId)) as! GetRecordResponse
+                let recordId = _prepareRecord(recordModuleGuestSpace, guestSpaceAppId)
+                
+                let textFieldValue = DataRandomization.generateString()
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
+                let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByID(guestSpaceAppId, recordId, testData, 1)) as! UpdateRecordResponse
+                let getRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId, recordId)) as! GetRecordResponse
                 
                 expect(updateRecordResponse.getRevision()).to(equal(2))
                 for(key, value) in getRecordResponse.getRecord()! {
@@ -343,11 +335,11 @@ class UpdateRecordByIDTest: QuickSpec {
                     }
                 }
                 
-                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: TestConstant.InitData.GUEST_SPACE_APP_ID!)
+                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: guestSpaceAppId)
             }
         }
         
-        func _prepareRecord(_ appId: Int) -> Int {
+        func _prepareRecord(_ recordModule: Record, _ appId: Int) -> Int {
             textFieldValue = DataRandomization.generateString()
             let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
             let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse

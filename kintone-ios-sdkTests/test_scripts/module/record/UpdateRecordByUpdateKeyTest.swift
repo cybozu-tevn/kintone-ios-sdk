@@ -20,7 +20,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
         describe("UpdateRecordByUpdateKey") {
             it("Test_085_Success_ValidData") {
                 // Add record
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 // Set new value for text field and update record by update key value
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
@@ -44,7 +44,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_086_Success_RevisionNegative1") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
                 let textFieldValue = DataRandomization.generateString()
@@ -63,7 +63,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_087_Error_WrongRevision") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
                 let textFieldValue = DataRandomization.generateString()
@@ -78,7 +78,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_088_Error_WrongUpdateKeyValue") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 let wrongUpdateKey = RecordUpdateKey(textUpdateKeyField, "wrongUpdateKeyValue")
                 let textFieldValue = DataRandomization.generateString()
@@ -93,7 +93,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_088_Error_WrongUpdateKeyField") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 let wrongUpdateKey = RecordUpdateKey("WrongUpdateKeyField", textUpdateKeyFieldValue)
                 let textFieldValue = DataRandomization.generateString()
@@ -109,7 +109,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_091_Error_UpdateUpdatedDateTimeField") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
                 let testData = RecordUtils.setRecordData([:], "Updated_datetime", FieldType.UPDATED_TIME, "2018-12-05T10:00:00Z")
@@ -123,7 +123,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
                 RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
             }
             it("Test_091_Error_UpdateCreatedDateTimeField") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 // Update record by update key for "Created_datetime" field
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
@@ -139,7 +139,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_091_Error_UpdateCreatedByField") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
                 let user = Member("user1", "user1")
@@ -155,7 +155,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_091_Error_UpdateUpdatedByField") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
                 let user = Member("user1", "user1")
@@ -171,7 +171,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_092_Error_WithoutPermissionOnApp") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 // Update record by update key by user not have permission on app
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORDS_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORDS_PERMISSION))
@@ -189,7 +189,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_093_Error_WithoutPermissionOnRecord") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 // Update record by update key by user not have permission on record
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION))
@@ -207,7 +207,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_094_Error_WithoutPermissionOnField") {
-                _ = _prepareRecord(appId)
+                _ = _prepareRecord(recordModule, appId)
                 
                 // Update record by update key by user not have permission on field
                 let recordModuleWithoutViewPermission = Record(TestCommonHandling.createConnection(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION, TestConstant.Connection.CRED_PASSWORD_WITHOUT_VIEW_FIELD_PERMISSION))
@@ -243,26 +243,21 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_085_Success_ValidData_GuestSpace") {
-                let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID
+                let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
                 let recordModuleGuestSpace = Record(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
                     TestConstant.Connection.CRED_ADMIN_PASSWORD,
                     TestConstant.InitData.GUEST_SPACE_ID!))
                 
                 // Add record for an App in Guest Space
-                let textUpdateKeyFieldValue = DataRandomization.generateString()
-                var textFieldValue = DataRandomization.generateString()
-                var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
-                testData = RecordUtils.setRecordData([:], textUpdateKeyField, FieldType.SINGLE_LINE_TEXT, textUpdateKeyFieldValue)
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(guestSpaceAppId!, testData)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()!
+                let recordId = _prepareRecord(recordModuleGuestSpace, guestSpaceAppId)
                 
                 // Update record by update key value
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
                 textFieldValue = DataRandomization.generateString()
-                testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
-                let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByUpdateKey(guestSpaceAppId!, updateKey, testData, 1)) as! UpdateRecordResponse
-                let getRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId!, recordId)) as! GetRecordResponse
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
+                let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByUpdateKey(guestSpaceAppId, updateKey, testData, 1)) as! UpdateRecordResponse
+                let getRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId, recordId)) as! GetRecordResponse
                 
                 // Verify:
                 // - Record revision is updated to 2
@@ -274,11 +269,11 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
                     }
                 }
                 
-                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: guestSpaceAppId!)
+                RecordUtils.deleteAllRecords(recordModule: recordModuleGuestSpace, appID: guestSpaceAppId)
             }
             
             it("Test_085_Success_ValidData_ApiToken") {
-                let recordId = _prepareRecord(appId)
+                let recordId = _prepareRecord(recordModule, appId)
                 
                 let conn = TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN)
                 let recordModuleWithApiToken = Record(conn)
@@ -302,7 +297,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
         }
         
-        func _prepareRecord(_ appId: Int) -> Int {
+        func _prepareRecord(_ recordModule: Record, _ appId: Int) -> Int {
             textUpdateKeyFieldValue = DataRandomization.generateString()
             textFieldValue = DataRandomization.generateString()
             var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
