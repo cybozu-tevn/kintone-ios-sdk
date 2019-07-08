@@ -859,25 +859,25 @@
 		3FF04B2822803DA900E401FF /* app */ = {
 			isa = PBXGroup;
 			children = (
-				3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */,
-				3FE1197F228C04F6004A8AB7 /* GetAppsByIDsTest.swift */,
-				3FE1197D228C04F6004A8AB7 /* GetAppsByNameTest.swift */,
+				68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */,
+				3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */,
+				B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */,
+				68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */,
 				3FF04B2A22803E2800E401FF /* GetAppTest.swift */,
 				3FBD1F5D228531490043FD31 /* GetAppsTest.swift */,
-				B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */,
-				3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift */,
+				3FE1197F228C04F6004A8AB7 /* GetAppsByIDsTest.swift */,
 				3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */,
-				3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */,
-				68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */,
-				68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */,
-				68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */,
-				68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */,
-				683B288122C2352D00727C52 /* GetViewsTest.swift */,
-				683B288322C35C4D00727C52 /* UpdateViewsTest.swift */,
-				B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */,
+				3FE1197D228C04F6004A8AB7 /* GetAppsByNameTest.swift */,
+				3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift */,
+				3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */,
 				68C94B1922C45BF300F01591 /* GetFormLayoutTest.swift */,
+				68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */,
+				683B288122C2352D00727C52 /* GetViewsTest.swift */,
+				68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */,
 				68C94B1B22C4666800F01591 /* UpdateFormLayoutTest.swift */,
 				3FC53EFA22CC6797007A7E75 /* GetGeneralSettingsTest.swift */,
+				B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */,
+				683B288322C35C4D00727C52 /* UpdateViewsTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1307,21 +1307,21 @@
 		AB4D6433216709E5005807C1 /* record */ = {
 			isa = PBXGroup;
 			children = (
-				B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */,
+				68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */,
+				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
+				68F9923522CC428100B0C550 /* AddRecordsTest.swift */,
+				68CE4EF822B0FBE300E6E23A /* DeleteCommentTest.swift */,
+				68C67E312281A57200244922 /* DeleteRecordsTest.swift */,
+				B7C87F7322C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift */,
+				68CE4EF622B0FBC600E6E23A /* GetCommentsTest.swift */,
+				68C67E292280436400244922 /* GetRecordTest.swift */,
 				B7A3592722A6B8DC007E31E5 /* GetRecordsTest.swift */,
 				B7C87F7122C4600D00AFFFB8 /* UpdateRecordAssigneesTest.swift */,
 				B7A3595A22B9154F007E31E5 /* UpdateRecordStatusTest.swift */,
 				B7C87F6F22C322ED00AFFFB8 /* UpdateRecordsStatusTest.swift */,
-				68C67E292280436400244922 /* GetRecordTest.swift */,
-				68C67E2F22813F4200244922 /* AddRecordTest.swift */,
-				68C67E312281A57200244922 /* DeleteRecordsTest.swift */,
-				B7C87F7322C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift */,
 				68C67E352282AD1100244922 /* UpdateRecordsTest.swift */,
 				B7A3592922ABF256007E31E5 /* UpdateRecordByIDTest.swift */,
-				68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */,
-				68CE4EF622B0FBC600E6E23A /* GetCommentsTest.swift */,
-				68CE4EF822B0FBE300E6E23A /* DeleteCommentTest.swift */,
-				68F9923522CC428100B0C550 /* AddRecordsTest.swift */,
+				B7A3595822B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift */,
 			);
 			path = record;
 			sourceTree = "<group>";
