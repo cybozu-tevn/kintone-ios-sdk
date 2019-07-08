@@ -75,7 +75,9 @@
 		3F4C845422B0945F008ECE6D /* GetAppsByCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */; };
 		3F4C845622B2071E008ECE6D /* AddPreviewAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */; };
 		3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift */; };
+		3F8E770022CEF9F1006114B3 /* InitializationData.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F8E76FF22CEF9F1006114B3 /* InitializationData.json */; };
 		3FBD1F5E228531490043FD31 /* GetAppsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD1F5D228531490043FD31 /* GetAppsTest.swift */; };
+		3FC53EFB22CC6797007A7E75 /* GetGeneralSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC53EFA22CC6797007A7E75 /* GetGeneralSettingsTest.swift */; };
 		3FE11980228C04F6004A8AB7 /* GetAppsByNameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197D228C04F6004A8AB7 /* GetAppsByNameTest.swift */; };
 		3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */; };
 		3FE11982228C04F6004A8AB7 /* GetAppsByIDsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1197F228C04F6004A8AB7 /* GetAppsByIDsTest.swift */; };
@@ -135,7 +137,6 @@
 		68CE4EF522B0F5FF00E6E23A /* AddCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */; };
 		68CE4EF722B0FBC700E6E23A /* GetCommentsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4EF622B0FBC600E6E23A /* GetCommentsTest.swift */; };
 		68CE4EF922B0FBE300E6E23A /* DeleteCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4EF822B0FBE300E6E23A /* DeleteCommentTest.swift */; };
-		68CE4EFB22B72CC000E6E23A /* InitializationData.json in Resources */ = {isa = PBXBuildFile; fileRef = 68CE4EFA22B72CC000E6E23A /* InitializationData.json */; };
 		68CE4F0122BB410C00E6E23A /* GetFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */; };
 		68CE4F0322BB9CED00E6E23A /* AddFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */; };
 		68CE4F0522BCC8BC00E6E23A /* UpdateFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */; };
@@ -335,7 +336,9 @@
 		3F4C845322B0945F008ECE6D /* GetAppsByCodesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsByCodesTest.swift; sourceTree = "<group>"; };
 		3F4C845522B2071E008ECE6D /* AddPreviewAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPreviewAppTest.swift; sourceTree = "<group>"; };
 		3F840F9F22A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsBySpaceIDsTest.swift; sourceTree = "<group>"; };
+		3F8E76FF22CEF9F1006114B3 /* InitializationData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InitializationData.json; sourceTree = "<group>"; };
 		3FBD1F5D228531490043FD31 /* GetAppsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppsTest.swift; sourceTree = "<group>"; };
+		3FC53EFA22CC6797007A7E75 /* GetGeneralSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGeneralSettingsTest.swift; sourceTree = "<group>"; };
 		3FE1197D228C04F6004A8AB7 /* GetAppsByNameTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByNameTest.swift; sourceTree = "<group>"; };
 		3FE1197E228C04F6004A8AB7 /* GetAppDeployStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppDeployStatusTest.swift; sourceTree = "<group>"; };
 		3FE1197F228C04F6004A8AB7 /* GetAppsByIDsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsByIDsTest.swift; sourceTree = "<group>"; };
@@ -397,7 +400,6 @@
 		68CE4EF422B0F5FF00E6E23A /* AddCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentTest.swift; sourceTree = "<group>"; };
 		68CE4EF622B0FBC600E6E23A /* GetCommentsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCommentsTest.swift; sourceTree = "<group>"; };
 		68CE4EF822B0FBE300E6E23A /* DeleteCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCommentTest.swift; sourceTree = "<group>"; };
-		68CE4EFA22B72CC000E6E23A /* InitializationData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InitializationData.json; sourceTree = "<group>"; };
 		68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFormFieldsTest.swift; sourceTree = "<group>"; };
 		68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFormFieldsTest.swift; sourceTree = "<group>"; };
 		68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFormFieldsTest.swift; sourceTree = "<group>"; };
@@ -875,6 +877,7 @@
 				B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */,
 				68C94B1922C45BF300F01591 /* GetFormLayoutTest.swift */,
 				68C94B1B22C4666800F01591 /* UpdateFormLayoutTest.swift */,
+				3FC53EFA22CC6797007A7E75 /* GetGeneralSettingsTest.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -899,7 +902,7 @@
 		68C67E1F228041EA00244922 /* test_data */ = {
 			isa = PBXGroup;
 			children = (
-				68CE4EFA22B72CC000E6E23A /* InitializationData.json */,
+				3F8E76FF22CEF9F1006114B3 /* InitializationData.json */,
 				68C67E21228042EF00244922 /* KintoneErrorMessage.json */,
 			);
 			path = test_data;
@@ -1486,7 +1489,7 @@
 				ABE0235D216F4652002C47EC /* test.pptx in Resources */,
 				ABE0235F216F4652002C47EC /* test.xlsx in Resources */,
 				68C67E22228042EF00244922 /* KintoneErrorMessage.json in Resources */,
-				68CE4EFB22B72CC000E6E23A /* InitializationData.json in Resources */,
+				3F8E770022CEF9F1006114B3 /* InitializationData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1749,6 +1752,7 @@
 				B7A3595922B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */,
 				68621DBA229E9BB600F96F0B /* BulkRequestTest.swift in Sources */,
 				B7A3595B22B91550007E31E5 /* UpdateRecordStatusTest.swift in Sources */,
+				3FC53EFB22CC6797007A7E75 /* GetGeneralSettingsTest.swift in Sources */,
 				68C67E8E2282DCD700244922 /* DeleteSpaceRequest.swift in Sources */,
 				68C67E4D2282DB1300244922 /* DevAppParser.swift in Sources */,
 				3FF04B2B22803E2800E401FF /* AppUtils.swift in Sources */,
