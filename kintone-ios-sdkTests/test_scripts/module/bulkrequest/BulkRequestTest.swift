@@ -18,7 +18,7 @@ class BulkRequestTest: QuickSpec {
         let textField: String = TestConstant.InitData.TEXT_FIELD
         let numberField: String = TestConstant.InitData.NUMBER_FIELD
         let updateKeyField: String! = TestConstant.InitData.TEXT_UPDATE_KEY_FIELD
-        let noneExistentId = TestConstant.Common.NONEXISTENT_ID
+        let nonexistentId = TestConstant.Common.NONEXISTENT_ID
         
         let conn = TestCommonHandling.createConnection()
         let recordModule = Record(conn)
@@ -228,10 +228,10 @@ class BulkRequestTest: QuickSpec {
                 let testData = RecordUtils.setRecordData([:], numberField, FieldType.NUMBER, textValue)
                 _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.addRecord(appId, testData)}
                 let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.INVALID_FIELD_TYPE_NUMBER_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "[\(numberField)]")
-                
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
@@ -240,20 +240,20 @@ class BulkRequestTest: QuickSpec {
                 let testData = RecordUtils.setRecordData([:], numberField, FieldType.NUMBER, textValue)
                 _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.addRecords(appId, [testData])}
                 let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.INVALID_FIELD_TYPE_NUMBER_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: "s[\(0)][\(numberField)]")
-                
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_006_Error_NonexistentRecordIDWithUpdateRecordByID") {
-                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.updateRecordByID(appId, noneExistentId, nil, nil)}
+                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.updateRecordByID(appId, nonexistentId, nil, nil)}
                 let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
                 let actualError = result.getErrorResponses()![0]
-                var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(noneExistentId))
                 
+                var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(nonexistentId))
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
@@ -263,34 +263,34 @@ class BulkRequestTest: QuickSpec {
             it("Test_007_Error_WrongUpdateKeyWithUpdateRecordByUpdateKey") {
                 let wrongUpdateKey = RecordUpdateKey(updateKeyField, "Wrong Update Key Value")
                 
-                // Add record data to test
+                // Add record data
                 var textValue = DataRandomization.generateString(length: 10)
                 var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse
                 let recordID = addRecordResponse.getId()!
                 
-                // Prepare data to update
+                // Update record by wrong update key
                 textValue = DataRandomization.generateString(length: 10)
                 testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textValue)
                 _ = TestCommonHandling.handleDoTryCatch {
                     try bulkRequestModule.updateRecordByUpdateKey(appId, wrongUpdateKey, testData, nil)}
                 let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponses()![0]
                 let expectedError = KintoneErrorParser.INCORRECT_UPDATEKEY_VALUE_ERROR()!
-                
                 TestCommonHandling.compareError(actualError, expectedError)
                 
-                //remove test data on the app
+                // Remove test data on the app
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordID]))
             }
             
             it("Test_010_Error_InvalidIDsWithDeleteRecords") {
-                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.deleteRecords(appId, [noneExistentId])}
+                _ = TestCommonHandling.handleDoTryCatch {try bulkRequestModule.deleteRecords(appId, [nonexistentId])}
                 let result = TestCommonHandling.awaitAsync(bulkRequestModule.execute()) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponses()![0]
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(noneExistentId))
-                
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(nonexistentId))
                 TestCommonHandling.compareError(actualError, expectedError)
             }
         }
