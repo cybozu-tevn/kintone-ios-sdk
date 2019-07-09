@@ -24,18 +24,15 @@ class GetRecordTest: QuickSpec {
         var testData: Dictionary<String, FieldValue>! = [:]
         
         describe("GetRecord") {
-            beforeSuite {
-                recordTextValue = DataRandomization.generateString(prefix: "GetRecord", length: 10)
-                testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, recordTextValue as Any)
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId!, testData)) as! AddRecordResponse
-                recordId = addRecordResponse.getId()
-            }
-            
             afterSuite {
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId!, [recordId!]))
             }
             
             it("Test_003_Success_ValidData") {
+                recordTextValue = DataRandomization.generateString(prefix: "GetRecord", length: 10)
+                testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, recordTextValue as Any)
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId!, testData)) as! AddRecordResponse
+                recordId = addRecordResponse.getId()
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId!, recordId!)) as! GetRecordResponse
                 
                 for(key, value) in result.getRecord()! {
