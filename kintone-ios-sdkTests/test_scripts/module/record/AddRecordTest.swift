@@ -23,8 +23,8 @@ class AddRecordTest: QuickSpec {
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue as Any)
                 
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()
-                let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId!)) as! GetRecordResponse
+                let recordId = addRecordResponse.getId()!
+                let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 
                 // Verify record info
                 expect(recordId).toNot(beNil())
@@ -36,7 +36,7 @@ class AddRecordTest: QuickSpec {
                 }
                 
                 // Delete test data
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
             
             it("Test_027_Success_ValidData_ApiToken") {
@@ -46,8 +46,8 @@ class AddRecordTest: QuickSpec {
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue as Any)
                 
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.addRecord(appId, testData)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()
-                let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId!)) as! GetRecordResponse
+                let recordId = addRecordResponse.getId()!
+                let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 
                 expect(recordId).toNot(beNil())
                 expect(addRecordResponse.getRevision()).to(equal(1))
@@ -57,7 +57,7 @@ class AddRecordTest: QuickSpec {
                     }
                 }
                 
-                _ = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.deleteRecords(appId, [recordId!]))
+                _ = TestCommonHandling.awaitAsync(recordModuleWithAPIToken.deleteRecords(appId, [recordId]))
             }
             
             it("Test_028_Error_NonexistentAppId") {
@@ -97,9 +97,9 @@ class AddRecordTest: QuickSpec {
             it("Test_031_Error_DuplicateDataForProhibitDuplicateValue") {
                 let appHasProhibitDuplicateFieldId = TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, "prohibitValue")
-                let addRecord = TestCommonHandling.awaitAsync(recordModule.addRecord(appHasProhibitDuplicateFieldId, testData)) as! AddRecordResponse
+                let addRecordRespone = TestCommonHandling.awaitAsync(recordModule.addRecord(appHasProhibitDuplicateFieldId, testData)) as! AddRecordResponse
                 
-                let recordId = addRecord.getId()
+                let recordId = addRecordRespone.getId()!
                 let result = TestCommonHandling.awaitAsync(recordModule.addRecord(appHasProhibitDuplicateFieldId, testData)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()
@@ -107,13 +107,13 @@ class AddRecordTest: QuickSpec {
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: ".\(textField)")
                 TestCommonHandling.compareError(actualError, expectedError)
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appHasProhibitDuplicateFieldId, [recordId!]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appHasProhibitDuplicateFieldId, [recordId]))
             }
             
             it("Test_035_Success_WithoutRecordData") {
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, nil)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()
-                let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId!)) as! GetRecordResponse
+                let recordId = addRecordResponse.getId()!
+                let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId)) as! GetRecordResponse
                 
                 expect(recordId).toNot(beNil())
                 expect(addRecordResponse.getRevision()).to(equal(1))
@@ -123,7 +123,7 @@ class AddRecordTest: QuickSpec {
                     }
                 }
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
             
             it("Test_036_Error_WithoutRequiredField") {
@@ -147,8 +147,8 @@ class AddRecordTest: QuickSpec {
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue as Any)
                 
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(guestSpaceAppId, testData)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()
-                let getRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId, recordId!)) as! GetRecordResponse
+                let recordId = addRecordResponse.getId()!
+                let getRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId, recordId)) as! GetRecordResponse
                 
                 expect(recordId).toNot(beNil())
                 expect(addRecordResponse.getRevision()).to(equal(1))
@@ -158,7 +158,7 @@ class AddRecordTest: QuickSpec {
                     }
                 }
                 
-                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [recordId!]))
+                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [recordId]))
             }
             
             it("Test_041_Error_WithoutAddRecordPermissionOnApp") {
@@ -176,14 +176,14 @@ class AddRecordTest: QuickSpec {
             }
             
             it("Test_045_Success_BlankApp") {
-                let blankAppId = TestConstant.InitData.APP_BLANK_ID
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(blankAppId!, nil)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()
+                let blankAppId = TestConstant.InitData.APP_BLANK_ID!
+                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(blankAppId, nil)) as! AddRecordResponse
+                let recordId = addRecordResponse.getId()!
                 
                 expect(recordId).toNot(beNil())
                 expect(addRecordResponse.getRevision()).to(equal(1))
                 
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(blankAppId!, [recordId!]))
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(blankAppId, [recordId]))
             }
         }
     }

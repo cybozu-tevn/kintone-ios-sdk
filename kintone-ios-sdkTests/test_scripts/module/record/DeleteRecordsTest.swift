@@ -119,7 +119,7 @@ class DeleteRecordsTest: QuickSpec {
                 _verifyRecordsNotExisting(recordModule, appId, recordIds)
             }
             
-            fit("Test_139_Error_101Records") {
+            it("Test_139_Error_101Records") {
                 // Add 101 records
                 _prepareRecords(recordModule, appId, 100)
                 var recordIds_101 = recordIds

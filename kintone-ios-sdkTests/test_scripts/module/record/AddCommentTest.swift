@@ -12,10 +12,9 @@ class AddCommentTest: QuickSpec {
     override func spec() {
         let appId: Int = TestConstant.InitData.SPACE_APP_ID!
         let nonexistentId = TestConstant.Common.NONEXISTENT_ID
-        let apiToken: String = TestConstant.InitData.SPACE_APP_API_TOKEN
         var recordId: Int!
         
-        // Comment Data
+        // Comment data
         let mentionUserCode: String = "cybozu"
         let mentionUserType: String = "USER"
         let commentContent: String = DataRandomization.generateString(prefix: "AddComment", length: 10)
@@ -58,13 +57,13 @@ class AddCommentTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
                 // Verify total comment and the added comment content (comment text and mention)
-                expect(totalComment + 1).to(equal(result.getComments()?.count))
-                expect(mentionUserCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
-                let actualMentions = result.getComments()?[0].getMentions()
-                for user in actualMentions! {
-                    expect(mentionUserCode).to(equal(user.getCode()))
-                    expect(mentionUserType).to(equal(user.getType()))
+                expect(result.getComments()?.count).to(equal(totalComment + 1))
+                expect(result.getComments()?[0].getText()).to(equal(mentionUserCode + " \n" + commentContent + " "))
+                expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
+                let mentionResult = result.getComments()?[0].getMentions()
+                for user in mentionResult! {
+                    expect(user.getCode()).to(equal(mentionUserCode))
+                    expect(user.getType()).to(equal(mentionUserType))
                 }
                 
                 // Verify record revision is not increased
@@ -103,13 +102,13 @@ class AddCommentTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(recordModule.addComment(appId, recordId, comment))
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
-                let actualMentions = result.getComments()?[0].getMentions()
-                expect(actualMentions?[0].getCode()).to(equal(mentionUserCode))
-                expect(actualMentions?[0].getType()).to(equal(mentionUserType))
-                expect(actualMentions?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
-                expect(actualMentions?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
-                expect(actualMentions?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
-                expect(actualMentions?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
+                let mentionResult = result.getComments()?[0].getMentions()
+                expect(mentionResult?[0].getCode()).to(equal(mentionUserCode))
+                expect(mentionResult?[0].getType()).to(equal(mentionUserType))
+                expect(mentionResult?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
+                expect(mentionResult?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
+                expect(mentionResult?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
+                expect(mentionResult?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
             }
             
             it("Test_240_Success_NoMention") {
@@ -119,8 +118,8 @@ class AddCommentTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentionResult = result.getComments()?[0].getMentions()
-                expect(0).to(equal(mentionResult?.count))
-                expect(commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(mentionResult?.count).to(equal(0))
+                expect(result.getComments()?[0].getText()).to(equal(commentContent + " "))
             }
             
             it("Test_241_Error_BlankContent") {
@@ -180,8 +179,8 @@ class AddCommentTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(recordModuleWithoutPermission.addComment(appId, recordId, comment))
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
-                expect(mentionUserCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(result.getComments()?[0].getText()).to(equal(mentionUserCode + " \n" + commentContent + " "))
+                expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Connection.CRED_USERNAME_WITHOUT_VIEW_FIELD_PERMISSION))
             }
             
             it("Test_246_Error_InvalidAppId") {
@@ -256,13 +255,13 @@ class AddCommentTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(appGuestSpaceId, recordGuestSpaceId, nil, nil, nil)) as! GetCommentsResponse
                 
                 // 1 comment is added + details is correct
-                expect(totalComment + 1).to(equal(result.getComments()?.count))
-                expect(mentionUserCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Connection.CRED_ADMIN_USERNAME).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(result.getComments()?.count).to(equal(totalComment + 1))
+                expect(result.getComments()?[0].getText()).to(equal(mentionUserCode + " \n" + commentContent + " "))
+                expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
                 let mentionResult = result.getComments()?[0].getMentions()
                 for user in mentionResult! {
-                    expect(mentionUserCode).to(equal(user.getCode()))
-                    expect(mentionUserType).to(equal(user.getType()))
+                    expect(user.getCode()).to(equal(mentionUserCode))
+                    expect(user.getType()).to(equal(mentionUserType))
                 }
                 
                 // Revision is not increased
@@ -279,7 +278,7 @@ class AddCommentTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addComment(appGuestSpaceId, recordGuestSpaceId, comment))
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(appGuestSpaceId, recordGuestSpaceId, nil, nil, nil)) as! GetCommentsResponse
                 
-                expect(commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
+                expect(result.getComments()?[0].getText()).to(equal(commentSpecialChars + " "))
                 
             }
             
@@ -290,19 +289,20 @@ class AddCommentTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(appGuestSpaceId, recordGuestSpaceId, nil, nil, nil)) as! GetCommentsResponse
                 
                 let mentionResult = result.getComments()?[0].getMentions()
-                expect(0).to(equal(mentionResult?.count))
-                expect(commentContent + " ").to(equal(result.getComments()?[0].getText()))
+                expect(mentionResult?.count).to(equal(0))
+                expect(result.getComments()?[0].getText()).to(equal(commentContent + " "))
             }
         }
         
         // API TOKEN
         describe("AddComment_3") {
+            let apiToken: String = TestConstant.InitData.SPACE_APP_API_TOKEN
+            let recordModuleApiToken = Record(TestCommonHandling.createConnection(apiToken))
+
             beforeEach {
                 comment = CommentContent()
                 comment.setText(commentContent)
             }
-            
-            let recordModuleApiToken = Record(TestCommonHandling.createConnection(apiToken))
             
             it("Test_236_Success_ValidData_ApiToken") {
                 let getCommentResponse = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
@@ -314,13 +314,13 @@ class AddCommentTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(appId, recordId, comment))
                 let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
-                expect(totalComment + 1).to(equal(result.getComments()?.count))
-                expect(mentionUserCode + " \n" + commentContent + " ").to(equal(result.getComments()?[0].getText()))
-                expect(TestConstant.Common.ADMINISTRATOR_USER).to(equal(result.getComments()?[0].getCreator()?.code))
+                expect(result.getComments()?.count).to(equal(totalComment + 1))
+                expect(result.getComments()?[0].getText()).to(equal(mentionUserCode + " \n" + commentContent + " "))
+                expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Common.ADMINISTRATOR_USER))
                 let mentionResult = result.getComments()?[0].getMentions()
                 for user in mentionResult! {
-                    expect(mentionUserCode).to(equal(user.getCode()))
-                    expect(mentionUserType).to(equal(user.getType()))
+                    expect(user.getCode()).to(equal(mentionUserCode))
+                    expect(user.getType()).to(equal(mentionUserType))
                 }
                 
                 let resultRecord = TestCommonHandling.awaitAsync(recordModuleApiToken.getRecord(appId, recordId)) as! GetRecordResponse
@@ -337,7 +337,7 @@ class AddCommentTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(appId, recordId, comment))
                 let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
-                expect(commentSpecialChars + " ").to(equal(result.getComments()?[0].getText()))
+                expect(result.getComments()?[0].getText()).to(equal(commentSpecialChars + " "))
             }
             
             it("Test_238_239_Success_MentionMultiUsers_ApiToken") {

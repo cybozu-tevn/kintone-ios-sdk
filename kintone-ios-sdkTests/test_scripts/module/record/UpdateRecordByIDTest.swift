@@ -14,7 +14,6 @@ class UpdateRecordByIDTest: QuickSpec {
         let numberField: String! = TestConstant.InitData.NUMBER_FIELD
         var textFieldValue: String!
         let appId = TestConstant.InitData.SPACE_APP_ID!
-        var recordId: Int!
         let recordModule = Record(TestCommonHandling.createConnection())
         
         describe("UpdateRecordByID") {
@@ -274,17 +273,17 @@ class UpdateRecordByIDTest: QuickSpec {
             }
             
             it("Test_079_Error_DuplicateDataForProhibitDuplicateValueField") {
-                // Add the first record into an app having prohibit duplicate value field
                 let appIdHasProhibitDuplicateValueFields = TestConstant.InitData.APP_ID_HAS_PROHIBIT_DUPLICATE_VALUE_FIELDS!
-                _ = _prepareRecord(recordModule, appIdHasProhibitDuplicateValueFields)
+
+                // Add the first record into an app having prohibit duplicate value field
+                let textFieldValue = "Avoid duplicate"
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
+                _ = TestCommonHandling.awaitAsync(recordModule.addRecord(appIdHasProhibitDuplicateValueFields, testData))
                 
                 // Add the second record into an app having prohibit duplicate value field
-                var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, "Avoid duplicate")
-                let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appIdHasProhibitDuplicateValueFields, testData)) as! AddRecordResponse
-                let recordId = addRecordResponse.getId()!
-                
+                let recordId = _prepareRecord(recordModule, appIdHasProhibitDuplicateValueFields)
+
                 // Update value of text field for the second record and its value is duplicated with value of text field in the first record
-                testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
                 let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByID(appIdHasProhibitDuplicateValueFields, recordId, testData, nil)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()

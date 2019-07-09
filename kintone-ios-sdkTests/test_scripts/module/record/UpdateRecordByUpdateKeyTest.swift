@@ -12,7 +12,6 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
     override func spec() {
         let textField: String! = TestConstant.InitData.TEXT_FIELD
         let textUpdateKeyField: String! = TestConstant.InitData.TEXT_UPDATE_KEY_FIELD
-        var textFieldValue: String!
         var textUpdateKeyFieldValue: String!
         let appId = TestConstant.InitData.APP_ID!
         let recordModule = Record(TestCommonHandling.createConnection())
@@ -254,7 +253,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
                 
                 // Update record by update key value
                 let updateKey = RecordUpdateKey(textUpdateKeyField, textUpdateKeyFieldValue)
-                textFieldValue = DataRandomization.generateString()
+                let textFieldValue = DataRandomization.generateString()
                 let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
                 let updateRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.updateRecordByUpdateKey(guestSpaceAppId, updateKey, testData, 1)) as! UpdateRecordResponse
                 let getRecordResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getRecord(guestSpaceAppId, recordId)) as! GetRecordResponse
@@ -299,7 +298,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
         
         func _prepareRecord(_ recordModule: Record, _ appId: Int) -> Int {
             textUpdateKeyFieldValue = DataRandomization.generateString()
-            textFieldValue = DataRandomization.generateString()
+            let textFieldValue = DataRandomization.generateString()
             var testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValue)
             testData = RecordUtils.setRecordData([:], textUpdateKeyField, FieldType.SINGLE_LINE_TEXT, textUpdateKeyFieldValue)
             let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, testData)) as! AddRecordResponse
