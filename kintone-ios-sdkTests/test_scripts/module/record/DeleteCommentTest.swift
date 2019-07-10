@@ -28,11 +28,11 @@ class DeleteCommentTest: QuickSpec {
         let addData: Dictionary<String, FieldValue> = [:]
         
         describe("DeleteComment") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 // Add record to contains comments
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, addData)) as! AddRecordResponse
                 recordId = addRecordResponse.getId()
-
+                
                 mention = CommentMention()
                 mention.setCode(mentionCode)
                 mention.setType(mentionType)
@@ -43,10 +43,10 @@ class DeleteCommentTest: QuickSpec {
                 comment.setMentions(mentionList)
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
-            
+
             it("Test_256_Success_ValidData") {
                 let addCommentResponse = TestCommonHandling.awaitAsync(recordModule.addComment(appId, recordId, comment)) as! AddCommentResponse
                 commentId = addCommentResponse.getId()

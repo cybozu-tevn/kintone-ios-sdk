@@ -17,8 +17,7 @@ class GetAppsByCodesTest: QuickSpec {
         var appNames = [String]()
         
         describe("GetAppsByCode") {
-            beforeSuite {
-                print("=== TEST PREPARATION ===")
+            it("AddTestData_BeforeSuiteWorkaround") {
                 // Prepare Apps
                 let appNamePrefix = DataRandomization.generateString(prefix: "App-GetAppsByCode", length: 5)
                 appIds = AppUtils.createApps(appModule: appModule, appName: appNamePrefix, spaceId: nil, threadId: nil, amount: amountOfApps)
@@ -34,8 +33,7 @@ class GetAppsByCodesTest: QuickSpec {
                 }
             }
             
-            afterSuite {
-                print("=== TEST CLEANING UP ===")
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApps(appIds: appIds)
             }
             
@@ -146,34 +144,34 @@ class GetAppsByCodesTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-//            // This test is commented out because it takes so much time for executing
-//            it("Test_037_Success_Maximum100Apps") {
-//                // Prepare Apps
-//                let appNamePrefix = DataRandomization.generateString(prefix: "AppName", length: 5)
-//                let appIds100 = AppUtils.createApps(appModule: appModule, appName: appNamePrefix, spaceId: nil, threadId: nil, amount: 100)
-//                let getAppsByIDsRsp = TestCommonHandling.awaitAsync(appModule.getAppsByIDs(appIds)) as! [AppModel]
-//                
-//                // Set App code for Apps
-//                var appCodes100 = [String]()
-//                var appNames100 = [String]()
-//                for (index, app) in getAppsByIDsRsp.enumerated() {
-//                    let appCode = DataRandomization.generateString(length: 4)
-//                    let appName = app.getName()!
-//                    appCodes100.append(appCode)
-//                    appCodes100.append(appName)
-//                    AppUtils.updateMiscSetting(appModule: appModule, code: appCode, id: appIds100[index], name: appName)
-//                }
-//                
-//                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes100)) as! [AppModel]
-//                
-//                expect(getAppsByCodesRsp.count).to(equal(appIds100.count))
-//                for(index, app) in getAppsByCodesRsp.enumerated() {
-//                    expect(app.getAppId()).to(equal(appIds100[index]))
-//                    expect(app.getName()).to(equal(appNames100[index]))
-//                }
-//                
-//                AppUtils.deleteApps(appIds: appIds100)
-//            }
+            //            // This test is commented out because it takes so much time for executing
+            //            it("Test_037_Success_Maximum100Apps") {
+            //                // Prepare Apps
+            //                let appNamePrefix = DataRandomization.generateString(prefix: "AppName", length: 5)
+            //                let appIds100 = AppUtils.createApps(appModule: appModule, appName: appNamePrefix, spaceId: nil, threadId: nil, amount: 100)
+            //                let getAppsByIDsRsp = TestCommonHandling.awaitAsync(appModule.getAppsByIDs(appIds)) as! [AppModel]
+            //
+            //                // Set App code for Apps
+            //                var appCodes100 = [String]()
+            //                var appNames100 = [String]()
+            //                for (index, app) in getAppsByIDsRsp.enumerated() {
+            //                    let appCode = DataRandomization.generateString(length: 4)
+            //                    let appName = app.getName()!
+            //                    appCodes100.append(appCode)
+            //                    appCodes100.append(appName)
+            //                    AppUtils.updateMiscSetting(appModule: appModule, code: appCode, id: appIds100[index], name: appName)
+            //                }
+            //
+            //                let getAppsByCodesRsp = TestCommonHandling.awaitAsync(appModule.getAppsByCodes(appCodes100)) as! [AppModel]
+            //
+            //                expect(getAppsByCodesRsp.count).to(equal(appIds100.count))
+            //                for(index, app) in getAppsByCodesRsp.enumerated() {
+            //                    expect(app.getAppId()).to(equal(appIds100[index]))
+            //                    expect(app.getName()).to(equal(appNames100[index]))
+            //                }
+            //
+            //                AppUtils.deleteApps(appIds: appIds100)
+            //            }
             
             it("Test_039_Error_OffsetExceedValue") {
                 let offset = TestConstant.Common.MAX_VALUE + 1

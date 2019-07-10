@@ -21,12 +21,11 @@ class GetGeneralSettingsTest: QuickSpec {
         generalSettings.setTheme(GeneralSettings.IconTheme.WHITE)
         
         describe("GetGeneralSettings") {
-            beforeSuite {
-                print("=== TEST PREPARATION ===")
+            it("AddTestData_BeforeSuiteWorkaround") {
                 appId = AppUtils.createApp(appModule: appModule, appName: "App Name", spaceId: nil, threadId: nil)
             }
-            afterSuite {
-                print("=== TEST CLEANING UP ===")
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApp(appId: appId!)
             }
             

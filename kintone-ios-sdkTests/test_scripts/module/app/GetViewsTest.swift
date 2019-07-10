@@ -40,58 +40,58 @@ class GetViewsTest: QuickSpec {
         var totalOfAllView: Int = 0
         var currentViews: [String: ViewModel] = [String: ViewModel]()
         
-        beforeSuite {
-            var getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
-            currentViews = getViewsResponse.getViews()!
-            
-            // Add 1 Live View + 1 Prelive View for testing
-            viewEntry = currentViews
-            updateViewModel.setName(viewName)
-            updateViewModel.setSort(viewSort)
-            updateViewModel.setType(viewType)
-            updateViewModel.setFilterCond(viewFilter)
-            updateViewModel.setIndex(viewIndex)
-            updateViewModel.setFields(viewFields)
-            viewEntry[viewName] = updateViewModel
-            totalOfLiveView = viewEntry.count
-            
-            _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntry))
-            let previewApp: PreviewApp? = PreviewApp(appId, -1)
-            _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
-            
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, viewEntry))
-            let previewAppGuestSpace: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewAppGuestSpace!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
-            
-            getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
-            viewEntryPrelive = getViewsResponse.getViews()!
-            updateViewModelPrelive.setName(viewNamePrelive)
-            updateViewModelPrelive.setSort(viewSort)
-            updateViewModelPrelive.setType(viewType)
-            updateViewModelPrelive.setFilterCond(viewFilter)
-            updateViewModelPrelive.setIndex(viewPreliveIndex)
-            updateViewModelPrelive.setFields(viewFields)
-            viewEntryPrelive[viewNamePrelive] = updateViewModelPrelive
-            totalOfAllView = viewEntryPrelive.count
-    
-            _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntryPrelive))
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, viewEntryPrelive))
-        }
-        
-        afterSuite {
-            _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, currentViews))
-            let previewApp: PreviewApp? = PreviewApp(appId, -1)
-            let previewGuestSpaceApp: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
-            _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
-            _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
-            AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
-        }
-        
         describe("GetViews") {
+            it("AddTestData_BeforeSuiteWorkaround") {
+                var getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
+                currentViews = getViewsResponse.getViews()!
+                
+                // Add 1 Live View + 1 Prelive View for testing
+                viewEntry = currentViews
+                updateViewModel.setName(viewName)
+                updateViewModel.setSort(viewSort)
+                updateViewModel.setType(viewType)
+                updateViewModel.setFilterCond(viewFilter)
+                updateViewModel.setIndex(viewIndex)
+                updateViewModel.setFields(viewFields)
+                viewEntry[viewName] = updateViewModel
+                totalOfLiveView = viewEntry.count
+                
+                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntry))
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
+                
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, viewEntry))
+                let previewAppGuestSpace: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewAppGuestSpace!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
+                
+                getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
+                viewEntryPrelive = getViewsResponse.getViews()!
+                updateViewModelPrelive.setName(viewNamePrelive)
+                updateViewModelPrelive.setSort(viewSort)
+                updateViewModelPrelive.setType(viewType)
+                updateViewModelPrelive.setFilterCond(viewFilter)
+                updateViewModelPrelive.setIndex(viewPreliveIndex)
+                updateViewModelPrelive.setFields(viewFields)
+                viewEntryPrelive[viewNamePrelive] = updateViewModelPrelive
+                totalOfAllView = viewEntryPrelive.count
+                
+                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntryPrelive))
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, viewEntryPrelive))
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, currentViews))
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                let previewGuestSpaceApp: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
+            }
+            
             // API TOKEN
             it("Test_003_Error_ApiTokenAuthentication_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))

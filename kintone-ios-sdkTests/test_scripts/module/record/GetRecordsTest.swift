@@ -19,12 +19,12 @@ class GetRecordsTest: QuickSpec {
         let recordModule = Record(TestCommonHandling.createConnection())
         
         describe("GetRecords") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 _prepareRecords(numberOfRecords)
                 query = RecordUtils.getRecordsQuery(recordIds)
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
             }
             

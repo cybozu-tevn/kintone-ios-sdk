@@ -37,7 +37,7 @@ class UpdateViewsTest: QuickSpec {
         var totalOfAllViewGuestSpaceApp: Int = 0
         
         describe("UpdateViews") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 // Prepare view entry for test app in normal space
                 let getViewsResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
                 currentViews = getViewsResponse.getViews()!
@@ -65,7 +65,7 @@ class UpdateViewsTest: QuickSpec {
                 totalOfAllViewGuestSpaceApp = viewGuestSpaceAppEntry.count
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 // Remove data after tested
                 let previewApp: PreviewApp? = PreviewApp(appId, -1)
                 _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
@@ -76,7 +76,6 @@ class UpdateViewsTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, currentGuestSpaceAppViews))
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
                 AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
-                
             }
             
             // API TOKEN

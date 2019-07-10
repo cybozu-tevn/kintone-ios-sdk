@@ -17,14 +17,12 @@ class GetAppsTest: QuickSpec {
         var offset: Int?
         
         describe("GetApps") {
-            beforeSuite {
-                print("=== TEST PREPARATION ===")
+            it("AddTestData_BeforeSuiteWorkaround") {
                 offset = (TestCommonHandling.awaitAsync(appModule.getApps()) as! [AppModel]).count
                 appIds = AppUtils.createApps(appModule: appModule, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
             }
             
-            afterSuite {
-                print("=== TEST CLEANING UP ===")
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApps(appIds: appIds)
             }
             

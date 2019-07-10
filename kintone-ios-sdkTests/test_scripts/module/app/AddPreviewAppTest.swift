@@ -15,7 +15,7 @@ class AddPreviewAppTest: QuickSpec {
             let appName = DataRandomization.generateString(length: 8)
             var appIds = [Int]()
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApps(appIds: appIds)
             }
             

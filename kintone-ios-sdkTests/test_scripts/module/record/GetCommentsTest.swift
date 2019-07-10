@@ -38,7 +38,7 @@ class GetCommentsTest: QuickSpec {
         let recordModuleApiToken = Record(TestCommonHandling.createConnection(apiToken))
         
         describe("GetComments") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 // Add record to contains comments
                 let addData: Dictionary<String, FieldValue> = [:]
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, addData)) as! AddRecordResponse
@@ -69,7 +69,7 @@ class GetCommentsTest: QuickSpec {
                 }
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
                 _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [recordGuestSpaceId]))
             }
@@ -183,7 +183,7 @@ class GetCommentsTest: QuickSpec {
                 let offsetvalue = 5
                 let limitValue = 5
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, "asc", offsetvalue, limitValue)) as! GetCommentsResponse
-
+                
                 expect(limitValue).to(equal(result.getComments()?.count))
                 var expectedCommentId = comments.count - offsetvalue - limitValue + 1
                 for value in result.getComments()! {
@@ -196,7 +196,7 @@ class GetCommentsTest: QuickSpec {
                 let offsetvalue = 5
                 let limitValue = 5
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, "desc", offsetvalue, limitValue)) as! GetCommentsResponse
-
+                
                 expect(limitValue).to(equal(result.getComments()?.count))
                 var commentId = Int(commentId) - offsetvalue
                 for value in result.getComments()! {
@@ -367,7 +367,7 @@ class GetCommentsTest: QuickSpec {
                 let offsetValue = 5
                 let limitValue = 5
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(guestSpaceAppId, recordGuestSpaceId, "desc", offsetValue, limitValue)) as! GetCommentsResponse
-
+                
                 expect(limitValue).to(equal(result.getComments()?.count))
                 var commentId = Int(commentGuestSpaceId) - offsetValue
                 for value in result.getComments()! {
@@ -443,7 +443,7 @@ class GetCommentsTest: QuickSpec {
                 let offsetValue = 5
                 let limitValue = 5
                 let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, "asc", offsetValue, limitValue)) as! GetCommentsResponse
-
+                
                 expect(limitValue).to(equal(result.getComments()?.count))
                 var expectedCommentId = comments.count - offsetValue - limitValue + 1
                 for value in result.getComments()! {
@@ -456,7 +456,7 @@ class GetCommentsTest: QuickSpec {
                 let offsetValue = 5
                 let limitValue = 5
                 let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, "desc", offsetValue, limitValue)) as! GetCommentsResponse
-
+                
                 expect(limitValue).to(equal(result.getComments()?.count))
                 var commentId = Int(commentId) - offsetValue
                 for value in result.getComments()! {

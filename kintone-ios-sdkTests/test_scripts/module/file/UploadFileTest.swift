@@ -19,7 +19,7 @@ class UploadFileTest: QuickSpec {
         var recordId: Int!
 
         describe("UploadFile") {
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
             }
             

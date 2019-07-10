@@ -48,7 +48,7 @@ class UpdateFormLayoutTest: QuickSpec {
         let fieldSize: FieldSize? = FieldSize()
         
         describe("UpdateFormLayout_1") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 // The field size will be updated
                 fieldSize?.setWidth(fieldWidth)
                 
@@ -129,7 +129,7 @@ class UpdateFormLayoutTest: QuickSpec {
                 itemLayoutRequest?.append(subTableLayout!)
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 // Revert FormLayout changes
                 let previewApp: PreviewApp? = PreviewApp(appId, -1)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
@@ -209,7 +209,7 @@ class UpdateFormLayoutTest: QuickSpec {
                 let tableResult = result.getLayout()![4] as! SubTableLayout
                 
                 expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
-
+                
                 expect(row1Result.getFields()![0].getCode()).to(equal(numberField))
                 expect(row1Result.getFields()![1].getCode()).to(equal(numberRequireField))
                 expect(row1Result.getFields()![0].getSize()?.getWidth()).to(equal(fieldWidth))
@@ -252,7 +252,7 @@ class UpdateFormLayoutTest: QuickSpec {
                 let tableResult = result.getLayout()![4] as! SubTableLayout
                 
                 expect(Int(updateFormLayout.getRevision()!)).to(equal(currentRevision! + 1))
-
+                
                 expect(row1Result.getFields()![0].getCode()).to(equal(numberField))
                 expect(row1Result.getFields()![1].getCode()).to(equal(numberRequireField))
                 expect(row1Result.getFields()![0].getSize()?.getWidth()).to(equal(fieldWidth))

@@ -14,12 +14,12 @@ class UpdateGeneralSettingsTest: QuickSpec {
         var appId: Int!
         
         describe("UpdateGeneralSettings") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 let appName = DataRandomization.generateString()
                 appId = AppUtils.createApp(appModule: appModule, appName: appName)
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApp(appId: appId)
             }
             

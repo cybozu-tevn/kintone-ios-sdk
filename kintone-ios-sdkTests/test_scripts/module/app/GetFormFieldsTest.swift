@@ -105,8 +105,8 @@ class GetFormFieldsTest: QuickSpec {
             // the user who don't have Manage Permission can get info, the same result with Postman
             it("Test_013_Success_PermissionDenied") {
                 let appModuleWithoutAppPermisstion = App(TestCommonHandling.createConnection(
-                    TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
+                    TestConstant.Connection.CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION,
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION))
                 let result = TestCommonHandling.awaitAsync(appModuleWithoutAppPermisstion.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
                 
                 expect(result.getProperties()).toNot(beNil())

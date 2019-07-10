@@ -18,17 +18,16 @@ class GetAppsBySpaceIDsTest: QuickSpec {
         var appIds: [Int] = []
         
         describe("GetAppsBySpaceIDs") {
-            beforeSuite {
-                print("=== TEST PREPARATION ===")
+            it("AddTestData_BeforeSuiteWorkaround") {
                 for space in spaceIds {
                     let ids = AppUtils.createApps(appModule: appModule, appName: appName, spaceId: space, threadId: space, amount: amountOfApps)
                     appIds.append(contentsOf: ids)
                 }
             }
             
-            afterSuite {
-                print("=== TEST CLEANING UP ===")
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApps(appIds: appIds)
+
             }
             
             it("Test_052_Error_ApiToken") {

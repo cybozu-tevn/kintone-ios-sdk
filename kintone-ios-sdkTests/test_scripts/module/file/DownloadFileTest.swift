@@ -24,7 +24,7 @@ class DownloadFileTest: QuickSpec {
         let fileModule = File(conn)
         
         describe("DowloadFile") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 // Prepare test data
                 let bundleUploadFile = Bundle(for: type(of: self))
                 var recordTestData: [String: FieldValue] = [:]
@@ -50,7 +50,7 @@ class DownloadFileTest: QuickSpec {
                 }
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 // Delete added test record
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId!, [recordId!]))
             }

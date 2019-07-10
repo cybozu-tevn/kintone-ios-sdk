@@ -18,9 +18,9 @@ class AddFormFieldsTest: QuickSpec {
         var fieldCodes: [String] = []
         
         describe("AddFormFields") {
-            beforeSuite {
+            it("AddTestData_BeforeSuiteWorkaround") {
                 appId = AppUtils.createApp(appModule: appModule, spaceId: spaceId, threadId: threadId)
-
+                
                 // SINGLE_LINE_TEXT field
                 let singleLineTextFieldCode = DataRandomization.generateString(length: 10)
                 fieldCodes.append(singleLineTextFieldCode)
@@ -167,14 +167,8 @@ class AddFormFieldsTest: QuickSpec {
                 properties[departmentSelectionFieldCode] = departmentSelectionField
             }
             
-            afterSuite {
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApp(appId: appId)
-            }
-            
-            afterEach {
-                let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
-                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
             it("Test_027_Error_ApiToken") {
@@ -202,6 +196,10 @@ class AddFormFieldsTest: QuickSpec {
                 // Verify revision and file code of fieldForm
                 expect(result.getRevision()).to(equal(currentRevision! + 1))
                 expect(actualResult).to(contain(fieldCodes))
+                
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
             it("Test_028_Success_Revision_GuestSpace") {
@@ -240,6 +238,10 @@ class AddFormFieldsTest: QuickSpec {
                 
                 expect(result.getRevision()).to(equal(currentRevision! + 1))
                 expect(actualResult).to(contain(fieldCodes))
+                
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
             it("Test_030_Success_IgnoreRevision") {
@@ -255,6 +257,10 @@ class AddFormFieldsTest: QuickSpec {
                 
                 expect(result.getRevision()).to(equal(currentRevision! + 1))
                 expect(actualResult).to(contain(fieldCodes))
+                
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
             it("Test_035_Error_NegativeAppId") {
@@ -287,7 +293,6 @@ class AddFormFieldsTest: QuickSpec {
                 let appModuleWithoutPermisstion = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
-                appId = AppUtils.createApp(appModule: appModule, spaceId: spaceId, threadId: threadId)
                 
                 let result = TestCommonHandling.awaitAsync(appModuleWithoutPermisstion.addFormFields(appId, properties)) as! KintoneAPIException
                 let actualError = result.getErrorResponse()!
