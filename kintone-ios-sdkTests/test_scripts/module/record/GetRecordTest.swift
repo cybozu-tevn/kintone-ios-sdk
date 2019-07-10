@@ -28,10 +28,6 @@ class GetRecordTest: QuickSpec {
                 recordId = addRecordResponse.getId()
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
-            }
-            
             it("Test_003_Success_ValidData") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, recordId!)) as! GetRecordResponse
                 
@@ -178,6 +174,10 @@ class GetRecordTest: QuickSpec {
                 for (key, _) in result.getRecord()! {
                     expect(key).to(equal(defaultKey[key]))
                 }
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
             }
         }
     }

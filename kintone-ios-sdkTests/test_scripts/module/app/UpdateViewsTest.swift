@@ -65,19 +65,6 @@ class UpdateViewsTest: QuickSpec {
                 totalOfAllViewGuestSpaceApp = viewGuestSpaceAppEntry.count
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                // Remove data after tested
-                let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
-                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
-                
-                let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
-                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, currentGuestSpaceAppViews))
-                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
-                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
-            }
-            
             // API TOKEN
             it("Test_015_Error_ApiTokenAuthentication_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
@@ -91,15 +78,17 @@ class UpdateViewsTest: QuickSpec {
             it("Test_016_Success_ValidRequest") {
                 let getViewResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, language, isPreview)) as! GetViewsResponse
                 let currentRevision = getViewResponse.getRevision()!
-                
+                print("------> currentRevision: \(currentRevision)")
                 // Update view with current revision + deploy
                 _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntry, currentRevision))
                 let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!]))
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
                 AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
                 
                 // Revision is increased by 1
                 let result = TestCommonHandling.awaitAsync(appModule.getViews(appId, language, isPreview)) as! GetViewsResponse
+                print("------> currentRevision: \(result.getRevision())")
+
                 expect(result.getRevision()).to(equal(currentRevision + 1))
                 // Views is added correctly
                 let viewsList = result.getViews()
@@ -218,7 +207,7 @@ class UpdateViewsTest: QuickSpec {
                 // Update view with revision is -1 + deploy
                 _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntry, -1))
                 let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!]))
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
                 AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
 
                 // Revision is increased by 1
@@ -260,7 +249,7 @@ class UpdateViewsTest: QuickSpec {
                 // Update view with current revision + deploy
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, viewGuestSpaceAppEntry, currentRevision))
                 let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
-                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!]))
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
                 AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
                 
                 // Revision is increased by 1
@@ -291,7 +280,7 @@ class UpdateViewsTest: QuickSpec {
                 // Update view with revision is -1 + deploy
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, viewGuestSpaceAppEntry, -1))
                 let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
-                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!]))
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
                 AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
                 
                 // Revision is increased by 1
@@ -312,6 +301,19 @@ class UpdateViewsTest: QuickSpec {
                         expect(view.value.getFields()).to(equal(viewFields))
                     }
                 }
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                // Remove data after tested
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
+                
+                let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, currentGuestSpaceAppViews))
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
             }
         }
     }

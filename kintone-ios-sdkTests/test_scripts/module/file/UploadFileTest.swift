@@ -19,10 +19,6 @@ class UploadFileTest: QuickSpec {
         var recordId: Int!
 
         describe("UploadFile") {
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
-            }
-            
             it("Test_002_003_Success_UploadFile") {
                 let textField: String! = TestConstant.InitData.TEXT_FIELD
                 let attachmentField: String! = TestConstant.InitData.ATTACHMENT_FIELD
@@ -78,6 +74,10 @@ class UploadFileTest: QuickSpec {
                 fileModule.upload("none_exist_file_path").catch { error in
                     expect(error).toNot(beNil())
                 }
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId!]))
             }
         }
     }

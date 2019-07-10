@@ -20,10 +20,6 @@ class GetAppsByNameTest: QuickSpec {
                 appIds = AppUtils.createApps(appModule: appModule, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApps(appIds: appIds)
-            }
-            
             it("Test_041_Success_Name") {
                 let getAppsByNameRsp = TestCommonHandling.awaitAsync(appModule.getAppsByName(appName)) as! [AppModel]
                 
@@ -137,6 +133,10 @@ class GetAppsByNameTest: QuickSpec {
                 let actualError = getAppsByNameRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.OFFSET_LARGER_THAN_2147483647_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                AppUtils.deleteApps(appIds: appIds)
             }
         }
     }

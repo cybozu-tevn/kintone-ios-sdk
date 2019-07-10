@@ -33,10 +33,6 @@ class AddCommentTest: QuickSpec {
                 mentionUser.setType(mentionUserType)
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
-            }
-            
             beforeEach {
                 // Set comment text
                 comment = CommentContent()
@@ -214,6 +210,10 @@ class AddCommentTest: QuickSpec {
                 expect(mentionResult?[0].getCode()).to(equal(TestConstant.Connection.CRED_USERNAME_INACTIVE))
                 expect(mentionResult?[0].getType()).to(equal(mentionUserType))
             }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
+            }
         }
         
         // GUEST SPACE
@@ -231,10 +231,6 @@ class AddCommentTest: QuickSpec {
                 let addData: Dictionary<String, FieldValue> = [:]
                 let addRecordGuestSpaceResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecord(appGuestSpaceId, addData)) as! AddRecordResponse
                 recordGuestSpaceId = addRecordGuestSpaceResponse.getId()
-            }
-            
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(appGuestSpaceId, [recordGuestSpaceId]))
             }
             
             beforeEach {
@@ -290,6 +286,10 @@ class AddCommentTest: QuickSpec {
                 expect(mentionResult?.count).to(equal(0))
                 expect(result.getComments()?[0].getText()).to(equal(commentContent + " "))
             }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(appGuestSpaceId, [recordGuestSpaceId]))
+            }
         }
         
         // API TOKEN
@@ -301,10 +301,6 @@ class AddCommentTest: QuickSpec {
                 let addData: Dictionary<String, FieldValue> = [:]
                 let addRecordResponse = TestCommonHandling.awaitAsync(recordModule.addRecord(appId, addData)) as! AddRecordResponse
                 recordId = addRecordResponse.getId()
-            }
-            
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
             
             beforeEach {
@@ -395,6 +391,10 @@ class AddCommentTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModuleApiToken.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
                 expect(result.getComments()?[0].getCreator()?.code).to(equal(TestConstant.Common.ADMINISTRATOR_USER))
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
         }
     }

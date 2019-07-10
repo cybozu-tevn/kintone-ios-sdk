@@ -15,10 +15,6 @@ class AddPreviewAppTest: QuickSpec {
             let appName = DataRandomization.generateString(length: 8)
             var appIds = [Int]()
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApps(appIds: appIds)
-            }
-            
             it("Test_089_Success_SpaceThread") {
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, TestConstant.InitData.SPACE_ID, TestConstant.InitData.SPACE_ID)) as! PreviewApp
                 expect(addPreviewAppRsp.getApp()).notTo(beNil())
@@ -202,6 +198,10 @@ class AddPreviewAppTest: QuickSpec {
                 
                 expect(actualCode).to(equal(expectedCode))
                 expect(actualMessage).to(equal(expectedMessage))
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                AppUtils.deleteApps(appIds: appIds)
             }
         }
     }

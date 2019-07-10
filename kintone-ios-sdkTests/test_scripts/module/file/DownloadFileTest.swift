@@ -50,11 +50,6 @@ class DownloadFileTest: QuickSpec {
                 }
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                // Delete added test record
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId!, [recordId!]))
-            }
-            
             it("Test_006_Success_DowloadFile") {
                 // Get record -> download file -> verify file info
                 let getRecordResponse = TestCommonHandling.awaitAsync(recordModule.getRecord(appId!, recordId)) as! GetRecordResponse
@@ -94,6 +89,12 @@ class DownloadFileTest: QuickSpec {
                 var expectedError  = KintoneErrorParser.INCORRECT_FILE_KEY_DOWNLOAD()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: nonexistentFileKey)
                 TestCommonHandling.compareError(actualError, expectedError)
+            }
+            
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                // Delete added test record
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId!, [recordId!]))
             }
         }
     }

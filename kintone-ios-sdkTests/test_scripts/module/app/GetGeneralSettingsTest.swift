@@ -25,10 +25,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 appId = AppUtils.createApp(appModule: appModule, appName: "App Name", spaceId: nil, threadId: nil)
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApp(appId: appId!)
-            }
-            
             it("Test_003_Success_PreliveApp") {
                 // Get GeneralSettings of an app which is created in beforeSuite
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!)) as! GeneralSettings
@@ -318,6 +314,10 @@ class GetGeneralSettingsTest: QuickSpec {
             //            it("Test_027_ErrorWithInvalidLanguage"){
             //                _ = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting(rawValue: "TEVN"), false)) as! GeneralSettings
             //            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                AppUtils.deleteApp(appId: appId!)
+            }
         }
     }
 }

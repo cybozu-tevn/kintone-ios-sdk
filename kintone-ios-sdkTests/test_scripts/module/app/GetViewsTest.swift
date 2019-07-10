@@ -81,17 +81,6 @@ class GetViewsTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, viewEntryPrelive))
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
-                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, currentViews))
-                let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                let previewGuestSpaceApp: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
-                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
-                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
-                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
-            }
-            
             // API TOKEN
             it("Test_003_Error_ApiTokenAuthentication_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
@@ -232,6 +221,17 @@ class GetViewsTest: QuickSpec {
                         expect(view.value.getFields()).to(equal(viewFields))
                     }
                 }
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guetsSpaceAppId, currentViews))
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                let previewGuestSpaceApp: PreviewApp? = PreviewApp(guetsSpaceAppId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
+                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guetsSpaceAppId)
             }
         }
     }

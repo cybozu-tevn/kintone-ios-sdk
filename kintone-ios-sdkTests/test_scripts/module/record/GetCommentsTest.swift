@@ -69,11 +69,6 @@ class GetCommentsTest: QuickSpec {
                 }
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
-                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [recordGuestSpaceId]))
-            }
-            
             it("Test_215_Success_ValidData") {
                 let result = TestCommonHandling.awaitAsync(recordModule.getComments(appId, recordId, nil, nil, nil)) as! GetCommentsResponse
                 
@@ -463,6 +458,11 @@ class GetCommentsTest: QuickSpec {
                     expect(commentId).to(equal(value.getId()))
                     commentId -= 1
                 }
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
+                _ = TestCommonHandling.awaitAsync(recordModuleGuestSpace.deleteRecords(guestSpaceAppId, [recordGuestSpaceId]))
             }
         }
     }

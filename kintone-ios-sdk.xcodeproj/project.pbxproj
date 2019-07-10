@@ -95,7 +95,6 @@
 		68621DB6229E42A000F96F0B /* UploadFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB5229E42A000F96F0B /* UploadFileTest.swift */; };
 		68621DB8229E66B000F96F0B /* DownloadFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB7229E66B000F96F0B /* DownloadFileTest.swift */; };
 		68621DBA229E9BB600F96F0B /* BulkRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB9229E9BB600F96F0B /* BulkRequestTest.swift */; };
-		68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2B67E229BE7B70091F27C /* DevAppTest.swift */; };
 		68C67E22228042EF00244922 /* KintoneErrorMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = 68C67E21228042EF00244922 /* KintoneErrorMessage.json */; };
 		68C67E242280432600244922 /* KintoneErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E232280432600244922 /* KintoneErrorParser.swift */; };
 		68C67E262280433600244922 /* KintoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67E252280433600244922 /* KintoneError.swift */; };
@@ -356,7 +355,6 @@
 		68621DB5229E42A000F96F0B /* UploadFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileTest.swift; sourceTree = "<group>"; };
 		68621DB7229E66B000F96F0B /* DownloadFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileTest.swift; sourceTree = "<group>"; };
 		68621DB9229E9BB600F96F0B /* BulkRequestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRequestTest.swift; sourceTree = "<group>"; };
-		68A2B67E229BE7B70091F27C /* DevAppTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevAppTest.swift; sourceTree = "<group>"; };
 		68C67E21228042EF00244922 /* KintoneErrorMessage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KintoneErrorMessage.json; sourceTree = "<group>"; };
 		68C67E232280432600244922 /* KintoneErrorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KintoneErrorParser.swift; sourceTree = "<group>"; };
 		68C67E252280433600244922 /* KintoneError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KintoneError.swift; sourceTree = "<group>"; };
@@ -925,7 +923,6 @@
 				68C67E432282DA8100244922 /* model */,
 				68C67E402282DA5F00244922 /* connection */,
 				68C67E3D2282DA2500244922 /* authentication */,
-				68A2B67E229BE7B70091F27C /* DevAppTest.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -1714,7 +1711,6 @@
 				68C94B1A22C45BF400F01591 /* GetFormLayoutTest.swift in Sources */,
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
 				B7C87F7022C322EE00AFFFB8 /* UpdateRecordsStatusTest.swift in Sources */,
-				68A2B67F229BE7B70091F27C /* DevAppTest.swift in Sources */,
 				68C67E6D2282DBEE00244922 /* ApiToken.swift in Sources */,
 				B7C87F7422C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift in Sources */,
 				68C67E802282DCA400244922 /* UpdateApiTokenRequest.swift in Sources */,

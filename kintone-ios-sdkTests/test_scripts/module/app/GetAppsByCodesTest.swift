@@ -33,10 +33,6 @@ class GetAppsByCodesTest: QuickSpec {
                 }
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApps(appIds: appIds)
-            }
-            
             it("Test_030_Error_ApiToken") {
                 let apiToken = AppUtils.generateApiToken(appModule, appIds[0])
                 let tokenPermission = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
@@ -180,6 +176,10 @@ class GetAppsByCodesTest: QuickSpec {
                 let actualError = getAppsByCodesRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.OFFSET_LARGER_THAN_2147483647_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                AppUtils.deleteApps(appIds: appIds)
             }
         }
     }

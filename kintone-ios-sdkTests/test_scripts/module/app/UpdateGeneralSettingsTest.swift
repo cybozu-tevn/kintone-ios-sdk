@@ -19,10 +19,6 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 appId = AppUtils.createApp(appModule: appModule, appName: appName)
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApp(appId: appId)
-            }
-            
             it("Test_028_Success") {
                 // Set properties for app general settings
                 let settings = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
@@ -312,6 +308,10 @@ class UpdateGeneralSettingsTest: QuickSpec {
                 expect(updateGeneralSettingsRsp.getRevision()).to(equal(revision + 1))
                 expect(getGeneralSettingsRsp.getName()).to(equal(settings.getName()))
                 
+                AppUtils.deleteApp(appId: appId)
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
                 AppUtils.deleteApp(appId: appId)
             }
         }

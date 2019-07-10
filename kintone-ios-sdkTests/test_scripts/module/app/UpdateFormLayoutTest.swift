@@ -129,13 +129,6 @@ class UpdateFormLayoutTest: QuickSpec {
                 itemLayoutRequest?.append(subTableLayout!)
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                // Revert FormLayout changes
-                let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
-                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
-            }
-            
             it("Test_064_Error_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 let result = TestCommonHandling.awaitAsync(appModuleApiToken.updateFormLayout(appId, itemLayoutRequest!)) as! KintoneAPIException
@@ -296,6 +289,13 @@ class UpdateFormLayoutTest: QuickSpec {
                 actualError = result.getErrorResponse()!
                 expectedError = KintoneErrorParser.NEGATIVE_APP_ID_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                // Revert FormLayout changes
+                let previewApp: PreviewApp? = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
+                AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
         }
         

@@ -24,10 +24,6 @@ class GetRecordsTest: QuickSpec {
                 query = RecordUtils.getRecordsQuery(recordIds)
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
-            }
-            
             it("Test_004_Success_ValidData") {
                 let result = TestCommonHandling.awaitAsync(
                     recordModule.getRecords(appId, query, [textField], true)) as! GetRecordsResponse
@@ -201,6 +197,10 @@ class GetRecordsTest: QuickSpec {
             
             let addRecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
             recordIds = addRecordsResponse.getIDs()!
+        }
+        
+        it("WipeoutTestData_AfterSuiteWorkaround") {
+            RecordUtils.deleteAllRecords(recordModule: recordModule, appID: appId)
         }
     }
 }

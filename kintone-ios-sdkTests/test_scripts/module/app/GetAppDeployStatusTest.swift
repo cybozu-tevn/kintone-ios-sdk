@@ -20,10 +20,6 @@ class GetAppDeployStatusTest: QuickSpec {
                 appIds = AppUtils.createApps(appModule: appModule, appName: appName, spaceId: nil, threadId: nil, amount: amountOfApps)
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApps(appIds: appIds!)
-            }
-            
             it("Test_079_Success") {
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds!)) as! GetAppDeployStatusResponse
                 
@@ -198,6 +194,10 @@ class GetAppDeployStatusTest: QuickSpec {
                 
                 expect(actualCode).to(equal(expectedCode))
                 expect(actualMessage).to(equal(expectedMessage))
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                AppUtils.deleteApps(appIds: appIds!)
             }
         }
     }

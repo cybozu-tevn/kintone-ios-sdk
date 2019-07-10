@@ -42,10 +42,6 @@ class DeleteCommentTest: QuickSpec {
                 comment.setText(commentContent)
                 comment.setMentions(mentionList)
             }
-            
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
-            }
 
             it("Test_256_Success_ValidData") {
                 let addCommentResponse = TestCommonHandling.awaitAsync(recordModule.addComment(appId, recordId, comment)) as! AddCommentResponse
@@ -163,6 +159,10 @@ class DeleteCommentTest: QuickSpec {
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(commentId))
                 
                 TestCommonHandling.compareError(actualError, expectedError)
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordId]))
             }
         }
     }

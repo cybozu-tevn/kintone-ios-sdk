@@ -167,10 +167,6 @@ class AddFormFieldsTest: QuickSpec {
                 properties[departmentSelectionFieldCode] = departmentSelectionField
             }
             
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApp(appId: appId)
-            }
-            
             it("Test_027_Error_ApiToken") {
                 // Prepare test data
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
@@ -298,6 +294,10 @@ class AddFormFieldsTest: QuickSpec {
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
+            }
+            
+            it("WipeoutTestData_AfterSuiteWorkaround") {
+                AppUtils.deleteApp(appId: appId)
             }
         }
     }
