@@ -48,7 +48,7 @@ class DataRandomization {
     public static func generateDataItems(numberOfItems: Int, prefix: String) -> Array<String> {
         var items = Array<String>()
         for i in 1...numberOfItems {
-            items.append(prefix + String(format: "%03d", i))
+            items.append(prefix + String(i))
         }
         return items
     }

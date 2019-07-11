@@ -74,14 +74,15 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
             
-            xit("Test_158_Success_100Assignees") {
+            it("Test_158_Success_100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
                 revision += 2
                 
                 // Set 100 assignees for current state of record
-                let assignees = DataRandomization.generateDataItems(numberOfItems: 100, prefix: "user")
+                let assignees = _prepareAssigneeList(100)
+                
                 let updateRecordResponse = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
@@ -100,7 +101,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 }
             }
             
-            xit("Test_159_Error_MoreThan100Assignees") {
+            it("Test_159_Error_MoreThan100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
@@ -409,14 +410,14 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
             
-            xit("Test_158_Success_100Assignees_APIToken") {
+            it("Test_158_Success_100Assignees_APIToken") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
                 revision += 2
                 
                 // Set 100 assignees for current state of record
-                let assignees = DataRandomization.generateDataItems(numberOfItems: 100, prefix: "user")
+                let assignees = _prepareAssigneeList(100)
                 let result = TestCommonHandling.awaitAsync(
                     recordModuleAPIToken.updateRecordAssignees(appId, recordId, assignees, nil)) as! UpdateRecordResponse
                 revision += 1
@@ -434,6 +435,19 @@ class UpdateRecordAssigneesTest: QuickSpec {
                     expect(recordAssignees[i].getName()).to(equal(assignees[i]))
                 }
             }
+        }
+        
+        func _prepareAssigneeList(_ numberOfAssignees: Int) -> Array<String> {
+            var assignees = DataRandomization.generateDataItems(numberOfItems: numberOfAssignees, prefix: "user")
+            // Sort users following order:
+            // user10, user100, user11, user12, ..., user19, user20, user21, user22, ..., user98, user99, user1, user2
+            assignees = assignees.sorted(by: <)
+            assignees.insert(assignees[0], at: 100)
+            assignees.remove(at: 0)
+            assignees.insert(assignees[11], at: 100)
+            assignees.remove(at: 11)
+            
+            return assignees
         }
     }
 }
