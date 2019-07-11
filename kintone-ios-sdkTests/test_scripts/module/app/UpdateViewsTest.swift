@@ -52,7 +52,7 @@ class UpdateViewsTest: QuickSpec {
                 totalOfAllView = viewEntry.count
                 
                 // Prepare view entry for test app in guest space
-                let getViewsGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
+                let getViewsGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, LanguageSetting.DEFAULT, false)) as! GetViewsResponse
                 currentGuestSpaceAppViews = getViewsGuestSpaceAppResponse.getViews()!
                 viewGuestSpaceAppEntry = currentGuestSpaceAppViews
                 updateViewGuestSpaceAppModel.setName(viewName)
@@ -78,7 +78,6 @@ class UpdateViewsTest: QuickSpec {
             it("Test_016_Success_ValidRequest") {
                 let getViewResponse = TestCommonHandling.awaitAsync(appModule.getViews(appId, language, isPreview)) as! GetViewsResponse
                 let currentRevision = getViewResponse.getRevision()!
-                print("------> currentRevision: \(currentRevision)")
                 // Update view with current revision + deploy
                 _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntry, currentRevision))
                 let previewApp: PreviewApp? = PreviewApp(appId, -1)
@@ -87,7 +86,6 @@ class UpdateViewsTest: QuickSpec {
                 
                 // Revision is increased by 1
                 let result = TestCommonHandling.awaitAsync(appModule.getViews(appId, language, isPreview)) as! GetViewsResponse
-                print("------> currentRevision: \(result.getRevision())")
 
                 expect(result.getRevision()).to(equal(currentRevision + 1))
                 // Views is added correctly
@@ -159,7 +157,6 @@ class UpdateViewsTest: QuickSpec {
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
                 TestCommonHandling.compareError(actualError, expectedError)
-                
                 
                 result = TestCommonHandling.awaitAsync(appModule.updateViews(TestConstant.Common.NEGATIVE_ID, viewEntry)) as! KintoneAPIException
                 actualError = result.getErrorResponse()!
@@ -245,7 +242,7 @@ class UpdateViewsTest: QuickSpec {
             it("Test_016_Success_ValidRequest_GuestSpace") {
                 let getViewGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
                 let currentRevision = getViewGuestSpaceAppResponse.getRevision()!
-                
+
                 // Update view with current revision + deploy
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, viewGuestSpaceAppEntry, currentRevision))
                 let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
@@ -254,6 +251,7 @@ class UpdateViewsTest: QuickSpec {
                 
                 // Revision is increased by 1
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
+
                 expect(result.getRevision()).to(equal(currentRevision + 1))
                 // Views is added correctly
                 let viewsList = result.getViews()
@@ -285,6 +283,7 @@ class UpdateViewsTest: QuickSpec {
                 
                 // Revision is increased by 1
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
+
                 expect(result.getRevision()).to(equal(currentRevision + 1))
                 // Views is added correctly
                 let viewsList = result.getViews()
