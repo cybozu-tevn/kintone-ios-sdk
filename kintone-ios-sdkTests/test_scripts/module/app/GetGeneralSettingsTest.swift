@@ -11,7 +11,7 @@ import Nimble
 class GetGeneralSettingsTest: QuickSpec {
     override func spec() {
         let appModule = App(TestCommonHandling.createConnection())
-        var appId: Int?
+        var appId: Int!
         
         // prepare Settings info
         let generalSettings: GeneralSettings = GeneralSettings()
@@ -27,7 +27,7 @@ class GetGeneralSettingsTest: QuickSpec {
             
             it("Test_003_Success_PreliveApp") {
                 // Get GeneralSettings of an app which is created in beforeSuite
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -37,7 +37,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_004_Success_LiveApp") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -67,7 +67,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_005_Success_LiveApp") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -77,7 +77,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_006_Success_Prelive_DefaultLang") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.DEFAULT)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -87,7 +87,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_007_Success_Prelive_ZhLang") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.ZH, false)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.ZH, false)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -97,7 +97,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_008_Success_Prelive_JaLang") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.JA, false)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.JA, false)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -107,7 +107,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_009_Success_Prelive_UserLang") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.USER, false)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.USER, false)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -117,7 +117,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_010_Success_DefaultLang") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.DEFAULT, true)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -127,7 +127,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_011_Success_ZhLang") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.ZH, true)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.ZH, true)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -137,7 +137,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_012_Success_JaLang") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.JA, true)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.JA, true)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -147,7 +147,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_013_Success_UserLang") {
-                let reponse = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.USER, true)) as! GeneralSettings
+                let reponse = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.USER, true)) as! GeneralSettings
                 
                 expect(reponse.getName()).to(equal(generalSettings.getName()))
                 // expect(reponse.getDescription()).to(equal(generalSettings.getDescription()))
@@ -157,7 +157,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             it("Test_014_Success_DefaultLang_WithoutIsPreview") {
-                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting.DEFAULT)) as! GeneralSettings
+                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
                 // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
@@ -260,7 +260,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             //            it("Test_022_Error_WithInvalidLanguagePreliveApp"){
-            //                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting(rawValue: "TEVN"))) as! GeneralSettings
+            //                let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting(rawValue: "TEVN"))) as! GeneralSettings
             //            }
             
             // Xcode will show an error
@@ -312,7 +312,7 @@ class GetGeneralSettingsTest: QuickSpec {
             }
             
             //            it("Test_027_ErrorWithInvalidLanguage"){
-            //                _ = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId!, LanguageSetting(rawValue: "TEVN"), false)) as! GeneralSettings
+            //                _ = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting(rawValue: "TEVN"), false)) as! GeneralSettings
             //            }
             
             it("WipeoutTestData_AfterSuiteWorkaround") {
