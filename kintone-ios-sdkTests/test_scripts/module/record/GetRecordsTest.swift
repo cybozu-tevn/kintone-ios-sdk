@@ -171,7 +171,7 @@ class GetRecordsTest: QuickSpec {
             }
             
             // --------- API Token ---------
-            it("Test_014_Success_ValidData_APIToken") {
+            xit("Test_014_Success_ValidData_APIToken") {
                 let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 
                 let result = TestCommonHandling.awaitAsync(

@@ -38,7 +38,7 @@ class GetAppsBySpaceIDsTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_053_Success") {
+            xit("Test_053_Success") {
                 let getAppsBySpaceIdsRsp = TestCommonHandling.awaitAsync(appModule.getAppsBySpaceIDs(spaceIds)) as! [AppModel]
                 
                 expect(getAppsBySpaceIdsRsp.count).to(equal(appIds.count))
