@@ -109,6 +109,7 @@ public class TestConstant {
         static let SPACE_APP_DESCRIPTION = apps.appInSpace[0].description
         
         static let SPACE_2_ID = Int(normalSpaces[1].getSpaceId())
+        static let SPACE_2_APP_ID = Int(apps.appInSpace[1].appId)
         
         static let GUEST_SPACE_ID = Int(guestSpaces[0].getSpaceId())
         static let GUEST_SPACE_THREAD_ID  = Int(guestSpaces[0].getThreadId())

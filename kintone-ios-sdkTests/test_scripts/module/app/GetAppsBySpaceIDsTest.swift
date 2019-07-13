@@ -11,56 +11,43 @@ import Nimble
 class GetAppsBySpaceIDsTest: QuickSpec {
     override func spec() {
         let appModule = App(TestCommonHandling.createConnection())
-        let appName = DataRandomization.generateString(prefix: "App-GetAppsBySpaceIDs", length: 5)
-        
         let spaceIds: [Int] = [TestConstant.InitData.SPACE_ID!, TestConstant.InitData.SPACE_2_ID!]
-        let amountOfApps = 5
-        var appIds: [Int] = []
+        let expectedAppIds: [Int] = [TestConstant.InitData.SPACE_APP_ID!, TestConstant.InitData.SPACE_2_APP_ID!]
         
         describe("GetAppsBySpaceIDs") {
-            it("AddTestData_BeforeSuiteWorkaround") {
-                for space in spaceIds {
-                    let ids = AppUtils.createApps(appModule: appModule, appName: appName, spaceId: space, threadId: space, amount: amountOfApps)
-                    appIds.append(contentsOf: ids)
-                }
-            }
-            
             it("Test_052_Error_ApiToken") {
-                let apiToken = AppUtils.generateApiToken(appModule, appIds[0])
-                let tokenPermission  = TokenEntity(tokenString: apiToken, viewRecord: true, addRecord: true, editRecord: true, deleteRecord: true, editApp: true)
-                AppUtils.updateTokenPermission(appModule: appModule, appId: appIds[0], token: tokenPermission)
+                // Api token of app in space
+                let apiToken = TestConstant.InitData.APP_API_TOKEN
+                let appModuleApiToken = App(TestCommonHandling.createConnection(apiToken))
+                let getAppsBySpaceIdsRsp = TestCommonHandling.awaitAsync(appModuleApiToken.getAppsBySpaceIDs(spaceIds)) as! KintoneAPIException
                 
-                let appModule = App(TestCommonHandling.createConnection(apiToken))
-                let getAppsRsp = TestCommonHandling.awaitAsync(appModule.getApps()) as! KintoneAPIException
-                
-                let actualError = getAppsRsp.getErrorResponse()
+                let actualError = getAppsBySpaceIdsRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            xit("Test_053_Success") {
+            it("Test_053_Success") {
                 let getAppsBySpaceIdsRsp = TestCommonHandling.awaitAsync(appModule.getAppsBySpaceIDs(spaceIds)) as! [AppModel]
-                
-                expect(getAppsBySpaceIdsRsp.count).to(equal(appIds.count))
-                for (index, app) in getAppsBySpaceIdsRsp.enumerated() {
-                    expect(app.getAppId()).to(equal(appIds[index]))
-                    expect(app.getName()).to(equal("\(appName)\(index)"))
-                    expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
-                    expect(spaceIds.contains(app.getSpaceId()!)).to(beTrue())
-                }
+
+                // Maximum apps is 100
+                expect(getAppsBySpaceIdsRsp.count).to(equal(100))
             }
             
             it("Test_054_Success_Limit") {
                 let limit = 2
+                let getExpectedAppRsp = TestCommonHandling.awaitAsync(appModule.getAppsByIDs(expectedAppIds)) as! [AppModel]
+                var appsExpected: [AppModel] = []
+                for (_, app) in getExpectedAppRsp.enumerated() {
+                    appsExpected.append(app)
+                }
                 let getAppsBySpaceIdsRsp = TestCommonHandling.awaitAsync(appModule.getAppsBySpaceIDs(spaceIds, nil, limit)) as! [AppModel]
                 
                 expect(getAppsBySpaceIdsRsp.count).to(equal(limit))
                 for (index, app) in getAppsBySpaceIdsRsp.enumerated() {
-                    expect(app.getAppId()).to(equal(appIds[index]))
-                    expect(app.getName()).to(equal("\(appName)\(index)"))
-                    expect(app.getCode()).to(equal(""))
-                    expect(app.getCreator()?.getName()).to(equal(TestConstant.Connection.CRED_ADMIN_USERNAME))
+                    expect(app.getAppId()).to(equal(appsExpected[index].getAppId()))
+                    expect(app.getName()).to(equal(appsExpected[index].getName()))
+                    expect(app.getCode()).to(equal(appsExpected[index].getCode()))
+                    expect(app.getCreator()?.getName()).to(equal(appsExpected[index].getCreator()?.getName()))
                     expect(spaceIds.contains(app.getSpaceId()!)).to(beTrue())
                     
                 }
@@ -111,10 +98,6 @@ class GetAppsBySpaceIDsTest: QuickSpec {
                 let actualError = getAppsBySpaceIDsRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.OFFSET_LARGER_THAN_2147483647_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
-            }
-            
-            it("WipeoutTestData_AfterSuiteWorkaround") {
-                AppUtils.deleteApps(appIds: appIds)
             }
         }
     }
