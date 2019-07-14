@@ -239,16 +239,20 @@ class UpdateViewsTest: QuickSpec {
             }
             
             // GUEST SPACE
-            xit("Test_016_Success_ValidRequest_GuestSpace") {
-                let getViewGuestSpaceAppResponse = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
-                let currentRevision = getViewGuestSpaceAppResponse.getRevision()!
+            it("Test_016_Success_ValidRequest_GuestSpace") {
+                // Reset before setting
+                var previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
+                _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], true))
+                AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
+                let getViewGuestSpaceAppRsp = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
+                let currentRevision = getViewGuestSpaceAppRsp.getRevision()!
                 
                 // Update view with current revision + deploy
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateViews(guestSpaceAppId, viewGuestSpaceAppEntry, currentRevision))
-                let previewGuestSpaceApp: PreviewApp? = PreviewApp(guestSpaceAppId, -1)
+                previewGuestSpaceApp = PreviewApp(guestSpaceAppId, -1)
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewGuestSpaceApp!], false))
                 AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
-                sleep(20)
+
                 // Revision is increased by 1
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
 
@@ -283,7 +287,7 @@ class UpdateViewsTest: QuickSpec {
                 
                 // Revision is increased by 1
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.getViews(guestSpaceAppId, language, isPreview)) as! GetViewsResponse
-
+                
                 expect(result.getRevision()).to(equal(currentRevision + 1))
                 // Views is added correctly
                 let viewsList = result.getViews()
