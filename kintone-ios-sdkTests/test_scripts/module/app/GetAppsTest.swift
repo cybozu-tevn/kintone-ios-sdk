@@ -84,12 +84,19 @@ class GetAppsTest: QuickSpec {
                 AppUtils.deleteApps(appIds: guestSpaceAppIds)
             }
             
-            xit("Test_009_Success_Offset") {
-                let offset = 2
-                let getAppsRspWithOffset = TestCommonHandling.awaitAsync(appModule.getApps(offset, nil)) as! [AppModel]
-                let getAppsRsp = TestCommonHandling.awaitAsync(appModule.getApps()) as! [AppModel]
+            it("Test_009_Success_Offset") {
+                offset = 0
+                let numberApps = 88
+                var totalApps: Int = 0
+                repeat {
+                    totalApps = (TestCommonHandling.awaitAsync(appModule.getApps(offset)) as! [AppModel]).count
+                    offset += totalApps
+                } while (totalApps == 100)
                 
-                expect(getAppsRspWithOffset.count + offset).to(equal(getAppsRsp.count))
+                offset = offset - numberApps
+                let getAppsRspWithOffset = TestCommonHandling.awaitAsync(appModule.getApps(offset, nil)) as! [AppModel]
+                
+                expect(getAppsRspWithOffset.count).to(equal(numberApps))
             }
             
             it("Test_011_Error_LimitZero") {
