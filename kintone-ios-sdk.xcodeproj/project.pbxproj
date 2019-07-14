@@ -537,6 +537,7 @@
 		110578E521620B9300F6E8C0 /* module */ = {
 			isa = PBXGroup;
 			children = (
+				686D002A229D46F200F0EA67 /* connection */,
 				3FF04B2822803DA900E401FF /* app */,
 				ABE02356216F4603002C47EC /* file */,
 				AB4D6433216709E5005807C1 /* record */,
@@ -831,7 +832,6 @@
 		3FF04B2522803C5200E401FF /* test_scripts */ = {
 			isa = PBXGroup;
 			children = (
-				686D002A229D46F200F0EA67 /* connection */,
 				110578E521620B9300F6E8C0 /* module */,
 			);
 			path = test_scripts;
