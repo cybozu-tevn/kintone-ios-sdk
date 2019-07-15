@@ -617,7 +617,6 @@
 		3E17EA1E213E427F002D9BC0 /* kintone-ios-sdkTests */ = {
 			isa = PBXGroup;
 			children = (
-				3FF04B2722803C6200E401FF /* init */,
 				3FF04B2622803C5C00E401FF /* common */,
 				3FF04B2522803C5200E401FF /* test_scripts */,
 				3FF04B2422803C3700E401FF /* report */,
@@ -821,6 +820,7 @@
 				68C67E272280434000244922 /* JSONHandler.swift */,
 				B7A2AD8E229F714300AA4196 /* RecordUtils.swift */,
 				B7A2AD9422A5F5B900AA4196 /* SpaceUtils.swift */,
+				682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -847,14 +847,6 @@
 				3FF04B2E22803E4800E401FF /* TestConstant.swift */,
 			);
 			path = common;
-			sourceTree = "<group>";
-		};
-		3FF04B2722803C6200E401FF /* init */ = {
-			isa = PBXGroup;
-			children = (
-				682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */,
-			);
-			path = init;
 			sourceTree = "<group>";
 		};
 		3FF04B2822803DA900E401FF /* app */ = {
