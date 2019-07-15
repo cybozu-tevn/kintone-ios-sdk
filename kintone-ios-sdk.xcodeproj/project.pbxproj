@@ -139,6 +139,7 @@
 		68CE4F0122BB410C00E6E23A /* GetFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */; };
 		68CE4F0322BB9CED00E6E23A /* AddFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */; };
 		68CE4F0522BCC8BC00E6E23A /* UpdateFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */; };
+		68EB478722DC62DD002FFBEB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 68EB478622DC62DD002FFBEB /* README.md */; };
 		68F9923622CC428100B0C550 /* AddRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9923522CC428100B0C550 /* AddRecordsTest.swift */; };
 		A88FEE1C2159DD8B00A7E838 /* UpdateViewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */; };
 		A88FEE1D2159DD8B00A7E838 /* GetAppsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */; };
@@ -401,6 +402,7 @@
 		68CE4F0022BB410C00E6E23A /* GetFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFormFieldsTest.swift; sourceTree = "<group>"; };
 		68CE4F0222BB9CED00E6E23A /* AddFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFormFieldsTest.swift; sourceTree = "<group>"; };
 		68CE4F0422BCC8BC00E6E23A /* UpdateFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFormFieldsTest.swift; sourceTree = "<group>"; };
+		68EB478622DC62DD002FFBEB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		68F9923522CC428100B0C550 /* AddRecordsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordsTest.swift; sourceTree = "<group>"; };
 		A88FEE022159DD8A00A7E838 /* UpdateViewsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewsResponse.swift; sourceTree = "<group>"; };
 		A88FEE032159DD8A00A7E838 /* GetAppsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAppsResponse.swift; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 				3FF04B2122803C0200E401FF /* utils */,
 				ABE02359216F4634002C47EC /* resources */,
 				3E17EA21213E427F002D9BC0 /* Info.plist */,
+				68EB478622DC62DD002FFBEB /* README.md */,
 			);
 			path = "kintone-ios-sdkTests";
 			sourceTree = "<group>";
@@ -1482,6 +1485,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68EB478722DC62DD002FFBEB /* README.md in Resources */,
 				ABE0235E216F4652002C47EC /* test.txt in Resources */,
 				ABE0235D216F4652002C47EC /* test.pptx in Resources */,
 				ABE0235F216F4652002C47EC /* test.xlsx in Resources */,
