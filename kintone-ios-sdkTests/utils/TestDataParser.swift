@@ -19,6 +19,10 @@ internal class TestDataParser: Codable {
         return kintoneTestData.administrators
     }
     
+    static func getOrgInfo() -> orgInfo {
+        return kintoneTestData.orgInfo
+    }
+    
     static func getUsers() -> users {
         return kintoneTestData.users
     }
@@ -40,6 +44,7 @@ struct KintoneTestData: Decodable {
     var domain: String
     var proxy: proxy
     var administrators: administrator
+    var orgInfo: orgInfo
     var users: users
     var guestSpaceInfo: [space]
     var normalSpaceInfo: [space]
@@ -194,4 +199,18 @@ struct userFieldPermission: Decodable {
 struct process: Decodable {
     var actions: [String]
     var states: [String]
+}
+
+struct orgInfo: Decodable {
+    var organizations: [organization]
+}
+
+struct organization: Decodable {
+    var id: String
+    var code: String
+    var name: String
+    var localName: String
+    var localNameLocale: String
+    var parentCode: String
+    var description: String
 }

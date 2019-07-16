@@ -86,7 +86,7 @@ class GetAppsTest: QuickSpec {
             
             it("Test_009_Success_Offset") {
                 offset = 0
-                let numberApps = 88
+                let numberApps = 2
                 var totalApps: Int = 0
                 repeat {
                     totalApps = (TestCommonHandling.awaitAsync(appModule.getApps(offset)) as! [AppModel]).count
