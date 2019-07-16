@@ -87,11 +87,12 @@ class AddCommentTest: QuickSpec {
                 mentionDept.setCode(TestConstant.InitData.DEPARTMENT_CODE)
                 mentionDept.setType(TestConstant.InitData.DEPARTMENT_TYPE)
                 
-                let mentionGroup = CommentMention()
-                mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
-                mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
+//                let mentionGroup = CommentMention()
+//                mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
+//                mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
                 
-                let mentionList = [mentionUser, mentionDept, mentionGroup]
+//                let mentionList = [mentionUser, mentionDept, mentionGroup]
+                let mentionList = [mentionUser, mentionDept]
                 comment.setMentions(mentionList)
                 
                 _ = TestCommonHandling.awaitAsync(recordModule.addComment(appId, recordId, comment))
@@ -102,8 +103,8 @@ class AddCommentTest: QuickSpec {
                 expect(mentionResult?[0].getType()).to(equal(mentionUserType))
                 expect(mentionResult?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
                 expect(mentionResult?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
-                expect(mentionResult?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
-                expect(mentionResult?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
+//                expect(mentionResult?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
+//                expect(mentionResult?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
             }
             
             it("Test_240_Success_NoMention") {
@@ -353,11 +354,12 @@ class AddCommentTest: QuickSpec {
                 mentionDept.setCode(TestConstant.InitData.DEPARTMENT_CODE)
                 mentionDept.setType(TestConstant.InitData.DEPARTMENT_TYPE)
                 
-                let mentionGroup = CommentMention()
-                mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
-                mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
+//                let mentionGroup = CommentMention()
+//                mentionGroup.setCode(TestConstant.InitData.GROUP_CODE)
+//                mentionGroup.setType(TestConstant.InitData.GROUP_TYPE)
                 
-                let mentionList = [mentionUser, mentionDept, mentionGroup]
+//                let mentionList = [mentionUser, mentionDept, mentionGroup]
+                let mentionList = [mentionUser, mentionDept]
                 comment.setMentions(mentionList)
                 
                 _ = TestCommonHandling.awaitAsync(recordModuleApiToken.addComment(appId, recordId, comment))
@@ -368,8 +370,8 @@ class AddCommentTest: QuickSpec {
                 expect(mentionResult?[0].getType()).to(equal(mentionUserType))
                 expect(mentionResult?[1].getCode()).to(equal(TestConstant.InitData.DEPARTMENT_CODE))
                 expect(mentionResult?[1].getType()).to(equal(TestConstant.InitData.DEPARTMENT_TYPE))
-                expect(mentionResult?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
-                expect(mentionResult?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
+//                expect(mentionResult?[2].getCode()).to(equal(TestConstant.InitData.GROUP_CODE))
+//                expect(mentionResult?[2].getType()).to(equal(TestConstant.InitData.GROUP_TYPE))
             }
             
             it("Test_240_Success_NoMention_ApiToken") {
