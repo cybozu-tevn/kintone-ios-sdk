@@ -27,10 +27,17 @@ class GetAppsBySpaceIDsTest: QuickSpec {
             }
             
             it("Test_053_Success") {
+                // Get total apps in spaces
+                var totalAppInSpace = 0
+                var totalApps: Int = 0
+                repeat {
+                    totalApps = (TestCommonHandling.awaitAsync(appModule.getAppsBySpaceIDs(spaceIds, totalAppInSpace)) as! [AppModel]).count
+                    totalAppInSpace += totalApps
+                } while (totalApps == 100)
+                
                 let getAppsBySpaceIdsRsp = TestCommonHandling.awaitAsync(appModule.getAppsBySpaceIDs(spaceIds)) as! [AppModel]
 
-                // Maximum apps is 100
-                expect(getAppsBySpaceIdsRsp.count).to(equal(100))
+                expect(getAppsBySpaceIdsRsp.count).to(equal(totalAppInSpace))
             }
             
             it("Test_054_Success_Limit") {

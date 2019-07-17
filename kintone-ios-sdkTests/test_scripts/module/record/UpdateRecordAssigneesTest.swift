@@ -74,7 +74,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
             
-            it("Test_158_Success_100Assignees") {
+            xit("Test_158_Success_100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
@@ -101,7 +101,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 }
             }
             
-            it("Test_159_Error_MoreThan100Assignees") {
+            xit("Test_159_Error_MoreThan100Assignees") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))
@@ -410,7 +410,7 @@ class UpdateRecordAssigneesTest: QuickSpec {
                 expect(recordAssignees[1].getName()).to(equal(assignees[1]))
             }
             
-            it("Test_158_Success_100Assignees_APIToken") {
+            xit("Test_158_Success_100Assignees_APIToken") {
                 // Update status: Start action --> "In progress" state
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordStatus(appId, recordId, startAction, nil, nil))

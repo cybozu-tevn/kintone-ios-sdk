@@ -16,7 +16,7 @@ class UpdateFormFieldsTest: QuickSpec {
             TestConstant.Connection.CRED_ADMIN_PASSWORD,
             TestConstant.InitData.GUEST_SPACE_ID!))
         let appId = TestConstant.InitData.APP_ID!
-        let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_THREAD_ID!
+        let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
         let fieldCodes = TestConstant.InitData.FIELD_CODES
 
         describe("UpdateFormFields") {

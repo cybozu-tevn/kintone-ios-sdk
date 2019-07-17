@@ -22,6 +22,12 @@
             }
         ]
     },
+    "groupInfo": {
+        "id": "1",
+        "code": "newRole",
+        "name": "newRole",
+        "description": "This is a new role"
+    },
     "users": {
         "amount": 100,
         "clone": [
@@ -122,7 +128,7 @@
             "id": "2",
             "spaceName": "Initial Space - Guest",
             "threadId": "2",
-            "appId": "2"
+            "appId": "3"
         }
     ],
     "normalSpaceInfo": [
@@ -130,28 +136,28 @@
             "id": "3",
             "spaceName": "Initial Space",
             "threadId": "3",
-            "appId": "3"
+            "appId": "4"
         },
         {
             "id": "4",
             "spaceName": "Initial Space 2",
             "threadId": "4",
-            "appId": "4"
+            "appId": "5"
         }
     ],
     "apps": {
         "appInGuestSpace": [
             {
-                "appId": "2",
+                "appId": "3",
                 "code": "",
                 "name": "Initial App In Space",
                 "description": "<div>Description of Initial App in Space</div>",
-                "createdAt": "2019-07-10T08:39:39.000Z",
+                "createdAt": "2019-07-17T11:52:06.000Z",
                 "creator": {
                     "code": "cybozu",
                     "name": "cybozu"
                 },
-                "modifiedAt": "2019-07-10T08:39:39.000Z",
+                "modifiedAt": "2019-07-17T11:52:06.000Z",
                 "modifier": {
                     "code": "cybozu",
                     "name": "cybozu"
@@ -178,9 +184,9 @@
                     "Link"
                 ],
                 "apiToken": {
-                    "fullPermission": "k1fr64KRY8n5HCtxpiZR2VTaoql4Xdy14LC9n9BG",
-                    "viewPermission": "tX2pNo6gm078BSMf5ICI3MutBBStq8nvpQpmQ5xK",
-                    "noPermission": "gqWQZjlDzds1G8AhRyPlZTJXiUUcyhhMgGEGXEPu"
+                    "fullPermission": "S9swUrwPfHjasu9fUxPesXl4RW7wCVImQURYsNzu",
+                    "viewPermission": "WCtir2MHYb3QcblDNHc2roRkt9EuMRGqPXEpeiuL",
+                    "noPermission": "dwlPHOuZVjUVVhUplXWrARq5Dnzov76hBXLivdAD"
                 },
                 "userAppPermissions": {
                     "userNotHaveAppManagementRight": "user2",
@@ -219,16 +225,16 @@
         ],
         "appInSpace": [
             {
-                "appId": "3",
+                "appId": "4",
                 "code": "",
                 "name": "Initial App In Space",
                 "description": "<div>Description of Initial App in Space</div>",
-                "createdAt": "2019-07-10T08:39:54.000Z",
+                "createdAt": "2019-07-17T11:52:20.000Z",
                 "creator": {
                     "code": "cybozu",
                     "name": "cybozu"
                 },
-                "modifiedAt": "2019-07-10T08:39:54.000Z",
+                "modifiedAt": "2019-07-17T11:52:20.000Z",
                 "modifier": {
                     "code": "cybozu",
                     "name": "cybozu"
@@ -255,9 +261,9 @@
                     "Link"
                 ],
                 "apiToken": {
-                    "fullPermission": "OfgDAawJSpbUdEny4Xo4Rm83cMKVPxDg86kJPV1f",
-                    "viewPermission": "1LlAQiCytrvOrpRFg4u31vF8qX0KPpadcn0PC3lp",
-                    "noPermission": "hOd4lOYF8EoMRk1Y2yHEDu9H4JOdnGsCALBrbE2n"
+                    "fullPermission": "vyiTyNwibaD0BXdpkRzQB5aICs6L4LHkFcU6A52Y",
+                    "viewPermission": "Q3Ikd9zRlGr8F63zGBLwolFGoQjBwWugcosrciG5",
+                    "noPermission": "gUtIBBr4TxxKQxjHXxK1ygbJ9WpF46ZfqcS7Ojw7"
                 },
                 "userAppPermissions": {
                     "userNotHaveAppManagementRight": "user2",
@@ -294,16 +300,16 @@
                 }
             },
             {
-                "appId": "4",
+                "appId": "5",
                 "code": "",
                 "name": "Initial App In Space",
                 "description": "<div>Description of Initial App in Space</div>",
-                "createdAt": "2019-07-10T08:40:06.000Z",
+                "createdAt": "2019-07-17T11:52:33.000Z",
                 "creator": {
                     "code": "cybozu",
                     "name": "cybozu"
                 },
-                "modifiedAt": "2019-07-10T08:40:06.000Z",
+                "modifiedAt": "2019-07-17T11:52:33.000Z",
                 "modifier": {
                     "code": "cybozu",
                     "name": "cybozu"
@@ -330,9 +336,9 @@
                     "Link"
                 ],
                 "apiToken": {
-                    "fullPermission": "7CXewLGxLcGlWyPiH29QrvOIgZUh7croh1ye0I9M",
-                    "viewPermission": "wgchIaY7vJpA8yLXHcIe8xeUQHM05DQZvs7b9ohD",
-                    "noPermission": "hTBN0EdBVKyT0fAjgbDHiyvoTdD78PxxxDBvXAQ2"
+                    "fullPermission": "eUhKZC6VMwJaw2G6S1mFQYUlKUGfsWPv7QLGerHI",
+                    "viewPermission": "Gg4WUI6WBGDQxGyWQV2gVuWUNuGkJ84o0t3yDj47",
+                    "noPermission": "BcJPnt091z61th7yGnyktxGzEV9rVZgZuQ6l8jBW"
                 },
                 "userAppPermissions": {
                     "userNotHaveAppManagementRight": "user2",
@@ -359,16 +365,16 @@
             }
         ],
         "appWithMultipleFields": {
-            "appId": "5",
-            "code": "APP5",
+            "appId": "6",
+            "code": "APP6",
             "name": "Initial App with multiple fields",
             "description": "",
-            "createdAt": "2019-07-10T08:40:17.000Z",
+            "createdAt": "2019-07-17T11:52:44.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-07-10T08:40:31.000Z",
+            "modifiedAt": "2019-07-17T11:52:57.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -387,9 +393,9 @@
                 "Table"
             ],
             "apiToken": {
-                "fullPermission": "c2dQroaoAYgNamALmXT5h44Nzt2pMMgPpJS6BGF0",
-                "viewPermission": "QSGArdJrbkihUSu2bEGwCt4ufFhegsQv9UcWmtQF",
-                "noPermission": "sDIJMydy0rhLiQES2WBunnBUwa1GRYRh24jNCFFG"
+                "fullPermission": "6kwHoRvCtSAf4vwWYoVNvScoZzSU9lyz0YzQAKMz",
+                "viewPermission": "moFssISk3BeoH2WAwzPcerrrzz0hen9z1XHmhaoy",
+                "noPermission": "8Sgvpp8MkzkprWABiuiCMUS9DIeoLVvVdx1fWPhd"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",
@@ -415,16 +421,16 @@
             }
         },
         "appWithRequiredFields": {
-            "appId": "6",
-            "code": "APP6",
+            "appId": "7",
+            "code": "APP7",
             "name": "Initial App with required fields",
             "description": "",
-            "createdAt": "2019-07-10T08:40:33.000Z",
+            "createdAt": "2019-07-17T11:52:59.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-07-10T08:40:42.000Z",
+            "modifiedAt": "2019-07-17T11:53:08.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -435,9 +441,9 @@
                 "Text"
             ],
             "apiToken": {
-                "fullPermission": "S1fda9cM5yw2vq0X3sd49HayR1o1lNElLoAlmb48",
-                "viewPermission": "xbdi81mTJKDAfyHU1JsSbpLVJFEPHKMp7M1U87kg",
-                "noPermission": "evVv95ZxNbrbAVNRcFF5HHKjVcNUCjxavOTLAasV"
+                "fullPermission": "NJHZguJiqmqumCfn82X6NmjG8IljTfOWo3EjqloM",
+                "viewPermission": "FConcxBdBAyyYldu73YmYtC8I3avRfCCprbIdBt7",
+                "noPermission": "Q1gS4bnyYJac8fdTqhe4nAIcCNv89bmptTY8kjDK"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",
@@ -463,16 +469,16 @@
             }
         },
         "appWithUniqueFields": {
-            "appId": "7",
-            "code": "APP7",
+            "appId": "8",
+            "code": "APP8",
             "name": "Initial App with prohibit duplicate value fields",
             "description": "",
-            "createdAt": "2019-07-10T08:40:44.000Z",
+            "createdAt": "2019-07-17T11:53:09.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-07-10T08:40:54.000Z",
+            "modifiedAt": "2019-07-17T11:53:20.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -486,9 +492,9 @@
                 "Table_unique"
             ],
             "apiToken": {
-                "fullPermission": "aFSsTiKecFof4B3nmHLsHg1y0MkSucHjCNHkVY78",
-                "viewPermission": "T1tWCBekNfNfi1DanXy732e2VCwW6PA35Xs2jkPt",
-                "noPermission": "ex0kYkz4zR8aZ04kVWQwUzaGXYApTq9eUYn9YE1T"
+                "fullPermission": "2Iz9Xrr7Y9v4o5SVmQN9WertMnLoGjHxSiTx9U2T",
+                "viewPermission": "PEKkMwTayUFKnXnomirBQxXYCVMvxvvfo6omucc1",
+                "noPermission": "3b2Z6PqTSgoZOn4KBXno6yEmEsGMd9HVGIaKIBZK"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",
@@ -514,16 +520,16 @@
             }
         },
         "appWithoutField": {
-            "appId": "8",
-            "code": "APP8",
+            "appId": "9",
+            "code": "APP9",
             "name": "Blank App",
             "description": "",
-            "createdAt": "2019-07-10T08:40:56.000Z",
+            "createdAt": "2019-07-17T11:53:21.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-07-10T08:41:05.000Z",
+            "modifiedAt": "2019-07-17T11:53:31.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -532,9 +538,9 @@
             "threadId": "",
             "fieldCodes": [],
             "apiToken": {
-                "fullPermission": "SdZHHkgb1jem3KMCgXvZCMOxGljG26maNqiL3rN2",
-                "viewPermission": "Da3RZXpNLJyxa7usLRx7yKNacM14RFF3lvMYu68R",
-                "noPermission": "A54DOlTmRr5nwW2L50yvK86PDbq2oNR5r97Kdar3"
+                "fullPermission": "6PGX42RLC5DQ3yXLesRMTT18H7TGN6erSc502uVF",
+                "viewPermission": "GJxOdVL3AN2bYcEVDP34ATYhRZ6GmfPlLYSHhyYm",
+                "noPermission": "ZXAiRYIOnzVTzeRvda0IoRB9N0wOxr3owC31DfcB"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "",
@@ -560,16 +566,16 @@
             }
         },
         "appWithThoroughFields": {
-            "appId": "9",
-            "code": "APP9",
+            "appId": "10",
+            "code": "APP10",
             "name": "Thorough App",
             "description": "",
-            "createdAt": "2019-07-10T08:41:07.000Z",
+            "createdAt": "2019-07-17T11:53:32.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-07-10T08:41:19.000Z",
+            "modifiedAt": "2019-07-17T11:53:44.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -587,9 +593,9 @@
                 "Date_and_time"
             ],
             "apiToken": {
-                "fullPermission": "Xh3OeOsZchTLO4Sb0eVZ4LpM9IrE0pjGnsujs9Ar",
-                "viewPermission": "ZdWouM4KSQJJTP1JjTYjorujzrnrnpQ8x45oyM2O",
-                "noPermission": "SNKRaPEDV0y3WgaxLjYA8yp0IYPd92ETwnLBuSQw"
+                "fullPermission": "QHIW3J9O8JiCKs6XqMavluHLc9YtgiRgU2Qjjgu2",
+                "viewPermission": "L9uzmJjEgZ8srWkIpnv7NSJdw3EZxxPAfRGcZgkA",
+                "noPermission": "m2eOSqGPDdmqtcfizEGlgTjiQTSrQdkB3KxuNDu3"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",
@@ -615,16 +621,16 @@
             }
         },
         "appWithProcess": {
-            "appId": "10",
-            "code": "APP10",
+            "appId": "12",
+            "code": "APP12",
             "name": "Initial App with process",
             "description": "",
-            "createdAt": "2019-07-10T08:41:20.000Z",
+            "createdAt": "2019-07-17T11:53:45.000Z",
             "creator": {
                 "code": "cybozu",
                 "name": "cybozu"
             },
-            "modifiedAt": "2019-07-10T08:41:32.000Z",
+            "modifiedAt": "2019-07-17T11:53:58.000Z",
             "modifier": {
                 "code": "cybozu",
                 "name": "cybozu"
@@ -643,9 +649,9 @@
                 "Table"
             ],
             "apiToken": {
-                "fullPermission": "fkCtUK4hFhAkxeqXxOnluWSlwUKYFygQeMbxIBXe",
-                "viewPermission": "cGaCTrtAl42nygXdzeb8FjARd2UqRpdeOJiovU6y",
-                "noPermission": "zuwN8sPzXp7VUyjcN8Ou7kuFrFGfbivrlhX0Zs3C"
+                "fullPermission": "326mwwLK5CySi5AIBfFqvRSW1awHt7OgUDNWTTfJ",
+                "viewPermission": "7J09SibqAHCOsLDjdtMBi71laMv9MBfx1LPhsIT3",
+                "noPermission": "1vsctUGkzq9zHBUMwViiUed1w3pWIUN2k5n5VW1d"
             },
             "userAppPermissions": {
                 "userNotHaveAppManagementRight": "user2",

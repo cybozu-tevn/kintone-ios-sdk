@@ -63,10 +63,10 @@ public class TestConstant {
     class InitData {
         static let USERS = TestDataParser.getUsers().clone
         static let ORGANIZATIONS = TestDataParser.getOrgInfo().organizations
-
+        
         static let DEPARTMENT_CODE = ORGANIZATIONS[0].code
         static let DEPARTMENT_TYPE = "ORGANIZATION"
-        static let GROUP_CODE = "group"
+        static let GROUP_CODE = TestDataParser.getGroupInfo().code
         static let GROUP_TYPE = "GROUP"
         
         // process actions and status

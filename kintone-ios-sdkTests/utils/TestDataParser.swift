@@ -23,6 +23,10 @@ internal class TestDataParser: Codable {
         return kintoneTestData.orgInfo
     }
     
+    static func getGroupInfo() -> groupInfo {
+        return kintoneTestData.groupInfo
+    }
+    
     static func getUsers() -> users {
         return kintoneTestData.users
     }
@@ -45,6 +49,7 @@ struct KintoneTestData: Decodable {
     var proxy: proxy
     var administrators: administrator
     var orgInfo: orgInfo
+    var groupInfo: groupInfo
     var users: users
     var guestSpaceInfo: [space]
     var normalSpaceInfo: [space]
@@ -212,5 +217,12 @@ struct organization: Decodable {
     var localName: String
     var localNameLocale: String
     var parentCode: String
+    var description: String
+}
+
+struct groupInfo: Decodable {
+    var id: String
+    var code: String
+    var name: String
     var description: String
 }

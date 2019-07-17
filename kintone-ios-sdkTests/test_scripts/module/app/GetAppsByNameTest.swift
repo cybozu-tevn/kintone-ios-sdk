@@ -52,6 +52,8 @@ class GetAppsByNameTest: QuickSpec {
                     expect(app.getSpaceId()).to(equal(guestSpaceId))
                     expect(app.getThreadId()).to(equal(guestSpaceThreadId))
                 }
+                
+                AppUtils.deleteApps(appIds: guestAppIds)
             }
             
             it("Test_042_049_Success_Limit") {

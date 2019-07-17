@@ -16,7 +16,7 @@ class DeleteFormFieldsTest: QuickSpec {
             TestConstant.Connection.CRED_ADMIN_PASSWORD,
             TestConstant.InitData.GUEST_SPACE_ID!))
         let appId = TestConstant.InitData.APP_ID!
-        let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_THREAD_ID!
+        let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
         let fieldCodes = TestConstant.InitData.FIELD_CODES
 
         describe("DeleteFormFields") {
@@ -41,10 +41,11 @@ class DeleteFormFieldsTest: QuickSpec {
             
             it("Test_040_Success_Revision_GuestSpace") {
                 let currentForm = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(guestSpaceAppId, LanguageSetting.DEFAULT)) as! FormFields
+                
                 let currentRevision = currentForm.getRevision()
                 let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.deleteFormFields(guestSpaceAppId, fieldCodes, currentRevision)) as! BasicResponse
                 expect(result.getRevision()).to(equal(currentRevision! + 1))
-                
+
                 let previewApp = PreviewApp(guestSpaceAppId)
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewApp], true))
                 AppUtils.waitForDeployAppSucceed(appModule: appModuleGuestSpace, appId: guestSpaceAppId)
