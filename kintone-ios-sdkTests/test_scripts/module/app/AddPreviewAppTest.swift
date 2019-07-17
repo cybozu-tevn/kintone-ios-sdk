@@ -12,16 +12,16 @@ class AddPreviewAppTest: QuickSpec {
     override func spec() {
         describe("AddPreviewApp") {
             let app = App(TestCommonHandling.createConnection())
-            let appName = DataRandomization.generateString(length: 8)
             var appIds = [Int]()
             
             it("Test_089_Success_SpaceThread") {
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, TestConstant.InitData.SPACE_ID, TestConstant.InitData.SPACE_ID)) as! PreviewApp
                 expect(addPreviewAppRsp.getApp()).notTo(beNil())
                 expect(addPreviewAppRsp.getRevision()).notTo(beNil())
                 appIds.append(addPreviewAppRsp.getApp()!)
                 
-                AppUtils._deployApp(appModule: app, apps: [addPreviewAppRsp])
+                AppUtils.deployApp(appModule: app, apps: [addPreviewAppRsp])
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(addPreviewAppRsp.getApp()!)) as! AppModel
                 expect(getAppRsp.getName()).to(equal(appName))
             }
@@ -29,23 +29,25 @@ class AddPreviewAppTest: QuickSpec {
             it("Test_089_Success_SpaceThread_GuestSpaceApp") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(guestAppModule.addPreviewApp(appName, TestConstant.InitData.GUEST_SPACE_ID, TestConstant.InitData.GUEST_SPACE_ID)) as! PreviewApp
                 expect(addPreviewAppRsp.getApp()).notTo(beNil())
                 expect(addPreviewAppRsp.getRevision()).notTo(beNil())
                 appIds.append(addPreviewAppRsp.getApp()!)
                 
-                AppUtils._deployApp(appModule: guestAppModule, apps: [addPreviewAppRsp])
+                AppUtils.deployApp(appModule: guestAppModule, apps: [addPreviewAppRsp])
                 let getAppRsp = TestCommonHandling.awaitAsync(guestAppModule.getApp(addPreviewAppRsp.getApp()!)) as! AppModel
                 expect(getAppRsp.getName()).to(equal(appName))
             }
             
             it("Test_090_Success_WithoutSpaceThread") {
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName)) as! PreviewApp
                 expect(addPreviewAppRsp.getApp()).notTo(beNil())
                 expect(addPreviewAppRsp.getRevision()).notTo(beNil())
                 appIds.append(addPreviewAppRsp.getApp()!)
                 
-                AppUtils._deployApp(appModule: app, apps: [addPreviewAppRsp])
+                AppUtils.deployApp(appModule: app, apps: [addPreviewAppRsp])
                 let getAppRsp = TestCommonHandling.awaitAsync(app.getApp(addPreviewAppRsp.getApp()!)) as! AppModel
                 expect(getAppRsp.getName()).to(equal(appName))
             }
@@ -56,6 +58,7 @@ class AddPreviewAppTest: QuickSpec {
                 let apiToken = AppUtils.generateApiToken(app, appId)
                 let appModuleApiToken = App(TestCommonHandling.createConnection(apiToken))
                 
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(appModuleApiToken.addPreviewApp(appName)) as! KintoneAPIException
                 
                 let actualCode = addPreviewAppRsp.getErrorResponse()?.getCode()
@@ -90,6 +93,7 @@ class AddPreviewAppTest: QuickSpec {
             }
             
             it("Test_095_Error_WithoutSpaceId") {
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, nil, TestConstant.InitData.SPACE_ID)) as! KintoneAPIException
                 
                 let actualCode = addPreviewAppRsp.getErrorResponse()?.getCode()
@@ -108,6 +112,7 @@ class AddPreviewAppTest: QuickSpec {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
                 
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, TestConstant.Common.MAX_VALUE, TestConstant.InitData.SPACE_ID)) as! KintoneAPIException
                 
                 let actualCode = addPreviewAppRsp.getErrorResponse()?.getCode()
@@ -122,6 +127,7 @@ class AddPreviewAppTest: QuickSpec {
             }
             
             it("Test_097_Error_NegativeSpaceId") {
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreViewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, -1, TestConstant.InitData.SPACE_ID)) as! KintoneAPIException
                 
                 let actualCode = addPreViewAppRsp.getErrorResponse()?.getCode()
@@ -137,6 +143,7 @@ class AddPreviewAppTest: QuickSpec {
             }
             
             it("Test_098_Error_WithoutThreadId") {
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, TestConstant.InitData.SPACE_ID, nil)) as! KintoneAPIException
                 
                 let actualCode = addPreviewAppRsp.getErrorResponse()?.getCode()
@@ -155,6 +162,7 @@ class AddPreviewAppTest: QuickSpec {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
                 
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, TestConstant.InitData.SPACE_ID, TestConstant.Common.MAX_VALUE)) as! KintoneAPIException
                 
                 let actualCode = addPreviewAppRsp.getErrorResponse()?.getCode()
@@ -168,6 +176,7 @@ class AddPreviewAppTest: QuickSpec {
             }
             
             it("Test_100_Error_NegativeThreadId") {
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, TestConstant.InitData.SPACE_ID, -1)) as! KintoneAPIException
                 
                 let actualCode = addPreviewAppRsp.getErrorResponse()?.getCode()
@@ -189,6 +198,7 @@ class AddPreviewAppTest: QuickSpec {
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_CREATE_APP_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_CREATE_APP_PERMISSION))
                 
+                let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(appModule.addPreviewApp(appName)) as! KintoneAPIException
                 
                 let actualCode = addPreviewAppRsp.getErrorResponse()?.getCode()

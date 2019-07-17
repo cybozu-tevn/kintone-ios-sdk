@@ -106,7 +106,7 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        self._deployApp(appModule: appModule, apps: apps)
+        self.deployApp(appModule: appModule, apps: apps)
         return appId
     }
     
@@ -137,7 +137,7 @@ class AppUtils {
             }
             _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
         }
-        self._deployApp(appModule: appModule, apps: apps)
+        self.deployApp(appModule: appModule, apps: apps)
         return appIds
     }
     
@@ -173,7 +173,7 @@ class AppUtils {
     /// - Parameters:
     ///   - appModule: App | App module
     ///   - apps: [PreviewApp] | List of Preview apps
-    static func _deployApp(appModule: App, apps: [PreviewApp]) {
+    static func deployApp(appModule: App, apps: [PreviewApp]) {
         var appIds = [Int]()
         appModule.deployAppSettings(apps)
             .then {
@@ -268,7 +268,7 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
+        self.deployApp(appModule: appModule, apps: [PreviewApp(appId)])
         return apiToken
     }
     
@@ -308,7 +308,7 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
+        self.deployApp(appModule: appModule, apps: [PreviewApp(appId)])
     }
     
     /// Get App Permission
@@ -364,7 +364,7 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        self._deployApp(appModule: appModule, apps: [PreviewApp(appId)])
+        self.deployApp(appModule: appModule, apps: [PreviewApp(appId)])
         return revision
     }
     
@@ -418,6 +418,6 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        self._deployApp(appModule: appModule, apps: [PreviewApp(id)])
+        self.deployApp(appModule: appModule, apps: [PreviewApp(id)])
     }
 }
