@@ -16,8 +16,8 @@ public class TestConstant {
         
         // User credentials with permissions on App
         static let users = TestDataParser.getUsers()
-        static let CRED_USERNAME_WITHOUT_CREATE_APP_PERMISSION = users.clone[14].username
-        static let CRED_PASSWORD_WITHOUT_CREATE_APP_PERMISSION = users.clone[14].password
+        static let CRED_USERNAME_WITHOUT_CREATE_APP_PERMISSION = users.clone[11].username
+        static let CRED_PASSWORD_WITHOUT_CREATE_APP_PERMISSION = users.clone[11].password
         static let CRED_USERNAME_WITHOUT_MANAGE_APP_PERMISSION = users.clone[1].username
         static let CRED_PASSWORD_WITHOUT_MANAGE_APP_PERMISSION = users.clone[1].password
         static let CRED_USERNAME_WITHOUT_APP_PERMISSION = users.clone[9].username
