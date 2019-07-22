@@ -21,6 +21,7 @@ class GetAppDeployStatusTest: QuickSpec {
             }
             
             it("Test_079_Success") {
+                // Get the deploy status of multiple apps first, then get the deploy status of every single app to compare
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds!)) as! GetAppDeployStatusResponse
                 
                 let appsDeployStatus = getAppDeployStatusRsp.getApps()!
@@ -105,7 +106,10 @@ class GetAppDeployStatusTest: QuickSpec {
             }
             
             it("Test_083_Error_NonExistentAppId") {
+                // Get the deploy status of an app which is not existent -> it will return an error
+                // Then get actualCode, actualMessage of that error to compare to expectedCode, expectedMessage which are defined in KintoneErrorMessage
                 let nonExistentAppIds = [TestConstant.Common.NONEXISTENT_ID]
+                
                 let getAppDeployStatusRsp = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(nonExistentAppIds)) as! KintoneAPIException
                 
                 let actualCode = getAppDeployStatusRsp.getErrorResponse()?.getCode()
