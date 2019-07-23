@@ -147,16 +147,8 @@ class GetRecordsTest: QuickSpec {
                 
                 let addRecordsResponse = TestCommonHandling.awaitAsync(recordModuleGuestSpace.addRecords(guestSpaceAppId, testDataList)) as! AddRecordsResponse
                 let recordIds = addRecordsResponse.getIDs()!
-                
-                var idsStringGuestSpace = "("
-                for id in recordIds {
-                    if idsStringGuestSpace == "(" {
-                        idsStringGuestSpace += String(id)
-                    } else {
-                        idsStringGuestSpace += "," + String(id)
-                    }
-                }
-                let queryGuestSpace = "$id in " + idsStringGuestSpace + ")" +  " order by $id asc"
+                let queryGuestSpace = RecordUtils.getRecordsQuery(recordIds)
+
                 let result = TestCommonHandling.awaitAsync(
                     recordModuleGuestSpace.getRecords(guestSpaceAppId, queryGuestSpace, [textField], true)) as! GetRecordsResponse
                 
@@ -171,7 +163,9 @@ class GetRecordsTest: QuickSpec {
             }
             
             // --------- API Token ---------
-            xit("Test_014_Success_ValidData_APIToken") {
+            it("Test_014_Success_ValidData_APIToken") {
+                _prepareRecords(numberOfRecords)
+                query = RecordUtils.getRecordsQuery(recordIds)
                 let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 
                 let result = TestCommonHandling.awaitAsync(
