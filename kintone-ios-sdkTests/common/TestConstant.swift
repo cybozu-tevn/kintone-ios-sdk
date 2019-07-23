@@ -46,8 +46,8 @@ public class TestConstant {
         static let CRED_PASSWORD_WITHOUT_EDIT_FIELD_PERMISSION = users.clone[1].password
         
         // inacive user
-        static let CRED_USERNAME_INACTIVE = users.clone[10].username
-        static let CRED_PASSWORD_INACTIVE = users.clone[10].password
+        static let CRED_USERNAME_INACTIVE = users.clone[15].username
+        static let CRED_PASSWORD_INACTIVE = users.clone[15].password
     }
     
     class Common {

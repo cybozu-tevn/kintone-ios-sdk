@@ -18,7 +18,7 @@ class DeleteRecordsTest: QuickSpec {
         
         let recordModule = Record(TestCommonHandling.createConnection())
         
-        describe("DeleteRecord") {
+        describe("DeleteRecords") {
             it("Test_127_Success_Single") {
                 _prepareRecords(recordModule, appId, 1)
                 
