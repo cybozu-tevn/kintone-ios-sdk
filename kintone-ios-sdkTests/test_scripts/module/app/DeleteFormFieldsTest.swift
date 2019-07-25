@@ -23,6 +23,7 @@ class DeleteFormFieldsTest: QuickSpec {
             it("Test_039_Error_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 let result = TestCommonHandling.awaitAsync(appModuleApiToken.deleteFormFields(appId, fieldCodes)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
@@ -76,6 +77,7 @@ class DeleteFormFieldsTest: QuickSpec {
             
             it("Test_047_Error_InvalidAppId") {
                 let result = TestCommonHandling.awaitAsync(appModule.deleteFormFields(TestConstant.Common.NEGATIVE_ID, fieldCodes)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.NEGATIVE_APP_ID_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)

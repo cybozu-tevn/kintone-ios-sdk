@@ -6,7 +6,6 @@
 import Foundation
 public class TestConstant {
     class Connection {
-        static let environment = ProcessInfo.processInfo.environment
         static let PROXY_IP = TestDataParser.getProxy().ip
         static let PROXY_PORT = TestDataParser.getProxy().port
         
@@ -83,15 +82,15 @@ public class TestConstant {
         
         // fields code from applications
         static let FIELD_CODES = apps.appWithMultipleFields.fieldCodes
-        static let NUMBER_FIELD = FIELD_CODES[0] // "Number"
-        static let NUMBER_PROHIBIT_DUPLICATE_FIELD = FIELD_CODES[1] // "Number_Prohibit_Duplicate_Value"
-        static let TEXT_FIELD = FIELD_CODES[2] // "Text"
-        static let TEXT_UPDATE_KEY_FIELD = FIELD_CODES[3] // "Text_Update_Key"
-        static let TEXT_AREA_FIELD = FIELD_CODES[4] // "Text_Area"
-        static let DATE_FIELD = FIELD_CODES[5] // "Date"
-        static let LINK_FIELD = FIELD_CODES[6] // "Link"
-        static let ATTACHMENT_FIELD = FIELD_CODES[7] // "Attachment"
-        static let TABLE_FIELD = FIELD_CODES[8] // "Table"
+        static let NUMBER_FIELD = FIELD_CODES[0]
+        static let NUMBER_PROHIBIT_DUPLICATE_FIELD = FIELD_CODES[1]
+        static let TEXT_FIELD = FIELD_CODES[2]
+        static let TEXT_UPDATE_KEY_FIELD = FIELD_CODES[3]
+        static let TEXT_AREA_FIELD = FIELD_CODES[4]
+        static let DATE_FIELD = FIELD_CODES[5]
+        static let LINK_FIELD = FIELD_CODES[6]
+        static let ATTACHMENT_FIELD = FIELD_CODES[7]
+        static let TABLE_FIELD = FIELD_CODES[8]
         static let REQUIRE_FIELD = apps.appWithRequiredFields.fieldCodes[0]
         
         // fields code from appWithUniqueFields app

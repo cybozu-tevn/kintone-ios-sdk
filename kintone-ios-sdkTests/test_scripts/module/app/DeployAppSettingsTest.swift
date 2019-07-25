@@ -185,10 +185,10 @@ class DeployAppSettingsTest: QuickSpec {
             }
             
             // This test is conducted by XCode with invalid input for `Revert` param
-            //    it("Test_077_Error_InvalidValueRevert") {
-            //        let previewApp = PreviewApp(TestConstant.APP_ID, -1)
-            //        // let actualResult = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], "false")) as! KintoneAPIException
-            //    }
+            // it("Test_077_Error_InvalidValueRevert") {
+            //     let previewApp = PreviewApp(TestConstant.APP_ID, -1)
+            //     let actualResult = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], "false")) as! KintoneAPIException
+            // }
             
             it("Test_078_Error_PermissionDenied") {
                 let appName = DataRandomization.generateString()

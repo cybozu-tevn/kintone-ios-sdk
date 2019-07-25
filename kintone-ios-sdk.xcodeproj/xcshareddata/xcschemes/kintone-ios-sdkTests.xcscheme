@@ -58,23 +58,6 @@
             ReferencedContainer = "container:kintone-ios-sdk.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "DOMAIN"
-            value = "te-vutran-1.cybozu-dev.com"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "ADMIN_USERNAME"
-            value = "cybozu"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "ADMIN_PASSWORD"
-            value = "cybozu"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

@@ -261,6 +261,7 @@ class AddFormFieldsTest: QuickSpec {
             
             it("Test_035_Error_NegativeAppId") {
                 let result = TestCommonHandling.awaitAsync(appModule.addFormFields(TestConstant.Common.NEGATIVE_ID, properties, nil)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.NEGATIVE_APP_ID_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
@@ -268,6 +269,7 @@ class AddFormFieldsTest: QuickSpec {
             
             it("Test_035_Error_NonExistentAppId") {
                 let result = TestCommonHandling.awaitAsync(appModule.addFormFields(TestConstant.Common.NONEXISTENT_ID, properties, nil)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
@@ -279,6 +281,7 @@ class AddFormFieldsTest: QuickSpec {
                 let currentRevision = currentForm.getRevision()!
                 
                 let result = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties, currentRevision + 1)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.INCORRECT_REVISION_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(appId))
@@ -289,8 +292,8 @@ class AddFormFieldsTest: QuickSpec {
                 let appModuleWithoutPermisstion = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
-                
                 let result = TestCommonHandling.awaitAsync(appModuleWithoutPermisstion.addFormFields(appId, properties)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)

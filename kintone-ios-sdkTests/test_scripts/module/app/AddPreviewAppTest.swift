@@ -71,9 +71,9 @@ class AddPreviewAppTest: QuickSpec {
             }
             
             // Xcode will catch this error
-            //            fit("Test_093_Error_WithoutAppName") {
-            //                let result = TestCommonHandling.awaitAsync(app.addPreviewApp()) as! KintoneAPIException
-            //            }
+            // fit("Test_093_Error_WithoutAppName") {
+            //      let result = TestCommonHandling.awaitAsync(app.addPreviewApp()) as! KintoneAPIException
+            //}
             
             it("Test_094_Error_MoreThan64CharsAppName") {
                 let invalidAppName = DataRandomization.generateString(length: 65)

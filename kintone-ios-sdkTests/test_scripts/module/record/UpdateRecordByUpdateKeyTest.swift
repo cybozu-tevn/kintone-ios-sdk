@@ -234,7 +234,7 @@ class UpdateRecordByUpdateKeyTest: QuickSpec {
             }
             
             it("Test_095_Error_NegativeAppID") {
-                let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByUpdateKey(-4, RecordUpdateKey("test","test"), [:], nil)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.updateRecordByUpdateKey(-4, RecordUpdateKey("test", "test"), [:], nil)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()
                 let expectedError = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
