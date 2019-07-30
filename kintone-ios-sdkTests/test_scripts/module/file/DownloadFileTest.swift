@@ -91,7 +91,6 @@ class DownloadFileTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            
             it("WipeoutTestData_AfterSuiteWorkaround") {
                 // Delete added test record
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId!, [recordId!]))

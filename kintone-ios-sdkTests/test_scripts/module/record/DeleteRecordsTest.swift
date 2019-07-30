@@ -133,10 +133,9 @@ class DeleteRecordsTest: QuickSpec {
                 let expectedError = KintoneErrorParser.RECORD_ID_LARGER_THAN_100_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
                 
-                for i in 0...100 {
-                    _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordIds_101[i]]))
-                }
                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, [recordIds_101[100]]))
+                recordIds_101.removeLast()
+                 _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIds_101))
             }
         }
         
