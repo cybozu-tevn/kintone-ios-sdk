@@ -153,14 +153,11 @@ class DeleteRecordsTest: QuickSpec {
         }
         
         func _verifyRecordsNotExisting(_ recordModule: Record, _ appId: Int, _ recordIds: Array<Int>) {
-            for item in recordIds {
-                let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, item)) as! KintoneAPIException
-                
-                let actualError = result.getErrorResponse()
-                var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(item))
-                TestCommonHandling.compareError(actualError, expectedError)
-            }
+            let query = RecordUtils.getRecordsQuery(recordIds)
+            let result = TestCommonHandling.awaitAsync(recordModule.getRecords(appId, query, nil, true)) as! GetRecordsResponse
+            
+            expect(result.getRecords()).to(beEmpty())
+            expect(result.getTotalCount()!).to(equal(0))
         }
     }
 }

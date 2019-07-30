@@ -56,7 +56,6 @@ class GetAppsBySpaceIDsTest: QuickSpec {
                     expect(app.getCode()).to(equal(appsExpected[index].getCode()))
                     expect(app.getCreator()?.getName()).to(equal(appsExpected[index].getCreator()?.getName()))
                     expect(spaceIds.contains(app.getSpaceId()!)).to(beTrue())
-                    
                 }
             }
             

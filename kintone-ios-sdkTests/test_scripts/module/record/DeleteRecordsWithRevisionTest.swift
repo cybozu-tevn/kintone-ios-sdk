@@ -24,7 +24,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 _prepareRecords(recordModule, appId, 1)
                 
                 // Delete records with revision
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -37,7 +37,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_141_Success_MultipleRecords") {
                 _prepareRecords(recordModule, appId, numberOfRecords)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -47,7 +47,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             }
             
             it("Test_142_Error_NonexistentRecord") {
-                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, [TestConstant.Common.NONEXISTENT_ID:nil])) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(recordModule.deleteRecordsWithRevision(appId, [TestConstant.Common.NONEXISTENT_ID: nil])) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()
                 var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
@@ -58,7 +58,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_143_Error_IncorrectRevision") {
                 _prepareRecords(recordModule, appId, 1)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (_, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = TestConstant.Common.NONEXISTENT_ID
                 }
@@ -74,7 +74,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_144_RevisionNegative1") {
                 _prepareRecords(recordModule, appId, 1)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (_, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = -1
                 }
@@ -86,7 +86,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_145_Error_NoPermissionApp") {
                 _prepareRecords(recordModule, appId, 1)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -104,7 +104,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_146_Error_NoPermissionRecord") {
                 _prepareRecords(recordModule, appId, 1)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -122,7 +122,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_147_Error_NonexistentApp") {
                 _prepareRecords(recordModule, appId, 1)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -140,7 +140,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_148_Error_NegativeAppID") {
                 _prepareRecords(recordModule, appId, 1)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -158,7 +158,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
             it("Test_153_100Records") {
                 _prepareRecords(recordModule, appId, 100)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -176,7 +176,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 recordIds_101 += recordIds
                 recordRevisions_101 += recordRevisions
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds_101.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions_101[index]
                 }
@@ -197,7 +197,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
                 _prepareRecords(recordModuleGuestSpace, guestSpaceAppId, numberOfRecords)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -210,7 +210,7 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
                 let recordModuleWithAPIToken = Record(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 _prepareRecords(recordModuleWithAPIToken, appId, numberOfRecords)
                 
-                var dictOfIDAndRevision = [Int:Int]()
+                var dictOfIDAndRevision = [Int: Int]()
                 for (index, value) in recordIds.enumerated() {
                     dictOfIDAndRevision[value] = recordRevisions[index]
                 }
@@ -235,14 +235,11 @@ class DeleteRecordsWithRevisionTest: QuickSpec {
         }
         
         func _verifyRecordsNotExisting(_ recordModule: Record, _ appId: Int, _ recordIds: Array<Int>) {
-            for item in recordIds {
-                let result = TestCommonHandling.awaitAsync(recordModule.getRecord(appId, item)) as! KintoneAPIException
-                
-                let actualError = result.getErrorResponse()
-                var expectedError = KintoneErrorParser.NONEXISTENT_RECORD_ID_ERROR()!
-                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(item))
-                TestCommonHandling.compareError(actualError, expectedError)
-            }
+            let query = RecordUtils.getRecordsQuery(recordIds)
+            let result = TestCommonHandling.awaitAsync(recordModule.getRecords(appId, query, nil, true)) as! GetRecordsResponse
+            
+            expect(result.getRecords()).to(beEmpty())
+            expect(result.getTotalCount()!).to(equal(0))
         }
     }
 }

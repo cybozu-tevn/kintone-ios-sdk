@@ -137,7 +137,7 @@ class UpdateRecordsStatusTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(
                     recordModule.updateRecordsStatus(appId, recordsStatusItem))
                 
-                let nonexistentUser = "nonexistent user blah blah"
+                let nonexistentUser = "nonexistent user"
                 record1StatusItem = RecordUpdateStatusItem(testAction, nonexistentUser, record1Id, nil)
                 record2StatusItem = RecordUpdateStatusItem(testAction, nonexistentUser, record2Id, nil)
                 recordsStatusItem = [record1StatusItem, record2StatusItem]
