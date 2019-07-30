@@ -172,13 +172,9 @@ class GetGeneralSettingsTest: QuickSpec {
                 
                 let response = TestCommonHandling.awaitAsync(appModuleTmp.getGeneralSettings(appIdTmp!, LanguageSetting.DEFAULT, true)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let expectedCode = KintoneErrorParser.API_TOKEN_ERROR()?.getCode()
-                let expectedMessage = KintoneErrorParser.API_TOKEN_ERROR()?.getMessage()
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
+                let actualError = response.getErrorResponse()!
+                let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_016_Error_WithIsPreviewFalse_ApiToken") {
@@ -187,13 +183,9 @@ class GetGeneralSettingsTest: QuickSpec {
                 
                 let response = TestCommonHandling.awaitAsync(appModuleTmp.getGeneralSettings(appIdTmp!, LanguageSetting.DEFAULT, false)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let expectedCode = KintoneErrorParser.API_TOKEN_ERROR()?.getCode()
-                let expectedMessage = KintoneErrorParser.API_TOKEN_ERROR()?.getMessage()
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
+                let actualError = response.getErrorResponse()!
+                let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_017_Error_WithoutIsPreview_ApiToken") {
@@ -202,13 +194,9 @@ class GetGeneralSettingsTest: QuickSpec {
                 
                 let response = TestCommonHandling.awaitAsync(appModuleTmp.getGeneralSettings(appIdTmp!, LanguageSetting.DEFAULT)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let expectedCode = KintoneErrorParser.API_TOKEN_ERROR()?.getCode()
-                let expectedMessage = KintoneErrorParser.API_TOKEN_ERROR()?.getMessage()
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
+                let actualError = response.getErrorResponse()!
+                let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             // Xcode will shown an error when missing input param
@@ -219,44 +207,26 @@ class GetGeneralSettingsTest: QuickSpec {
             it("Test_019_Error_WithNonExistentPreliveAppId") {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(TestConstant.Common.NONEXISTENT_ID, LanguageSetting.DEFAULT, true)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let expectedCode = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()?.getCode()
-                var expectedMessage = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()?.getMessage()
-                expectedMessage = expectedMessage!.replacingOccurrences(of: "%VARIABLE", with: String(TestConstant.Common.NONEXISTENT_ID))
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
+                let actualError = response.getErrorResponse()!
+                var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_020_Error_WithNegativePreliveAppId") {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(TestConstant.Common.NEGATIVE_ID, LanguageSetting.DEFAULT, true)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let actualErrors = response.getErrorResponse()?.getErrors()
-                let expectedCode = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getCode()
-                let expectedMessage = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getMessage()
-                let expectedErrors = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getErrors()
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
-                expect(actualErrors).to(equal(expectedErrors))
+                let actualError = response.getErrorResponse()!
+                let expectedError = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_021_Error_WithZeroPreliveAppId") {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(0, LanguageSetting.DEFAULT, true)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let actualErrors = response.getErrorResponse()?.getErrors()
-                let expectedCode = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getCode()
-                let expectedMessage = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getMessage()
-                let expectedErrors = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getErrors()
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
-                expect(actualErrors).to(equal(expectedErrors))
+                let actualError = response.getErrorResponse()!
+                let expectedError = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             //            it("Test_022_Error_WithInvalidLanguagePreliveApp"){
@@ -271,44 +241,26 @@ class GetGeneralSettingsTest: QuickSpec {
             it("Test_024_Error_WithNonExistentAppId") {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(TestConstant.Common.NONEXISTENT_ID, LanguageSetting.DEFAULT, false)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let expectedCode = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                var expectedMessage = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()?.getMessage()
-                expectedMessage = expectedMessage!.replacingOccurrences(of: "%VARIABLE", with: String(TestConstant.Common.NONEXISTENT_ID))
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
+                let actualError = response.getErrorResponse()!
+                var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
+                expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_025_Error_WithNegativeAppId") {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(TestConstant.Common.NEGATIVE_ID, LanguageSetting.DEFAULT, false)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let actualErrors = response.getErrorResponse()?.getErrors()
-                let expectedCode = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getCode()
-                let expectedMessage = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getMessage()
-                let expectedErrors = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getErrors()
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
-                expect(actualErrors).to(equal(expectedErrors))
+                let actualError = response.getErrorResponse()!
+                let expectedError = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_026_Error_WithZeroAppId") {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(0, LanguageSetting.DEFAULT, false)) as! KintoneAPIException
                 
-                let actualCode = response.getErrorResponse()?.getCode()
-                let actualMessage = response.getErrorResponse()?.getMessage()
-                let actualErrors = response.getErrorResponse()?.getErrors()
-                let expectedCode = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getCode()
-                let expectedMessage = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getMessage()
-                let expectedErrors = KintoneErrorParser.NEGATIVE_APPID_ERROR()?.getErrors()
-                
-                expect(actualCode).to(equal(expectedCode))
-                expect(actualMessage).to(equal(expectedMessage))
-                expect(actualErrors).to(equal(expectedErrors))
+                let actualError = response.getErrorResponse()!
+                let expectedError = KintoneErrorParser.NEGATIVE_APPID_ERROR()!
+                TestCommonHandling.compareError(actualError, expectedError)
             }
             
             //            it("Test_027_ErrorWithInvalidLanguage"){

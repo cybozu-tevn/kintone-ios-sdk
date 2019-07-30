@@ -69,6 +69,7 @@ class UpdateViewsTest: QuickSpec {
             it("Test_015_Error_ApiTokenAuthentication_ApiToken") {
                 let appModuleApiToken = App(TestCommonHandling.createConnection(TestConstant.InitData.APP_API_TOKEN))
                 let result = TestCommonHandling.awaitAsync(appModuleApiToken.updateViews(appId, viewEntry)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
@@ -116,6 +117,7 @@ class UpdateViewsTest: QuickSpec {
                 viewEntryNoIndex[viewName] = viewModelNoIndex
                 
                 let result = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntryNoIndex)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.MISSING_VIEWS_INDEX_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String(viewName))
@@ -133,6 +135,7 @@ class UpdateViewsTest: QuickSpec {
                 viewEntryNoType[viewName] = viewModelNoType
                 
                 let result = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntryNoType)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.MISSING_VIEWS_TYPE_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String(viewName))
@@ -144,6 +147,7 @@ class UpdateViewsTest: QuickSpec {
                 var viewEntryInvalidName: [String: ViewModel] = [String: ViewModel]()
                 viewEntryInvalidName[invalidKey] = updateViewModel
                 let result = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntryInvalidName)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.INVALID_VIEWS_KEY_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%KEY", newTemplate: String(invalidKey))
@@ -172,6 +176,7 @@ class UpdateViewsTest: QuickSpec {
             it("Test_024_Error_InvalidRevision") {
                 let invalidRevision = 999
                 let result = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntry, invalidRevision)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.INCORRECT_REVISION_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(appId))
@@ -190,6 +195,7 @@ class UpdateViewsTest: QuickSpec {
                 viewEntryInvalidType[viewName] = viewModelInvalidType
                 
                 let result = TestCommonHandling.awaitAsync(appModule.updateViews(appId, viewEntryInvalidType)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.MISSING_VIEWS_TYPE_ERROR()!
                 expectedError.replaceKeyError(oldTemplate: "%VARIABLE", newTemplate: String(viewName))
@@ -233,6 +239,7 @@ class UpdateViewsTest: QuickSpec {
                     TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
                 
                 let result = TestCommonHandling.awaitAsync(appModuleWithoutPermission.updateViews(appId, viewEntry, -1)) as! KintoneAPIException
+                
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
@@ -307,7 +314,6 @@ class UpdateViewsTest: QuickSpec {
             }
             
             it("WipeoutTestData_AfterSuiteWorkaround") {
-                // Remove data after tested
                 let previewApp: PreviewApp? = PreviewApp(appId, -1)
                 _ = TestCommonHandling.awaitAsync(appModule.updateViews(appId, currentViews))
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], false))
