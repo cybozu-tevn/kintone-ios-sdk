@@ -142,7 +142,6 @@ class AddPreviewAppTest: QuickSpec {
                 let appName = DataRandomization.generateString(length: 8)
                 let addPreviewAppRsp = TestCommonHandling.awaitAsync(app.addPreviewApp(appName, TestConstant.InitData.SPACE_ID, -1)) as! KintoneAPIException
                 
-                
                 let actualError = addPreviewAppRsp.getErrorResponse()!
                 let expectedError = KintoneErrorParser.NEGATIVE_THREAD_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)

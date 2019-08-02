@@ -10,18 +10,16 @@ import Nimble
 
 class AddCommentTest: QuickSpec {
     override func spec() {
+        let recordModule = Record(TestCommonHandling.createConnection())
         let appId: Int = TestConstant.InitData.SPACE_APP_ID!
         let nonexistentId = TestConstant.Common.NONEXISTENT_ID
         var recordId: Int!
         
-        // Comment data
         let mentionUserCode: String = "cybozu"
         let mentionUserType: String = "USER"
         let commentContent: String = DataRandomization.generateString(prefix: "AddComment", length: 10)
         var mentionUser = CommentMention()
         var comment: CommentContent!
-        
-        let recordModule = Record(TestCommonHandling.createConnection())
         
         describe("AddComment_1") {
             it("AddTestData_BeforeSuiteWorkaround") {
@@ -273,7 +271,6 @@ class AddCommentTest: QuickSpec {
                 let result = TestCommonHandling.awaitAsync(recordModuleGuestSpace.getComments(appGuestSpaceId, recordGuestSpaceId, nil, nil, nil)) as! GetCommentsResponse
                 
                 expect(result.getComments()?[0].getText()).to(equal(commentSpecialChars + " "))
-                
             }
             
             it("Test_240_Success_NoMention_GuestSpace") {
@@ -331,7 +328,6 @@ class AddCommentTest: QuickSpec {
                 let resultData: Dictionary<String, FieldValue> = resultRecord.getRecord()!
                 let revision = resultData["$revision"]?.getValue() as! String
                 expect(Int(revision)).to(equal(1))
-                
             }
             
             it("Test_237_Success_SpecialCharacter_ApiToken") {

@@ -11,18 +11,17 @@ import Nimble
 class DeployAppSettingsTest: QuickSpec {
     override func spec() {
         let appModule = App(TestCommonHandling.createConnection())
+        let totalOfApp = 5
         
         describe("DeployAppSettings") {
             it("Test_064_066_Success_NormalApp") {
                 // Add preview apps and deploy
                 var appIds = [Int]()
                 var appNames = [String]()
-                
-                for _ in 1...5 {
-                    let appName = DataRandomization.generateString()
-                    appNames.append(appName)
-                    let appId = AppUtils.createApp(appModule: appModule, appName: appName)
-                    appIds.append(appId)
+                let appName = DataRandomization.generateString(prefix: "DeployAppSettings", length: 6)
+                appIds = AppUtils.createApps(appModule: appModule, appName: appName, spaceId: nil, threadId: nil, amount: totalOfApp)
+                for i in 0..<totalOfApp {
+                    appNames.append(appName + String(i))
                 }
                 
                 // Verify apps have been deployed
@@ -44,12 +43,16 @@ class DeployAppSettingsTest: QuickSpec {
                 let appModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
                 var appIds = [Int]()
                 var appNames = [String]()
+                let appName = DataRandomization.generateString(prefix: "DeployAppSettings", length: 6)
+                appIds = AppUtils.createApps(
+                    appModule: appModule,
+                    appName: appName,
+                    spaceId: TestConstant.InitData.GUEST_SPACE_ID,
+                    threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID,
+                    amount: totalOfApp)
                 
-                for _ in 1...5 {
-                    let appName = DataRandomization.generateString()
-                    appNames.append(appName)
-                    let appId = AppUtils.createApp(appModule: appModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID)
-                    appIds.append(appId)
+                for i in 0..<totalOfApp {
+                    appNames.append(appName + String(i))
                 }
                 
                 let getAppStatusResponse = TestCommonHandling.awaitAsync(appModule.getAppDeployStatus(appIds)) as! GetAppDeployStatusResponse

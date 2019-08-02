@@ -36,7 +36,13 @@ class GetAppDeployStatusTest: QuickSpec {
             
             it("Test_079_Success_GuestSpace") {
                 let guestAppModule = App(TestCommonHandling.createConnection(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD, TestConstant.InitData.GUEST_SPACE_ID!))
-                let guestAppIds: [Int]? = AppUtils.createApps(appModule: guestAppModule, appName: appName, spaceId: TestConstant.InitData.GUEST_SPACE_ID, threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID, amount: amountOfApps)
+                
+                let guestAppIds: [Int]? = AppUtils.createApps(
+                    appModule: guestAppModule,
+                    appName: appName,
+                    spaceId: TestConstant.InitData.GUEST_SPACE_ID,
+                    threadId: TestConstant.InitData.GUEST_SPACE_THREAD_ID,
+                    amount: amountOfApps)
                 
                 let getAppDeployeStatusRsp = TestCommonHandling.awaitAsync(guestAppModule.getAppDeployStatus(guestAppIds!)) as! GetAppDeployStatusResponse
                 
