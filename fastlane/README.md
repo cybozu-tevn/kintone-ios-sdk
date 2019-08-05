@@ -15,6 +15,19 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
+### enable_report_portal
+```
+fastlane enable_report_portal
+```
+Enable report portal in Info.plist
+### disable_report_portal
+```
+fastlane disable_report_portal
+```
+Disable report portal in Info.plist
+
+----
+
 ## iOS
 ### ios test
 ```

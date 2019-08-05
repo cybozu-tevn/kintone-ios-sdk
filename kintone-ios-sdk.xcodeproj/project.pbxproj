@@ -232,6 +232,7 @@
 		ABE0235D216F4652002C47EC /* test.pptx in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235A216F4651002C47EC /* test.pptx */; };
 		ABE0235E216F4652002C47EC /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235B216F4652002C47EC /* test.txt */; };
 		ABE0235F216F4652002C47EC /* test.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235C216F4652002C47EC /* test.xlsx */; };
+		B70B506F22F85C650053CD83 /* ReportPortalAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70B506E22F85C650053CD83 /* ReportPortalAgent.framework */; };
 		B7294CF322C8FCD400188740 /* UpdateGeneralSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */; };
 		B7A2AD8A22977C1E00AA4196 /* DataRandomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */; };
 		B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8E229F714300AA4196 /* RecordUtils.swift */; };
@@ -497,6 +498,7 @@
 		ABE0235A216F4651002C47EC /* test.pptx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.pptx; sourceTree = "<group>"; };
 		ABE0235B216F4652002C47EC /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		ABE0235C216F4652002C47EC /* test.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.xlsx; sourceTree = "<group>"; };
+		B70B506E22F85C650053CD83 /* ReportPortalAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReportPortalAgent.framework; path = Carthage/Build/iOS/ReportPortalAgent.framework; sourceTree = "<group>"; };
 		B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateGeneralSettingsTest.swift; sourceTree = "<group>"; };
 		B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRandomization.swift; sourceTree = "<group>"; };
 		B7A2AD8E229F714300AA4196 /* RecordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUtils.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70B506F22F85C650053CD83 /* ReportPortalAgent.framework in Frameworks */,
 				1283E3F5219E9F9100D8E282 /* FBLPromises.framework in Frameworks */,
 				1283E3F1219E9D9000D8E282 /* Promises.framework in Frameworks */,
 				3E17EA1B213E427F002D9BC0 /* kintone_ios_sdk.framework in Frameworks */,
@@ -578,6 +581,7 @@
 		1283E3DC219E6C9B00D8E282 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B70B506E22F85C650053CD83 /* ReportPortalAgent.framework */,
 				1283E3F3219E9F2900D8E282 /* FBLPromises.framework */,
 				1283E3EE219E9C8500D8E282 /* Promises.framework */,
 			);
@@ -1516,6 +1520,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReportPortalAgent.framework",
 			);
 			outputFileListPaths = (
 			);

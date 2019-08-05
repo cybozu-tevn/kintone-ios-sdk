@@ -1,15 +1,20 @@
 # Usages:
 # - run all tests and generate report in html format (by default)
-# $fastlane test
+# $ fastlane test
 #
 # - run all tests and generate report in junit format
-# $fastlane test junit:true
+# $ fastlane test junit:true
 #
 # - run test for specific test classes (Eg: GetAppTest, GetRecordTest) and generate report in html format
-# $fastlane test test_classes:"GetAppTest,GetRecordTest" html:true
+# $ fastlane test test_classes:"GetAppTest,GetRecordTest" html:true
 #
 # - run test for specific modules (Eg: record, file) and generate report in html format
-# $fastlane test test_modules:"record,file" html:true
+# $ fastlane test test_modules:"record,file" html:true
+#
+# - run test for specific modules (Eg: record, file) in junit format and push test result to report portal
+# $ export REPORT_PORTAL_TOKEN="<report_portal_token>"
+# $ export REPORT_PORTAL_URL="<report_portal_url>/api/v1"
+# $ fastlane test test_modules:"record,file" junit:true is_report_portal_enabled:true
 #
 
 default_platform(:ios)
@@ -17,12 +22,17 @@ default_platform(:ios)
 # common configurations
 project_name = "kintone-ios-sdk"
 scheme = "kintone-ios-sdkTests"
-destination = "platform=iOS Simulator,OS=12.2,name=iPhone X"
-# domain=ENV["DOMAIN"]
+destination = "platform=iOS Simulator,OS=12.4,name=iPhone X"
+
+import "FastfileReportPortal"
 
 platform :ios do
   desc "Run tests, optionally generating report."
   lane :test do |options|
+    if options[:is_report_portal_enabled] then
+      enable_report_portal
+    end
+
     opts = {
       :project => options[:project] || "#{project_name}.xcodeproj",
       :scheme => options[:scheme] || scheme,
@@ -32,12 +42,15 @@ platform :ios do
       :output_style => 'basic',
       :code_coverage => true,
       :include_simulator_logs => false,
-      # :xcargs => "DOMAIN=#{domain}",
       :output_types => options[:junit] ? "junit" : "html",
       :only_testing => setTestOption(options, scheme)
     }
 
     scan(opts)
+
+    if options[:is_report_portal_enabled] then
+      disable_report_portal
+    end
   end
 end
 

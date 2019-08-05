@@ -1,3 +1,4 @@
 github "google/promises"
 github "Quick/Quick"
 github "Quick/Nimble"
+github "reportportal/agent-swift-XCTest"

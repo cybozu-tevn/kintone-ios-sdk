@@ -1,0 +1,85 @@
+rp_url = ENV["REPORT_PORTAL_URL"]
+rp_launch_name = ENV["REPORT_PORTAL_LAUNCH_NAME"]
+rp_project_name = ENV["REPORT_PORTAL_PROJECT_NAME"]
+rp_token = ENV["REPORT_PORTAL_TOKEN"]
+principal_class = "ReportPortalAgent.RPListener"
+info_plist_path = "./kintone-ios-sdkTests/Info.plist"
+
+desc "Enable report portal in Info.plist"
+lane :enable_report_portal do
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalURL",
+    value: rp_url
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalToken",
+    value: rp_token
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalProjectName",
+    value: rp_project_name || "kintone-ios-sdk"
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalLaunchName",
+    value: rp_launch_name || "kintone-ios-sdk-test"
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "PushTestDataToReportPortal",
+    value: true
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "IsFinalTestBundle",
+    value: true
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "NSPrincipalClass",
+    value: principal_class
+  )
+
+end
+
+desc "Disable report portal in Info.plist"
+lane :disable_report_portal do
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalURL",
+    value: ""
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalToken",
+    value: ""
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalProjectName",
+    value: ""
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "ReportPortalLaunchName",
+    value: ""
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "PushTestDataToReportPortal",
+    value: "false"
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "IsFinalTestBundle",
+    value: "false"
+  )
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "NSPrincipalClass",
+    value: ""
+  )
+end
