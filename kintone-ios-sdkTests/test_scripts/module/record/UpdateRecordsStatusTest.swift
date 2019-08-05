@@ -290,10 +290,8 @@ class UpdateRecordsStatusTest: QuickSpec {
             it("Test_213_Success_100Records") {
                 // Prepare 100 records
                 let addData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, DataRandomization.generateString())
-                var addDataList: [Dictionary<String, FieldValue>] = []
-                for _ in 0...99 {
-                    addDataList.append(addData)
-                }
+                let addDataList = Array.init(repeating: addData, count: 100)
+                
                 let add100RecordsResponse = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, addDataList)) as! AddRecordsResponse
                 let recordIDs = add100RecordsResponse.getIDs()
                 
