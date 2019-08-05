@@ -29,16 +29,6 @@ class DataRandomization {
         return String((0...length-1).map { _ in letters.randomElement()! })
     }
     
-    /// Generate random number
-    ///
-    /// - Parameter length: Int | the expected length of the number
-    /// - Returns: the random number
-    public static func generateNumber(_ length: Int) -> Int {
-        let numbers = "0123456789"
-        return Int(String((0...length-1).map { _ in numbers.randomElement()! }))!
-    }
-    
-
     /// Generate number of items with a specified prefix
     ///
     /// - Parameters:

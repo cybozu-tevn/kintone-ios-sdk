@@ -16,7 +16,6 @@ class GetGeneralSettingsTest: QuickSpec {
         // prepare Settings info
         let generalSettings: GeneralSettings = GeneralSettings()
         generalSettings.setName("App Name")
-        // generalSettings.setDescription("")
         generalSettings.setIcon(Icon("APP39", Icon.IconType.PRESET))
         generalSettings.setTheme(GeneralSettings.IconTheme.WHITE)
         
@@ -30,7 +29,7 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
+                expect(response.getDescription()).to(equal(""))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -40,7 +39,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -58,7 +56,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(guestSpaceAppModule.getGeneralSettings(guestAppId)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettingsForGuestSpaceApp.getName()))
-                // expect(response.getDescription()).to(equal(generalSettingsForGuestSpaceApp.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettingsForGuestSpaceApp.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettingsForGuestSpaceApp.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettingsForGuestSpaceApp.getIcon()?.getIconType()))
@@ -70,7 +67,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -80,7 +76,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -90,7 +85,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.ZH, false)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -100,7 +94,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.JA, false)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -110,7 +103,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.USER, false)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -120,7 +112,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT, true)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -130,7 +121,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.ZH, true)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -140,7 +130,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.JA, true)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -150,7 +139,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let reponse = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.USER, true)) as! GeneralSettings
                 
                 expect(reponse.getName()).to(equal(generalSettings.getName()))
-                // expect(reponse.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(reponse.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(reponse.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(reponse.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))
@@ -160,7 +148,6 @@ class GetGeneralSettingsTest: QuickSpec {
                 let response = TestCommonHandling.awaitAsync(appModule.getGeneralSettings(appId, LanguageSetting.DEFAULT)) as! GeneralSettings
                 
                 expect(response.getName()).to(equal(generalSettings.getName()))
-                // expect(response.getDescription()).to(equal(generalSettings.getDescription()))
                 expect(response.getTheme()).to(equal(generalSettings.getTheme()))
                 expect(response.getIcon()?.getKey()).to(equal(generalSettings.getIcon()?.getKey()))
                 expect(response.getIcon()?.getIconType()).to(equal(generalSettings.getIcon()?.getIconType()))

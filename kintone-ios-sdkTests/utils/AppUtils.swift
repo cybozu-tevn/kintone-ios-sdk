@@ -1,15 +1,6 @@
 @testable import Promises
 @testable import kintone_ios_sdk
 
-public enum ConnectionType: String, Codable {
-    case DEFAULT = "full permission"
-    case WITHOUT_PERMISSION = "without permission"
-    case GUEST_SPACE = "guest space"
-    case API_TOKEN = "api token"
-    case GUEST_SPACE_WITHOUT_PERMISSION = "guest space without permission"
-    case API_TOKEN_WITHOUT_PERMISSION = "api token without permission"
-}
-
 class AppUtils {
     static var APIToken: String!
     static var auth: Auth!
@@ -18,69 +9,6 @@ class AppUtils {
     static let devAuth = DevAuth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
     static let devConn = DevConnection(TestConstant.Connection.DOMAIN, devAuth)
     static let devAppModule = DevApp(devConn)
-    
-    /// Set API Token
-    ///
-    /// - Parameter apiToken: String | API Token
-    static func setAPIToken(_ apiToken: String) {
-        APIToken = apiToken
-    }
-    
-    /// Init App module with default connection for Admin user
-    static func initAppModule() {
-        auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
-        conn = Connection(TestConstant.Connection.DOMAIN, auth)
-        appModule = App(conn)
-    }
-    
-    /// Init App module with connection for specific cases
-    ///
-    /// - Parameters:
-    ///   - connectionType: ConnectionType | connection type
-    ///   - username: String | username
-    ///   - password: String | password
-    ///   - apiToken: String | API Token
-    static func initAppModule(connectionType: ConnectionType, username: String = "", password: String = "", apiToken: String = "") {
-        switch connectionType {
-        case .WITHOUT_PERMISSION:
-            if(username == "" || password == "") {
-                fatalError("Please define username and password for this module")
-            }
-            auth = Auth().setPasswordAuth(username, password)
-            conn = Connection(TestConstant.Connection.DOMAIN, AppUtils.auth)
-            appModule = App(conn)
-        case .GUEST_SPACE:
-            auth = Auth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
-            conn = Connection(TestConstant.Connection.DOMAIN, auth, TestConstant.InitData.GUEST_SPACE_ID!)
-            appModule = App(conn)
-        case .GUEST_SPACE_WITHOUT_PERMISSION:
-            if(username == "" || password == "") {
-                fatalError("Please define username and password for this module")
-            }
-            auth = Auth().setPasswordAuth(username, password)
-            conn = Connection(TestConstant.Connection.DOMAIN, auth, TestConstant.InitData.GUEST_SPACE_ID!)
-            appModule = App(conn)
-        case .API_TOKEN:
-            if(apiToken == "") {
-                fatalError("Please define apiToken for this module")
-            }
-            setAPIToken(apiToken)
-            auth = Auth().setApiToken(APIToken)
-            conn = Connection(TestConstant.Connection.DOMAIN, auth)
-            appModule = App(conn)
-        case .API_TOKEN_WITHOUT_PERMISSION:
-            if(apiToken == "") {
-                fatalError("Please define apiToken for this module")
-            }
-            setAPIToken(apiToken)
-            auth = Auth().setApiToken(APIToken)
-            conn = Connection(TestConstant.Connection.DOMAIN, auth)
-            appModule = App(conn)
-            
-        default:
-            initAppModule()
-        }
-    }
     
     /// Create App
     ///

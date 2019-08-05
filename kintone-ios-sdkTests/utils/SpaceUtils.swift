@@ -7,7 +7,6 @@ import kintone_ios_sdk
 @testable import Promises
 
 class SpaceUtils {
-    typealias this = SpaceUtils
     static let auth = DevAuth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
     static let conn = DevConnection(TestConstant.Connection.DOMAIN, auth)
     static let devAppModule = DevApp(conn)
