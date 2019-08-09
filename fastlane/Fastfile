@@ -22,7 +22,7 @@ default_platform(:ios)
 # common configurations
 project_name = "kintone-ios-sdk"
 scheme = "kintone-ios-sdkTests"
-destination = "platform=iOS Simulator,OS=12.2,name=iPhone X"
+destination = "platform=iOS Simulator,OS=12.4,name=iPhone X"
 
 import "FastfileReportPortal"
 
