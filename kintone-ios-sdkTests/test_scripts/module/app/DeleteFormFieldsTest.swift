@@ -16,7 +16,6 @@ class DeleteFormFieldsTest: QuickSpec {
             TestConstant.Connection.CRED_ADMIN_PASSWORD,
             TestConstant.InitData.GUEST_SPACE_ID!))
         let appId = TestConstant.InitData.APP_ID!
-        let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
         let fieldCodes = TestConstant.InitData.FIELD_CODES
 
         describe("DeleteFormFields") {
@@ -30,10 +29,10 @@ class DeleteFormFieldsTest: QuickSpec {
             }
             
             it("Test_040_Success_Revision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
-                let result = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes, currentRevision)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
+                let deleteFormFieldsRsp = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes, revision)) as! BasicResponse
+                expect(deleteFormFieldsRsp.getRevision()).to(equal(revision + 1))
                 
                 let previewApp = PreviewApp(appId)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
@@ -41,11 +40,12 @@ class DeleteFormFieldsTest: QuickSpec {
             }
             
             it("Test_040_Success_Revision_GuestSpace") {
-                let currentForm = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(guestSpaceAppId, LanguageSetting.DEFAULT)) as! FormFields
+                let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
+                let form = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(guestSpaceAppId, LanguageSetting.DEFAULT)) as! FormFields
                 
-                let currentRevision = currentForm.getRevision()
-                let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.deleteFormFields(guestSpaceAppId, fieldCodes, currentRevision)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+                let revision = form.getRevision()!
+                let deleteFormFieldsRsp = TestCommonHandling.awaitAsync(appModuleGuestSpace.deleteFormFields(guestSpaceAppId, fieldCodes, revision)) as! BasicResponse
+                expect(deleteFormFieldsRsp.getRevision()).to(equal(revision + 1))
 
                 let previewApp = PreviewApp(guestSpaceAppId)
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewApp], true))
@@ -53,10 +53,10 @@ class DeleteFormFieldsTest: QuickSpec {
             }
             
             it("Test_041_Success_WithoutRevision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
-                let result = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
+                let deleteFormFieldsRsp = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes)) as! BasicResponse
+                expect(deleteFormFieldsRsp.getRevision()).to(equal(revision + 1))
                 
                 let previewApp = PreviewApp(appId)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
@@ -64,11 +64,11 @@ class DeleteFormFieldsTest: QuickSpec {
             }
             
             it("Test_042_Success_IgnoreRevision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
                 
-                let result = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes, -1)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+                let deleteFormFieldsRsp = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes, -1)) as! BasicResponse
+                expect(deleteFormFieldsRsp.getRevision()).to(equal(revision + 1))
                 
                 let previewApp = PreviewApp(appId)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
@@ -83,7 +83,7 @@ class DeleteFormFieldsTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_060_Error_NonExistentAppId") {
+            it("Test_060_Error_NonexistentAppId") {
                 let result = TestCommonHandling.awaitAsync(appModule.deleteFormFields(TestConstant.Common.NONEXISTENT_ID, fieldCodes)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()!
@@ -103,9 +103,9 @@ class DeleteFormFieldsTest: QuickSpec {
             }
             
             it("Test_049_Error_InvalidRevision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
-                let result = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes, currentRevision! + 1)) as! KintoneAPIException
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
+                let result = TestCommonHandling.awaitAsync(appModule.deleteFormFields(appId, fieldCodes, revision + 1)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.INCORRECT_REVISION_ERROR()!
@@ -116,9 +116,9 @@ class DeleteFormFieldsTest: QuickSpec {
             it("Test_052_Error_PermissionDenied") {
                 let appModuleWithoutPermission = App(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_USERNAME_WITHOUT_APP_PERMISSION,
-                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))
-                
+                    TestConstant.Connection.CRED_PASSWORD_WITHOUT_APP_PERMISSION))                
                 let result = TestCommonHandling.awaitAsync(appModuleWithoutPermission.deleteFormFields(appId, fieldCodes)) as! KintoneAPIException
+
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)

@@ -29,16 +29,20 @@ class UpdateFormFieldsTest: QuickSpec {
                 fields[fieldCode] = singleLineText
                 
                 let result = TestCommonHandling.awaitAsync(appModuleApiToken.updateFormFields(appId, fields)) as! KintoneAPIException
+
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
             it("Test_054_Success_Revision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                // Get initial form info
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
+
+                // Set updated data for fields
                 var fields = [String: Field]()
-                fields = currentForm.getProperties()!
+                fields = form.getProperties()!
                 for fieldCode in fieldCodes {
                     if(fieldCode == TestConstant.InitData.TEXT_FIELD || fieldCode == TestConstant.InitData.TEXT_UPDATE_KEY_FIELD) {
                         let singleLineTextField = SingleLineTextField(fieldCode)
@@ -71,8 +75,12 @@ class UpdateFormFieldsTest: QuickSpec {
                         fields[fieldCode] = attachmentField
                     }
                 }
-                let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(appId, fields, currentRevision)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+
+                // Update form fields
+                let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(appId, fields, revision)) as! BasicResponse
+
+                // Verify
+                expect(result.getRevision()).to(equal(revision + 1))
                 
                 let previewApp = PreviewApp(appId)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
@@ -80,10 +88,11 @@ class UpdateFormFieldsTest: QuickSpec {
             }
             
             it("Test_054_Success_Revision_GuestSpace") {
-                let currentForm = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(guestSpaceAppId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                let form = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(guestSpaceAppId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
+
                 var fields = [String: Field]()
-                fields = currentForm.getProperties()!
+                fields = form.getProperties()!
                 for fieldCode in fieldCodes {
                     if(fieldCode == TestConstant.InitData.TEXT_FIELD || fieldCode == TestConstant.InitData.TEXT_UPDATE_KEY_FIELD) {
                         let singleLineTextField = SingleLineTextField(fieldCode)
@@ -117,8 +126,9 @@ class UpdateFormFieldsTest: QuickSpec {
                     }
                 }
                 
-                let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateFormFields(guestSpaceAppId, fields, currentRevision)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+                let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.updateFormFields(guestSpaceAppId, fields, revision)) as! BasicResponse
+
+                expect(result.getRevision()).to(equal(revision + 1))
                 
                 let previewApp = PreviewApp(guestSpaceAppId)
                 _ = TestCommonHandling.awaitAsync(appModuleGuestSpace.deployAppSettings([previewApp], true))
@@ -126,17 +136,19 @@ class UpdateFormFieldsTest: QuickSpec {
             }
             
             it("Test_055_Success_WithoutRevision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
+
                 var fields = [String: Field]()
-                fields = currentForm.getProperties()!
+                fields = form.getProperties()!
                 let fieldCode = "Text"
                 let singleLineText = SingleLineTextField(fieldCode)
                 singleLineText.setLabel("updated label")
                 fields[fieldCode] = singleLineText
                 
                 let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(appId, fields)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+
+                expect(result.getRevision()).to(equal(revision + 1))
                 
                 let previewApp = PreviewApp(appId)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
@@ -144,17 +156,19 @@ class UpdateFormFieldsTest: QuickSpec {
             }
             
             it("Test_056_Success_IgnoreRevision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
+
                 var fields = [String: Field]()
-                fields = currentForm.getProperties()!
+                fields = form.getProperties()!
                 let fieldCode = "Text"
                 let singleLineText = SingleLineTextField(fieldCode)
                 singleLineText.setLabel("updated.  label")
                 fields[fieldCode] = singleLineText
 
                 let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(appId, fields, -1)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+
+                expect(result.getRevision()).to(equal(revision + 1))
                 
                 let previewApp = PreviewApp(appId)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
@@ -169,12 +183,13 @@ class UpdateFormFieldsTest: QuickSpec {
                 fields[fieldCode] = singleLineText
                 
                 let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(TestConstant.Common.NEGATIVE_ID, fields)) as! KintoneAPIException
+
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.NEGATIVE_APP_ID_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_060_Error_NonExistentAppId") {
+            it("Test_060_Error_NonexistentAppId") {
                 let fieldCode = "Text"
                 let singleLineText  = SingleLineTextField(fieldCode)
                 singleLineText.setLabel("New Added Field")
@@ -182,6 +197,7 @@ class UpdateFormFieldsTest: QuickSpec {
                 fields[fieldCode] = singleLineText
                 
                 let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(TestConstant.Common.NONEXISTENT_ID, fields)) as! KintoneAPIException
+
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.NONEXISTENT_APP_ID_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(TestConstant.Common.NONEXISTENT_ID))
@@ -196,6 +212,7 @@ class UpdateFormFieldsTest: QuickSpec {
                 fields[fieldCode] = singleLineText
                 
                 let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(appId, fields)) as! KintoneAPIException
+
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.INVALID_FIELD_CODE_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(fieldCode))
@@ -203,16 +220,17 @@ class UpdateFormFieldsTest: QuickSpec {
             }
             
             it("Test_062_Error_InvalidRevision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT)) as! FormFields
+                let revision = form.getRevision()!
                 var fields = [String: Field]()
-                fields = currentForm.getProperties()!
+                fields = form.getProperties()!
                 let fieldCode = "Text"
                 let singleLineText = SingleLineTextField(fieldCode)
                 singleLineText.setLabel("updated label")
                 fields[fieldCode] = singleLineText
 
-                let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(appId, fields, currentRevision! + 1)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(appModule.updateFormFields(appId, fields, revision + 1)) as! KintoneAPIException
+
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.INCORRECT_REVISION_ERROR()!
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(appId))
@@ -230,6 +248,7 @@ class UpdateFormFieldsTest: QuickSpec {
                 fields[fieldCode] = singleLineText
                 
                 let result = TestCommonHandling.awaitAsync(appModuleWothoutPermission.updateFormFields(appId, fields)) as! KintoneAPIException
+
                 let actualError = result.getErrorResponse()!
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)

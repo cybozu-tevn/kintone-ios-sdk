@@ -180,21 +180,21 @@ class AddFormFieldsTest: QuickSpec {
             
             it("Test_028_Success_Revision") {
                 // Prepare test data
-                var currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, false)) as! FormFields
-                let currentRevision = currentForm.getRevision()
-                let result = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties, currentRevision)) as! BasicResponse
-                currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
-                var actualResult: [String] = []
-                for (_, value) in currentForm.getProperties()! {
-                    actualResult.append(value.getCode())
+                var form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, false)) as! FormFields
+                let revision = form.getRevision()!
+                let addFormFieldsRsp = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties, revision)) as! BasicResponse
+                form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
+                var fieldCodesResult: [String] = []
+                for (_, value) in form.getProperties()! {
+                    fieldCodesResult.append(value.getCode())
                 }
                 
-                // Verify revision and file code of fieldForm
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
-                expect(actualResult).to(contain(fieldCodes))
+                // Verify revision and field codes
+                expect(addFormFieldsRsp.getRevision()).to(equal(revision + 1))
+                expect(fieldCodesResult).to(contain(fieldCodes))
                 
-                let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
+                let previewApp: PreviewApp = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
                 AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
@@ -206,8 +206,8 @@ class AddFormFieldsTest: QuickSpec {
                 let guestSpaceId = TestConstant.InitData.GUEST_SPACE_ID
                 let guestSpaceThreadId = TestConstant.InitData.GUEST_SPACE_THREAD_ID
                 let appGuestSpaceId = AppUtils.createApp(appModule: appModuleGuestSpace, spaceId: guestSpaceId, threadId: guestSpaceThreadId)
-                let currentForm = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(appGuestSpaceId, LanguageSetting.DEFAULT, true)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                let form = TestCommonHandling.awaitAsync(appModuleGuestSpace.getFormFields(appGuestSpaceId, LanguageSetting.DEFAULT, true)) as! FormFields
+                let revision = form.getRevision()!
                 
                 let fieldCode = "newField"
                 let newField  = SingleLineTextField(fieldCode)
@@ -215,25 +215,25 @@ class AddFormFieldsTest: QuickSpec {
                 var property = [String: Field]()
                 property[fieldCode] = newField
 
-                let result = TestCommonHandling.awaitAsync(appModuleGuestSpace.addFormFields(appGuestSpaceId, property, currentRevision)) as! BasicResponse
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
+                let addFormFieldsRsp = TestCommonHandling.awaitAsync(appModuleGuestSpace.addFormFields(appGuestSpaceId, property, revision)) as! BasicResponse
+                expect(addFormFieldsRsp.getRevision()).to(equal(revision + 1))
                 
                 AppUtils.deleteApp(appId: appGuestSpaceId)
             }
             
             it("Test_029_Success_Revision") {
-                var currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                var form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
+                let revision = form.getRevision()!
                 
-                let result = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties)) as! BasicResponse
-                currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
-                var actualResult: [String] = []
-                for (_, value) in currentForm.getProperties()! {
-                    actualResult.append(value.getCode())
+                let addFormFieldsRsp = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties)) as! BasicResponse
+                form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
+                var fieldCodesResult: [String] = []
+                for (_, value) in form.getProperties()! {
+                    fieldCodesResult.append(value.getCode())
                 }
                 
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
-                expect(actualResult).to(contain(fieldCodes))
+                expect(addFormFieldsRsp.getRevision()).to(equal(revision + 1))
+                expect(fieldCodesResult).to(contain(fieldCodes))
                 
                 let previewApp: PreviewApp? = PreviewApp(appId, -1)
                 _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
@@ -241,21 +241,21 @@ class AddFormFieldsTest: QuickSpec {
             }
             
             it("Test_030_Success_IgnoreRevision") {
-                var currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
-                let currentRevision = currentForm.getRevision()
+                var form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
+                let revision = form.getRevision()!
                 
-                let result = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties, -1)) as! BasicResponse
-                currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
-                var actualResult: [String] = []
-                for (_, value) in currentForm.getProperties()! {
-                    actualResult.append(value.getCode())
+                let addFormFieldsRsp = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties, -1)) as! BasicResponse
+                form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
+                var fieldCodesResult: [String] = []
+                for (_, value) in form.getProperties()! {
+                    fieldCodesResult.append(value.getCode())
                 }
                 
-                expect(result.getRevision()).to(equal(currentRevision! + 1))
-                expect(actualResult).to(contain(fieldCodes))
+                expect(addFormFieldsRsp.getRevision()).to(equal(revision + 1))
+                expect(fieldCodesResult).to(contain(fieldCodes))
                 
-                let previewApp: PreviewApp? = PreviewApp(appId, -1)
-                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp!], true))
+                let previewApp: PreviewApp = PreviewApp(appId, -1)
+                _ = TestCommonHandling.awaitAsync(appModule.deployAppSettings([previewApp], true))
                 AppUtils.waitForDeployAppSucceed(appModule: appModule, appId: appId)
             }
             
@@ -277,10 +277,10 @@ class AddFormFieldsTest: QuickSpec {
             }
             
             it("Test_037_Error_InvalidRevision") {
-                let currentForm = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
-                let currentRevision = currentForm.getRevision()!
+                let form = TestCommonHandling.awaitAsync(appModule.getFormFields(appId, LanguageSetting.DEFAULT, true)) as! FormFields
+                let revision = form.getRevision()!
                 
-                let result = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties, currentRevision + 1)) as! KintoneAPIException
+                let result = TestCommonHandling.awaitAsync(appModule.addFormFields(appId, properties, revision + 1)) as! KintoneAPIException
                 
                 let actualError = result.getErrorResponse()!
                 var expectedError = KintoneErrorParser.INCORRECT_REVISION_ERROR()!
