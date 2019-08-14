@@ -48,9 +48,9 @@ platform :ios do
 
     scan(opts)
 
-    if options[:is_report_portal_enabled] then
-      disable_report_portal
-    end
+#    if options[:is_report_portal_enabled] then
+#      disable_report_portal
+#    end
   end
 end
 
