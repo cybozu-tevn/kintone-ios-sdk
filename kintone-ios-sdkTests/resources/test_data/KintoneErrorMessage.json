@@ -846,7 +846,32 @@
                 ]
             }
         }
+    },
+    "INVALID_CURSOR_NEGATIVE_SIZE": {
+        "code": "CB_VA01",
+        "message": "Missing or invalid input.",
+        "errors": {
+            "size": {
+                "messages": [
+                    "must be greater than or equal to 1"
+                ]
+            }
+        }
+    },
+    "MAXIMUM_LIMIT_CURSOR": {
+        "code": "GAIA_TM12",
+        "message": "Cannot create a cursor because the number of created cursors has reached the maximum limit. Delete unnecessary cursors, or wait a while and try again.",
+    },
+    "EXCEED_CURSOR_SIZE_LIMIT": {
+        "code": "CB_VA01",
+        "message": "Missing or invalid input.",
+        "errors": {
+            "size": {
+                "messages": [
+                    "must be less than or equal to 500"
+                ]
+            }
+        }
     }
-    
 }
 

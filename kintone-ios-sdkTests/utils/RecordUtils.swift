@@ -80,4 +80,72 @@ class RecordUtils {
             _ = waitForPromises(timeout: Double(TestConstant.Common.PROMISE_TIMEOUT))
         }
     }
+    
+    /// add records with enter the number of records
+    ///
+    /// - Parameters:
+    ///   - recordModule: Record | Record module
+    ///   - appId: Int | App ID
+    ///   - numberOfRecords: Int | Number of records
+    ///   - textField: String | Code of Field
+    /// - Returns: [Int] | Array of records id
+    public static func addRecords(_ recordModule: Record, _ appId: Int, _ numberOfRecords: Int, _ textField: String) -> [Int] {
+        var textFieldValues = [String]()
+        var testDataList = [Dictionary<String, FieldValue>]()
+        var recordIds = [Int]()
+        let integerNumber = Int(numberOfRecords / 100)
+        
+        if(integerNumber == 0) {
+            for i in 0...numberOfRecords - 1 {
+                textFieldValues.append(DataRandomization.generateString(prefix: "AddRecords", length: 10))
+                let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
+                testDataList.append(testData)
+            }
+            
+            let addRecordsRsp = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
+            recordIds.append(contentsOf: addRecordsRsp.getIDs()!)
+        } else {
+            let surplusNumber = numberOfRecords % 100
+            if(surplusNumber == 0) {
+                for _ in 0...integerNumber-1 {
+                    textFieldValues.removeAll()
+                    testDataList.removeAll()
+                    for i in 0...99 {
+                        textFieldValues.append(DataRandomization.generateString(prefix: "AddRecords", length: 10))
+                        let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
+                        testDataList.append(testData)
+                    }
+                    
+                    let addRecordsRsp = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
+                    recordIds.append(contentsOf: addRecordsRsp.getIDs()!)
+                }
+            } else {
+                for _ in 0...integerNumber-1 {
+                    textFieldValues.removeAll()
+                    testDataList.removeAll()
+                    for i in 0...99 {
+                        textFieldValues.append(DataRandomization.generateString(prefix: "AddRecords", length: 10))
+                        let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
+                        testDataList.append(testData)
+                    }
+                    
+                    let addRecordsRsp = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
+                    recordIds.append(contentsOf: addRecordsRsp.getIDs()!)
+                }
+                
+                textFieldValues.removeAll()
+                testDataList.removeAll()
+                for i in 0...surplusNumber - 1 {
+                    textFieldValues.append(DataRandomization.generateString(prefix: "AddRecords", length: 10))
+                    let testData = RecordUtils.setRecordData([:], textField, FieldType.SINGLE_LINE_TEXT, textFieldValues[i])
+                    testDataList.append(testData)
+                }
+                
+                let addRecordsRsp = TestCommonHandling.awaitAsync(recordModule.addRecords(appId, testDataList)) as! AddRecordsResponse
+                recordIds.append(contentsOf: addRecordsRsp.getIDs()!)
+            }
+        }
+        
+        return recordIds
+    }
 }

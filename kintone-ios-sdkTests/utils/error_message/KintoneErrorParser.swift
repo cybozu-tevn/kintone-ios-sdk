@@ -364,4 +364,16 @@ class KintoneErrorParser {
     static func NEGATIVE_RECORD_ERROR() -> KintoneError? {
         return result.NEGATIVE_RECORD_ERROR
     }
+    
+    static func INVALID_CURSOR_NEGATIVE_SIZE() -> KintoneError? {
+        return result.INVALID_CURSOR_NEGATIVE_SIZE
+    }
+    
+    static func MAXIMUM_LIMIT_CURSOR() -> KintoneError? {
+        return result.MAXIMUM_LIMIT_CURSOR
+    }
+    
+    static func EXCEED_CURSOR_SIZE_LIMIT() -> KintoneError? {
+        return result.EXCEED_CURSOR_SIZE_LIMIT
+    }
 }

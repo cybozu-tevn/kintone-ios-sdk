@@ -89,6 +89,7 @@
 		4CBE648121CCCC44006375D9 /* ExtensionCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */; };
 		68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */; };
 		682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */; };
+		682C932F230BDAC00027C965 /* CreateCursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C932E230BDAC00027C965 /* CreateCursorTest.swift */; };
 		683B288222C2352D00727C52 /* GetViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288122C2352D00727C52 /* GetViewsTest.swift */; };
 		683B288422C35C4D00727C52 /* UpdateViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288322C35C4D00727C52 /* UpdateViewsTest.swift */; };
 		68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB3229E1F0600F96F0B /* ConnectionTest.swift */; };
@@ -358,6 +359,7 @@
 		4CBE647F21CCCC44006375D9 /* ExtensionCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionCommon.swift; sourceTree = "<group>"; };
 		68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFormFieldsTest.swift; sourceTree = "<group>"; };
 		682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataParser.swift; sourceTree = "<group>"; };
+		682C932E230BDAC00027C965 /* CreateCursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCursorTest.swift; sourceTree = "<group>"; };
 		683B288122C2352D00727C52 /* GetViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViewsTest.swift; sourceTree = "<group>"; };
 		683B288322C35C4D00727C52 /* UpdateViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewsTest.swift; sourceTree = "<group>"; };
 		68621DB3229E1F0600F96F0B /* ConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTest.swift; sourceTree = "<group>"; };
@@ -556,7 +558,7 @@
 		110578E521620B9300F6E8C0 /* module */ = {
 			isa = PBXGroup;
 			children = (
-				E763B1A823054F67005D4A73 /* cursor */,
+				682C932D230BDAB20027C965 /* cursor */,
 				686D002A229D46F200F0EA67 /* connection */,
 				3FF04B2822803DA900E401FF /* app */,
 				ABE02356216F4603002C47EC /* file */,
@@ -904,6 +906,14 @@
 				68C67E232280432600244922 /* KintoneErrorParser.swift */,
 			);
 			path = error_message;
+			sourceTree = "<group>";
+		};
+		682C932D230BDAB20027C965 /* cursor */ = {
+			isa = PBXGroup;
+			children = (
+				682C932E230BDAC00027C965 /* CreateCursorTest.swift */,
+			);
+			path = cursor;
 			sourceTree = "<group>";
 		};
 		686D002A229D46F200F0EA67 /* connection */ = {
@@ -1403,13 +1413,6 @@
 			path = cursor;
 			sourceTree = "<group>";
 		};
-		E763B1A823054F67005D4A73 /* cursor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = cursor;
-			sourceTree = "<group>";
-		};
 		E763B1AD23055428005D4A73 /* cursor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1843,6 +1846,7 @@
 				68F9923622CC428100B0C550 /* AddRecordsTest.swift in Sources */,
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
 				B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */,
+				682C932F230BDAC00027C965 /* CreateCursorTest.swift in Sources */,
 				68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
