@@ -247,12 +247,9 @@
 		B7C87F7422C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C87F7322C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift */; };
 		DD0C0B4C21649FCD003F9A6C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C0B4B21649FCD003F9A6C /* File.swift */; };
 		DDDB9B072164912F00F2BB72 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */; };
-		E70BC39423068CC200DA98C7 /* DeleteCursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BC39323068CC200DA98C7 /* DeleteCursorTest.swift */; };
-		E70BC3962306A05600DA98C7 /* GetAllRecordsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BC3952306A05600DA98C7 /* GetAllRecordsTest.swift */; };
 		E763B1A323054CDE005D4A73 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E763B1A223054CDE005D4A73 /* Cursor.swift */; };
 		E763B1A523054CEA005D4A73 /* RecordCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E763B1A423054CEA005D4A73 /* RecordCursor.swift */; };
 		E763B1A723054DC5005D4A73 /* CursorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E763B1A623054DC5005D4A73 /* CursorParser.swift */; };
-		E763B1AC23054FBA005D4A73 /* CreateCursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E763B1AB23054FBA005D4A73 /* CreateCursorTest.swift */; };
 		E763B1B0230554A5005D4A73 /* CreateRecordCursorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E763B1AF230554A5005D4A73 /* CreateRecordCursorResponse.swift */; };
 		E763B1B323056386005D4A73 /* CreateRecordCursorRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E763B1B223056386005D4A73 /* CreateRecordCursorRequest.swift */; };
 		E763B1B923056D11005D4A73 /* GetRecordCursorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E763B1B823056D11005D4A73 /* GetRecordCursorResponse.swift */; };
@@ -523,12 +520,9 @@
 		B7C87F7322C50EF400AFFFB8 /* DeleteRecordsWithRevisionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteRecordsWithRevisionTest.swift; sourceTree = "<group>"; };
 		DD0C0B4B21649FCD003F9A6C /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DDDB9B062164912F00F2BB72 /* DownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
-		E70BC39323068CC200DA98C7 /* DeleteCursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCursorTest.swift; sourceTree = "<group>"; };
-		E70BC3952306A05600DA98C7 /* GetAllRecordsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllRecordsTest.swift; sourceTree = "<group>"; };
 		E763B1A223054CDE005D4A73 /* Cursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 		E763B1A423054CEA005D4A73 /* RecordCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCursor.swift; sourceTree = "<group>"; };
 		E763B1A623054DC5005D4A73 /* CursorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorParser.swift; sourceTree = "<group>"; };
-		E763B1AB23054FBA005D4A73 /* CreateCursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCursorTest.swift; sourceTree = "<group>"; };
 		E763B1AF230554A5005D4A73 /* CreateRecordCursorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecordCursorResponse.swift; sourceTree = "<group>"; };
 		E763B1B223056386005D4A73 /* CreateRecordCursorRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecordCursorRequest.swift; sourceTree = "<group>"; };
 		E763B1B823056D11005D4A73 /* GetRecordCursorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecordCursorResponse.swift; sourceTree = "<group>"; };
@@ -1412,10 +1406,6 @@
 		E763B1A823054F67005D4A73 /* cursor */ = {
 			isa = PBXGroup;
 			children = (
-				E763B1AB23054FBA005D4A73 /* CreateCursorTest.swift */,
-				E763B1BD23066115005D4A73 /* GetRecordsTest.swift */,
-				E70BC39323068CC200DA98C7 /* DeleteCursorTest.swift */,
-				E70BC3952306A05600DA98C7 /* GetAllRecordsTest.swift */,
 			);
 			path = cursor;
 			sourceTree = "<group>";
@@ -1455,7 +1445,6 @@
 			path = response;
 			sourceTree = "<group>";
 		};
-
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1777,8 +1766,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E70BC3962306A05600DA98C7 /* GetAllRecordsTest.swift in Sources */,
-				E763B1AC23054FBA005D4A73 /* CreateCursorTest.swift in Sources */,
 				3F4C845022AFB61A008ECE6D /* SpaceMember.swift in Sources */,
 				68CE4F0522BCC8BC00E6E23A /* UpdateFormFieldsTest.swift in Sources */,
 				68CE4EF922B0FBE300E6E23A /* DeleteCommentTest.swift in Sources */,
@@ -1857,7 +1844,6 @@
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
 				B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */,
 				68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */,
-				E70BC39423068CC200DA98C7 /* DeleteCursorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
