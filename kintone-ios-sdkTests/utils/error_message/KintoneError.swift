@@ -2,9 +2,6 @@
 //  KintoneError.swift
 //  kintone-ios-sdkTests
 //
-//  Created by Hoang Van Phong on 5/6/19.
-//  Copyright © 2019 Cybozu. All rights reserved.
-//
 
 internal class KintoneErrorMessage: Codable {
     var API_TOKEN_ERROR: KintoneError!
@@ -113,6 +110,7 @@ internal class KintoneErrorMessage: Codable {
     var INVALID_CURSOR_NEGATIVE_SIZE: KintoneError!
     var MAXIMUM_LIMIT_CURSOR: KintoneError!
     var EXCEED_CURSOR_SIZE_LIMIT: KintoneError!
+    var INVALID_CURSOR_ID: KintoneError!
 }
 
 struct KintoneError: Codable {

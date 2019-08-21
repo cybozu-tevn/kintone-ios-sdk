@@ -872,6 +872,10 @@
                 ]
             }
         }
+    },
+    "INVALID_CURSOR_ID": {
+        "code": "GAIA_CN01",
+        "message": "Specified cursor does not exist or has already expired."
     }
 }
 

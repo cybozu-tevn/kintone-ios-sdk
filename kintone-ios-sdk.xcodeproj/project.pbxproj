@@ -235,6 +235,7 @@
 		ABE0235F216F4652002C47EC /* test.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = ABE0235C216F4652002C47EC /* test.xlsx */; };
 		B70B506F22F85C650053CD83 /* ReportPortalAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70B506E22F85C650053CD83 /* ReportPortalAgent.framework */; };
 		B7294CF322C8FCD400188740 /* UpdateGeneralSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */; };
+		B762FCB1230C41B700E8A0D5 /* DeleteCursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B762FCB0230C41B700E8A0D5 /* DeleteCursorTest.swift */; };
 		B7A2AD8A22977C1E00AA4196 /* DataRandomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */; };
 		B7A2AD8F229F714300AA4196 /* RecordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD8E229F714300AA4196 /* RecordUtils.swift */; };
 		B7A2AD91229FE2BC00AA4196 /* DeployAppSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */; };
@@ -509,6 +510,7 @@
 		ABE0235C216F4652002C47EC /* test.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.xlsx; sourceTree = "<group>"; };
 		B70B506E22F85C650053CD83 /* ReportPortalAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReportPortalAgent.framework; path = Carthage/Build/iOS/ReportPortalAgent.framework; sourceTree = "<group>"; };
 		B7294CF222C8FCD300188740 /* UpdateGeneralSettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateGeneralSettingsTest.swift; sourceTree = "<group>"; };
+		B762FCB0230C41B700E8A0D5 /* DeleteCursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCursorTest.swift; sourceTree = "<group>"; };
 		B7A2AD8922977C1E00AA4196 /* DataRandomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRandomization.swift; sourceTree = "<group>"; };
 		B7A2AD8E229F714300AA4196 /* RecordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUtils.swift; sourceTree = "<group>"; };
 		B7A2AD90229FE2BC00AA4196 /* DeployAppSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployAppSettingsTest.swift; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 			isa = PBXGroup;
 			children = (
 				682C932E230BDAC00027C965 /* CreateCursorTest.swift */,
+				B762FCB0230C41B700E8A0D5 /* DeleteCursorTest.swift */,
 			);
 			path = cursor;
 			sourceTree = "<group>";
@@ -1787,6 +1790,7 @@
 				3FF04B3022803E4800E401FF /* TestConstant.swift in Sources */,
 				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
+				B762FCB1230C41B700E8A0D5 /* DeleteCursorTest.swift in Sources */,
 				68C67E782282DC7000244922 /* GenerateApiTokenRequest.swift in Sources */,
 				68C94B1A22C45BF400F01591 /* GetFormLayoutTest.swift in Sources */,
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,

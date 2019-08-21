@@ -2,9 +2,6 @@
 //  KintoneErrorParser.swift
 //  kintone-ios-sdkTests
 //
-//  Created by Hoang Van Phong on 5/6/19.
-//  Copyright © 2019 Cybozu. All rights reserved.
-//
 
 class KintoneErrorParser {
     static let result = TestCommonHandling.handleDoTryCatch {try JSONHandler("KintoneErrorMessage").parseJSON(KintoneErrorMessage.self)} as! KintoneErrorMessage
@@ -375,5 +372,9 @@ class KintoneErrorParser {
     
     static func EXCEED_CURSOR_SIZE_LIMIT() -> KintoneError? {
         return result.EXCEED_CURSOR_SIZE_LIMIT
+    }
+    
+    static func INVALID_CURSOR_ID() -> KintoneError? {
+        return result.INVALID_CURSOR_ID
     }
 }
