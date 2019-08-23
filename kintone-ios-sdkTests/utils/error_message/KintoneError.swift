@@ -107,10 +107,10 @@ internal class KintoneErrorMessage: Codable {
     var NOT_ASSIGNEE_CHANGE_STATUS_ERROR: KintoneError!
     var UNSPECIFIED_ASSIGNEE_UPDATED_STATUS_ERROR: KintoneError!
     var INVALID_STATUS_ERROR: KintoneError!
+    var INVALID_CURSOR_ID: KintoneError!
     var INVALID_CURSOR_NEGATIVE_SIZE: KintoneError!
     var MAXIMUM_LIMIT_CURSOR: KintoneError!
     var EXCEED_CURSOR_SIZE_LIMIT: KintoneError!
-    var INVALID_CURSOR_ID: KintoneError!
 }
 
 struct KintoneError: Codable {

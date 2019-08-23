@@ -148,10 +148,10 @@ public extension DevAppApp where Self: DevApp {
         }
     }
     
-    func updateAppPermissions(_ appId: Int, _ userRights: [AccessRightEntity]) -> Promise<UpdateAppPermissionsResponse> {
+    func updateAppPermissions(_ appId: Int, _ rights: [AccessRightEntity]) -> Promise<UpdateAppPermissionsResponse> {
         return Promise<UpdateAppPermissionsResponse> {fulfill, reject in
             do {
-                let updateAppPermissionsRequest = UpdateAppPermissionsRequest(appId, userRights)
+                let updateAppPermissionsRequest = UpdateAppPermissionsRequest(appId, rights)
                 let body = try self.parser.parseObject(updateAppPermissionsRequest)
                 let jsonBody = String(data: body, encoding: .utf8)!
                 self.devConnection?.request(baseUrl, "PUT", "app/acl", jsonBody).then {response in

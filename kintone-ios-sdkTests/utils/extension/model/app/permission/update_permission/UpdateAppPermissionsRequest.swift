@@ -7,7 +7,7 @@ import Foundation
 
 class UpdateAppPermissionsRequest: NSObject, Codable {
     private var app: Int!
-    private var userRights: [AccessRightEntity]
+    private var rights: [AccessRightEntity]
     
     public func getApp() -> Int {
         return self.app
@@ -18,15 +18,15 @@ class UpdateAppPermissionsRequest: NSObject, Codable {
     }
     
     public func getRights() -> [AccessRightEntity] {
-        return self.userRights
+        return self.rights
     }
     
-    public func setRights(_ userRights: [AccessRightEntity]) {
-        self.userRights = userRights
+    public func setRights(_ rights: [AccessRightEntity]) {
+        self.rights = rights
     }
     
-    public init(_ app: Int, _ userRights: [AccessRightEntity]) {
+    public init(_ app: Int, _ rights: [AccessRightEntity]) {
         self.app = app
-        self.userRights = userRights
+        self.rights = rights
     }
 }

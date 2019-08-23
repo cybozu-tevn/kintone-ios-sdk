@@ -7,6 +7,32 @@
 @testable import kintone_ios_sdk
 
 class RecordUtils {
+    static let devAuth = DevAuth().setPasswordAuth(TestConstant.Connection.CRED_ADMIN_USERNAME, TestConstant.Connection.CRED_ADMIN_PASSWORD)
+    static let devConn = DevConnection(TestConstant.Connection.DOMAIN, devAuth)
+    static let recordModule = DevRecord(devConn)
+    
+    /// Update record permission
+    ///
+    /// - Parameters:
+    ///   - appModule: App | App module
+    ///   - appId: Int | App id
+    ///   - rights: RecordRightEntity | Access right of member entity
+    static func updateRecordPermissions(appModule: App, appId: Int, rights: [RecordRightEntity]) {
+        //When update permission, it should update other existed rights
+        recordModule.updateRecordPermissions(appId, rights).then {_ in
+            print("Update record permission success")
+            }.catch {error in
+                if let errorVal = error as? KintoneAPIException {
+                    dump(errorVal)
+                    fatalError(errorVal.toString()!)
+                } else {
+                    fatalError(error.localizedDescription)
+                }
+        }
+        _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
+        AppUtils.deployApp(appModule: appModule, apps: [PreviewApp(appId)])
+    }
+    
     /// Set single field data to record data dictionary
     ///
     /// - Paramaters:
@@ -81,7 +107,7 @@ class RecordUtils {
         }
     }
     
-    /// add records with enter the number of records
+    /// add records with enter the number of records more than 100
     ///
     /// - Parameters:
     ///   - recordModule: Record | Record module
@@ -147,5 +173,44 @@ class RecordUtils {
         }
         
         return recordIds
+    }
+    
+    /// delete records with enter the number of records more than 100
+    ///
+    /// - Parameters:
+    ///   - recordModule: Record | Record module
+    ///   - appId: Int | App ID
+    ///   - recordIds: [Int] | Array of record id
+    public static func deleteRecords(_ recordModule: Record, _ appId: Int, _ recordIds: [Int]) {
+        let numberOfRecords = recordIds.count
+        let integerNumber = Int(numberOfRecords / 100)
+        
+        if(integerNumber == 0) {
+            _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, recordIds))
+        } else {
+            let surplusNumber = numberOfRecords % 100
+            if(surplusNumber == 0) {
+                for index in 0...integerNumber-1 {
+                    let from = (index * 99) + index
+                    let to = ((index * 99) + index) + 99
+                    let deleteRecordIds = Array(recordIds[from...to])
+                    
+                    _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, deleteRecordIds))
+                }
+            } else {
+                for index in 0...integerNumber-1 {
+                    let from = (index * 99) + index
+                    let to = ((index * 99) + index) + 99
+                    let deleteRecordIds = Array(recordIds[from...to])
+                    
+                    _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, deleteRecordIds))
+                }
+                
+                let from = integerNumber * 100
+                let to = (integerNumber * 100) + surplusNumber
+                let deleteRecordIds = Array(recordIds[from...to])
+                _ = TestCommonHandling.awaitAsync(recordModule.deleteRecords(appId, deleteRecordIds))
+            }
+        }
     }
 }

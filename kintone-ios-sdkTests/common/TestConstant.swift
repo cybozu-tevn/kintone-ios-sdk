@@ -31,6 +31,8 @@ public class TestConstant {
         static let CRED_PASSWORD_WITHOUT_DELETE_RECORDS_PERMISSION = users.clone[6].password
         
         // User credentials with permissions on record
+        static let CRED_USERNAME_HAVE_ALL_RECORD_PERMISSION = users.clone[0].username
+        static let CRED_PASSWORD_HAVE_ALL_RECORD_PERMISSION = users.clone[0].password
         static let CRED_USERNAME_WITHOUT_VIEW_RECORD_PERMISSION = users.clone[5].username
         static let CRED_PASSWORD_WITHOUT_VIEW_RECORD_PERMISSION = users.clone[5].password
         static let CRED_USERNAME_WITHOUT_EDIT_RECORD_PERMISSION = users.clone[4].username

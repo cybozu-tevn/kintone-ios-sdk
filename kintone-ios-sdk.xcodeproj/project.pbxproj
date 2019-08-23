@@ -90,6 +90,12 @@
 		68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */; };
 		682B6AED228D4D1F00D4A894 /* TestDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */; };
 		682C932F230BDAC00027C965 /* CreateCursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C932E230BDAC00027C965 /* CreateCursorTest.swift */; };
+		682C9331230BE4BC0027C965 /* GetRecordsByCursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C9330230BE4BC0027C965 /* GetRecordsByCursorTest.swift */; };
+		682C9334230E6BEC0027C965 /* DevRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C9333230E6BEC0027C965 /* DevRecord.swift */; };
+		682C9338230E6D8E0027C965 /* RecordRightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C9337230E6D8E0027C965 /* RecordRightEntity.swift */; };
+		682C933B230E705D0027C965 /* UpdateRecordPermissionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C933A230E705D0027C965 /* UpdateRecordPermissionsResponse.swift */; };
+		682C933D230E70720027C965 /* UpdateRecordPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C933C230E70720027C965 /* UpdateRecordPermissionsRequest.swift */; };
+		682C9341230E791C0027C965 /* RightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C9340230E791C0027C965 /* RightEntity.swift */; };
 		683B288222C2352D00727C52 /* GetViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288122C2352D00727C52 /* GetViewsTest.swift */; };
 		683B288422C35C4D00727C52 /* UpdateViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288322C35C4D00727C52 /* UpdateViewsTest.swift */; };
 		68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB3229E1F0600F96F0B /* ConnectionTest.swift */; };
@@ -361,6 +367,12 @@
 		68190E6722C212BE0012C124 /* DeleteFormFieldsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFormFieldsTest.swift; sourceTree = "<group>"; };
 		682B6AEC228D4D1F00D4A894 /* TestDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataParser.swift; sourceTree = "<group>"; };
 		682C932E230BDAC00027C965 /* CreateCursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCursorTest.swift; sourceTree = "<group>"; };
+		682C9330230BE4BC0027C965 /* GetRecordsByCursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecordsByCursorTest.swift; sourceTree = "<group>"; };
+		682C9333230E6BEC0027C965 /* DevRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRecord.swift; sourceTree = "<group>"; };
+		682C9337230E6D8E0027C965 /* RecordRightEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRightEntity.swift; sourceTree = "<group>"; };
+		682C933A230E705D0027C965 /* UpdateRecordPermissionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecordPermissionsResponse.swift; sourceTree = "<group>"; };
+		682C933C230E70720027C965 /* UpdateRecordPermissionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecordPermissionsRequest.swift; sourceTree = "<group>"; };
+		682C9340230E791C0027C965 /* RightEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightEntity.swift; sourceTree = "<group>"; };
 		683B288122C2352D00727C52 /* GetViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViewsTest.swift; sourceTree = "<group>"; };
 		683B288322C35C4D00727C52 /* UpdateViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewsTest.swift; sourceTree = "<group>"; };
 		68621DB3229E1F0600F96F0B /* ConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTest.swift; sourceTree = "<group>"; };
@@ -915,8 +927,44 @@
 			children = (
 				682C932E230BDAC00027C965 /* CreateCursorTest.swift */,
 				B762FCB0230C41B700E8A0D5 /* DeleteCursorTest.swift */,
+				682C9330230BE4BC0027C965 /* GetRecordsByCursorTest.swift */,
 			);
 			path = cursor;
+			sourceTree = "<group>";
+		};
+		682C9332230E6B860027C965 /* record */ = {
+			isa = PBXGroup;
+			children = (
+				682C9333230E6BEC0027C965 /* DevRecord.swift */,
+			);
+			path = record;
+			sourceTree = "<group>";
+		};
+		682C9335230E6D2C0027C965 /* record */ = {
+			isa = PBXGroup;
+			children = (
+				682C9336230E6D410027C965 /* permission */,
+			);
+			path = record;
+			sourceTree = "<group>";
+		};
+		682C9336230E6D410027C965 /* permission */ = {
+			isa = PBXGroup;
+			children = (
+				682C9339230E70450027C965 /* update_permission */,
+				682C9337230E6D8E0027C965 /* RecordRightEntity.swift */,
+				682C9340230E791C0027C965 /* RightEntity.swift */,
+			);
+			path = permission;
+			sourceTree = "<group>";
+		};
+		682C9339230E70450027C965 /* update_permission */ = {
+			isa = PBXGroup;
+			children = (
+				682C933A230E705D0027C965 /* UpdateRecordPermissionsResponse.swift */,
+				682C933C230E70720027C965 /* UpdateRecordPermissionsRequest.swift */,
+			);
+			path = update_permission;
 			sourceTree = "<group>";
 		};
 		686D002A229D46F200F0EA67 /* connection */ = {
@@ -976,6 +1024,7 @@
 		68C67E432282DA8100244922 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				682C9335230E6D2C0027C965 /* record */,
 				68C67E482282DABA00244922 /* app */,
 				68C67E472282DAB000244922 /* http */,
 				68C67E462282DAA000244922 /* authentication */,
@@ -1035,6 +1084,7 @@
 		68C67E492282DAC900244922 /* module */ = {
 			isa = PBXGroup;
 			children = (
+				682C9332230E6B860027C965 /* record */,
 				68C67E4B2282DAD800244922 /* parser */,
 				68C67E4A2282DAD200244922 /* app */,
 			);
@@ -1776,6 +1826,7 @@
 				68CE4F0522BCC8BC00E6E23A /* UpdateFormFieldsTest.swift in Sources */,
 				68CE4EF922B0FBE300E6E23A /* DeleteCommentTest.swift in Sources */,
 				68C67E6C2282DBEE00244922 /* TokenEntity.swift in Sources */,
+				682C9338230E6D8E0027C965 /* RecordRightEntity.swift in Sources */,
 				3F4C845622B2071E008ECE6D /* AddPreviewAppTest.swift in Sources */,
 				3FF04B2F22803E4800E401FF /* TestCommonHandling.swift in Sources */,
 				B7C87F7222C4600E00AFFFB8 /* UpdateRecordAssigneesTest.swift in Sources */,
@@ -1791,6 +1842,7 @@
 				68C67E3022813F4200244922 /* AddRecordTest.swift in Sources */,
 				68C67E322281A57200244922 /* DeleteRecordsTest.swift in Sources */,
 				B762FCB1230C41B700E8A0D5 /* DeleteCursorTest.swift in Sources */,
+				682C9331230BE4BC0027C965 /* GetRecordsByCursorTest.swift in Sources */,
 				68C67E782282DC7000244922 /* GenerateApiTokenRequest.swift in Sources */,
 				68C94B1A22C45BF400F01591 /* GetFormLayoutTest.swift in Sources */,
 				68C67E532282DB3D00244922 /* DevApp.swift in Sources */,
@@ -1830,6 +1882,7 @@
 				3F4C844F22AFA55E008ECE6D /* AccessRightEntity.swift in Sources */,
 				68C67E8C2282DCD700244922 /* AddSpaceResponse.swift in Sources */,
 				B7A3595922B89F66007E31E5 /* UpdateRecordByUpdateKeyTest.swift in Sources */,
+				682C933B230E705D0027C965 /* UpdateRecordPermissionsResponse.swift in Sources */,
 				68621DBA229E9BB600F96F0B /* BulkRequestTest.swift in Sources */,
 				B7A3595B22B91550007E31E5 /* UpdateRecordStatusTest.swift in Sources */,
 				3FC53EFB22CC6797007A7E75 /* GetGeneralSettingsTest.swift in Sources */,
@@ -1840,15 +1893,18 @@
 				68CE4EF722B0FBC700E6E23A /* GetCommentsTest.swift in Sources */,
 				68C67E4F2282DB2300244922 /* DevParser.swift in Sources */,
 				68C67E5D2282DB9C00244922 /* DevMemberEntity.swift in Sources */,
+				682C933D230E70720027C965 /* UpdateRecordPermissionsRequest.swift in Sources */,
 				68C67E7D2282DC8D00244922 /* GetApiTokenListRequest.swift in Sources */,
 				3F4C845422B0945F008ECE6D /* GetAppsByCodesTest.swift in Sources */,
 				3FE11981228C04F6004A8AB7 /* GetAppDeployStatusTest.swift in Sources */,
 				683B288222C2352D00727C52 /* GetViewsTest.swift in Sources */,
 				68C67E262280433600244922 /* KintoneError.swift in Sources */,
+				682C9341230E791C0027C965 /* RightEntity.swift in Sources */,
 				68C67E7C2282DC8D00244922 /* GetApiTokenListResponse.swift in Sources */,
 				3FF04B2C22803E2800E401FF /* GetAppTest.swift in Sources */,
 				68F9923622CC428100B0C550 /* AddRecordsTest.swift in Sources */,
 				68C67E632282DBD600244922 /* GetAppPermissionsRequest.swift in Sources */,
+				682C9334230E6BEC0027C965 /* DevRecord.swift in Sources */,
 				B7A3592A22ABF256007E31E5 /* UpdateRecordByIDTest.swift in Sources */,
 				682C932F230BDAC00027C965 /* CreateCursorTest.swift in Sources */,
 				68190E6822C212BE0012C124 /* DeleteFormFieldsTest.swift in Sources */,

@@ -847,6 +847,10 @@
             }
         }
     },
+    "INVALID_CURSOR_ID": {
+        "code": "GAIA_CN01",
+        "message": "Specified cursor does not exist or has already expired.",
+    },
     "INVALID_CURSOR_NEGATIVE_SIZE": {
         "code": "CB_VA01",
         "message": "Missing or invalid input.",
@@ -872,10 +876,6 @@
                 ]
             }
         }
-    },
-    "INVALID_CURSOR_ID": {
-        "code": "GAIA_CN01",
-        "message": "Specified cursor does not exist or has already expired."
     }
 }
 
