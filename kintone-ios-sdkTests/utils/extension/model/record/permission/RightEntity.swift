@@ -6,26 +6,17 @@
 import Foundation
 
 open class RightEntity: NSObject, Codable {
-    private var entityId: Int!
-    private var entityType: DevMemberType!
+    private var entity: DevMemberEntity!
     private var viewable: Bool!
     private var editable: Bool!
     private var deletable: Bool!
     
-    public func getDevMemberId() -> Int {
-        return self.entityId
+    public func getDevMember() -> DevMemberEntity {
+        return self.entity
     }
     
-    public func setDevMemberId(_ entityId: Int) {
-        self.entityId = entityId
-    }
-    
-    public func getDevMemberType() -> DevMemberType {
-        return self.entityType
-    }
-    
-    public func setDevMemberType(_ entityType: DevMemberType) {
-        self.entityType = entityType
+    public func setDevMember(_ devMember: DevMemberEntity) {
+        self.entity = devMember
     }
     
     public func getViewable() -> Bool {
@@ -52,13 +43,11 @@ open class RightEntity: NSObject, Codable {
         self.deletable = deletable
     }
     
-    public init(entityId: Int,
-                entityType: DevMemberType = DevMemberType.USER,
+    public init(entity: DevMemberEntity,
                 viewable: Bool = false,
                 editable: Bool = false,
                 deletable: Bool = false) {
-        self.entityId = entityId
-        self.entityType = entityType
+        self.entity = entity
         self.viewable = viewable
         self.editable = editable
         self.deletable = deletable

@@ -96,6 +96,7 @@
 		682C933B230E705D0027C965 /* UpdateRecordPermissionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C933A230E705D0027C965 /* UpdateRecordPermissionsResponse.swift */; };
 		682C933D230E70720027C965 /* UpdateRecordPermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C933C230E70720027C965 /* UpdateRecordPermissionsRequest.swift */; };
 		682C9341230E791C0027C965 /* RightEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C9340230E791C0027C965 /* RightEntity.swift */; };
+		682C9343230F80180027C965 /* GetAllRecordsByCursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C9342230F80180027C965 /* GetAllRecordsByCursorTest.swift */; };
 		683B288222C2352D00727C52 /* GetViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288122C2352D00727C52 /* GetViewsTest.swift */; };
 		683B288422C35C4D00727C52 /* UpdateViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B288322C35C4D00727C52 /* UpdateViewsTest.swift */; };
 		68621DB4229E1F0600F96F0B /* ConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68621DB3229E1F0600F96F0B /* ConnectionTest.swift */; };
@@ -373,6 +374,7 @@
 		682C933A230E705D0027C965 /* UpdateRecordPermissionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecordPermissionsResponse.swift; sourceTree = "<group>"; };
 		682C933C230E70720027C965 /* UpdateRecordPermissionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecordPermissionsRequest.swift; sourceTree = "<group>"; };
 		682C9340230E791C0027C965 /* RightEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightEntity.swift; sourceTree = "<group>"; };
+		682C9342230F80180027C965 /* GetAllRecordsByCursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllRecordsByCursorTest.swift; sourceTree = "<group>"; };
 		683B288122C2352D00727C52 /* GetViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViewsTest.swift; sourceTree = "<group>"; };
 		683B288322C35C4D00727C52 /* UpdateViewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewsTest.swift; sourceTree = "<group>"; };
 		68621DB3229E1F0600F96F0B /* ConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTest.swift; sourceTree = "<group>"; };
@@ -928,6 +930,7 @@
 				682C932E230BDAC00027C965 /* CreateCursorTest.swift */,
 				B762FCB0230C41B700E8A0D5 /* DeleteCursorTest.swift */,
 				682C9330230BE4BC0027C965 /* GetRecordsByCursorTest.swift */,
+				682C9342230F80180027C965 /* GetAllRecordsByCursorTest.swift */,
 			);
 			path = cursor;
 			sourceTree = "<group>";
@@ -1856,6 +1859,7 @@
 				68C67E512282DB3200244922 /* DevAppApp.swift in Sources */,
 				68C67E6F2282DBEE00244922 /* ApiTokenItems.swift in Sources */,
 				3F840FA022A8C18A00B89DB1 /* GetAppsBySpaceIDsTest.swift in Sources */,
+				682C9343230F80180027C965 /* GetAllRecordsByCursorTest.swift in Sources */,
 				68C67E672282DBDF00244922 /* UpdateAppPermissionsRequest.swift in Sources */,
 				B7A2AD9522A5F5B900AA4196 /* SpaceUtils.swift in Sources */,
 				68C67E362282AD1100244922 /* UpdateRecordsTest.swift in Sources */,

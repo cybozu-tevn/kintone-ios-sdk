@@ -359,13 +359,9 @@ class AppUtils {
     ///   - appId: Int | App id
     ///   - accessRight: [AccessRightEntity] | Array access right of member entity
     /// - Returns: String | revision of app
-    static func updateAppPermissions(appModule: App, appId: Int, rights: [AccessRightEntity]) -> String {
-        //When update permission, it should update other existed rights
-        var revision: String!
-        devAppModule.updateAppPermissions(appId, rights).then {response in
+    static func updateAppPermissions(appModule: App, appId: Int, rights: [AccessRightEntity]) {
+        devAppModule.updateAppPermissions(appId, rights).then {_ in
             print("Update App permission success")
-            
-            revision = response.getRevision()
             }.catch {error in
                 if let errorVal = error as? KintoneAPIException {
                     dump(errorVal)
@@ -375,7 +371,5 @@ class AppUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        self.deployApp(appModule: appModule, apps: [PreviewApp(appId)])
-        return revision
     }
 }

@@ -1,14 +1,14 @@
 //
 // kintone-ios-sdkTests
-// Created on 8/19/19
-//
+// Created on 8/23/19
+// 
 
 import Quick
 import Nimble
 @testable import Promises
 @testable import kintone_ios_sdk
 
-class GetRecordsByCursorTest: QuickSpec {
+class GetAllRecordsByCursorTest: QuickSpec {
     override func spec() {
         let appModule = App(TestCommonHandling.createConnection())
         let recordModule = Record(TestCommonHandling.createConnection())
@@ -19,127 +19,105 @@ class GetRecordsByCursorTest: QuickSpec {
         let queryOfCursor = "Created_by in (LOGINUSER()) and Created_datetime = TODAY() order by $id asc"
         var recordIds = [Int]()
         
-        describe("GetRecordsByCursor") {
+        describe("GetAllRecordsByCursor") {
             it("AddTestData_BeforeSuiteWorkaround") {
                 recordIds = RecordUtils.addRecords(recordModule, appId, 500, textField)
             }
             
-            it("Test_035_Success_ValidRequest_GetRecordsByCursorId") {
-                let sizeOfCursor = 10
+            it("Test_054_ValidRequest_GetRecordsByCursorId") {
+                let sizeOfCursor = 100
                 let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addRecordCursorRsp.getId()
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                
-                expect(sizeOfCursor).to(equal(getRecordCursorRsp.getRecords().count))
+                let totalCount = addRecordCursorRsp.getTotalCount()
+
+                let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(cursorId)) as! GetRecordsResponse
+                expect(getRecordsRsp.getRecords()).toNot(beNil())
+                expect(getRecordsRsp.getTotalCount()).to(equal(totalCount))
                 
                 _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
             }
             
-            it("Test_036_Success_ValidRequest_GetRecordsIsCorrectly") {
-                let sizeOfCursor = 10
+           it("Test_055_Success_ValidRequest_GetRecordsIsCorrectly") {
+                let sizeOfCursor = 100
                 let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addRecordCursorRsp.getId()
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                let fieldCodeArray = Array(getRecordCursorRsp.getRecords()[0].keys)
+                let totalCount = addRecordCursorRsp.getTotalCount()
 
+                let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(cursorId)) as! GetRecordsResponse
+                let fieldCodeArray = Array(getRecordsRsp.getRecords()![0].keys)
+                
                 expect(fieldCodeArray.count).to(equal(1))
                 expect(fieldCodeArray[0] as String).to(equal(textField))
-                expect(getRecordCursorRsp.getRecords()).toNot(beNil())
-                expect(getRecordCursorRsp.getNext()).toNot(beNil())
-                expect(getRecordCursorRsp.getRecords().count).to(equal(sizeOfCursor))
+                expect(getRecordsRsp.getRecords()).toNot(beNil())
+                expect(getRecordsRsp.getTotalCount()).to(equal(totalCount))
                 
                 _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
             }
             
-            it("Test_037_Success_ValidRequest_RecordDependentGetRecords") {
+            it("Test_056_Success_ValidRequest_RecordDependentGetAllRecords") {
                 let sizeOfCursor = 500
                 let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addRecordCursorRsp.getId()
-                
+                let totalCount = addRecordCursorRsp.getTotalCount()
+
                 // Add new 100 record after created cursor
                 let newRecordIds = RecordUtils.addRecords(recordModule, appId, 100, textField)
                 
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                
-                expect(getRecordCursorRsp.getRecords()).toNot(beNil())
-                expect(getRecordCursorRsp.getNext()).to(equal(false))
-                expect(getRecordCursorRsp.getRecords().count).to(equal(sizeOfCursor))
+                let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(cursorId)) as! GetRecordsResponse
+
+                expect(getRecordsRsp.getRecords()).toNot(beNil())
+                expect(getRecordsRsp.getTotalCount()).to(equal(totalCount))
                 
                 _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
                 RecordUtils.deleteRecords(recordModule, appId, newRecordIds)
             }
             
-            it("Test_038_Success_ValidRequest_OrderOfRecord") {
-                let sizeOfCursor = 250
-                let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
-                let cursorId = addRecordCursorRsp.getId()
-                let firstGetRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-
-                expect(firstGetRecordCursorRsp.getRecords()).toNot(beNil())
-                expect(firstGetRecordCursorRsp.getNext()).toNot(beNil())
-                expect(firstGetRecordCursorRsp.getRecords().count).to(equal(sizeOfCursor))
-                
-                let secondGetRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                
-                expect(secondGetRecordCursorRsp.getRecords()).toNot(beNil())
-                expect(secondGetRecordCursorRsp.getNext()).toNot(beNil())
-                expect(secondGetRecordCursorRsp.getRecords().count).to(equal(sizeOfCursor))
-                
-                let thirdGetRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! KintoneAPIException
-                
-                let actualError = thirdGetRecordCursorRsp.getErrorResponse()
-                let expectedError = KintoneErrorParser.INVALID_CURSOR_ID()!
-                TestCommonHandling.compareError(actualError, expectedError)
-                
-                _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
-            }
-            
-            it("Test_039_Error_CanNotGetRecordByOtherUser") {
+            it("Test_057_Error_CanNotGetRecordByOtherUser") {
                 let usernameHaveAllRecordPermission = TestConstant.Connection.CRED_USERNAME_HAVE_ALL_RECORD_PERMISSION
                 let passwordHaveAllRecordPermission = TestConstant.Connection.CRED_PASSWORD_HAVE_ALL_RECORD_PERMISSION
                 let cursorModuleOfOtherUser = Cursor(TestCommonHandling.createConnection(usernameHaveAllRecordPermission, passwordHaveAllRecordPermission))
-
-                let sizeOfCursor = 250
+                
+                let sizeOfCursor = 100
                 let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addRecordCursorRsp.getId()
                 
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.getRecords(cursorId)) as! KintoneAPIException
+                let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.getAllRecords(cursorId)) as! KintoneAPIException
                 
-                let actualError = getRecordCursorRsp.getErrorResponse()
+                let actualError = getRecordsRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.INVALID_CURSOR_ID()!
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
             }
             
-            it("Test_040_Error_InvalidCursorId") {
+            it("Test_058_Error_InvalidCursorId") {
                 let nonexistentCursorId = String(TestConstant.Common.NONEXISTENT_ID)
                 let negativeCursorId = String(TestConstant.Common.NEGATIVE_ID)
                 let zeroCursorId = String(0)
-            
-                // Test with cursor id is nonexistent
-                var getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(nonexistentCursorId)) as! KintoneAPIException
                 
-                var actualError = getRecordCursorRsp.getErrorResponse()
+                // Test with cursor id is nonexistent
+                var getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(nonexistentCursorId)) as! KintoneAPIException
+
+                var actualError = getRecordsRsp.getErrorResponse()
                 var expectedError = KintoneErrorParser.INVALID_CURSOR_ID()!
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 // Test with cursor id is negative
-                getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(negativeCursorId)) as! KintoneAPIException
-                
-                actualError = getRecordCursorRsp.getErrorResponse()
+                getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(negativeCursorId)) as! KintoneAPIException
+
+                actualError = getRecordsRsp.getErrorResponse()
                 expectedError = KintoneErrorParser.INVALID_CURSOR_ID()!
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 // Test with cursor id is zero
-                getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(zeroCursorId)) as! KintoneAPIException
-                
-                actualError = getRecordCursorRsp.getErrorResponse()
+                getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(zeroCursorId)) as! KintoneAPIException
+
+                actualError = getRecordsRsp.getErrorResponse()
                 expectedError = KintoneErrorParser.INVALID_CURSOR_ID()!
                 TestCommonHandling.compareError(actualError, expectedError)
             }
             
-            it("Test_043_Error_WithoutViewRecordsPermissionOnApp") {
+            it("Test_061_Error_WithoutViewRecordsPermissionOnApp") {
                 let usernameHaveAllRecordPermission = TestConstant.Connection.CRED_USERNAME_HAVE_ALL_RECORD_PERMISSION
                 let passwordHaveAllRecordPermission = TestConstant.Connection.CRED_PASSWORD_HAVE_ALL_RECORD_PERMISSION
                 let cursorModuleOfOtherUser = Cursor(TestCommonHandling.createConnection(usernameHaveAllRecordPermission, passwordHaveAllRecordPermission))
@@ -149,9 +127,9 @@ class GetRecordsByCursorTest: QuickSpec {
                 
                 _updatePermissionOnApp(appModule, appId, false, false, false, false, false, false, false)
                 
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.getRecords(cursorId)) as! KintoneAPIException
-                
-                let actualError = getRecordCursorRsp.getErrorResponse()
+                let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.getAllRecords(cursorId)) as! KintoneAPIException
+
+                let actualError = getRecordsRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
                 
@@ -159,7 +137,7 @@ class GetRecordsByCursorTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
             }
             
-            it("Test_044_Error_WithoutViewRecordsPermissionOnRecord") {
+            it("Test_062_Error_WithoutViewRecordsPermissionOnRecord") {
                 let usernameHaveAllRecordPermission = TestConstant.Connection.CRED_USERNAME_HAVE_ALL_RECORD_PERMISSION
                 let passwordHaveAllRecordPermission = TestConstant.Connection.CRED_PASSWORD_HAVE_ALL_RECORD_PERMISSION
                 let cursorModuleOfOtherUser = Cursor(TestCommonHandling.createConnection(usernameHaveAllRecordPermission, passwordHaveAllRecordPermission))
@@ -178,16 +156,16 @@ class GetRecordsByCursorTest: QuickSpec {
                 var recordRights = RecordRightEntity(entities: updateUserRights)
                 RecordUtils.updateRecordPermissions(appModule: appModule, appId: appId, rights: [recordRights])
                 
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.getRecords(cursorId)) as! GetRecordCursorResponse
+                let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.getAllRecords(cursorId)) as! GetRecordsResponse
                 
-                expect(getRecordCursorRsp.getRecords().count).to(equal(0))
+                expect(getRecordsRsp.getTotalCount()).to(equal(0))
                 
                 recordRights = RecordRightEntity(entities: defaultUserRights)
                 RecordUtils.updateRecordPermissions(appModule: appModule, appId: appId, rights: [recordRights])
                 _ = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.deleteCursor(cursorId))
             }
             
-            it("Test_046_Error_WithoutViewRecordsPermission_ApiToken") {
+            it("Test_064_Error_WithoutViewRecordsPermission_ApiToken") {
                 let apiToken = TestConstant.InitData.SPACE_APP_API_TOKEN
                 let appApiTokenCursorModule = Cursor(TestCommonHandling.createConnection(apiToken))
                 
@@ -204,9 +182,9 @@ class GetRecordsByCursorTest: QuickSpec {
                     editApp: false)
                 AppUtils.updateTokenPermission(appModule: appModule, appId: appId, token: token)
                 
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(appApiTokenCursorModule.getRecords(cursorId)) as! KintoneAPIException
+                let getRecordsRsp = TestCommonHandling.awaitAsync(appApiTokenCursorModule.getAllRecords(cursorId)) as! KintoneAPIException
                 
-                let actualError = getRecordCursorRsp.getErrorResponse()
+                let actualError = getRecordsRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.API_TOKEN_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
                 
@@ -221,7 +199,7 @@ class GetRecordsByCursorTest: QuickSpec {
                 _ = TestCommonHandling.awaitAsync(appApiTokenCursorModule.deleteCursor(cursorId))
             }
             
-            it("Test_047_Success_ValidRequest_GetRecordsByCursorId_GuestSpace") {
+            it("Test_065_Success_ValidRequest_GetRecordsByCursorId_GuestSpace") {
                 let guestSpaceId = TestConstant.InitData.GUEST_SPACE_ID!
                 let guestSpaceAppId = TestConstant.InitData.GUEST_SPACE_APP_ID!
                 let guestSpaceRecordModule = Record(TestCommonHandling.createConnection(
@@ -235,104 +213,40 @@ class GetRecordsByCursorTest: QuickSpec {
                 var recordGuestSpaceIds = [Int]()
                 recordGuestSpaceIds = RecordUtils.addRecords(guestSpaceRecordModule, guestSpaceAppId, 500, textField)
                 
-                let sizeOfCursor = 10
+                let sizeOfCursor = 250
                 let addRecordCursorRsp = TestCommonHandling.awaitAsync(guestSpaceCursorModule.createCursor(guestSpaceId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addRecordCursorRsp.getId()
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(guestSpaceCursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                let fieldCodeArray = Array(getRecordCursorRsp.getRecords()[0].keys)
+                
+                let getRecordsRsp = TestCommonHandling.awaitAsync(guestSpaceCursorModule.getAllRecords(cursorId)) as! GetRecordsResponse
+                let totalCount = addRecordCursorRsp.getTotalCount()
+                let fieldCodeArray = Array(getRecordsRsp.getRecords()![0].keys)
                 
                 expect(fieldCodeArray.count).to(equal(1))
                 expect(fieldCodeArray[0] as String).to(equal(textField))
-                expect(getRecordCursorRsp.getRecords()).toNot(beNil())
-                expect(getRecordCursorRsp.getNext()).toNot(beNil())
-                expect(sizeOfCursor).to(equal(getRecordCursorRsp.getRecords().count))
+                expect(getRecordsRsp.getRecords()).toNot(beNil())
+                expect(getRecordsRsp.getTotalCount()).to(equal(totalCount))
                 
                 RecordUtils.deleteRecords(guestSpaceRecordModule, guestSpaceAppId, recordGuestSpaceIds)
                 _ = TestCommonHandling.awaitAsync(guestSpaceCursorModule.deleteCursor(cursorId))
             }
             
-            it("Test_048_Success_ValidRequest_LimitationIs500") {
+            // Because of this case spend a lot of time, so we will skip it
+            // And please set PROMISE_TIMEOUT = 60.0 when run it.
+             xit("Test_066_Success_PerformanceWith15000Records") {
+                let newRecordIds = RecordUtils.addRecords(recordModule, appId, 15000, textField)
+                recordIds.append(contentsOf: newRecordIds)
+                
                 let sizeOfCursor = 500
                 let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addRecordCursorRsp.getId()
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
+                let totalCount = addRecordCursorRsp.getTotalCount()
                 
-                expect(sizeOfCursor).to(equal(getRecordCursorRsp.getRecords().count))
+                let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(cursorId)) as! GetRecordsResponse
                 
-                _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(addRecordCursorRsp.getId()))
-            }
-            
-            it("Test_049_Success_ValidRequest_LimitationIs500") {
-                let newRecordIds = RecordUtils.addRecords(recordModule, appId, 500, textField)
-                let sizeOfCursor = 500
-                let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
-                let cursorId = addRecordCursorRsp.getId()
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                
-                expect(getRecordCursorRsp.getNext()).to(equal(true))
-                expect(sizeOfCursor).to(equal(getRecordCursorRsp.getRecords().count))
+                expect(getRecordsRsp.getRecords()).toNot(beNil())
+                expect(getRecordsRsp.getTotalCount()).to(equal(totalCount))
                 
                 _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
-                RecordUtils.deleteRecords(recordModule, appId, newRecordIds)
-            }
-            
-            it("Test_050_Success_ValidRequest_StatusOfNextIsFalse") {
-                let sizeOfCursor = 500
-                let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
-                let cursorId = addRecordCursorRsp.getId()
-                let getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                
-                expect(getRecordCursorRsp.getNext()).to(equal(false))
-                expect(sizeOfCursor).to(equal(getRecordCursorRsp.getRecords().count))
-            }
-            
-            it("Test_051_Success_ValidRequest_CursorIsDeleted") {
-                let sizeOfCursor = 500
-                let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
-                let cursorId = addRecordCursorRsp.getId()
-                var getRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                
-                expect(getRecordCursorRsp.getNext()).to(equal(false))
-                
-                let secondGetdRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! KintoneAPIException
-                
-                let actualError = secondGetdRecordCursorRsp.getErrorResponse()
-                let expectedError = KintoneErrorParser.INVALID_CURSOR_ID()!
-                TestCommonHandling.compareError(actualError, expectedError)
-            }
-            
-            it("Test_052_053_Susscess_Combination") {
-                let newRecordIds = RecordUtils.addRecords(recordModule, appId, 1500, textField)
-                
-                let sizeOfCursor = 500
-                let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
-                var cursorId = addRecordCursorRsp.getId()
-                
-                // Get getRecords with cursor
-                _ = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId))
-                
-                // Get getAllRecords with cursor
-                _ = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(cursorId))
-                
-                // Get getRecords with cursor
-                let fistGetRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! KintoneAPIException
-                
-                let actualError = fistGetRecordCursorRsp.getErrorResponse()
-                let expectedError = KintoneErrorParser.INVALID_CURSOR_ID()!
-                TestCommonHandling.compareError(actualError, expectedError)
-                
-                // Add new cursor
-                let sencondAddRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
-                cursorId = sencondAddRecordCursorRsp.getId()
-                
-                // Get getRecords with cursor
-                let secondGetRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModule.getRecords(cursorId)) as! GetRecordCursorResponse
-                
-                expect(true).to(equal(secondGetRecordCursorRsp.getNext()))
-                expect(sizeOfCursor).to(equal(secondGetRecordCursorRsp.getRecords().count))
-                
-                _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
-                RecordUtils.deleteRecords(recordModule, appId, newRecordIds)
             }
             
             it("WipeoutTestData_AfterSuiteWorkaround") {
@@ -345,12 +259,12 @@ class GetRecordsByCursorTest: QuickSpec {
                 let user5Permission = RightEntity(entity: DevMemberEntity(DevMemberType.USER, "user5"), viewable: true, editable: false, deletable: true)
                 let user6Permission = RightEntity(entity: DevMemberEntity(DevMemberType.USER, "user6"), viewable: true, editable: false, deletable: false)
                 let everyonePermission = RightEntity(entity: DevMemberEntity(DevMemberType.GROUP, "everyone"), viewable: true, editable: true, deletable: true)
-                
+
                 defaultUserRights.append(user4Permission)
                 defaultUserRights.append(user5Permission)
                 defaultUserRights.append(user6Permission)
                 defaultUserRights.append(everyonePermission)
-                
+
                 return defaultUserRights
             }
             
@@ -372,7 +286,7 @@ class GetRecordsByCursorTest: QuickSpec {
                 rights[0].setRecordDeletable(recordDeletable)
                 rights[0].setRecordExportable(recordImportable)
                 rights[0].setRecordImportable(recordExportable)
-
+                
                 _ = AppUtils.updateAppPermissions(appModule: appModule, appId: appId, rights: rights)
             }
         }

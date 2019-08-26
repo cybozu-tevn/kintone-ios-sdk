@@ -30,7 +30,6 @@ class RecordUtils {
                 }
         }
         _ = waitForPromises(timeout: TestConstant.Common.PROMISE_TIMEOUT)
-        AppUtils.deployApp(appModule: appModule, apps: [PreviewApp(appId)])
     }
     
     /// Set single field data to record data dictionary
