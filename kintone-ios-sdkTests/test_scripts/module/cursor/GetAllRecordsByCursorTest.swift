@@ -257,7 +257,7 @@ class GetAllRecordsByCursorTest: QuickSpec {
                 let everyone = DevMemberEntity(DevMemberType.GROUP, "everyone")
                 let user4Permission = RightEntity(entity: user4, viewable: true, editable: true, deletable: false)
                 let user5Permission = RightEntity(entity: user5, viewable: true, editable: false, deletable: true)
-                let user6Permission = RightEntity(entity: user6, viewable: true, editable: false, deletable: false)
+                let user6Permission = RightEntity(entity: user6, viewable: false, editable: false, deletable: false)
                 let everyonePermission = RightEntity(entity: everyone, viewable: true, editable: true, deletable: true)
                 
                 defaultUserRights.append(user4Permission)
