@@ -55,12 +55,6 @@ class DeleteCursorTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
             }
 
-//            it("Test_072_Error_WithoutCursor") {
-//                // Error is detected by xcode editor
-//                let result = TestCommonHandling.awaitAsync(cursorModule.deleteCursor()) as! KintoneAPIException
-//            }
-
-
             it("Test_073_Success_GuestSpace") {
                 let cursorModuleGuestSpace = Cursor(TestCommonHandling.createConnection(
                     TestConstant.Connection.CRED_ADMIN_USERNAME,
