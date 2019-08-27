@@ -123,7 +123,7 @@ class CreateCursorTest: QuickSpec {
             }
             
             it("Test_018_Success_WithoutFields") {
-                let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, nil, queryOfCursor, 1)) as! CreateRecordCursorResponse
+                let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId)) as! CreateRecordCursorResponse
                 
                 _verifyCursorIsCreated(addCursorRsp)
                 
@@ -131,7 +131,7 @@ class CreateCursorTest: QuickSpec {
             }
             
             it("Test_019_Success_WithoutQuery") {
-                let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], nil, 1)) as! CreateRecordCursorResponse
+                let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField])) as! CreateRecordCursorResponse
                 
                 _verifyCursorIsCreated(addCursorRsp)
                 
@@ -139,7 +139,7 @@ class CreateCursorTest: QuickSpec {
             }
             
             it("Test_020_Success_WithoutSize") {
-                let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, nil)) as! CreateRecordCursorResponse
+                let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor)) as! CreateRecordCursorResponse
                 
                 _verifyCursorIsCreated(addCursorRsp)
                 

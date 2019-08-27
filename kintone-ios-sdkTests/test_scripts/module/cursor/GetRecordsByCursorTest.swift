@@ -148,7 +148,7 @@ class GetRecordsByCursorTest: QuickSpec {
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 _updatePermissionOnApp(appModule, appId, true, true, true, true, true, true, true)
-                _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
+                _ = TestCommonHandling.awaitAsync(cursorModuleHasAllPermission.deleteCursor(cursorId))
             }
             
             it("Test_044_Error_WithoutViewRecordsPermissionOnRecord") {

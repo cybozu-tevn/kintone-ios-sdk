@@ -40,7 +40,6 @@ class GetAllRecordsByCursorTest: QuickSpec {
                 let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addCursorRsp.getId()
                 let totalCount = addCursorRsp.getTotalCount()
-
                 let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModule.getAllRecords(cursorId)) as! GetRecordsResponse
                 let fieldCodeArray = Array(getRecordsRsp.getRecords()![0].keys)
                 
@@ -75,7 +74,7 @@ class GetAllRecordsByCursorTest: QuickSpec {
                 let sizeOfCursor = 100
                 let addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addCursorRsp.getId()
-                
+
                 let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModuleOfOtherUser.getAllRecords(cursorId)) as! KintoneAPIException
                 
                 let actualError = getRecordsRsp.getErrorResponse()
@@ -122,18 +121,18 @@ class GetAllRecordsByCursorTest: QuickSpec {
                 let sizeOfCursor = 500
                 let addRecordCursorRsp = TestCommonHandling.awaitAsync(cursorModuleHasAllRecordPermission.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addRecordCursorRsp.getId()
-                
+
                 // Deny all permission
                 _updatePermissionOnApp(appModule, appId, false, false, false, false, false, false, false)
 
                 let getRecordsRsp = TestCommonHandling.awaitAsync(cursorModuleHasAllRecordPermission.getAllRecords(cursorId)) as! KintoneAPIException
-
+                
                 let actualError = getRecordsRsp.getErrorResponse()
                 let expectedError = KintoneErrorParser.PERMISSION_ERROR()!
                 TestCommonHandling.compareError(actualError, expectedError)
                 
                 _updatePermissionOnApp(appModule, appId, true, true, true, true, true, true, true)
-                _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
+                _ = TestCommonHandling.awaitAsync(cursorModuleHasAllRecordPermission.deleteCursor(cursorId))
             }
             
             it("Test_062_Error_WithoutViewRecordsPermissionOnRecord") {
@@ -172,7 +171,7 @@ class GetAllRecordsByCursorTest: QuickSpec {
                 let sizeOfCursor = 250
                 let addCursorRsp = TestCommonHandling.awaitAsync(appApiTokenCursorModule.createCursor(appId, [textField], queryOfCursor, sizeOfCursor)) as! CreateRecordCursorResponse
                 let cursorId = addCursorRsp.getId()
-                
+
                 var token = TokenEntity(
                     tokenString: apiToken,
                     viewRecord: false,
@@ -244,8 +243,6 @@ class GetAllRecordsByCursorTest: QuickSpec {
                 
                 expect(getRecordsRsp.getRecords()).toNot(beNil())
                 expect(getRecordsRsp.getTotalCount()).to(equal(totalCount))
-                
-                _ = TestCommonHandling.awaitAsync(cursorModule.deleteCursor(cursorId))
             }
             
             it("WipeoutTestData_AfterSuiteWorkaround") {
