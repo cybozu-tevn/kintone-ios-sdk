@@ -248,47 +248,47 @@ class GetAllRecordsByCursorTest: QuickSpec {
             it("WipeoutTestData_AfterSuiteWorkaround") {
                 RecordUtils.deleteRecords(recordModule, appId, recordIds)
             }
+        }
+        
+        func _getDefaultPermissionOfRecord () -> [RightEntity] {
+            var defaultUserRights = [RightEntity]()
+            let user4 = DevMemberEntity(DevMemberType.USER, "user4")
+            let user5 = DevMemberEntity(DevMemberType.USER, "user5")
+            let user6 = DevMemberEntity(DevMemberType.USER, "user6")
+            let everyone = DevMemberEntity(DevMemberType.GROUP, "everyone")
+            let user4Permission = RightEntity(entity: user4, viewable: true, editable: true, deletable: false)
+            let user5Permission = RightEntity(entity: user5, viewable: true, editable: false, deletable: true)
+            let user6Permission = RightEntity(entity: user6, viewable: false, editable: false, deletable: false)
+            let everyonePermission = RightEntity(entity: everyone, viewable: true, editable: true, deletable: true)
             
-            func _getDefaultPermissionOfRecord () -> [RightEntity] {
-                var defaultUserRights = [RightEntity]()
-                let user4 = DevMemberEntity(DevMemberType.USER, "user4")
-                let user5 = DevMemberEntity(DevMemberType.USER, "user5")
-                let user6 = DevMemberEntity(DevMemberType.USER, "user6")
-                let everyone = DevMemberEntity(DevMemberType.GROUP, "everyone")
-                let user4Permission = RightEntity(entity: user4, viewable: true, editable: true, deletable: false)
-                let user5Permission = RightEntity(entity: user5, viewable: true, editable: false, deletable: true)
-                let user6Permission = RightEntity(entity: user6, viewable: false, editable: false, deletable: false)
-                let everyonePermission = RightEntity(entity: everyone, viewable: true, editable: true, deletable: true)
-                
-                defaultUserRights.append(user4Permission)
-                defaultUserRights.append(user5Permission)
-                defaultUserRights.append(user6Permission)
-                defaultUserRights.append(everyonePermission)
-                
-                return defaultUserRights
-            }
+            defaultUserRights.append(user4Permission)
+            defaultUserRights.append(user5Permission)
+            defaultUserRights.append(user6Permission)
+            defaultUserRights.append(everyonePermission)
             
-            func _updatePermissionOnApp(
-                _ appModule: App,
-                _ appId: Int,
-                _ appEditable: Bool,
-                _ recordViewable: Bool,
-                _ recordAddable: Bool,
-                _ recordEditable: Bool,
-                _ recordDeletable: Bool,
-                _ recordImportable: Bool,
-                _ recordExportable: Bool) {
-                var rights = AppUtils.getAppPermissions(appId: appId)
-                rights[0].setAppEditable(appEditable)
-                rights[0].setRecordViewable(recordViewable)
-                rights[0].setRecordAddable(recordAddable)
-                rights[0].setRecordEditable(recordEditable)
-                rights[0].setRecordDeletable(recordDeletable)
-                rights[0].setRecordExportable(recordImportable)
-                rights[0].setRecordImportable(recordExportable)
-                
-                _ = AppUtils.updateAppPermissions(appModule: appModule, appId: appId, rights: rights)
-            }
+            return defaultUserRights
+        }
+        
+        func _updatePermissionOnApp(
+            _ appModule: App,
+            _ appId: Int,
+            _ appEditable: Bool,
+            _ recordViewable: Bool,
+            _ recordAddable: Bool,
+            _ recordEditable: Bool,
+            _ recordDeletable: Bool,
+            _ recordImportable: Bool,
+            _ recordExportable: Bool) {
+            var rights = AppUtils.getAppPermissions(appId: appId)
+            rights[0].setAppEditable(appEditable)
+            rights[0].setRecordViewable(recordViewable)
+            rights[0].setRecordAddable(recordAddable)
+            rights[0].setRecordEditable(recordEditable)
+            rights[0].setRecordDeletable(recordDeletable)
+            rights[0].setRecordExportable(recordImportable)
+            rights[0].setRecordImportable(recordExportable)
+            
+            _ = AppUtils.updateAppPermissions(appModule: appModule, appId: appId, rights: rights)
         }
     }
 }

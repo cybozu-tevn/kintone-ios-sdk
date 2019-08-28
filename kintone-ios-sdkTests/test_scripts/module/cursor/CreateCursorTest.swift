@@ -70,7 +70,7 @@ class CreateCursorTest: QuickSpec {
                 let negativeAppId = TestConstant.Common.NEGATIVE_ID
                 let zeroAppId = 0
                 
-                // create cursor with unexisted app id
+                // Create cursor with unexisted app id
                 var addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(noneExistentAppId, [textField], queryOfCursor, 500)) as! KintoneAPIException
                 
                 var actualError = addCursorRsp.getErrorResponse()!
@@ -78,7 +78,7 @@ class CreateCursorTest: QuickSpec {
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(noneExistentAppId))
                 TestCommonHandling.compareError(actualError, expectedError)
                 
-                // create cursor with negative app id
+                // Create cursor with negative app id
                 addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(negativeAppId, [textField], queryOfCursor, 500)) as! KintoneAPIException
                 
                 actualError = addCursorRsp.getErrorResponse()!
@@ -86,7 +86,7 @@ class CreateCursorTest: QuickSpec {
                 expectedError.replaceMessage(oldTemplate: "%VARIABLE", newTemplate: String(negativeAppId))
                 TestCommonHandling.compareError(actualError, expectedError)
                 
-                // create cursor with zero app id
+                // Create cursor with zero app id
                 addCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(zeroAppId, [textField], queryOfCursor, 500)) as! KintoneAPIException
                 
                 actualError = addCursorRsp.getErrorResponse()!

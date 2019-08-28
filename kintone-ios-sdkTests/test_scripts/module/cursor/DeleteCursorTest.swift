@@ -10,18 +10,12 @@ import Nimble
 
 class DeleteCursorTest: QuickSpec {
     override func spec() {
-        let appId = TestConstant.InitData.APP_ID!
-        let nonexistentId = TestConstant.Common.NONEXISTENT_ID
-        var recordIds = [Int]()
-        var recordGuestSpaceIds = [Int]()
-
-        let textField: String = TestConstant.InitData.TEXT_FIELD
-        let numberField: String = TestConstant.InitData.NUMBER_FIELD
-
         let cursorModule = Cursor(TestCommonHandling.createConnection())
-
+        let appId = TestConstant.InitData.APP_ID!
+        let textField: String = TestConstant.InitData.TEXT_FIELD
+        
         describe("DeleteCursor") {
-            it("Test_067_Success") {
+            it("Test_067_Success_DeleteCursorById") {
                 // Create cursor
                 let createCursorRsp = TestCommonHandling.awaitAsync(cursorModule.createCursor(appId, [textField], nil, 1)) as! CreateRecordCursorResponse
                 let cursorId = createCursorRsp.getId()
